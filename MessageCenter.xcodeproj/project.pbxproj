@@ -1,0 +1,750 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		339DFDBA222363951A9FF048 /* Pods_MessageCenterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7174EC6EF9D26ECA78C64F4C /* Pods_MessageCenterUITests.framework */; };
+		AB477132F6C96A61461E1B13 /* Pods_MessageCenterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5210F18633D5CD939ABE04B /* Pods_MessageCenterTests.framework */; };
+		B2C7C5F3E12C786D35B9C083 /* Pods_MessageCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB420418FB9C34ACFA108D4B /* Pods_MessageCenter.framework */; };
+		F2FF4A7D218B7E2E00AA8469 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FF4A7C218B7E2E00AA8469 /* AppDelegate.swift */; };
+		F2FF4A7F218B7E2E00AA8469 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FF4A7E218B7E2E00AA8469 /* ViewController.swift */; };
+		F2FF4A82218B7E2E00AA8469 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2FF4A80218B7E2E00AA8469 /* Main.storyboard */; };
+		F2FF4A84218B7E2F00AA8469 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2FF4A83218B7E2F00AA8469 /* Assets.xcassets */; };
+		F2FF4A87218B7E2F00AA8469 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2FF4A85218B7E2F00AA8469 /* LaunchScreen.storyboard */; };
+		F2FF4A92218B7E3000AA8469 /* MessageCenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FF4A91218B7E3000AA8469 /* MessageCenterTests.swift */; };
+		F2FF4A9D218B7E3000AA8469 /* MessageCenterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FF4A9C218B7E3000AA8469 /* MessageCenterUITests.swift */; };
+		F2FF4AAD218B863600AA8469 /* ConnectionaProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FF4AAC218B863600AA8469 /* ConnectionaProtocol.swift */; };
+		F2FF4AAF218B869500AA8469 /* DisconnectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FF4AAE218B869500AA8469 /* DisconnectionProtocol.swift */; };
+		F2FF4AB1218B86BE00AA8469 /* ProgressProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FF4AB0218B86BE00AA8469 /* ProgressProtocol.swift */; };
+		F2FF4AB3218B870800AA8469 /* ResultProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FF4AB2218B870800AA8469 /* ResultProtocol.swift */; };
+		F2FF4AB5218B876400AA8469 /* ClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FF4AB4218B876400AA8469 /* ClientProtocol.swift */; };
+		F2FF4AB7218B889000AA8469 /* ConnectionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FF4AB6218B889000AA8469 /* ConnectionRequest.swift */; };
+		F2FF4AB9218B8D7D00AA8469 /* SendBirdClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FF4AB8218B8D7D00AA8469 /* SendBirdClient.swift */; };
+		F2FF4ABB218BE07100AA8469 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FF4ABA218BE07100AA8469 /* Client.swift */; };
+		F2FF4ABD218BE0D700AA8469 /* MessageCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FF4ABC218BE0D700AA8469 /* MessageCenter.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F2FF4A8E218B7E3000AA8469 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F2FF4A71218B7E2E00AA8469 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F2FF4A78218B7E2E00AA8469;
+			remoteInfo = MessageCenter;
+		};
+		F2FF4A99218B7E3000AA8469 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F2FF4A71218B7E2E00AA8469 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F2FF4A78218B7E2E00AA8469;
+			remoteInfo = MessageCenter;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		6E2CD8B8602735293C1DCA26 /* Pods-MessageCenterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessageCenterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MessageCenterTests/Pods-MessageCenterTests.release.xcconfig"; sourceTree = "<group>"; };
+		6EC3D06FC7C08B237AD4DA57 /* Pods-MessageCenterUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessageCenterUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MessageCenterUITests/Pods-MessageCenterUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		7174EC6EF9D26ECA78C64F4C /* Pods_MessageCenterUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MessageCenterUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E9ED672A13702E63078BF22 /* Pods-MessageCenter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessageCenter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MessageCenter/Pods-MessageCenter.debug.xcconfig"; sourceTree = "<group>"; };
+		A6B855D3B9E3EB790FDA8700 /* Pods-MessageCenter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessageCenter.release.xcconfig"; path = "Pods/Target Support Files/Pods-MessageCenter/Pods-MessageCenter.release.xcconfig"; sourceTree = "<group>"; };
+		B5210F18633D5CD939ABE04B /* Pods_MessageCenterTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MessageCenterTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAE8CC8C12D340FA7E258322 /* Pods-MessageCenterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessageCenterTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MessageCenterTests/Pods-MessageCenterTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F2FF4A79218B7E2E00AA8469 /* MessageCenter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MessageCenter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2FF4A7C218B7E2E00AA8469 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F2FF4A7E218B7E2E00AA8469 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F2FF4A81218B7E2E00AA8469 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F2FF4A83218B7E2F00AA8469 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F2FF4A86218B7E2F00AA8469 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F2FF4A88218B7E2F00AA8469 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F2FF4A8D218B7E3000AA8469 /* MessageCenterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MessageCenterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2FF4A91218B7E3000AA8469 /* MessageCenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCenterTests.swift; sourceTree = "<group>"; };
+		F2FF4A93218B7E3000AA8469 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F2FF4A98218B7E3000AA8469 /* MessageCenterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MessageCenterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2FF4A9C218B7E3000AA8469 /* MessageCenterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCenterUITests.swift; sourceTree = "<group>"; };
+		F2FF4A9E218B7E3000AA8469 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F2FF4AAC218B863600AA8469 /* ConnectionaProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionaProtocol.swift; sourceTree = "<group>"; };
+		F2FF4AAE218B869500AA8469 /* DisconnectionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisconnectionProtocol.swift; sourceTree = "<group>"; };
+		F2FF4AB0218B86BE00AA8469 /* ProgressProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressProtocol.swift; sourceTree = "<group>"; };
+		F2FF4AB2218B870800AA8469 /* ResultProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultProtocol.swift; sourceTree = "<group>"; };
+		F2FF4AB4218B876400AA8469 /* ClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientProtocol.swift; sourceTree = "<group>"; };
+		F2FF4AB6218B889000AA8469 /* ConnectionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionRequest.swift; sourceTree = "<group>"; };
+		F2FF4AB8218B8D7D00AA8469 /* SendBirdClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendBirdClient.swift; sourceTree = "<group>"; };
+		F2FF4ABA218BE07100AA8469 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		F2FF4ABC218BE0D700AA8469 /* MessageCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCenter.swift; sourceTree = "<group>"; };
+		FA89AB9D7D5944553B8174CC /* Pods-MessageCenterUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessageCenterUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MessageCenterUITests/Pods-MessageCenterUITests.release.xcconfig"; sourceTree = "<group>"; };
+		FB420418FB9C34ACFA108D4B /* Pods_MessageCenter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MessageCenter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F2FF4A76218B7E2E00AA8469 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B2C7C5F3E12C786D35B9C083 /* Pods_MessageCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2FF4A8A218B7E3000AA8469 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB477132F6C96A61461E1B13 /* Pods_MessageCenterTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2FF4A95218B7E3000AA8469 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				339DFDBA222363951A9FF048 /* Pods_MessageCenterUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DBCC0F90C752F7830A4D31FF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8E9ED672A13702E63078BF22 /* Pods-MessageCenter.debug.xcconfig */,
+				A6B855D3B9E3EB790FDA8700 /* Pods-MessageCenter.release.xcconfig */,
+				EAE8CC8C12D340FA7E258322 /* Pods-MessageCenterTests.debug.xcconfig */,
+				6E2CD8B8602735293C1DCA26 /* Pods-MessageCenterTests.release.xcconfig */,
+				6EC3D06FC7C08B237AD4DA57 /* Pods-MessageCenterUITests.debug.xcconfig */,
+				FA89AB9D7D5944553B8174CC /* Pods-MessageCenterUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F2FF4A70218B7E2E00AA8469 = {
+			isa = PBXGroup;
+			children = (
+				F2FF4A7B218B7E2E00AA8469 /* MessageCenter */,
+				F2FF4A90218B7E3000AA8469 /* MessageCenterTests */,
+				F2FF4A9B218B7E3000AA8469 /* MessageCenterUITests */,
+				F2FF4A7A218B7E2E00AA8469 /* Products */,
+				DBCC0F90C752F7830A4D31FF /* Pods */,
+				FA624A70C1B4F55AF450335C /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		F2FF4A7A218B7E2E00AA8469 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F2FF4A79218B7E2E00AA8469 /* MessageCenter.app */,
+				F2FF4A8D218B7E3000AA8469 /* MessageCenterTests.xctest */,
+				F2FF4A98218B7E3000AA8469 /* MessageCenterUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F2FF4A7B218B7E2E00AA8469 /* MessageCenter */ = {
+			isa = PBXGroup;
+			children = (
+				F2FF4AAA218B842100AA8469 /* MessagingCenter */,
+				F2FF4A7C218B7E2E00AA8469 /* AppDelegate.swift */,
+				F2FF4A7E218B7E2E00AA8469 /* ViewController.swift */,
+				F2FF4A80218B7E2E00AA8469 /* Main.storyboard */,
+				F2FF4A83218B7E2F00AA8469 /* Assets.xcassets */,
+				F2FF4A85218B7E2F00AA8469 /* LaunchScreen.storyboard */,
+				F2FF4A88218B7E2F00AA8469 /* Info.plist */,
+			);
+			path = MessageCenter;
+			sourceTree = "<group>";
+		};
+		F2FF4A90218B7E3000AA8469 /* MessageCenterTests */ = {
+			isa = PBXGroup;
+			children = (
+				F2FF4A91218B7E3000AA8469 /* MessageCenterTests.swift */,
+				F2FF4A93218B7E3000AA8469 /* Info.plist */,
+			);
+			path = MessageCenterTests;
+			sourceTree = "<group>";
+		};
+		F2FF4A9B218B7E3000AA8469 /* MessageCenterUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F2FF4A9C218B7E3000AA8469 /* MessageCenterUITests.swift */,
+				F2FF4A9E218B7E3000AA8469 /* Info.plist */,
+			);
+			path = MessageCenterUITests;
+			sourceTree = "<group>";
+		};
+		F2FF4AAA218B842100AA8469 /* MessagingCenter */ = {
+			isa = PBXGroup;
+			children = (
+				F2FF4ABF218BE66000AA8469 /* Client */,
+				F2FF4ABE218BE60400AA8469 /* ConnectionProtocols */,
+				F2FF4AAB218B85FA00AA8469 /* interfaces */,
+				F2FF4AB6218B889000AA8469 /* ConnectionRequest.swift */,
+			);
+			path = MessagingCenter;
+			sourceTree = "<group>";
+		};
+		F2FF4AAB218B85FA00AA8469 /* interfaces */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = interfaces;
+			sourceTree = "<group>";
+		};
+		F2FF4ABE218BE60400AA8469 /* ConnectionProtocols */ = {
+			isa = PBXGroup;
+			children = (
+				F2FF4AAC218B863600AA8469 /* ConnectionaProtocol.swift */,
+				F2FF4AAE218B869500AA8469 /* DisconnectionProtocol.swift */,
+				F2FF4AB0218B86BE00AA8469 /* ProgressProtocol.swift */,
+				F2FF4AB2218B870800AA8469 /* ResultProtocol.swift */,
+			);
+			path = ConnectionProtocols;
+			sourceTree = "<group>";
+		};
+		F2FF4ABF218BE66000AA8469 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				F2FF4AB4218B876400AA8469 /* ClientProtocol.swift */,
+				F2FF4AB8218B8D7D00AA8469 /* SendBirdClient.swift */,
+				F2FF4ABA218BE07100AA8469 /* Client.swift */,
+				F2FF4ABC218BE0D700AA8469 /* MessageCenter.swift */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
+		FA624A70C1B4F55AF450335C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FB420418FB9C34ACFA108D4B /* Pods_MessageCenter.framework */,
+				B5210F18633D5CD939ABE04B /* Pods_MessageCenterTests.framework */,
+				7174EC6EF9D26ECA78C64F4C /* Pods_MessageCenterUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F2FF4A78218B7E2E00AA8469 /* MessageCenter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2FF4AA1218B7E3000AA8469 /* Build configuration list for PBXNativeTarget "MessageCenter" */;
+			buildPhases = (
+				E93A8BC9CEAB38D0636F2D51 /* [CP] Check Pods Manifest.lock */,
+				F2FF4A75218B7E2E00AA8469 /* Sources */,
+				F2FF4A76218B7E2E00AA8469 /* Frameworks */,
+				F2FF4A77218B7E2E00AA8469 /* Resources */,
+				DFEE84E7D5ACB21DB2E33DA9 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MessageCenter;
+			productName = MessageCenter;
+			productReference = F2FF4A79218B7E2E00AA8469 /* MessageCenter.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F2FF4A8C218B7E3000AA8469 /* MessageCenterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2FF4AA4218B7E3000AA8469 /* Build configuration list for PBXNativeTarget "MessageCenterTests" */;
+			buildPhases = (
+				93C426E3036302D7757DF519 /* [CP] Check Pods Manifest.lock */,
+				F2FF4A89218B7E3000AA8469 /* Sources */,
+				F2FF4A8A218B7E3000AA8469 /* Frameworks */,
+				F2FF4A8B218B7E3000AA8469 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F2FF4A8F218B7E3000AA8469 /* PBXTargetDependency */,
+			);
+			name = MessageCenterTests;
+			productName = MessageCenterTests;
+			productReference = F2FF4A8D218B7E3000AA8469 /* MessageCenterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F2FF4A97218B7E3000AA8469 /* MessageCenterUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2FF4AA7218B7E3000AA8469 /* Build configuration list for PBXNativeTarget "MessageCenterUITests" */;
+			buildPhases = (
+				563D6BC7DD7809F81623E90D /* [CP] Check Pods Manifest.lock */,
+				F2FF4A94218B7E3000AA8469 /* Sources */,
+				F2FF4A95218B7E3000AA8469 /* Frameworks */,
+				F2FF4A96218B7E3000AA8469 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F2FF4A9A218B7E3000AA8469 /* PBXTargetDependency */,
+			);
+			name = MessageCenterUITests;
+			productName = MessageCenterUITests;
+			productReference = F2FF4A98218B7E3000AA8469 /* MessageCenterUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F2FF4A71218B7E2E00AA8469 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0910;
+				LastUpgradeCheck = 0910;
+				ORGANIZATIONNAME = usepace;
+				TargetAttributes = {
+					F2FF4A78218B7E2E00AA8469 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+					};
+					F2FF4A8C218B7E3000AA8469 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = F2FF4A78218B7E2E00AA8469;
+					};
+					F2FF4A97218B7E3000AA8469 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = F2FF4A78218B7E2E00AA8469;
+					};
+				};
+			};
+			buildConfigurationList = F2FF4A74218B7E2E00AA8469 /* Build configuration list for PBXProject "MessageCenter" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F2FF4A70218B7E2E00AA8469;
+			productRefGroup = F2FF4A7A218B7E2E00AA8469 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F2FF4A78218B7E2E00AA8469 /* MessageCenter */,
+				F2FF4A8C218B7E3000AA8469 /* MessageCenterTests */,
+				F2FF4A97218B7E3000AA8469 /* MessageCenterUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F2FF4A77218B7E2E00AA8469 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2FF4A87218B7E2F00AA8469 /* LaunchScreen.storyboard in Resources */,
+				F2FF4A84218B7E2F00AA8469 /* Assets.xcassets in Resources */,
+				F2FF4A82218B7E2E00AA8469 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2FF4A8B218B7E3000AA8469 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2FF4A96218B7E3000AA8469 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		563D6BC7DD7809F81623E90D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MessageCenterUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		93C426E3036302D7757DF519 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MessageCenterTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DFEE84E7D5ACB21DB2E33DA9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MessageCenter/Pods-MessageCenter-frameworks.sh",
+				"${PODS_ROOT}/SendBirdSDK/SendBirdSDK.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SendBirdSDK.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MessageCenter/Pods-MessageCenter-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E93A8BC9CEAB38D0636F2D51 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MessageCenter-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F2FF4A75218B7E2E00AA8469 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2FF4A7F218B7E2E00AA8469 /* ViewController.swift in Sources */,
+				F2FF4A7D218B7E2E00AA8469 /* AppDelegate.swift in Sources */,
+				F2FF4AB9218B8D7D00AA8469 /* SendBirdClient.swift in Sources */,
+				F2FF4ABD218BE0D700AA8469 /* MessageCenter.swift in Sources */,
+				F2FF4AB3218B870800AA8469 /* ResultProtocol.swift in Sources */,
+				F2FF4AB7218B889000AA8469 /* ConnectionRequest.swift in Sources */,
+				F2FF4AB5218B876400AA8469 /* ClientProtocol.swift in Sources */,
+				F2FF4AB1218B86BE00AA8469 /* ProgressProtocol.swift in Sources */,
+				F2FF4AAD218B863600AA8469 /* ConnectionaProtocol.swift in Sources */,
+				F2FF4ABB218BE07100AA8469 /* Client.swift in Sources */,
+				F2FF4AAF218B869500AA8469 /* DisconnectionProtocol.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2FF4A89218B7E3000AA8469 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2FF4A92218B7E3000AA8469 /* MessageCenterTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2FF4A94218B7E3000AA8469 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2FF4A9D218B7E3000AA8469 /* MessageCenterUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F2FF4A8F218B7E3000AA8469 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F2FF4A78218B7E2E00AA8469 /* MessageCenter */;
+			targetProxy = F2FF4A8E218B7E3000AA8469 /* PBXContainerItemProxy */;
+		};
+		F2FF4A9A218B7E3000AA8469 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F2FF4A78218B7E2E00AA8469 /* MessageCenter */;
+			targetProxy = F2FF4A99218B7E3000AA8469 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F2FF4A80218B7E2E00AA8469 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F2FF4A81218B7E2E00AA8469 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F2FF4A85218B7E2F00AA8469 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F2FF4A86218B7E2F00AA8469 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F2FF4A9F218B7E3000AA8469 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F2FF4AA0218B7E3000AA8469 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F2FF4AA2218B7E3000AA8469 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8E9ED672A13702E63078BF22 /* Pods-MessageCenter.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MessageCenter/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.usepace.io.MessageCenter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F2FF4AA3218B7E3000AA8469 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A6B855D3B9E3EB790FDA8700 /* Pods-MessageCenter.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MessageCenter/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.usepace.io.MessageCenter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F2FF4AA5218B7E3000AA8469 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EAE8CC8C12D340FA7E258322 /* Pods-MessageCenterTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MessageCenterTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.usepace.io.MessageCenterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MessageCenter.app/MessageCenter";
+			};
+			name = Debug;
+		};
+		F2FF4AA6218B7E3000AA8469 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6E2CD8B8602735293C1DCA26 /* Pods-MessageCenterTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MessageCenterTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.usepace.io.MessageCenterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MessageCenter.app/MessageCenter";
+			};
+			name = Release;
+		};
+		F2FF4AA8218B7E3000AA8469 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6EC3D06FC7C08B237AD4DA57 /* Pods-MessageCenterUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MessageCenterUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.usepace.io.MessageCenterUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MessageCenter;
+			};
+			name = Debug;
+		};
+		F2FF4AA9218B7E3000AA8469 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FA89AB9D7D5944553B8174CC /* Pods-MessageCenterUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MessageCenterUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.usepace.io.MessageCenterUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MessageCenter;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F2FF4A74218B7E2E00AA8469 /* Build configuration list for PBXProject "MessageCenter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2FF4A9F218B7E3000AA8469 /* Debug */,
+				F2FF4AA0218B7E3000AA8469 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F2FF4AA1218B7E3000AA8469 /* Build configuration list for PBXNativeTarget "MessageCenter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2FF4AA2218B7E3000AA8469 /* Debug */,
+				F2FF4AA3218B7E3000AA8469 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F2FF4AA4218B7E3000AA8469 /* Build configuration list for PBXNativeTarget "MessageCenterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2FF4AA5218B7E3000AA8469 /* Debug */,
+				F2FF4AA6218B7E3000AA8469 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F2FF4AA7218B7E3000AA8469 /* Build configuration list for PBXNativeTarget "MessageCenterUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2FF4AA8218B7E3000AA8469 /* Debug */,
+				F2FF4AA9218B7E3000AA8469 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F2FF4A71218B7E2E00AA8469 /* Project object */;
+}

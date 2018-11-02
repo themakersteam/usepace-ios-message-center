@@ -1,0 +1,6 @@
+framework module Pods_MessageCenter {
+  umbrella header "Pods-MessageCenter-umbrella.h"
+
+  export *
+  module * { export * }
+}
