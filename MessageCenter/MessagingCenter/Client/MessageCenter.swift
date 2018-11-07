@@ -22,7 +22,7 @@ class MessageCenter {
     private static var LAST_CLIENT: String = ClientType.CLIENT_SENDBIRD
     private static var notificationInboxMessages: NSArray = []
     
-    public static func connect(connectionRequest: ConnectionRequest, connectionInterface: ConnectionaProtocol) {
+    public static func connect(connectionRequest: ConnectionRequest, connectionInterface: ConnectionProtocol) {
         self.LAST_CLIENT = connectionRequest.client
         client.getClient(type: self.LAST_CLIENT).connect(connectionRequest: connectionRequest, connection: connectionInterface)
     }

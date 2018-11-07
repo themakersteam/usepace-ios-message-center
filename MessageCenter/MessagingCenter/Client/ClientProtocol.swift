@@ -9,8 +9,9 @@
 import Foundation
 
 protocol ClientProtocol {
-    func connect(connectionRequest: ConnectionRequest, connection: ConnectionaProtocol)
+    func connect(connectionRequest: ConnectionRequest, connection: ConnectionProtocol)
     func join(chatId: String)
     func disconnect(disconnectInterface: DisconnectionProtocol)
     func handleNotification(next: AnyClass,  icon: Int, title: String, remoteMessage: AnyClass, messages: NSArray)
+    func isConnected() -> Bool
 }

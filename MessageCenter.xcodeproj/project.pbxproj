@@ -17,7 +17,7 @@
 		F2FF4A87218B7E2F00AA8469 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2FF4A85218B7E2F00AA8469 /* LaunchScreen.storyboard */; };
 		F2FF4A92218B7E3000AA8469 /* MessageCenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FF4A91218B7E3000AA8469 /* MessageCenterTests.swift */; };
 		F2FF4A9D218B7E3000AA8469 /* MessageCenterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FF4A9C218B7E3000AA8469 /* MessageCenterUITests.swift */; };
-		F2FF4AAD218B863600AA8469 /* ConnectionaProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FF4AAC218B863600AA8469 /* ConnectionaProtocol.swift */; };
+		F2FF4AAD218B863600AA8469 /* ConnectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FF4AAC218B863600AA8469 /* ConnectionProtocol.swift */; };
 		F2FF4AAF218B869500AA8469 /* DisconnectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FF4AAE218B869500AA8469 /* DisconnectionProtocol.swift */; };
 		F2FF4AB1218B86BE00AA8469 /* ProgressProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FF4AB0218B86BE00AA8469 /* ProgressProtocol.swift */; };
 		F2FF4AB3218B870800AA8469 /* ResultProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FF4AB2218B870800AA8469 /* ResultProtocol.swift */; };
@@ -66,7 +66,7 @@
 		F2FF4A98218B7E3000AA8469 /* MessageCenterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MessageCenterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2FF4A9C218B7E3000AA8469 /* MessageCenterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCenterUITests.swift; sourceTree = "<group>"; };
 		F2FF4A9E218B7E3000AA8469 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F2FF4AAC218B863600AA8469 /* ConnectionaProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionaProtocol.swift; sourceTree = "<group>"; };
+		F2FF4AAC218B863600AA8469 /* ConnectionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionProtocol.swift; sourceTree = "<group>"; };
 		F2FF4AAE218B869500AA8469 /* DisconnectionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisconnectionProtocol.swift; sourceTree = "<group>"; };
 		F2FF4AB0218B86BE00AA8469 /* ProgressProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressProtocol.swift; sourceTree = "<group>"; };
 		F2FF4AB2218B870800AA8469 /* ResultProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultProtocol.swift; sourceTree = "<group>"; };
@@ -179,23 +179,15 @@
 			children = (
 				F2FF4ABF218BE66000AA8469 /* Client */,
 				F2FF4ABE218BE60400AA8469 /* ConnectionProtocols */,
-				F2FF4AAB218B85FA00AA8469 /* interfaces */,
 				F2FF4AB6218B889000AA8469 /* ConnectionRequest.swift */,
 			);
 			path = MessagingCenter;
 			sourceTree = "<group>";
 		};
-		F2FF4AAB218B85FA00AA8469 /* interfaces */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = interfaces;
-			sourceTree = "<group>";
-		};
 		F2FF4ABE218BE60400AA8469 /* ConnectionProtocols */ = {
 			isa = PBXGroup;
 			children = (
-				F2FF4AAC218B863600AA8469 /* ConnectionaProtocol.swift */,
+				F2FF4AAC218B863600AA8469 /* ConnectionProtocol.swift */,
 				F2FF4AAE218B869500AA8469 /* DisconnectionProtocol.swift */,
 				F2FF4AB0218B86BE00AA8469 /* ProgressProtocol.swift */,
 				F2FF4AB2218B870800AA8469 /* ResultProtocol.swift */,
@@ -445,7 +437,7 @@
 				F2FF4AB7218B889000AA8469 /* ConnectionRequest.swift in Sources */,
 				F2FF4AB5218B876400AA8469 /* ClientProtocol.swift in Sources */,
 				F2FF4AB1218B86BE00AA8469 /* ProgressProtocol.swift in Sources */,
-				F2FF4AAD218B863600AA8469 /* ConnectionaProtocol.swift in Sources */,
+				F2FF4AAD218B863600AA8469 /* ConnectionProtocol.swift in Sources */,
 				F2FF4ABB218BE07100AA8469 /* Client.swift in Sources */,
 				F2FF4AAF218B869500AA8469 /* DisconnectionProtocol.swift in Sources */,
 			);

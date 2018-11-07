@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ConnectionaProtocol {
+protocol ConnectionProtocol {
     func onMessageCenterConnected()
     func onMessageCenterConnectionError(code: Int, message: String)
 }
