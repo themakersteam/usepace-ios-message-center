@@ -22,7 +22,7 @@ class SendBirdClient: ClientProtocol {
     init() { }
     
     func connect(connectionRequest: ConnectionRequest, connection: ConnectionProtocol) {
-        SBDMain.connect(withUserId: connectionRequest.userId) { (user, error) in
+        SBDMain.connect(withUserId: connectionRequest.userId, accessToken: connectionRequest.accessToken, completionHandler: { (user, error) in
             self.connected = false
             guard error == nil else {
                 connection.onMessageCenterConnectionError(code: error!.code, message: error!.localizedDescription)
@@ -47,7 +47,7 @@ class SendBirdClient: ClientProtocol {
                     }
                 })
             }
-        }
+        })
     }
     
     func join(chatId: String) {
