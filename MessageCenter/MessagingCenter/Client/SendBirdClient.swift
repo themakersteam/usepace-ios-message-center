@@ -17,13 +17,15 @@ class SendBirdClient: ClientProtocol {
         let client = SendBirdClient()
         return client
     }()
+    private var connected = false
     
-    init() {}
+    init() { }
     
-    func connect(connectionRequest: ConnectionRequest, connection: ConnectionaProtocol) {
+    func connect(connectionRequest: ConnectionRequest, connection: ConnectionProtocol) {
         SBDMain.connect(withUserId: connectionRequest.userId) { (user, error) in
+            self.connected = false
             guard error == nil else {
-                connection.onMessageCenterConnectionError(code: error!.code, message: error!.localizedFailureReason!)
+                connection.onMessageCenterConnectionError(code: error!.code, message: error!.localizedDescription)
                 return;
             }
             
@@ -35,6 +37,7 @@ class SendBirdClient: ClientProtocol {
                         return
                     }
                     
+                    self.connected = true
                     if status == .pending {
                         print("Push registration is pending.")
                     }
@@ -60,6 +63,10 @@ class SendBirdClient: ClientProtocol {
     func handleNotification(next: AnyClass, icon: Int, title: String, remoteMessage: AnyClass, messages: NSArray) {
         messages.adding(remoteMessage)
         // push notification handler here
+    }
+    
+    func isConnected() -> Bool {
+        return connected
     }
     
     class func shared() -> SendBirdClient {

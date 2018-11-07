@@ -24,22 +24,26 @@ class MessageCenter {
     
     public static func connect(connectionRequest: ConnectionRequest, connectionInterface: ConnectionProtocol) {
         self.LAST_CLIENT = connectionRequest.client
-        client.getClient(type: self.LAST_CLIENT).connect(connectionRequest: connectionRequest, connection: connectionInterface)
+        client.getClient(type: LAST_CLIENT).connect(connectionRequest: connectionRequest, connection: connectionInterface)
     }
     
     public static func join(chatId: String) {
-        client.getClient(type: self.LAST_CLIENT).join(chatId: chatId)
+        client.getClient(type: LAST_CLIENT).join(chatId: chatId)
     }
     
     public static func disconnect(disconnectionInterface: DisconnectionProtocol) {
-        client.getClient(type: self.LAST_CLIENT).disconnect(disconnectInterface: disconnectionInterface)
+        client.getClient(type: LAST_CLIENT).disconnect(disconnectInterface: disconnectionInterface)
     }
     
     public static func handleNotification(next: AnyClass, icon: Int, title: String, remoteMessage: AnyClass) {
-        client.getClient(type: self.LAST_CLIENT).handleNotification(next: next, icon: icon, title: title, remoteMessage: remoteMessage, messages: notificationInboxMessages)
+        client.getClient(type: LAST_CLIENT).handleNotification(next: next, icon: icon, title: title, remoteMessage: remoteMessage, messages: notificationInboxMessages)
     }
     
     public static func clearNotificationMessages() {
         notificationInboxMessages = []
+    }
+    
+    public static func isConnected() -> Bool {
+        return client.getClient(type: LAST_CLIENT).isConnected()
     }
 }
