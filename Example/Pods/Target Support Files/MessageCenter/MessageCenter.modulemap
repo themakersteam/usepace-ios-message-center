@@ -1,0 +1,6 @@
+framework module MessageCenter {
+  umbrella header "MessageCenter-umbrella.h"
+
+  export *
+  module * { export * }
+}
