@@ -29,8 +29,13 @@ TODO: Add long description of the pod here.
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '8.0'
-  s.dependency 'SendBirdSDK'
   s.source_files = 'MessageCenter/Classes/**/*'
+  s.dependency 'SendBirdSDK'
+  s.dependency 'AlamofireImage'
+  s.dependency 'MGSwipeTableCell'
+  s.dependency 'FLAnimatedImage', '~> 1.0'
+  s.dependency 'NYTPhotoViewer', '~> 1.1.0'
+  s.dependency 'TTTAttributedLabel'
   
   # s.resource_bundles = {
   #   'MessageCenter' => ['MessageCenter/Assets/*.png']

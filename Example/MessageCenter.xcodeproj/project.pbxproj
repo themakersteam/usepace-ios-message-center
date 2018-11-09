@@ -269,15 +269,27 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MessageCenter_Example/Pods-MessageCenter_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${BUILT_PRODUCTS_DIR}/FLAnimatedImage/FLAnimatedImage.framework",
+				"${BUILT_PRODUCTS_DIR}/MGSwipeTableCell/MGSwipeTableCell.framework",
 				"${BUILT_PRODUCTS_DIR}/MessageCenter/MessageCenter.framework",
+				"${BUILT_PRODUCTS_DIR}/NYTPhotoViewer/NYTPhotoViewer.framework",
 				"${PODS_ROOT}/SendBirdSDK/SendBirdSDK.framework",
 				"${PODS_ROOT}/SendBirdSDK/SendBirdSDK.framework.dSYM",
+				"${BUILT_PRODUCTS_DIR}/TTTAttributedLabel/TTTAttributedLabel.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLAnimatedImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MGSwipeTableCell.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MessageCenter.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NYTPhotoViewer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SendBirdSDK.framework",
 				"${DWARF_DSYM_FOLDER_PATH}/SendBirdSDK.framework.dSYM",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TTTAttributedLabel.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

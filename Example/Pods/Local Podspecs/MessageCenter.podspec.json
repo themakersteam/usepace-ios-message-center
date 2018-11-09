@@ -18,10 +18,25 @@
   "platforms": {
     "ios": "8.0"
   },
+  "source_files": "MessageCenter/Classes/**/*",
   "dependencies": {
     "SendBirdSDK": [
 
+    ],
+    "AlamofireImage": [
+
+    ],
+    "MGSwipeTableCell": [
+
+    ],
+    "FLAnimatedImage": [
+      "~> 1.0"
+    ],
+    "NYTPhotoViewer": [
+      "~> 1.1.0"
+    ],
+    "TTTAttributedLabel": [
+
     ]
-  },
-  "source_files": "MessageCenter/Classes/**/*"
+  }
 }
