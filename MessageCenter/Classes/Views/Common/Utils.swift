@@ -8,7 +8,7 @@
 
 import UIKit
 import SendBirdSDK
-//import CommonCrypto
+import CommonCrypto
 
 class Utils: NSObject {
     static func imageFromColor(color: UIColor) -> UIImage {
