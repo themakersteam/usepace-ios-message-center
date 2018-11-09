@@ -814,11 +814,6 @@
 		F20E60D62195DF0A002221B1 /* FLAnimatedImageView+ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FLAnimatedImageView+ImageCache.swift"; sourceTree = "<group>"; };
 		F20E60D72195DF0A002221B1 /* String+SendBird.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+SendBird.swift"; sourceTree = "<group>"; };
 		F20E60D82195DF0A002221B1 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		F20E60E02195E468002221B1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F20E60E12195E468002221B1 /* iphoneos.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = iphoneos.modulemap; sourceTree = "<group>"; };
-		F20E60E22195E468002221B1 /* iphonesimulator.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = iphonesimulator.modulemap; sourceTree = "<group>"; };
-		F20E60E32195E468002221B1 /* macosx.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = macosx.modulemap; sourceTree = "<group>"; };
-		F20E60E42195E468002221B1 /* CommonCrypto.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = CommonCrypto.xcconfig; path = MessageCenter/Classes/Views/CommonCrypto.xcconfig; sourceTree = "<group>"; };
 		F273821225C8D83755B0F2BEAEF041AE /* NYTPhotoViewerCloseButtonX@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "NYTPhotoViewerCloseButtonX@3x.png"; path = "Pod/Assets/ios/NYTPhotoViewerCloseButtonX@3x.png"; sourceTree = "<group>"; };
 		F4C5ED91ADC5C20A0E08EFC916380B10 /* NMBObjCMatcher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NMBObjCMatcher.swift; path = Sources/Nimble/Adapters/NMBObjCMatcher.swift; sourceTree = "<group>"; };
 		F4E976099DDEBA15AFE64A079C3FDA22 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/ImageIO.framework; sourceTree = DEVELOPER_DIR; };
@@ -1532,8 +1527,6 @@
 		AFEE0BF7ADF82BCEC30EEF5F1E0F91D2 /* MessageCenter */ = {
 			isa = PBXGroup;
 			children = (
-				F20E60DF2195E468002221B1 /* CommonCrypto */,
-				F20E60E42195E468002221B1 /* CommonCrypto.xcconfig */,
 				F90E3909CFEDF5F0C001E2A677C73A1D /* ConnectionRequest.swift */,
 				18CA7A8E8F95C1BC30FD4DE16E8E0B71 /* Client */,
 				F33AB4B32C80AEE883D6119AEB7A2082 /* ConnectionProtocols */,
@@ -1703,18 +1696,6 @@
 				F20E60D82195DF0A002221B1 /* Utils.swift */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		F20E60DF2195E468002221B1 /* CommonCrypto */ = {
-			isa = PBXGroup;
-			children = (
-				F20E60E02195E468002221B1 /* Info.plist */,
-				F20E60E12195E468002221B1 /* iphoneos.modulemap */,
-				F20E60E22195E468002221B1 /* iphonesimulator.modulemap */,
-				F20E60E32195E468002221B1 /* macosx.modulemap */,
-			);
-			name = CommonCrypto;
-			path = MessageCenter/Classes/Views/CommonCrypto;
 			sourceTree = "<group>";
 		};
 		F32572A594D3E0DE49B71F9C5F7A23F5 /* Resources */ = {
