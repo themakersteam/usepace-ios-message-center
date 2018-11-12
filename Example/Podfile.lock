@@ -2,6 +2,7 @@ PODS:
   - Alamofire (4.7.3)
   - AlamofireImage (3.4.1):
     - Alamofire (~> 4.7)
+  - CryptoSwift (0.13.0)
   - FBSnapshotTestCase (2.1.4):
     - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
   - FBSnapshotTestCase/Core (2.1.4)
@@ -10,6 +11,7 @@ PODS:
   - FLAnimatedImage (1.0.12)
   - MessageCenter (0.1.0):
     - AlamofireImage
+    - CryptoSwift
     - FLAnimatedImage (~> 1.0)
     - MGSwipeTableCell
     - NYTPhotoViewer (~> 1.1.0)
@@ -44,6 +46,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireImage
+    - CryptoSwift
     - FBSnapshotTestCase
     - FLAnimatedImage
     - MGSwipeTableCell
@@ -61,9 +64,10 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   AlamofireImage: 78d67ccbb763d87ba44b21583d2153500a195630
+  CryptoSwift: 16e78bebf567bad1c87b2d58f6547f25b74c31aa
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
-  MessageCenter: fd09b8d64d7f7ed927adc7be8983b1a407275da0
+  MessageCenter: 5e5efbe1f9482e2c5038ad3be82ecf024b11ebcc
   MGSwipeTableCell: fb20e983988bde2b8d0df29c2d9e1d8ffd10b74a
   Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
   Nimble-Snapshots: f5459b5b091678dc942d03ec4741cacb58ba4a52

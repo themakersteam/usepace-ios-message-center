@@ -8,7 +8,7 @@
 
 import UIKit
 import SendBirdSDK
-import CommonCrypto
+import CryptoSwift
 
 class Utils: NSObject {
     static func imageFromColor(color: UIColor) -> UIImage {
@@ -345,18 +345,7 @@ class Utils: NSObject {
     }
     
     static func sha256(string: String) -> String? {
-        let sha256hash: NSMutableString = NSMutableString()
-        guard let messageData = string.data(using:String.Encoding.utf8) else { return nil }
-        var hash = [UInt8](repeating: 0,  count: Int(CC_SHA256_DIGEST_LENGTH))
-        messageData.withUnsafeBytes {
-            _ = CC_SHA256($0, CC_LONG(messageData.count), &hash)
-        }
-
-        for i in 0..<32 {
-            sha256hash.appendFormat("%02x", hash[i])
-        }
-        
-        return (sha256hash as String)
+        return string.sha256()
     }
     
     static func findBestViewController(vc: UIViewController) -> UIViewController? {
