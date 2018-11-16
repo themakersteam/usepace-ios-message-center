@@ -9,10 +9,12 @@ PODS:
   - FBSnapshotTestCase/SwiftSupport (2.1.4):
     - FBSnapshotTestCase/Core
   - FLAnimatedImage (1.0.12)
+  - HTMLKit (2.1.5)
   - MessageCenter (0.1.0):
     - AlamofireImage
     - CryptoSwift
     - FLAnimatedImage (~> 1.0)
+    - HTMLKit
     - MGSwipeTableCell
     - NYTPhotoViewer (~> 1.1.0)
     - SendBirdSDK
@@ -49,6 +51,7 @@ SPEC REPOS:
     - CryptoSwift
     - FBSnapshotTestCase
     - FLAnimatedImage
+    - HTMLKit
     - MGSwipeTableCell
     - Nimble
     - Nimble-Snapshots
@@ -67,7 +70,8 @@ SPEC CHECKSUMS:
   CryptoSwift: 16e78bebf567bad1c87b2d58f6547f25b74c31aa
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
-  MessageCenter: 5e5efbe1f9482e2c5038ad3be82ecf024b11ebcc
+  HTMLKit: 91dbd983c94f264c6ddea27d317f5a66368dd20b
+  MessageCenter: be90031bd9afddf182d8bdba9ff47d073a121a90
   MGSwipeTableCell: fb20e983988bde2b8d0df29c2d9e1d8ffd10b74a
   Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
   Nimble-Snapshots: f5459b5b091678dc942d03ec4741cacb58ba4a52

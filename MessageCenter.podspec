@@ -37,6 +37,7 @@ TODO: Add long description of the pod here.
   s.dependency 'NYTPhotoViewer', '~> 1.1.0'
   s.dependency 'TTTAttributedLabel'
   s.dependency 'CryptoSwift'
+  s.dependency 'HTMLKit'
   
   # s.resource_bundles = {
   #   'MessageCenter' => ['MessageCenter/Assets/*.png']

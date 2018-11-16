@@ -9,10 +9,7 @@
 import Foundation
 import SendBirdSDK
 
-#if TARGET_IPHONE_SIMULATOR
-    let isSimulator = true
-#endif
-#if (arch(i386) || arch(x86_64)) && (os(iOS) || os(watchOS) || os(tvOS))
+#if targetEnvironment(simulator)
     let isSimulator = true
 #endif
 

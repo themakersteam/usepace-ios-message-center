@@ -19,6 +19,12 @@ public class MessageCenter {
         return client
     }
     
+    private static var _parentVC: UIViewController? = nil;
+    public static var parentVC: UIViewController {
+        set { _parentVC = newValue}
+        get { return _parentVC! }
+    }
+    
     private static var LAST_CLIENT: String = ClientType.CLIENT_SENDBIRD
     private static var notificationInboxMessages: NSArray = []
     
@@ -45,5 +51,9 @@ public class MessageCenter {
     
     public static func isConnected() -> Bool {
         return client.getClient(type: LAST_CLIENT).isConnected()
+    }
+    
+    public static func setParentVC(vc: UIViewController) {
+        parentVC = vc;
     }
 }

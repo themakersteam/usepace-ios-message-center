@@ -32,6 +32,7 @@ class ViewController: UIViewController, ConnectionProtocol {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         buttonJoin.isEnabled = false
+        MessageCenter.parentVC = self
         let user1 = ConnectionRequest(appId: "FE3AD311-7F0F-4E7E-9E22-25FF141A37C0", userId: "rider_sony", accessToken: "4a8f3c197450b4762cd2dcf02a130816a503f4f2", client: ClientType.CLIENT_SENDBIRD, fcmToken: "")
         MessageCenter.connect(connectionRequest: user1, connectionInterface: self)
     }
