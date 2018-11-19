@@ -15,7 +15,11 @@ class ViewController: UIViewController, ConnectionProtocol {
     @IBOutlet weak var buttonJoin: UIButton!
     
     @IBAction func onTouchJoinButton(_ sender: UIButton) {
-        MessageCenter.join(chatId: "sendbird_group_channel_2456028_f4a5055d72e15074e5832cd3d60d5fa662980e84")
+        
+//        MessageCenter.join(chatId: "sendbird_group_channel_2456028_f4a5055d72e15074e5832cd3d60d5fa662980e84")
+        MessageCenter.join(chatId: "sendbird_group_channel_2456028_1ef918c0149a1f8b0993ae21cb26fa9c16540a91")
+        
+        
     }
     
     func onMessageCenterConnected(userId: String) {
