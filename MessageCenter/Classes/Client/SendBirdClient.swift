@@ -58,7 +58,7 @@ public class SendBirdClient: ClientProtocol {
     
     public func join(chatId: String, completionHandler: @escaping (Any?) -> Void) {
         print("joining to chat room...")
-        SBDOpenChannel.getWithUrl(chatId) { (channel, error) in
+        SBDGroupChannel.getWithUrl(chatId) { (channel, error) in
             guard error == nil else {
                 print("Error occured while connecting to chat room: %@", error?.description)
                 return
