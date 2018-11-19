@@ -47,7 +47,8 @@
   },
   "resource_bundles": {
     "MessageCenter": [
-      "MessageCenter/Classes/**/*.{storyboard,xib}"
+      "MessageCenter/Classes/**/*.{storyboard,xib}",
+      "MessageCenter/Assets/**/*.{xcassets,png}"
     ]
   }
 }

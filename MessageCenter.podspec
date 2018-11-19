@@ -40,7 +40,7 @@ TODO: Add long description of the pod here.
   s.dependency 'HTMLKit'
   
    s.resource_bundles = {
-     'MessageCenter' => ['MessageCenter/Classes/**/*.{storyboard,xib}']
+     'MessageCenter' => ['MessageCenter/Classes/**/*.{storyboard,xib}', 'MessageCenter/Assets/**/*.{xcassets,png}']
    }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'

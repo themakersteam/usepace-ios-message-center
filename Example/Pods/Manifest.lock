@@ -71,7 +71,7 @@ SPEC CHECKSUMS:
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   HTMLKit: 91dbd983c94f264c6ddea27d317f5a66368dd20b
-  MessageCenter: fb74ad2888a09413fbce37c5640fc78e3afff642
+  MessageCenter: 978aaa80cc1e36ce2d9dc6845d4b982b87376eb0
   MGSwipeTableCell: fb20e983988bde2b8d0df29c2d9e1d8ffd10b74a
   Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
   Nimble-Snapshots: f5459b5b091678dc942d03ec4741cacb58ba4a52
