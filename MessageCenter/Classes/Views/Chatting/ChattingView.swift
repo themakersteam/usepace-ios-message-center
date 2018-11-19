@@ -77,6 +77,12 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         self.setup()
     }
     
+//    required init(coder aDecoder: NSCoder) {
+//        super.init(coder: aDecoder)
+//        NSBundle.mainBundle().loadNibNamed("SomeView", owner: self, options: nil)
+//        self.addSubview(self.view);    // adding the top level view to the view hierarchy
+//    }
+    
     func setup() {
         self.chattingTableView.contentInset = UIEdgeInsetsMake(0, 0, 10, 0)
         self.messageTextView.textContainerInset = UIEdgeInsetsMake(15.5, 0, 14, 0)

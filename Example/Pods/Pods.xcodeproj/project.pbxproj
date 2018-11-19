@@ -339,7 +339,6 @@
 		A4F69F3477A935285620AC3031C5C848 /* FBSnapshotTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF05C6A7329DE27FB13793CBFD638B3B /* FBSnapshotTestController.m */; };
 		A613262AC2D439A1EDF5072A225ED2E9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0955F8BCDCF01F6703650FBE539CECEC /* Foundation.framework */; };
 		A61ADD214AA182EEB2AC95EA3F3D658F /* XCTestObservationCenter+Register.m in Sources */ = {isa = PBXBuildFile; fileRef = 198206E2935009ABAF6940C4FB1EE01D /* XCTestObservationCenter+Register.m */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
-		A65B5FD66A07EAD8C64B4BCA36BD7FD2 /* ChattingView.xib in Sources */ = {isa = PBXBuildFile; fileRef = 6E4A9EA9CA7D26BCDB6AA05CB9DC5D8E /* ChattingView.xib */; };
 		A67EF384560CA70F0E40650728B05DBD /* OFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60629C0D98D110F101E1870105BFDD2F /* OFB.swift */; };
 		A6855D9D7029C3B3A1C6D4BD59D00A44 /* CSSSelectorParser.h in Headers */ = {isa = PBXBuildFile; fileRef = BBCE802289F684F6C691D25387416E8C /* CSSSelectorParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6C81BE48EE2FFCD4B958D974DCF9D44 /* TTTAttributedLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E388D5FEEF212216B2767C39DE41047 /* TTTAttributedLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -497,6 +496,7 @@
 		F277E93394944CC88187128B7CC30239 /* World.h in Headers */ = {isa = PBXBuildFile; fileRef = C35E80FCCB7479FEEFA6F26BA13C5EC3 /* World.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		F28003B228B82B7E1497D4F41F55A31E /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5651EBB1572A5DA80037FE341F742D5 /* Match.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		F29DD1C9C911BADAD5B3183906A716D6 /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83186B8F49D010AACC4B10F2A1C98589 /* World.swift */; };
+		F2F49E6521A259F90014FF74 /* ChattingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AFB56CAF05A0710C80BD7EC233CA6D56 /* ChattingView.xib */; };
 		F34C265960DF1E85DCA53F7BF8BF1197 /* HTMLDOM.h in Headers */ = {isa = PBXBuildFile; fileRef = 7082245A679CE076F6E769E692AA0D88 /* HTMLDOM.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F3BAA36614ABDBC0538B0DEA99CF80A0 /* SourceLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F31DC0BCF76C673D139FA0069DE2E63 /* SourceLocation.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		F4BD249C60F21F5E0F7C1FAC8A5BC2AF /* BeIdenticalTo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25C01159E23794A443ADC6029804632 /* BeIdenticalTo.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
@@ -973,7 +973,6 @@
 		6CE42D9FA5BD14E7574A049C86027275 /* HTMLNodeIterator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HTMLNodeIterator.m; path = Sources/HTMLNodeIterator.m; sourceTree = "<group>"; };
 		6D86F8BF951518BF58CF5795DB0A4C95 /* HTMLDocument.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HTMLDocument.h; path = Sources/include/HTMLDocument.h; sourceTree = "<group>"; };
 		6E327ADC8B48C7A881CA86BAD28BB161 /* Checksum.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Checksum.swift; path = Sources/CryptoSwift/Checksum.swift; sourceTree = "<group>"; };
-		6E4A9EA9CA7D26BCDB6AA05CB9DC5D8E /* ChattingView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = ChattingView.xib; path = Base.lproj/ChattingView.xib; sourceTree = "<group>"; };
 		6E5A0B631536A7CA1A366ABE9E1B3608 /* CwlCatchException.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CwlCatchException.h; path = Carthage/Checkouts/CwlCatchException/Sources/CwlCatchExceptionSupport/include/CwlCatchException.h; sourceTree = "<group>"; };
 		6F7A8B83980FDCFCA5DA810AD3F91D30 /* MGSwipeTableCell.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = MGSwipeTableCell.modulemap; sourceTree = "<group>"; };
 		6FCE6A8424C52FA0BCC129F8793BE78C /* AFIError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AFIError.swift; path = Source/AFIError.swift; sourceTree = "<group>"; };
@@ -1256,6 +1255,7 @@
 		F0B1AB0B47CAEC1B6A0A5415B63FED6A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F0F52AF5676949F790AF61BDC9C2147A /* HTMLTreeWalker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HTMLTreeWalker.m; path = Sources/HTMLTreeWalker.m; sourceTree = "<group>"; };
 		F24E3B3FE6E7DF869F8E8E53A2331A93 /* HTMLNode+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "HTMLNode+Private.h"; path = "Sources/include/HTMLNode+Private.h"; sourceTree = "<group>"; };
+		F2F49E5F21A253C20014FF74 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ChattingView.xib; sourceTree = "<group>"; };
 		F31E369E6F98D68E0126B0F743AEE4FA /* Pods_MessageCenter_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MessageCenter_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F386EB6F3D8EE01A2C6BAD73BC1DC4C6 /* DisconnectionProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DisconnectionProtocol.swift; sourceTree = "<group>"; };
 		F3D24CE1A6D11FE78212E522BE746ADE /* NYTPhotoViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = NYTPhotoViewController.m; path = Pod/Classes/ios/NYTPhotoViewController.m; sourceTree = "<group>"; };
@@ -3025,6 +3025,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
 			productRefGroup = D37BDC383F096A247BF6AA676EAC2467 /* Products */;
@@ -3065,6 +3066,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2F49E6521A259F90014FF74 /* ChattingView.xib in Resources */,
 				CDC010029EAC431A3F71A88EF1D9EC22 /* MessageCenter.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3364,7 +3366,6 @@
 			files = (
 				5AF92DFCDED581967D5141EF0410D958 /* ChatImage.swift in Sources */,
 				2741B7E924A6D8248A248E7B0BC789DF /* ChattingView.swift in Sources */,
-				A65B5FD66A07EAD8C64B4BCA36BD7FD2 /* ChattingView.xib in Sources */,
 				5F8FC2B600756F755BD8F48991B9BEB1 /* Client.swift in Sources */,
 				B5958D7E83B9214B1D00BE257CB8AD1F /* ClientProtocol.swift in Sources */,
 				C2DE3B71B54E701B3A56B6CBA9C2B0A5 /* ConnectionProtocol.swift in Sources */,
@@ -3727,7 +3728,7 @@
 		AFB56CAF05A0710C80BD7EC233CA6D56 /* ChattingView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				6E4A9EA9CA7D26BCDB6AA05CB9DC5D8E /* ChattingView.xib */,
+				F2F49E5F21A253C20014FF74 /* Base */,
 			);
 			name = ChattingView.xib;
 			path = .;

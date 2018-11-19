@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SendBirdSDK
 
 public enum ClientType {
     public static let CLIENT_SENDBIRD = "sendbird"
@@ -34,19 +35,19 @@ public class MessageCenter {
     }
     
     public static func join(chatId: String) {
-        client.getClient(type: LAST_CLIENT).join(chatId: chatId)
+        client.getClient(type: LAST_CLIENT).join(chatId: chatId, completionHandler: {(channel) in
+            
+            let podBundle = Bundle(for: MessageCenter.self)
+            let groupChannelVC = GroupChannelChattingViewController(nibName: "GroupChannelChattingViewController", bundle: podBundle)
+            groupChannelVC.groupChannel = channel as! SBDGroupChannel
+                //        let fileURL = podBundle.url(forResource:"ChattingView", withExtension: "xib")
+                
+                parentVC.present(groupChannelVC, animated: true) {
+                    NSLog("logged")
+            }
+        })
         
-        let podBundle = Bundle(for: MessageCenter.self)
         
-//        let bundleURL = podBundle.url(forResource: "MessageCenter", withExtension: "bundle")
-        
-        let groupChannelVC = GroupChannelChattingViewController(nibName: "GroupChannelChattingViewController", bundle: podBundle)
-        
-        let fileURL = podBundle.url(forResource:"ChattingView", withExtension: "xib")
-
-        parentVC.present(groupChannelVC, animated: true) {
-            NSLog("logged")
-        }
     }
     
     public static func disconnect(disconnectionInterface: DisconnectionProtocol) {

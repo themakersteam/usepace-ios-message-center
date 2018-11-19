@@ -56,7 +56,7 @@ public class SendBirdClient: ClientProtocol {
         })
     }
     
-    public func join(chatId: String) {
+    public func join(chatId: String, completionHandler: @escaping (Any?) -> Void) {
         print("joining to chat room...")
         SBDOpenChannel.getWithUrl(chatId) { (channel, error) in
             guard error == nil else {
@@ -65,10 +65,14 @@ public class SendBirdClient: ClientProtocol {
             }
             
             print("Joined chat room")
+            completionHandler(channel)
             channel?.sendUserMessage("testMessage", completionHandler: { (message, error) in
                 print("Message sent")
             })
         }
+    }
+    public func join(chatId: String) {
+        
     }
     
     public func disconnect(disconnectInterface: DisconnectionProtocol) {
