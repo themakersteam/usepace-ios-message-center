@@ -44,5 +44,10 @@
     "HTMLKit": [
 
     ]
+  },
+  "resource_bundles": {
+    "MessageCenter": [
+      "MessageCenter/Classes/**/*.{storyboard,xib}"
+    ]
   }
 }

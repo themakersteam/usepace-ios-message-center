@@ -39,9 +39,9 @@ TODO: Add long description of the pod here.
   s.dependency 'CryptoSwift'
   s.dependency 'HTMLKit'
   
-  # s.resource_bundles = {
-  #   'MessageCenter' => ['MessageCenter/Assets/*.png']
-  # }
+   s.resource_bundles = {
+     'MessageCenter' => ['MessageCenter/Classes/**/*.{storyboard,xib}']
+   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
