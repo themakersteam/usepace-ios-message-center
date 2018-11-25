@@ -82,7 +82,26 @@ public class SendBirdClient: ClientProtocol {
     }
     
     public func getUnReadMessagesCount(forChannel channel: String?, success: @escaping UnReadMessagesSuccessCompletion, failure: @escaping MessageCenterFailureCompletion) {
-        // TODO: Implement
+        if let channel = channel {
+            SBDGroupChannel.getWithUrl(channel) { (chanelObj, error) in
+                guard error == nil, let chanelObj = chanelObj else {
+                    failure(error!.code, error!.localizedDescription)
+                    return
+                }
+                
+                success(Int(chanelObj.unreadMessageCount))
+            }
+        }
+        else {
+            SBDMain.getTotalUnreadChannelCount() { (count, error) in
+                guard error == nil else {
+                    failure(error!.code, error!.localizedDescription)
+                    return
+                }
+                
+                success(Int(count))
+            }
+        }
     }
     
     public func handleNotification(_ userInfo: Dictionary<String, String>, completion: @escaping HandleNotificationCompletion) {

@@ -9,11 +9,6 @@
 import Foundation
 import SendBirdSDK
 
-//public enum ClientType {
-//    public static let CLIENT_SENDBIRD = "sendbird"
-//    public static let CLIENT_OTHER = "other"
-//}
-
 public enum ClientType: String {
     case sendBird = "sendbird"
     case other = "other"
@@ -66,6 +61,10 @@ public class MessageCenter {
     
     public static func handleNotification(_ userInfo: Dictionary<String, String>, completion: @escaping HandleNotificationCompletion) {
         client.getClient(type: LAST_CLIENT).handleNotification(userInfo, completion: completion)
+    }
+    
+    public static func getUnReadMessagesCount(forChannel channel: String?, success: @escaping UnReadMessagesSuccessCompletion, failure: @escaping MessageCenterFailureCompletion) {
+        client.getClient(type: LAST_CLIENT).getUnReadMessagesCount(forChannel: channel, success: success, failure: failure)
     }
     
     public static func clearNotificationMessages() {
