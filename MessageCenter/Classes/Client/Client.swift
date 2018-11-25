@@ -9,9 +9,9 @@
 import Foundation
 
 public class Client {
-    func getClient(type: String) -> ClientProtocol {
+    func getClient(type: ClientType) -> ClientProtocol {
         switch type {
-            case ClientType.CLIENT_SENDBIRD:
+            case ClientType.sendBird:
                 return SendBirdClient.shared()
             default:
                 return SendBirdClient.shared()
