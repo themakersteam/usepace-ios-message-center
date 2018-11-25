@@ -20,21 +20,29 @@ Pod::Spec.new do |s|
   s.description      = <<-DESC
 TODO: Add long description of the pod here.
                        DESC
-
+                       
   s.homepage         = 'https://github.com/UsePace/ios-message-center'
+  s.swift_version     = '4.0'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'cEliteDev' => 'iagilelite@gmail.com' }
-  s.source           = { :git => 'https://github.com/UsePace/ios-message-center.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/UsePace/android-message-center.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '8.0'
-  s.dependency 'SendBirdSDK'
   s.source_files = 'MessageCenter/Classes/**/*'
+  s.dependency 'SendBirdSDK'
+  s.dependency 'AlamofireImage'
+  s.dependency 'MGSwipeTableCell'
+  s.dependency 'FLAnimatedImage', '~> 1.0'
+  s.dependency 'NYTPhotoViewer', '~> 1.1.0'
+  s.dependency 'TTTAttributedLabel'
+  s.dependency 'CryptoSwift'
+  s.dependency 'HTMLKit'
   
-  # s.resource_bundles = {
-  #   'MessageCenter' => ['MessageCenter/Assets/*.png']
-  # }
+   s.resource_bundles = {
+     'MessageCenter' => ['MessageCenter/Classes/**/*.{storyboard,xib}', 'MessageCenter/Assets/**/*.{xcassets,png}']
+   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'

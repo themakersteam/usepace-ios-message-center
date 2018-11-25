@@ -9,6 +9,6 @@
 import Foundation
 
 public protocol ConnectionProtocol {
-    func onMessageCenterConnected()
+    func onMessageCenterConnected(userId: String)
     func onMessageCenterConnectionError(code: Int, message: String)
 }

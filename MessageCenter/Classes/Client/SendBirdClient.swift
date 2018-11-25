@@ -9,6 +9,10 @@
 import Foundation
 import SendBirdSDK
 
+#if targetEnvironment(simulator)
+    let isSimulator = true
+#endif
+
 let ErrorDomainConnection = "com.sendbird.sample.connection"
 let ErrorDomainUser = "com.sendbird.sample.user"
 
@@ -30,6 +34,8 @@ public class SendBirdClient: ClientProtocol {
                 return;
             }
             
+            connection.onMessageCenterConnected(userId: (user?.userId)!)
+            
             if let pushToken: Data = SBDMain.getPendingPushToken() {
                 SBDMain.registerDevicePushToken(pushToken, unique: true, completionHandler: { (status, error) in
                     guard error == nil else {
@@ -44,13 +50,27 @@ public class SendBirdClient: ClientProtocol {
                     }
                     else {
                         print("APNS Token is registered.")
-                        connection.onMessageCenterConnected()
                     }
                 })
             }
         })
     }
     
+    public func join(chatId: String, completionHandler: @escaping (Any?) -> Void) {
+        print("joining to chat room...")
+        SBDGroupChannel.getWithUrl(chatId) { (channel, error) in
+            guard error == nil else {
+                print("Error occured while connecting to chat room: %@", error?.description)
+                return
+            }
+            
+            print("Joined chat room")
+            completionHandler(channel)
+            channel?.sendUserMessage("testMessage", completionHandler: { (message, error) in
+                print("Message sent")
+            })
+        }
+    }
     public func join(chatId: String) {
         
     }

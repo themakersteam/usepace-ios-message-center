@@ -18,10 +18,37 @@
   "platforms": {
     "ios": "8.0"
   },
+  "source_files": "MessageCenter/Classes/**/*",
   "dependencies": {
     "SendBirdSDK": [
 
+    ],
+    "AlamofireImage": [
+
+    ],
+    "MGSwipeTableCell": [
+
+    ],
+    "FLAnimatedImage": [
+      "~> 1.0"
+    ],
+    "NYTPhotoViewer": [
+      "~> 1.1.0"
+    ],
+    "TTTAttributedLabel": [
+
+    ],
+    "CryptoSwift": [
+
+    ],
+    "HTMLKit": [
+
     ]
   },
-  "source_files": "MessageCenter/Classes/**/*"
+  "resource_bundles": {
+    "MessageCenter": [
+      "MessageCenter/Classes/**/*.{storyboard,xib}",
+      "MessageCenter/Assets/**/*.{xcassets,png}"
+    ]
+  }
 }
