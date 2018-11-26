@@ -1,9 +1,10 @@
 {
   "name": "MessageCenter",
   "version": "0.1.0",
-  "summary": "A short description of MessageCenter.",
+  "summary": "MessageCenter is chatting SDK",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/UsePace/ios-message-center",
+  "swift_version": "4.0",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
