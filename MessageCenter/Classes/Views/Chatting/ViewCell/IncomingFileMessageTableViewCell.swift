@@ -222,8 +222,10 @@ class IncomingFileMessageTableViewCell: UITableViewCell {
     }
     
     func getHeightOfViewCell() -> CGFloat {
-        let height = self.dateSeperatorViewTopMargin.constant + self.dateSeperatorViewHeight.constant + self.dateSeperatorViewBottomMargin.constant + self.messageContainerViewTopPadding.constant + self.nicknameLabelHeight.constant + self.nicknameLabelBottomMargin.constant + self.fileContainerViewHeight.constant + self.messageContainerViewBottomPadding.constant
+        let height = self.dateSeperatorViewTopMargin.constant + self.dateSeperatorViewHeight.constant + self.dateSeperatorViewBottomMargin.constant +  self.nicknameLabelHeight.constant + self.nicknameLabelBottomMargin.constant + self.fileContainerViewHeight.constant
         
-        return height
+        let paddingsHeight = self.messageContainerViewTopPadding.constant +  self.messageContainerViewBottomPadding.constant
+        
+        return height + paddingsHeight
     }
 }
