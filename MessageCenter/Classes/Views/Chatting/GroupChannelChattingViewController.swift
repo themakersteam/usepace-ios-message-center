@@ -18,6 +18,7 @@ import FLAnimatedImage
 
 class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegate, SBDChannelDelegate, ChattingViewDelegate, MessageDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     var groupChannel: SBDGroupChannel!
+    private var podBundle: Bundle!
     
     @IBOutlet weak var chattingView: ChattingView!
     @IBOutlet weak var navItem: UINavigationItem!
@@ -39,10 +40,9 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     private var dumpedMessages: [SBDBaseMessage] = []
     private var cachedMessage: Bool = true
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.podBundle = Bundle(for: MessageCenter.self)
         // Do any additional setup after loading the view.
         let titleView: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width - 100, height: 64))
         let titleFormat: String = "Group Channel (%ld)"
@@ -62,8 +62,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         let negativeRightSpacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
         negativeRightSpacer.width = -2
         
-        let leftCloseItem = UIBarButtonItem(image: UIImage(named: "btn_close"), style: UIBarButtonItemStyle.done, target: self, action: #selector(close))
-        let rightOpenMoreMenuItem = UIBarButtonItem(image: UIImage(named: "btn_more"), style: UIBarButtonItemStyle.done, target: self, action: #selector(openMoreMenu))
+        let leftCloseItem = UIBarButtonItem(image: UIImage(named: "btn_close", in: podBundle, compatibleWith: nil), style: UIBarButtonItemStyle.done, target: self, action: #selector(close))
+        let rightOpenMoreMenuItem = UIBarButtonItem(image: UIImage(named: "btn_more", in: podBundle, compatibleWith: nil), style: UIBarButtonItemStyle.done, target: self, action: #selector(openMoreMenu))
         
         self.navItem.leftBarButtonItems = [negativeLeftSpacer, leftCloseItem]
         self.navItem.rightBarButtonItems = [negativeRightSpacer, rightOpenMoreMenuItem]
@@ -75,12 +75,12 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
         negativeLeftSpacerForImageViewerLoading.width = -2
         
-        let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close"), style: UIBarButtonItemStyle.done, target: self, action: #selector(close))
+        let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close", in: podBundle, compatibleWith: nil), style: UIBarButtonItemStyle.done, target: self, action: #selector(close))
         
         self.imageViewerLoadingViewNavItem.leftBarButtonItems = [negativeLeftSpacerForImageViewerLoading, leftCloseItemForImageViewerLoading]
 
-//        self.delegateIdentifier = self.description
-//        SBDMain.add(self as SBDChannelDelegate, identifier: self.delegateIdentifier)
+        self.delegateIdentifier = self.description
+        SBDMain.add(self as SBDChannelDelegate, identifier: self.delegateIdentifier)
 //        ConnectionManager.add(connectionObserver: self as ConnectionManagerDelegate)
         
         self.chattingView.fileAttachButton.addTarget(self, action: #selector(sendFileMessage), for: UIControlEvents.touchUpInside)
@@ -975,7 +975,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                         let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
                         negativeLeftSpacerForImageViewerLoading.width = -2
                         
-                        let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close"), style: UIBarButtonItemStyle.done, target: self, action: #selector(self.closeImageViewer))
+                        let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close", in: self.podBundle, compatibleWith: nil), style: UIBarButtonItemStyle.done, target: self, action: #selector(self.closeImageViewer))
                         
                         self.imageViewerLoadingViewNavItem.leftBarButtonItems = [negativeLeftSpacerForImageViewerLoading, leftCloseItemForImageViewerLoading]
                         
@@ -1009,7 +1009,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                                 let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
                                 negativeLeftSpacerForImageViewerLoading.width = -2
                                 
-                                let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close"), style: UIBarButtonItemStyle.done, target: self, action: #selector(self.closeImageViewer))
+                                let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close", in: self.podBundle, compatibleWith: nil), style: UIBarButtonItemStyle.done, target: self, action: #selector(self.closeImageViewer))
                                 
                                 self.imageViewerLoadingViewNavItem.leftBarButtonItems = [negativeLeftSpacerForImageViewerLoading, leftCloseItemForImageViewerLoading]
                                 

@@ -285,7 +285,13 @@ class OutgoingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
         let messageRect: CGRect = message.boundingRect(with: CGSize(width: self.messageLabelWidth.constant, height: CGFloat.greatestFiniteMagnitude), options: [NSStringDrawingOptions.usesLineFragmentOrigin], context: nil)
         let messageHeight = messageRect.size.height
 
-        let cellHeight = self.dateSeperatorViewTopMargin.constant + self.dateSeperatorViewHeight.constant + self.dateSeperatorViewBottomMargin.constant + self.messageLabelTopMargin.constant + messageHeight + self.messageLabelBottomMargin.constant + self.dividerViewHeight.constant + self.dividerViewBottomMargin.constant + self.previewSiteNameLabelHeight.constant + self.previewSiteNameLabelBottomMargin.constant + self.previewTitleLabelHeight.constant + self.previewTitleLabelBottomMargin.constant + descriptionLabelHeight + self.previewDescriptionLabelBottomMargin.constant + self.previewThumbnailImageViewHeight.constant
+        // Workaround for: The compiler is unable to type-check this expression in reasonable time; try breaking up the expression into distinct sub-expressions
+        
+        let cellHeightPart1 = self.dateSeperatorViewTopMargin.constant + self.dateSeperatorViewHeight.constant + self.dateSeperatorViewBottomMargin.constant + self.messageLabelTopMargin.constant
+        let cellHeightPart2 = messageHeight + self.messageLabelBottomMargin.constant + self.dividerViewHeight.constant + self.dividerViewBottomMargin.constant
+        let cellHeightPart3 =  self.previewSiteNameLabelHeight.constant + self.previewSiteNameLabelBottomMargin.constant + self.previewTitleLabelHeight.constant + self.previewTitleLabelBottomMargin.constant
+        
+        let cellHeight = cellHeightPart1 + cellHeightPart2  + cellHeightPart3 + descriptionLabelHeight + self.previewDescriptionLabelBottomMargin.constant + self.previewThumbnailImageViewHeight.constant
         
         return cellHeight
     }

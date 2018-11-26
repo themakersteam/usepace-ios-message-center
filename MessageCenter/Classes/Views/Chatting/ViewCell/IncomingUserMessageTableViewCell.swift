@@ -41,7 +41,12 @@ class IncomingUserMessageTableViewCell: UITableViewCell, TTTAttributedLabelDeleg
     private var message: SBDUserMessage!
     private var prevMessage: SBDBaseMessage?
     private var displayNickname: Bool = true
-
+    private var podBundle: Bundle!
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.podBundle = Bundle(for: MessageCenter.self)
+    }
     static func nib() -> UINib {
         return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
     }
@@ -65,7 +70,7 @@ class IncomingUserMessageTableViewCell: UITableViewCell, TTTAttributedLabelDeleg
     func setModel(aMessage: SBDUserMessage) {
         self.message = aMessage
         
-        self.profileImageView.af_setImage(withURL: URL(string: (self.message.sender?.profileUrl!)!)!, placeholderImage: UIImage(named: "img_profile"))
+        self.profileImageView.af_setImage(withURL: URL(string: (self.message.sender?.profileUrl!)!)!, placeholderImage: UIImage(named: "img_profile", in: podBundle, compatibleWith: nil))
         
         let profileImageTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickProfileImage))
         self.profileImageView.isUserInteractionEnabled = true
@@ -265,7 +270,13 @@ class IncomingUserMessageTableViewCell: UITableViewCell, TTTAttributedLabelDeleg
         
         var fullMessageSize: CGSize
 
-        let messageLabelMaxWidth = UIScreen.main.bounds.size.width - (self.profileImageLeftMargin.constant + self.profileImageWidth.constant + self.messageContainerLeftMargin.constant + self.messageContainerLeftPadding.constant + self.messageContainerRightPadding.constant + self.messageDateLabelLeftMargin.constant + self.messageDateLabelWidth.constant + self.messageDateLabelRightMargin.constant)
+        // Workaround for: The compiler is unable to type-check this expression in reasonable time; try breaking up the expression into distinct sub-expressions
+
+        let widthPart1 = self.profileImageLeftMargin.constant + self.profileImageWidth.constant + self.messageContainerLeftMargin.constant + self.messageContainerLeftPadding.constant
+        let widthPart2 =  self.messageContainerRightPadding.constant + self.messageDateLabelLeftMargin.constant + self.messageDateLabelWidth.constant + self.messageDateLabelRightMargin.constant
+        
+        let messageLabelMaxWidth = UIScreen.main.bounds.size.width - (widthPart1 + widthPart2)
+    
         let framesetter = CTFramesetterCreateWithAttributedString(fullMessage)
         fullMessageSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRange(location: 0,length: 0), nil, CGSize(width: messageLabelMaxWidth, height: CGFloat(LONG_LONG_MAX)), nil)
 

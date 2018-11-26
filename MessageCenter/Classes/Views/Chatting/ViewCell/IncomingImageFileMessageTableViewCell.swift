@@ -28,6 +28,14 @@ class IncomingImageFileMessageTableViewCell: UITableViewCell {
 
     private var message: SBDFileMessage!
     private var prevMessage: SBDBaseMessage!
+    private var cachedMessage: Bool = true
+    
+    private var podBundle: Bundle!
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.podBundle = Bundle(for: MessageCenter.self)
+    }
     
     static func nib() -> UINib {
         return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
@@ -52,7 +60,7 @@ class IncomingImageFileMessageTableViewCell: UITableViewCell {
     func setModel(aMessage: SBDFileMessage) {
         self.message = aMessage
         
-        self.profileImageView.af_setImage(withURL: URL(string: (self.message.sender?.profileUrl!)!)!, placeholderImage: UIImage(named: "img_profile"))
+        self.profileImageView.af_setImage(withURL: URL(string: (self.message.sender?.profileUrl!)!)!, placeholderImage: UIImage(named: "img_profile", in: podBundle, compatibleWith: nil))
         
         let profileImageTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickProfileImage))
         self.profileImageView.isUserInteractionEnabled = true

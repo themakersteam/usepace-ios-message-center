@@ -50,6 +50,12 @@ class IncomingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
     private var prevMessage: SBDBaseMessage!
     var previewData: Dictionary<String, Any>!
     private var displayNickname: Bool!
+    private var podBundle: Bundle!
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.podBundle = Bundle(for: MessageCenter.self)
+    }
     
     static func nib() -> UINib {
         return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
@@ -108,7 +114,7 @@ class IncomingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
         self.previewDescriptionLabel.isUserInteractionEnabled = true
         self.previewDescriptionLabel.addGestureRecognizer(previewDescriptionLabelTapRecognizer)
 
-        self.profileImageView.af_setImage(withURL: URL(string: (self.message.sender?.profileUrl)!)!, placeholderImage: UIImage(named: "img_profile"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: UIImageView.ImageTransition.noTransition, runImageTransitionIfCached: true, completion: nil)
+        self.profileImageView.af_setImage(withURL: URL(string: (self.message.sender?.profileUrl)!)!, placeholderImage: UIImage(named: "img_profile", in: podBundle, compatibleWith: nil), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: UIImageView.ImageTransition.noTransition, runImageTransitionIfCached: true, completion: nil)
         
         let profileImageTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickProfileImage))
         profileImageTapRecognizer.delegate = self
@@ -309,7 +315,12 @@ class IncomingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
         let description: NSString = self.previewData["description"] as! NSString
         let descriptionRect = description.boundingRect(with: CGSize(width: self.previewDescriptionWidth.constant, height: CGFloat.greatestFiniteMagnitude), options: [NSStringDrawingOptions.usesLineFragmentOrigin], attributes: attributes, context: nil)
         
-        let cellHeight = self.dateSeperatorTopMargin.constant + self.dateSeperatorHeight.constant + self.dateSeperatorBottomMargin.constant + self.messageTopMargin.constant + fullMessageRect.size.height + self.messageBottomMargin.constant + self.dividerHeight.constant + self.dividerBottomMargin.constant + self.previewSiteNameHeight.constant + self.previewSiteNameBottomMargin.constant + self.previewTitleHeight.constant + self.previewTitleBottomMargin.constant + descriptionRect.size.height + self.previewDescriptionBottomMargin.constant + self.previewThumbnailImageHeight.constant
+        // Workaround for: The compiler is unable to type-check this expression in reasonable time; try breaking up the expression into distinct sub-expressions
+    
+        let cellHeightPart1 = self.dateSeperatorTopMargin.constant + self.dateSeperatorHeight.constant + self.dateSeperatorBottomMargin.constant + self.messageTopMargin.constant + fullMessageRect.size.height
+        let cellHeightPart2 = self.messageBottomMargin.constant + self.dividerHeight.constant + self.dividerBottomMargin.constant + self.previewSiteNameHeight.constant + self.previewSiteNameBottomMargin.constant
+        let cellHeightPart3 = self.previewDescriptionBottomMargin.constant + self.previewThumbnailImageHeight.constant
+        let cellHeight = cellHeightPart1 +  cellHeightPart2 + cellHeightPart3 + self.previewTitleHeight.constant + self.previewTitleBottomMargin.constant + descriptionRect.size.height
         
         return Float(cellHeight)
     }
