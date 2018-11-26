@@ -25,22 +25,25 @@ public class SendBirdClient: ClientProtocol {
     
     init() { }
     
-    public func connect(connectionRequest: ConnectionRequest, connection: ConnectionProtocol) {
+    public func connect(with connectionRequest: ConnectionRequest, success: @escaping ConnectionSucceeded, failure:  @escaping MessageCenterFailureCompletion) {
         SBDMain.initWithApplicationId(connectionRequest.appId)
         SBDMain.connect(withUserId: connectionRequest.userId, accessToken: connectionRequest.accessToken, completionHandler: { (user, error) in
             self.connected = false
             guard error == nil else {
-                connection.onMessageCenterConnectionError(code: error!.code, message: error!.localizedDescription)
+                failure(error!.code, error!.localizedDescription)
+                //connection.onMessageCenterConnectionError(code: error!.code, message: error!.localizedDescription)
                 return;
             }
             
-            connection.onMessageCenterConnected(userId: (user?.userId)!)
+            //connection.onMessageCenterConnected(userId: (user?.userId)!)
+            success((user?.userId)!)
             
             if let pushToken: Data = SBDMain.getPendingPushToken() {
                 SBDMain.registerDevicePushToken(pushToken, unique: true, completionHandler: { (status, error) in
                     guard error == nil else {
                         print("APNS registration failed.")
-                        connection.onMessageCenterConnectionError(code: error!.code, message: error!.localizedFailureReason!)
+                        // TODO: Confirm, should we fire a failure in case of APNs registration failed??
+                        //connection.onMessageCenterConnectionError(code: error!.code, message: error!.localizedFailureReason!)
                         return
                     }
                     
@@ -56,43 +59,70 @@ public class SendBirdClient: ClientProtocol {
         })
     }
     
-    public func join(chatId: String, completionHandler: @escaping (Any?) -> Void) {
+    public func openChatView(forChannel channelId: String, withTheme theme: ChatViewTheme?, completion: @escaping (Any?) -> Void) {
+        //TODO: Make use of ChatViewTheme
         print("joining to chat room...")
-        SBDGroupChannel.getWithUrl(chatId) { (channel, error) in
+        SBDGroupChannel.getWithUrl(channelId) { (channel, error) in
             guard error == nil else {
                 print("Error occured while connecting to chat room: %@", error?.description)
+                completion(nil)
                 return
             }
             
             print("Joined chat room")
-            completionHandler(channel)
+            completion(channel)
             channel?.sendUserMessage("testMessage", completionHandler: { (message, error) in
                 print("Message sent")
             })
         }
     }
-    public func join(chatId: String) {
-        
+    
+    public func closeChatView(completion: @escaping () -> Void) {
+        // TODO: Implement
     }
     
-    public func disconnect(disconnectInterface: DisconnectionProtocol) {
-        SBDMain.disconnect {
-            disconnectInterface.onMessageCenterDisconnected()
+    public func getUnReadMessagesCount(forChannel channel: String?, success: @escaping UnReadMessagesSuccessCompletion, failure: @escaping MessageCenterFailureCompletion) {
+        if let channel = channel {
+            SBDGroupChannel.getWithUrl(channel) { (chanelObj, error) in
+                guard error == nil, let chanelObj = chanelObj else {
+                    failure(error!.code, error!.localizedDescription)
+                    return
+                }
+                
+                success(Int(chanelObj.unreadMessageCount))
+            }
+        }
+        else {
+            SBDMain.getTotalUnreadChannelCount() { (count, error) in
+                guard error == nil else {
+                    failure(error!.code, error!.localizedDescription)
+                    return
+                }
+                
+                success(Int(count))
+            }
         }
     }
     
-    public func handleNotification(next: AnyClass, icon: Int, title: String, remoteMessage: AnyClass, messages: NSArray) {
-        messages.adding(remoteMessage)
+    public func handleNotification(_ userInfo: Dictionary<String, String>, completion: @escaping HandleNotificationCompletion) {
+        //messages.adding(remoteMessage)
         // push notification handler here
     }
     
-    public func isConnected() -> Bool {
-        return connected
+    public var isConnected: Bool {
+        get {
+            return connected
+        }
+    }
+  
+    public func disconnect(completion: @escaping () -> Void) {
+        SBDMain.disconnect {
+            completion()
+        }
     }
     
     class func shared() -> SendBirdClient {
         return sendbirdClient
     }
-    
     
 }
