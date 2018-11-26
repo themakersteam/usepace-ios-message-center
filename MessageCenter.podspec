@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'MessageCenter'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of MessageCenter.'
+  s.summary          = 'MessageCenter is chatting SDK'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?

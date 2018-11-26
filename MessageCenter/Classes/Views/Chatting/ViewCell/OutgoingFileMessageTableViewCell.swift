@@ -33,7 +33,13 @@ class OutgoingFileMessageTableViewCell: UITableViewCell {
     
     private var message: SBDFileMessage!
     private var prevMessage: SBDBaseMessage!
-
+    private var podBundle: Bundle!
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.podBundle = Bundle(for: MessageCenter.self)
+    }
+    
     static func nib() -> UINib {
         return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
     }
@@ -71,16 +77,16 @@ class OutgoingFileMessageTableViewCell: UITableViewCell {
         self.deleteMessageButton.addTarget(self, action: #selector(clickDeleteUserMessage), for: UIControlEvents.touchUpInside)
         
         if self.message.type.hasPrefix("video") {
-            self.fileTypeImageView.image = UIImage(named: "icon_video_chat")
-            self.fileActionImageView.image = UIImage(named: "btn_play_chat")
+            self.fileTypeImageView.image = UIImage(named: "icon_video_chart", in: podBundle, compatibleWith: nil)
+            self.fileActionImageView.image = UIImage(named: "btn_play_chat", in: podBundle, compatibleWith: nil)
         }
         else if self.message.type.hasPrefix("audio") {
-            self.fileTypeImageView.image = UIImage(named: "icon_voice_chat")
-            self.fileActionImageView.image = UIImage(named: "btn_play_chat")
+            self.fileTypeImageView.image = UIImage(named: "icon_voice_chat", in: podBundle, compatibleWith: nil)
+            self.fileActionImageView.image = UIImage(named: "btn_play_chat", in: podBundle, compatibleWith: nil)
         }
         else {
-            self.fileTypeImageView.image = UIImage(named: "icon_file_chat")
-            self.fileActionImageView.image = UIImage(named: "btn_download_chat")
+            self.fileTypeImageView.image = UIImage(named: "icon_file_chat", in: podBundle, compatibleWith: nil)
+            self.fileActionImageView.image = UIImage(named: "btn_download_chat", in: podBundle, compatibleWith: nil)
         }
         
         self.filenameLabel.text = self.message.name

@@ -34,6 +34,12 @@ class IncomingFileMessageTableViewCell: UITableViewCell {
 
     private var message: SBDFileMessage!
     private var prevMessage: SBDBaseMessage!
+    private var podBundle: Bundle!
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.podBundle = Bundle(for: MessageCenter.self)
+    }
 
     static func nib() -> UINib {
         return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
@@ -58,7 +64,7 @@ class IncomingFileMessageTableViewCell: UITableViewCell {
     func setModel(aMessage: SBDFileMessage) {
         self.message = aMessage
         
-        self.profileImageView.af_setImage(withURL: URL(string: (self.message.sender?.profileUrl!)!)!, placeholderImage: UIImage(named: "img_profile"))
+        self.profileImageView.af_setImage(withURL: URL(string: (self.message.sender?.profileUrl!)!)!, placeholderImage: UIImage(named: "img_profile", in: podBundle, compatibleWith: nil))
         
         let profileImageTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickProfileImage))
         self.profileImageView.isUserInteractionEnabled = true
@@ -69,16 +75,16 @@ class IncomingFileMessageTableViewCell: UITableViewCell {
         self.messageContainerView.addGestureRecognizer(messageContainerTapRecognizer)
         
         if self.message.type.hasPrefix("video") {
-            self.fileTypeImageView.image = UIImage(named: "icon_video_chat")
-            self.fileActionImageView.image = UIImage(named: "btn_play_chat")
+            self.fileTypeImageView.image = UIImage(named: "icon_video_chart", in: podBundle, compatibleWith: nil)
+            self.fileActionImageView.image = UIImage(named: "btn_play_chat", in: podBundle, compatibleWith: nil)
         }
         else if self.message.type.hasPrefix("audio") {
-            self.fileTypeImageView.image = UIImage(named: "icon_voice_chat")
-            self.fileActionImageView.image = UIImage(named: "btn_play_chat")
+            self.fileTypeImageView.image = UIImage(named: "icon_voice_chat", in: podBundle, compatibleWith: nil)
+            self.fileActionImageView.image = UIImage(named: "btn_play_chat", in: podBundle, compatibleWith: nil)
         }
         else {
-            self.fileTypeImageView.image = UIImage(named: "icon_file_chat")
-            self.fileActionImageView.image = UIImage(named: "btn_download_chat")
+            self.fileTypeImageView.image = UIImage(named: "icon_file_chat", in: podBundle, compatibleWith: nil)
+            self.fileActionImageView.image = UIImage(named: "btn_download_chat", in: podBundle, compatibleWith: nil)
         }
         
         var nicknameAttribute: [NSAttributedStringKey:AnyObject]?

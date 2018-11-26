@@ -25,6 +25,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var inputContainerViewHeight: NSLayoutConstraint!
     var messages: [SBDBaseMessage] = []
     var channel: SBDBaseChannel?
+    private var podBundle: Bundle!
     
     var resendableMessages: [String:SBDBaseMessage] = [:]
     var preSendMessages: [String:SBDBaseMessage] = [:]
@@ -74,6 +75,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        self.podBundle = Bundle(for: MessageCenter.self)
         self.setup()
     }
     
@@ -207,7 +209,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
             var typingImages: [UIImage] = []
             for i in 1...50 {
                 let typingImageFrameName = String.init(format: "%02d", i)
-                typingImages.append(UIImage(named: typingImageFrameName)!)
+                typingImages.append(UIImage(named: typingImageFrameName, in: podBundle, compatibleWith: nil)!)
             }
             self.typingIndicatorImageView.animationImages = typingImages
             self.typingIndicatorImageView.animationDuration = 1.5
