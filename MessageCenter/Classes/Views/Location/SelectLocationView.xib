@@ -13,9 +13,12 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SelectLocationViewController" customModule="MessageCenter">
             <connections>
                 <outlet property="centerPin" destination="Gmi-Ov-OAO" id="Tym-sG-cfe"/>
+                <outlet property="mapButtonsContainer" destination="Xg6-fk-F9U" id="dOD-NY-QX7"/>
                 <outlet property="mapSettingBtn" destination="3oZ-a4-fMY" id="6Nh-Pg-BrE"/>
+                <outlet property="mapSettingsView" destination="wqj-Hm-1MM" id="jjw-1E-3tx"/>
                 <outlet property="mapView" destination="GkM-BQ-8jY" id="qLQ-rD-a5D"/>
                 <outlet property="myLocationBtn" destination="ZDM-MD-6MU" id="2nC-ML-UJN"/>
+                <outlet property="segmentedControl" destination="7dM-cg-bVj" id="BKM-me-QqM"/>
                 <outlet property="view" destination="iN0-l3-epB" id="vDi-SB-rdT"/>
             </connections>
         </placeholder>
@@ -45,7 +48,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cfz-5K-gnz" userLabel="Map Container View">
                     <rect key="frame" x="0.0" y="64" width="375" height="533"/>
                     <subviews>
-                        <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GkM-BQ-8jY">
+                        <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" showsCompass="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GkM-BQ-8jY">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="533"/>
                         </mapView>
                         <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gmi-Ov-OAO">
@@ -55,17 +58,19 @@
                                 <constraint firstAttribute="height" constant="20" id="Zzx-kJ-OW9"/>
                             </constraints>
                         </imageView>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Xg6-fk-F9U">
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Xg6-fk-F9U" userLabel="Map Buttons Container">
                             <rect key="frame" x="309" y="16" width="50" height="101"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3oZ-a4-fMY">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3oZ-a4-fMY">
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="50" id="Hat-j1-A24"/>
                                         <constraint firstAttribute="width" constant="50" id="LPa-Sv-ukf"/>
                                     </constraints>
-                                    <state key="normal" title="i"/>
+                                    <connections>
+                                        <action selector="showMapSettings:" destination="-1" eventType="touchUpInside" id="m8t-dh-iC8"/>
+                                    </connections>
                                 </button>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z7G-S7-mzx" userLabel="Buttons Separator">
                                     <rect key="frame" x="0.0" y="50" width="50" height="1"/>
@@ -86,7 +91,7 @@
                             </subviews>
                         </stackView>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="GkM-BQ-8jY" secondAttribute="trailing" id="1wX-nE-3d7"/>
                         <constraint firstAttribute="trailing" secondItem="Xg6-fk-F9U" secondAttribute="trailing" constant="16" id="7C6-xd-df8"/>
@@ -98,12 +103,66 @@
                         <constraint firstItem="GkM-BQ-8jY" firstAttribute="leading" secondItem="cfz-5K-gnz" secondAttribute="leading" id="xfP-qX-Qd6"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wqj-Hm-1MM" userLabel="Map Settings View">
+                    <rect key="frame" x="0.0" y="517" width="375" height="150"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Map Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5MC-1Q-NVL">
+                            <rect key="frame" x="133" y="16" width="109.5" height="21.5"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ig0-29-pj6">
+                            <rect key="frame" x="335" y="15" width="24" height="24"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="24" id="Oap-pc-t9H"/>
+                                <constraint firstAttribute="height" constant="24" id="rkg-f2-hxG"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="23"/>
+                            <inset key="contentEdgeInsets" minX="0.0" minY="-5" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="x">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="12"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="dismissSettings:" destination="-1" eventType="touchUpInside" id="Jlp-rz-g93"/>
+                            </connections>
+                        </button>
+                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="7dM-cg-bVj">
+                            <rect key="frame" x="16" y="62.5" width="343" height="29"/>
+                            <segments>
+                                <segment title=""/>
+                                <segment title=""/>
+                                <segment title=""/>
+                            </segments>
+                        </segmentedControl>
+                    </subviews>
+                    <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="7dM-cg-bVj" firstAttribute="leading" secondItem="wqj-Hm-1MM" secondAttribute="leading" constant="16" id="5Ti-wU-MF3"/>
+                        <constraint firstItem="5MC-1Q-NVL" firstAttribute="centerX" secondItem="wqj-Hm-1MM" secondAttribute="centerX" id="8Ps-dY-wcm"/>
+                        <constraint firstAttribute="trailing" secondItem="7dM-cg-bVj" secondAttribute="trailing" constant="16" id="Lf2-nr-Qb3"/>
+                        <constraint firstItem="Ig0-29-pj6" firstAttribute="centerY" secondItem="5MC-1Q-NVL" secondAttribute="centerY" id="P9L-sm-jRu"/>
+                        <constraint firstItem="5MC-1Q-NVL" firstAttribute="top" secondItem="wqj-Hm-1MM" secondAttribute="top" constant="16" id="SnT-tS-t9d"/>
+                        <constraint firstAttribute="trailing" secondItem="Ig0-29-pj6" secondAttribute="trailing" constant="16" id="ab2-bb-0q7"/>
+                        <constraint firstItem="7dM-cg-bVj" firstAttribute="top" secondItem="5MC-1Q-NVL" secondAttribute="bottom" constant="25" id="fHU-3z-zXV"/>
+                        <constraint firstAttribute="height" constant="150" id="qS7-BT-unv"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="cfz-5K-gnz" firstAttribute="top" secondItem="ofQ-pS-RWy" secondAttribute="bottom" id="1vq-v7-b5l"/>
                 <constraint firstItem="ofQ-pS-RWy" firstAttribute="bottom" secondItem="3DN-ay-tZm" secondAttribute="bottom" id="FG7-1G-acY"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="wqj-Hm-1MM" secondAttribute="bottom" id="Gwn-pg-WvX"/>
                 <constraint firstItem="3DN-ay-tZm" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="LV3-0S-wgf"/>
+                <constraint firstItem="wqj-Hm-1MM" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="NaV-yM-wEt"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="wqj-Hm-1MM" secondAttribute="trailing" id="V7p-rE-1DU"/>
                 <constraint firstItem="ofQ-pS-RWy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Wfx-b5-XgA"/>
                 <constraint firstItem="3DN-ay-tZm" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Yfj-KJ-vkK"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="cfz-5K-gnz" secondAttribute="bottom" constant="70" id="cAD-vX-fhD"/>
