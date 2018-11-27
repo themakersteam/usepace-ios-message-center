@@ -490,6 +490,7 @@
 		EFD277103FE6A2B3D4F47EBEAF777ADA /* World+DSL.h in Headers */ = {isa = PBXBuildFile; fileRef = 412FA7EF376D821147D87B9F3D82515E /* World+DSL.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		F22D6B581B15339FC8BCCA183206FFA8 /* NYTPhotoTransitionAnimator.h in Headers */ = {isa = PBXBuildFile; fileRef = A99EF79E1763A57AD21A6E9DF3F4BBD1 /* NYTPhotoTransitionAnimator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F252BF0021AC53CB00082559 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4D45AAE4C2C044D5DA58C250CD6FB01 /* Assets.xcassets */; };
+		F252BF1121ACEC0100082559 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F252BF1021ACEC0100082559 /* UserNotifications.framework */; };
 		F277E93394944CC88187128B7CC30239 /* World.h in Headers */ = {isa = PBXBuildFile; fileRef = C35E80FCCB7479FEEFA6F26BA13C5EC3 /* World.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		F28003B228B82B7E1497D4F41F55A31E /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5651EBB1572A5DA80037FE341F742D5 /* Match.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		F29DD1C9C911BADAD5B3183906A716D6 /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83186B8F49D010AACC4B10F2A1C98589 /* World.swift */; };
@@ -1261,6 +1262,7 @@
 		F0B1AB0B47CAEC1B6A0A5415B63FED6A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F0F52AF5676949F790AF61BDC9C2147A /* HTMLTreeWalker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HTMLTreeWalker.m; path = Sources/HTMLTreeWalker.m; sourceTree = "<group>"; };
 		F24E3B3FE6E7DF869F8E8E53A2331A93 /* HTMLNode+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "HTMLNode+Private.h"; path = "Sources/include/HTMLNode+Private.h"; sourceTree = "<group>"; };
+		F252BF1021ACEC0100082559 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/System/Library/Frameworks/UserNotifications.framework; sourceTree = DEVELOPER_DIR; };
 		F31E369E6F98D68E0126B0F743AEE4FA /* Pods_MessageCenter_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MessageCenter_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3D24CE1A6D11FE78212E522BE746ADE /* NYTPhotoViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = NYTPhotoViewController.m; path = Pod/Classes/ios/NYTPhotoViewController.m; sourceTree = "<group>"; };
 		F48D9ED4D0C5EDCC3BC07AE3234F21A5 /* HTMLStackOfOpenElements.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HTMLStackOfOpenElements.h; path = Sources/include/HTMLStackOfOpenElements.h; sourceTree = "<group>"; };
@@ -1394,6 +1396,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F252BF1121ACEC0100082559 /* UserNotifications.framework in Frameworks */,
 				B90BBE11E3DA7ECB0B736C84FD76BCCB /* Alamofire.framework in Frameworks */,
 				B52A615A615B8776B84A504720048443 /* AlamofireImage.framework in Frameworks */,
 				9E688C26D55D36B2C6D278B13265AF84 /* CryptoSwift.framework in Frameworks */,
@@ -1474,6 +1477,7 @@
 		070A58187B6260D576FADFE938C90062 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F252BF1021ACEC0100082559 /* UserNotifications.framework */,
 				C0FC0581D977F8FE2E826682E7D55DDB /* Alamofire.framework */,
 				079450EAD3C3EFF1BCBD271CF497320E /* AlamofireImage.framework */,
 				FBAA038A683D549A6B5F7BF560BB707D /* CryptoSwift.framework */,

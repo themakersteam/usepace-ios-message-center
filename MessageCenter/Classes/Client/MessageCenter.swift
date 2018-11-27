@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UserNotifications
 import SendBirdSDK
 
 public enum ClientType: String {
@@ -20,7 +21,7 @@ public class MessageCenter {
         return client
     }
     
-    private static var _parentVC: UIViewController? = nil;
+    private static var _parentVC: UIViewController? = nil
     public static var parentVC: UIViewController {
         set { _parentVC = newValue}
         get { return _parentVC! }
@@ -28,6 +29,8 @@ public class MessageCenter {
     
     private static var LAST_CLIENT: ClientType = ClientType.sendBird
     private static var notificationInboxMessages: NSArray = []
+    private static var mainApplication: UIApplication? = nil
+    private static var launchOptions : [UIApplicationLaunchOptionsKey: Any]? = [:]
     
     public static func connect(with connectionRequest: ConnectionRequest, success: @escaping ConnectionSucceeded, failure: @escaping MessageCenterFailureCompletion) {
         self.LAST_CLIENT = connectionRequest.client
@@ -59,10 +62,6 @@ public class MessageCenter {
         client.getClient(type: LAST_CLIENT).disconnect(completion: completion)
     }
     
-    public static func handleNotification(_ userInfo: Dictionary<String, String>, completion: @escaping HandleNotificationCompletion) {
-        client.getClient(type: LAST_CLIENT).handleNotification(userInfo, completion: completion)
-    }
-    
     public static func getUnReadMessagesCount(forChannel channel: String?, success: @escaping UnReadMessagesSuccessCompletion, failure: @escaping MessageCenterFailureCompletion) {
         client.getClient(type: LAST_CLIENT).getUnReadMessagesCount(forChannel: channel, success: success, failure: failure)
     }
@@ -78,6 +77,69 @@ public class MessageCenter {
     }
     
     public static func setParentVC(vc: UIViewController) {
-        parentVC = vc;
+        parentVC = vc
+    }
+    
+    public static func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        self.mainApplication = application
+        self.launchOptions = launchOptions
+        self.registerForRemoteNotification()
+        
+        return true
+    }
+    
+    static func registerForRemoteNotification() {
+        guard mainApplication != nil else {
+            NSLog("MainApplication is not properly configured.")
+            return
+        }
+        if #available(iOS 10.0, *) {
+            #if !(arch(i386) || arch(x86_64))
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+                if granted {
+                    UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { (settings: UNNotificationSettings) -> Void  in
+                        guard settings.authorizationStatus == UNAuthorizationStatus.authorized else {
+                            return
+                        }
+                        DispatchQueue.main.async {
+                            self.mainApplication?.registerForRemoteNotifications()
+                        }
+                    })
+                }
+            }
+            #endif
+        } else {
+            #if !(arch(i386) || arch(x86_64))
+            let notificationSettings = UIUserNotificationSettings(types: [UIUserNotificationType.alert, UIUserNotificationType.badge, UIUserNotificationType.sound], categories: nil)
+            self.mainApplication?.registerUserNotificationSettings(notificationSettings)
+            self.mainApplication?.registerForRemoteNotifications()
+            #endif
+        }
+    }
+    
+    public static func didRegisterForRemoteNotificationsWithDeviceToken(_ deviceToken: Data) {
+        client.getClient(type: LAST_CLIENT).registerDevicePushToken(deviceToken) { (status, error) in
+            if error == nil {
+                if status == Int(SBDPushTokenRegistrationStatus.pending.rawValue) {
+                    
+                }
+                else {
+                    
+                }
+            }
+            else {
+                
+            }
+        }
+    }
+    
+    public static func didFailToRegisterForRemoteNotificationsWithError(_ error: Error) {
+        
+    }
+    
+    public static func didReceiveRemoteNotification(_ userInfo: [AnyHashable : Any]) {
+        client.getClient(type: LAST_CLIENT).handleNotification(userInfo: userInfo) { (status, message) in
+            
+        }
     }
 }
