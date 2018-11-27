@@ -17,6 +17,12 @@ let ErrorDomainConnection = "com.sendbird.sample.connection"
 let ErrorDomainUser = "com.sendbird.sample.user"
 
 public class SendBirdClient: ClientProtocol {
+    public func registerDevicePushToken(_ deviceToken: Data, completion: @escaping RegisterDevicePushTokenCompletion) {
+        SBDMain.registerDevicePushToken(deviceToken, unique: true) { (status, error) in
+            completion(Int(status.rawValue), error)
+        }
+    }
+    
     private static var sendbirdClient: SendBirdClient = {
         let client = SendBirdClient()
         return client
@@ -104,9 +110,18 @@ public class SendBirdClient: ClientProtocol {
         }
     }
     
-    public func handleNotification(_ userInfo: Dictionary<String, String>, completion: @escaping HandleNotificationCompletion) {
+    public func handleNotification(userInfo: [AnyHashable : Any], completion: @escaping HandleNotificationCompletion) {
         //messages.adding(remoteMessage)
         // push notification handler here
+        
+        if userInfo["sendbird"] != nil {
+            let sendBirdPayload = userInfo["sendbird"] as! Dictionary<String, Any>
+            let channel = (sendBirdPayload["channel"]  as! Dictionary<String, Any>)["channel_url"] as! String
+            let channelType = sendBirdPayload["channel_type"] as! String
+            if channelType == "group_messaging" {
+                //                self.receivedPushChannelUrl = channel
+            }
+        }
     }
     
     public var isConnected: Bool {
