@@ -3,11 +3,6 @@ PODS:
   - AlamofireImage (3.4.1):
     - Alamofire (~> 4.7)
   - CryptoSwift (0.13.0)
-  - FBSnapshotTestCase (2.1.4):
-    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
-  - FBSnapshotTestCase/Core (2.1.4)
-  - FBSnapshotTestCase/SwiftSupport (2.1.4):
-    - FBSnapshotTestCase/Core
   - FLAnimatedImage (1.0.12)
   - HTMLKit (2.1.5)
   - MessageCenter (0.1.0):
@@ -20,12 +15,6 @@ PODS:
     - SendBirdSDK
     - TTTAttributedLabel
   - MGSwipeTableCell (1.6.7)
-  - Nimble (7.0.3)
-  - Nimble-Snapshots (6.3.0):
-    - Nimble-Snapshots/Core (= 6.3.0)
-  - Nimble-Snapshots/Core (6.3.0):
-    - FBSnapshotTestCase (~> 2.0)
-    - Nimble (~> 7.0)
   - NYTPhotoViewer (1.1.0):
     - NYTPhotoViewer/AnimatedGifSupport (= 1.1.0)
     - NYTPhotoViewer/Core (= 1.1.0)
@@ -33,30 +22,21 @@ PODS:
     - FLAnimatedImage (~> 1.0.8)
     - NYTPhotoViewer/Core
   - NYTPhotoViewer/Core (1.1.0)
-  - Quick (1.2.0)
   - SendBirdSDK (3.0.119)
   - TTTAttributedLabel (2.0.0)
 
 DEPENDENCIES:
-  - FBSnapshotTestCase (~> 2.1.4)
   - MessageCenter (from `../`)
-  - Nimble (~> 7.0.2)
-  - Nimble-Snapshots (~> 6.3.0)
-  - Quick (~> 1.2.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireImage
     - CryptoSwift
-    - FBSnapshotTestCase
     - FLAnimatedImage
     - HTMLKit
     - MGSwipeTableCell
-    - Nimble
-    - Nimble-Snapshots
     - NYTPhotoViewer
-    - Quick
     - SendBirdSDK
     - TTTAttributedLabel
 
@@ -68,18 +48,14 @@ SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   AlamofireImage: 78d67ccbb763d87ba44b21583d2153500a195630
   CryptoSwift: 16e78bebf567bad1c87b2d58f6547f25b74c31aa
-  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   HTMLKit: 91dbd983c94f264c6ddea27d317f5a66368dd20b
   MessageCenter: 8c6717ec890e78c9cbb62d31e6691e279e39079e
   MGSwipeTableCell: fb20e983988bde2b8d0df29c2d9e1d8ffd10b74a
-  Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
-  Nimble-Snapshots: f5459b5b091678dc942d03ec4741cacb58ba4a52
   NYTPhotoViewer: e80e8767f3780d2df37c6f72cbab15d6c7232911
-  Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
   SendBirdSDK: 2285728ccc2133f07341e1e4c4f277ffb8c74080
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: a4971893d6bb491f2d10611aefe652ced3ff0346
+PODFILE CHECKSUM: fc8e71368cdccc927b449bb6ab25b087c98781a7
 
 COCOAPODS: 1.5.3
