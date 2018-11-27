@@ -48,8 +48,8 @@
   },
   "resource_bundles": {
     "MessageCenter": [
-      "MessageCenter/Classes/**/*.{storyboard,xib}",
-      "MessageCenter/Assets/**/*.{xcassets,png}"
+      "MessageCenter/Classes/**/*.{storyboard,xib}"
     ]
-  }
+  },
+  "resources": "MessageCenter/Assets/*.xcassets"
 }
