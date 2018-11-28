@@ -1,0 +1,14 @@
+/* 
+  Localization.strings
+  Pods
+
+  Created by Muhamed ALGHZAWI on 28/11/2018.
+  
+*/
+"send_location.title" = "إرسال الموقع";
+"send_location.map_settings.title" = "إعدادات الخريطة";
+"send_location.map_settings.map_types.satellite" = "قمر صناعي";
+"send_location.map_settings.map_types.hybrid" = "مختلطة";
+"send_location.map_settings.map_types.map" = "الخريطة";
+"send_location.send_button.case_my_location.title" = "إرسل موقعي الحالي";
+"send_location.send_button.case_pin_location.title" = "إرسل هذا الموقع";
