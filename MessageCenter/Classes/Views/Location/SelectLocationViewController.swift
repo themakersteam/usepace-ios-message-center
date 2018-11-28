@@ -107,7 +107,6 @@ extension SelectLocationViewController {
         
         mapSettingsView.transform = CGAffineTransform(translationX: 0, y: self.view.frame.height)
         
-        
         centerPin.image = UIImage(named: "btn_selected", in: Bundle(for: MessageCenter.self), compatibleWith: nil)
         
         applyCornerRadius(to: self.mapSettingsView, corners: [.topRight, .topLeft])
