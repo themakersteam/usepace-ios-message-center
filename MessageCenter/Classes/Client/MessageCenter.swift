@@ -30,12 +30,28 @@ public class MessageCenter {
     private static var LAST_CLIENT: ClientType = ClientType.sendBird
     private static var notificationInboxMessages: NSArray = []
     private static var mainApplication: UIApplication? = nil
-    private static var launchOptions : [UIApplicationLaunchOptionsKey: Any]? = [:]
-    
+    private static var launchOptions: [UIApplicationLaunchOptionsKey: Any]? = [:]
+    private static var deviceToken: Data? = nil
     public static func connect(with connectionRequest: ConnectionRequest, success: @escaping ConnectionSucceeded, failure: @escaping MessageCenterFailureCompletion) {
         self.LAST_CLIENT = connectionRequest.client
         client.getClient(type: LAST_CLIENT).connect(with: connectionRequest, success: success, failure: failure)
         
+        client.getClient(type: LAST_CLIENT).connect(with: connectionRequest, success: { (status) in
+            client.getClient(type: LAST_CLIENT).registerDevicePushToken(self.deviceToken!) { (status, error) in
+                if error == nil {
+                    if status == Int(SBDPushTokenRegistrationStatus.pending.rawValue) {
+                        NSLog("Succeeded to register for remote notification but pending status")
+                    }
+                    else {
+                        NSLog("Succeeded to register for remote notification")
+                    }
+                }
+                else {
+                    
+                }
+            }
+            success(status)
+        }, failure: failure)
     }
     
     public static func openChatView(forChannel channelId: String, withTheme theme: ChatViewTheme?, completion: @escaping (Bool) -> Void ) {
@@ -118,23 +134,11 @@ public class MessageCenter {
     }
     
     public static func didRegisterForRemoteNotificationsWithDeviceToken(_ deviceToken: Data) {
-        client.getClient(type: LAST_CLIENT).registerDevicePushToken(deviceToken) { (status, error) in
-            if error == nil {
-                if status == Int(SBDPushTokenRegistrationStatus.pending.rawValue) {
-                    
-                }
-                else {
-                    
-                }
-            }
-            else {
-                
-            }
-        }
+        self.deviceToken = deviceToken
     }
     
     public static func didFailToRegisterForRemoteNotificationsWithError(_ error: Error) {
-        
+        NSLog("Failed to register for remote notification")
     }
     
     public static func didReceiveRemoteNotification(_ userInfo: [AnyHashable : Any]) {
