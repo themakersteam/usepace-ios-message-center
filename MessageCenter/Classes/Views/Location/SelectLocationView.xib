@@ -20,6 +20,7 @@
                 <outlet property="navItem" destination="J8h-hC-32x" id="NSB-kZ-h6Y"/>
                 <outlet property="segmentedControl" destination="7dM-cg-bVj" id="BKM-me-QqM"/>
                 <outlet property="sendLocationBtn" destination="BMt-q3-Jwz" id="HlN-Ff-ifL"/>
+                <outlet property="sendLocationIcon" destination="5Qw-JT-yla" id="8QZ-oA-iMG"/>
                 <outlet property="view" destination="iN0-l3-epB" id="vDi-SB-rdT"/>
             </connections>
         </placeholder>
@@ -73,14 +74,14 @@
                                         <constraint firstAttribute="height" constant="1" id="ncD-Eh-yUp"/>
                                     </constraints>
                                 </view>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZDM-MD-6MU">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZDM-MD-6MU">
                                     <rect key="frame" x="0.0" y="51" width="50" height="50"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="50" id="MNu-RB-dmi"/>
                                         <constraint firstAttribute="width" constant="50" id="TKA-gY-67s"/>
                                     </constraints>
-                                    <state key="normal" title="my"/>
+                                    <state key="normal" image="icLocation"/>
                                     <connections>
                                         <action selector="invokeMyLocation:" destination="-1" eventType="touchUpInside" id="lbA-Yv-FdN"/>
                                     </connections>
@@ -92,16 +93,16 @@
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="GkM-BQ-8jY" secondAttribute="trailing" id="1wX-nE-3d7"/>
                         <constraint firstAttribute="trailing" secondItem="Xg6-fk-F9U" secondAttribute="trailing" constant="16" id="7C6-xd-df8"/>
-                        <constraint firstAttribute="bottom" secondItem="GkM-BQ-8jY" secondAttribute="bottom" id="C50-xj-Yd8"/>
                         <constraint firstItem="GkM-BQ-8jY" firstAttribute="top" secondItem="cfz-5K-gnz" secondAttribute="top" id="Iq6-Yw-rTE"/>
                         <constraint firstItem="Xg6-fk-F9U" firstAttribute="top" secondItem="cfz-5K-gnz" secondAttribute="top" constant="16" id="aGG-CJ-8kH"/>
+                        <constraint firstAttribute="bottom" secondItem="GkM-BQ-8jY" secondAttribute="bottom" id="mP1-98-EJN"/>
                         <constraint firstItem="GkM-BQ-8jY" firstAttribute="leading" secondItem="cfz-5K-gnz" secondAttribute="leading" id="xfP-qX-Qd6"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6mr-K7-EZ3" userLabel="Send Location Container">
                     <rect key="frame" x="0.0" y="597" width="375" height="70"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sendlocation" translatesAutoresizingMaskIntoConstraints="NO" id="5Qw-JT-yla">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sendlocation" translatesAutoresizingMaskIntoConstraints="NO" id="5Qw-JT-yla">
                             <rect key="frame" x="24" y="17.5" width="35" height="35"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="35" id="Hlm-O6-hS7"/>
@@ -207,6 +208,7 @@
         </view>
     </objects>
     <resources>
+        <image name="icLocation" width="24" height="24"/>
         <image name="sendlocation" width="32" height="32"/>
     </resources>
 </document>
