@@ -242,10 +242,13 @@ public class SelectLocationViewController: UIViewController {
         guard sender.state == .ended else {
             return
         }
-        if isMyLocationSelected {
-            // You cannot place a pin while your location is selected.
-            return
+        if self.isMyLocationSelected{
+            self.isMyLocationSelected = false
         }
+        //        if isMyLocationSelected {
+        //            // You cannot place a pin while your location is selected.
+        //            return
+        //        }
         
         let pin = DropPin()
         let point = sender.location(in: self.mapView!)
