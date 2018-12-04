@@ -77,9 +77,6 @@ public class SendBirdClient: ClientProtocol {
             
             print("Joined chat room")
             completion(channel)
-            channel?.sendUserMessage("testMessage", completionHandler: { (message, error) in
-                print("Message sent")
-            })
         }
     }
     
@@ -116,11 +113,12 @@ public class SendBirdClient: ClientProtocol {
         
         if userInfo["sendbird"] != nil {
             let sendBirdPayload = userInfo["sendbird"] as! Dictionary<String, Any>
-            let channel = (sendBirdPayload["channel"]  as! Dictionary<String, Any>)["channel_url"] as! String
+//            let channel = (sendBirdPayload["channel"]  as! Dictionary<String, Any>)["channel_url"] as! String
             let channelType = sendBirdPayload["channel_type"] as! String
             if channelType == "group_messaging" {
-                //                self.receivedPushChannelUrl = channel
+                completion(true, userInfo)
             }
+            completion(false, userInfo)
         }
     }
     

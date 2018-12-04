@@ -34,9 +34,15 @@ public class MessageCenter {
     private static var deviceToken: Data? = nil
     public static func connect(with connectionRequest: ConnectionRequest, success: @escaping ConnectionSucceeded, failure: @escaping MessageCenterFailureCompletion) {
         self.LAST_CLIENT = connectionRequest.client
-        client.getClient(type: LAST_CLIENT).connect(with: connectionRequest, success: success, failure: failure)
+//        client.getClient(type: LAST_CLIENT).connect(with: connectionRequest, success: success, failure: failure)
         
         client.getClient(type: LAST_CLIENT).connect(with: connectionRequest, success: { (status) in
+            if self.deviceToken == nil {
+                NSLog("Failed to register for remote notification")
+                success(status)
+                return
+            }
+            
             client.getClient(type: LAST_CLIENT).registerDevicePushToken(self.deviceToken!) { (status, error) in
                 if error == nil {
                     if status == Int(SBDPushTokenRegistrationStatus.pending.rawValue) {
@@ -65,8 +71,6 @@ public class MessageCenter {
             let podBundle = Bundle(for: MessageCenter.self)
             let groupChannelVC = GroupChannelChattingViewController(nibName: "GroupChannelChattingViewController", bundle: podBundle)
             groupChannelVC.groupChannel = groupChannel
-            //        let fileURL = podBundle.url(forResource:"ChattingView", withExtension: "xib")
-            
             parentVC.present(groupChannelVC, animated: true) {
                 NSLog("logged")
             }
@@ -143,7 +147,23 @@ public class MessageCenter {
     
     public static func didReceiveRemoteNotification(_ userInfo: [AnyHashable : Any]) {
         client.getClient(type: LAST_CLIENT).handleNotification(userInfo: userInfo) { (status, message) in
-            
+            if (status) {
+                let sendBirdPayload = message["sendbird"] as! Dictionary<String, Any>
+                let channelId = (sendBirdPayload["channel"]  as! Dictionary<String, Any>)["channel_url"] as! String
+                client.getClient(type: LAST_CLIENT).openChatView(forChannel: channelId, withTheme: nil, completion:  {(channel) in
+                    
+                    guard let groupChannel = channel as? SBDGroupChannel else {
+                        return
+                    }
+                    
+                    let podBundle = Bundle(for: MessageCenter.self)
+                    let groupChannelVC = GroupChannelChattingViewController(nibName: "GroupChannelChattingViewController", bundle: podBundle)
+                    groupChannelVC.groupChannel = groupChannel
+                    parentVC.present(groupChannelVC, animated: true) {
+                        NSLog("logged")
+                    }
+                })
+            }
         }
     }
 }
