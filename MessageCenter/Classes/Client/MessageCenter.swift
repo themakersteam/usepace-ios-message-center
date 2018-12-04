@@ -137,15 +137,15 @@ public class MessageCenter {
         }
     }
     
-    public static func didRegisterForRemoteNotificationsWithDeviceToken(_ deviceToken: Data) {
+    public static func registerForRemoteNotificationsWithDeviceToken(_ deviceToken: Data) {
         self.deviceToken = deviceToken
     }
     
-    public static func didFailToRegisterForRemoteNotificationsWithError(_ error: Error) {
+    public static func failedToRegisterForRemoteNotificationsWithError(_ error: Error) {
         NSLog("Failed to register for remote notification")
     }
     
-    public static func didReceiveRemoteNotification(_ userInfo: [AnyHashable : Any]) {
+    public static func handleNotification(_ userInfo: [AnyHashable : Any]) {
         client.getClient(type: LAST_CLIENT).handleNotification(userInfo: userInfo) { (status, message) in
             if (status) {
                 let sendBirdPayload = message["sendbird"] as! Dictionary<String, Any>
