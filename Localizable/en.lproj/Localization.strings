@@ -1,0 +1,15 @@
+/* 
+  Localization.strings
+  Pods
+
+  Created by Muhamed ALGHZAWI on 28/11/2018.
+  
+*/
+"send_location.title" = "Send Location";
+"send_location.map_settings.title" = "Map Settings";
+"send_location.map_settings.map_types.satellite" = "Satellite";
+"send_location.map_settings.map_types.hybrid" = "Hybrid";
+"send_location.map_settings.map_types.map" = "Map";
+"send_location.send_button.case_my_location.title" = "Send your current location";
+"send_location.send_button.case_pin_location.title" = "Send this location";
+"send_location.location_disabled_notice.message" = "Hungerstation doesn’t have access to your location. To enable access, tap Settings > Location.";
