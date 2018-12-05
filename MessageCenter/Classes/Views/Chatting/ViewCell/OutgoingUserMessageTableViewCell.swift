@@ -43,6 +43,11 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
         return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
     }
     
+    override func awakeFromNib() {
+        self.messageContainerView.round(corners: [ .topLeft, .topRight, .bottomLeft ], radius: 10.0)
+        self.messageContainerView.layer.masksToBounds = true
+    }
+    
     static func cellReuseIdentifier() -> String {
         return String(describing: self)
     }

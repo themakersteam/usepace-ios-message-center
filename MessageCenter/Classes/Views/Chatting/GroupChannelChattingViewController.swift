@@ -16,9 +16,23 @@ import NYTPhotoViewer
 import HTMLKit
 import FLAnimatedImage
 
-class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegate, SBDChannelDelegate, ChattingViewDelegate, MessageDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegate, SBDChannelDelegate, ChattingViewDelegate, MessageDelegate, UINavigationControllerDelegate {
+    
+    // MARK: - Variables
+    
     var groupChannel: SBDGroupChannel!
     private var podBundle: Bundle!
+    private var messageQuery: SBDPreviousMessageListQuery!
+    private var delegateIdentifier: String!
+    private var hasNext: Bool = true
+    private var isLoading: Bool = false
+    private var keyboardShown: Bool = false
+    private var photosViewController: NYTPhotosViewController!
+    private var minMessageTimestamp: Int64 = Int64.max
+    private var dumpedMessages: [SBDBaseMessage] = []
+    private var cachedMessage: Bool = true
+    
+    // MARK: - IBOutlets
     
     @IBOutlet weak var chattingView: ChattingView!
     @IBOutlet weak var navItem: UINavigationItem!
@@ -26,51 +40,18 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     @IBOutlet weak var imageViewerLoadingView: UIView!
     @IBOutlet weak var imageViewerLoadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var imageViewerLoadingViewNavItem: UINavigationItem!
-    
-    private var messageQuery: SBDPreviousMessageListQuery!
-    private var delegateIdentifier: String!
-    private var hasNext: Bool = true
-    private var isLoading: Bool = false
-    private var keyboardShown: Bool = false
-    
-    private var photosViewController: NYTPhotosViewController!
     @IBOutlet weak var navigationBarHeight: NSLayoutConstraint!
-    
-    private var minMessageTimestamp: Int64 = Int64.max
-    private var dumpedMessages: [SBDBaseMessage] = []
-    private var cachedMessage: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.podBundle = Bundle(for: MessageCenter.self)
-        // Do any additional setup after loading the view.
-        let titleView: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width - 100, height: 64))
-        let titleFormat: String = "Group Channel (%ld)"
-        let mainTitle: String = String.init(format: titleFormat, self.groupChannel.memberCount)
-        titleView.attributedText = Utils.generateNavigationTitle(mainTitle: mainTitle, subTitle: "")
-        titleView.numberOfLines = 2
-        titleView.textAlignment = NSTextAlignment.center
         
-        let titleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickReconnect))
-        titleView.isUserInteractionEnabled = true
-        titleView.addGestureRecognizer(titleTapRecognizer)
+        createTitle(title: "Hello!", subTitle: "Let's chat")
         
-        self.navItem.titleView = titleView
+        setNavigationItems()
         
-        let negativeLeftSpacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
-        negativeLeftSpacer.width = -2
-        let negativeRightSpacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
-        negativeRightSpacer.width = -2
-        
-        let leftCloseItem = UIBarButtonItem(image: UIImage(named: "btn_close", in: podBundle, compatibleWith: nil), style: UIBarButtonItemStyle.done, target: self, action: #selector(close))
-        let rightOpenMoreMenuItem = UIBarButtonItem(image: UIImage(named: "btn_more", in: podBundle, compatibleWith: nil), style: UIBarButtonItemStyle.done, target: self, action: #selector(openMoreMenu))
-        
-        self.navItem.leftBarButtonItems = [negativeLeftSpacer, leftCloseItem]
-        self.navItem.rightBarButtonItems = [negativeRightSpacer, rightOpenMoreMenuItem]
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(notification:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(notification:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillTerminate(notification:)), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
+        addObservers()
         
         let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
         negativeLeftSpacerForImageViewerLoading.width = -2
@@ -81,15 +62,11 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
 
         self.delegateIdentifier = self.description
         SBDMain.add(self as SBDChannelDelegate, identifier: self.delegateIdentifier)
-//        ConnectionManager.add(connectionObserver: self as ConnectionManagerDelegate)
-        
-        self.chattingView.fileAttachButton.addTarget(self, action: #selector(sendFileMessage), for: UIControlEvents.touchUpInside)
-        self.chattingView.sendButton.addTarget(self, action: #selector(sendMessage), for: UIControlEvents.touchUpInside)
         
         self.hasNext = true
         self.isLoading = false
         
-        self.chattingView.fileAttachButton.addTarget(self, action: #selector(sendFileMessage), for: UIControlEvents.touchUpInside)
+        self.chattingView.fileAttachButton.addTarget(self, action: #selector(openAttachmentActionSheet), for: UIControlEvents.touchUpInside)
         self.chattingView.sendButton.addTarget(self, action: #selector(sendMessage), for: UIControlEvents.touchUpInside)
         
         self.dumpedMessages = Utils.loadMessagesInChannel(channelUrl: self.groupChannel.channelUrl)
@@ -115,57 +92,32 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             
             self.cachedMessage = true
         }
-        
-//        if SBDMain.getConnectState() == .closed {
-//            ConnectionManager.login { (user, error) in
-//                guard error == nil else {
-//                    return
-//                }
-//            }
-//        }
-//        else {
-            self.loadPreviousMessage(initial: true)
-//        }
-    }
-    
-    deinit {
-//        ConnectionManager.remove(connectionObserver: self as ConnectionManagerDelegate)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        self.loadPreviousMessage(initial: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        Utils.dumpMessages(messages: self.chattingView.messages, resendableMessages: self.chattingView.resendableMessages, resendableFileData: self.chattingView.resendableFileData, preSendMessages: self.chattingView.preSendMessages, channelUrl: self.groupChannel.channelUrl)
+        
+        Utils.dumpMessages(
+            messages: self.chattingView.messages,
+            resendableMessages: self.chattingView.resendableMessages,
+            resendableFileData: self.chattingView.resendableFileData,
+            preSendMessages: self.chattingView.preSendMessages,
+            channelUrl: self.groupChannel.channelUrl
+        )
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.chattingView.chattingTableView.reloadData()
+    }
+    
+    deinit {
+        
     }
 
-    @objc private func keyboardDidShow(notification: Notification) {
-        self.keyboardShown = true
-        let keyboardInfo = notification.userInfo
-        let keyboardFrameBegin = keyboardInfo?[UIKeyboardFrameEndUserInfoKey]
-        let keyboardFrameBeginRect = (keyboardFrameBegin as! NSValue).cgRectValue
-        DispatchQueue.main.async {
-            self.bottomMargin.constant = keyboardFrameBeginRect.size.height
-            self.view.layoutIfNeeded()
-            self.chattingView.stopMeasuringVelocity = true
-            self.chattingView.scrollToBottom(force: false)
-        }
-    }
-    
-    @objc private func keyboardDidHide(notification: Notification) {
-        self.keyboardShown = false
-        DispatchQueue.main.async {
-            self.bottomMargin.constant = 0
-            self.view.layoutIfNeeded()
-            self.chattingView.scrollToBottom(force: false)
-        }
-    }
-    
-    @objc private func applicationWillTerminate(notification: Notification) {
-        Utils.dumpMessages(messages: self.chattingView.messages, resendableMessages: self.chattingView.resendableMessages, resendableFileData: self.chattingView.resendableFileData, preSendMessages: self.chattingView.preSendMessages, channelUrl: self.groupChannel.channelUrl)
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
     }
     
     @objc private func close() {
@@ -629,6 +581,59 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         mediaUI.mediaTypes = mediaTypes
         mediaUI.delegate = self
         self.present(mediaUI, animated: true, completion: nil)
+    }
+    
+    @objc private func openAttachmentActionSheet() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(cameraAction())
+        alertController.addAction(photosAction())
+        alertController.addAction(locationAction())
+        alertController.addAction(cancelAction())
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    private func cameraAction() -> UIAlertAction {
+        let action = UIAlertAction(
+            title: "Camera",
+            style: .default,
+            handler: { action in
+                
+        })
+        action.setValue(UIImage(named: "camera-icon", in: self.podBundle, compatibleWith: nil), forKey: "image")
+        return action
+    }
+    
+    private func photosAction() -> UIAlertAction {
+        let action = UIAlertAction(
+            title: "Photos",
+            style: .default,
+            handler: { action in
+                let imagePicker = UIImagePickerController()
+                imagePicker.sourceType = .photoLibrary
+                imagePicker.mediaTypes = [String(kUTTypeImage), String(kUTTypeMovie)]
+                imagePicker.delegate = self
+                self.present(imagePicker, animated: true, completion: nil)
+        })
+        action.setValue(UIImage(named: "photos-icon", in: self.podBundle, compatibleWith: nil), forKey: "image")
+        return action
+    }
+    
+    private func locationAction() -> UIAlertAction {
+        let action = UIAlertAction(
+            title: "Location",
+            style: .default,
+            handler: { action in
+        })
+        action.setValue(UIImage(named: "location-icon", in: self.podBundle, compatibleWith: nil), forKey: "image")
+        return action
+    }
+    
+    private func cancelAction() -> UIAlertAction {
+        return UIAlertAction(
+            title: "Cancel",
+            style: .cancel,
+            handler: nil
+        )
     }
     
     @objc func clickReconnect() {
@@ -1228,11 +1233,37 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         }
     }
     
-    // MARK: UIImagePickerControllerDelegate
+    func showImageViewerLoading() {
+        DispatchQueue.main.async {
+            self.imageViewerLoadingView.isHidden = false
+            self.imageViewerLoadingIndicator.isHidden = false
+            self.imageViewerLoadingIndicator.startAnimating()
+        }
+    }
+    
+    func hideImageViewerLoading() {
+        DispatchQueue.main.async {
+            self.imageViewerLoadingView.isHidden = true
+            self.imageViewerLoadingIndicator.isHidden = true
+            self.imageViewerLoadingIndicator.stopAnimating()
+        }
+    }
+    
+    @objc func closeImageViewer() {
+        if self.photosViewController != nil {
+            self.photosViewController.dismiss(animated: true, completion: nil)
+        }
+    }
+}
+
+// MARK: - UIImagePickerController Methods
+
+extension GroupChannelChattingViewController: UIImagePickerControllerDelegate {
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let mediaType = info[UIImagePickerControllerMediaType] as! String
         
-        picker.dismiss(animated: true) { 
+        picker.dismiss(animated: true) {
             if CFStringCompare(mediaType as CFString, kUTTypeImage, []) == CFComparisonResult.compareEqualTo {
                 let imagePath: URL = info[UIImagePickerControllerReferenceURL] as! URL
                 
@@ -1246,7 +1277,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 options.isSynchronous = true
                 options.isNetworkAccessAllowed = false
                 options.deliveryMode = PHImageRequestOptionsDeliveryMode.highQualityFormat
-
+                
                 if ((mimeType! as String) == "image/gif") {
                     PHImageManager.default().requestImageData(for: asset!, options: options, resultHandler: { (imageData, dataUTI, orientation, info) in
                         let isError = info?[PHImageErrorKey]
@@ -1372,7 +1403,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 
                 let videoName: NSString = (videoUrl.lastPathComponent as NSString?)!
                 let ext = videoName.pathExtension
-
+                
                 let UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, ext as NSString, nil)?.takeRetainedValue();
                 let mimeType = (UTTypeCopyPreferredTagWithClass(UTI!, kUTTagClassMIMEType)?.takeRetainedValue())! as String
                 
@@ -1381,13 +1412,13 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 /* Thumbnail is a premium feature. */
                 /***********************************/
                 let thumbnailSize = SBDThumbnailSize.make(withMaxWidth: 320.0, maxHeight: 320.0)
-
+                
                 let preSendMessage = self.groupChannel.sendFileMessage(withBinaryData: (videoFileData! as Data), filename: (videoName as String), type: mimeType, size: UInt((videoFileData?.length)!), thumbnailSizes: [thumbnailSize!], data: "", customType: "", progressHandler: nil, completionHandler: { (fileMessage, error) in
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(150), execute: {
                         DispatchQueue.main.async {
                             let preSendMessage = self.chattingView.preSendMessages[(fileMessage?.requestId!)!] as! SBDFileMessage
                             self.chattingView.preSendMessages.removeValue(forKey: (fileMessage?.requestId!)!)
-                        
+                            
                             if error != nil {
                                 self.chattingView.resendableMessages[(fileMessage?.requestId)!] = preSendMessage
                                 self.chattingView.resendableFileData[preSendMessage.requestId!]?["data"] = videoFileData
@@ -1420,7 +1451,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                     "data": videoFileData as AnyObject,
                     "type": mimeType as AnyObject,
                 ]
-
+                
                 self.chattingView.preSendMessages[preSendMessage.requestId!] = preSendMessage
                 self.chattingView.messages.append(preSendMessage)
                 self.chattingView.chattingTableView.reloadData()
@@ -1434,26 +1465,84 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
+}
+
+// MARK: - Observer Methods
+
+fileprivate extension GroupChannelChattingViewController {
     
-    func showImageViewerLoading() {
+    @objc private func keyboardDidShow(notification: Notification) {
+        self.keyboardShown = true
+        
+        let keyboardInfo = notification.userInfo
+        let keyboardFrameBegin = keyboardInfo?[UIKeyboardFrameEndUserInfoKey]
+        let keyboardFrameBeginRect = (keyboardFrameBegin as! NSValue).cgRectValue
+        
         DispatchQueue.main.async {
-            self.imageViewerLoadingView.isHidden = false
-            self.imageViewerLoadingIndicator.isHidden = false
-            self.imageViewerLoadingIndicator.startAnimating()
+            self.bottomMargin.constant = keyboardFrameBeginRect.size.height
+            self.view.layoutIfNeeded()
+            self.chattingView.stopMeasuringVelocity = true
+            self.chattingView.scrollToBottom(force: false)
         }
     }
     
-    func hideImageViewerLoading() {
+    @objc private func keyboardDidHide(notification: Notification) {
+        self.keyboardShown = false
+        
         DispatchQueue.main.async {
-            self.imageViewerLoadingView.isHidden = true
-            self.imageViewerLoadingIndicator.isHidden = true
-            self.imageViewerLoadingIndicator.stopAnimating()
+            self.bottomMargin.constant = 0
+            self.view.layoutIfNeeded()
+            self.chattingView.scrollToBottom(force: false)
         }
     }
     
-    @objc func closeImageViewer() {
-        if self.photosViewController != nil {
-            self.photosViewController.dismiss(animated: true, completion: nil)
-        }
+    @objc private func applicationWillTerminate(notification: Notification) {
+        Utils.dumpMessages(
+            messages: self.chattingView.messages,
+            resendableMessages: self.chattingView.resendableMessages,
+            resendableFileData: self.chattingView.resendableFileData,
+            preSendMessages: self.chattingView.preSendMessages,
+            channelUrl: self.groupChannel.channelUrl
+        )
+    }
+    
+}
+
+
+// MARK: - Private Utility Methods
+
+fileprivate extension GroupChannelChattingViewController {
+    
+    func createTitle(title: String, subTitle: String) {
+        let titleView: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width - 100, height: 64))
+        titleView.attributedText = Utils.generateNavigationTitle(mainTitle: title, subTitle: "")
+        titleView.numberOfLines = 2
+        titleView.textAlignment = NSTextAlignment.center
+        let titleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickReconnect))
+        titleView.isUserInteractionEnabled = true
+        titleView.addGestureRecognizer(titleTapRecognizer)
+        self.navItem.titleView = titleView
+    }
+    
+    func setNavigationItems() {
+        
+        let negativeLeftSpacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
+        negativeLeftSpacer.width = -2
+        let negativeRightSpacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
+        negativeRightSpacer.width = -2
+        
+        let leftCloseItem = UIBarButtonItem(image: UIImage(named: "btn_close", in: podBundle, compatibleWith: nil), style: UIBarButtonItemStyle.done, target: self, action: #selector(close))
+        let rightOpenMoreMenuItem = UIBarButtonItem(image: UIImage(named: "btn_more", in: podBundle, compatibleWith: nil), style: UIBarButtonItemStyle.done, target: self, action: #selector(openMoreMenu))
+        
+        self.navItem.leftBarButtonItems = [negativeLeftSpacer, leftCloseItem]
+        self.navItem.rightBarButtonItems = [negativeRightSpacer, rightOpenMoreMenuItem]
+    }
+    
+    func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(notification:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(notification:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillTerminate(notification:)), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
     }
 }
+
+

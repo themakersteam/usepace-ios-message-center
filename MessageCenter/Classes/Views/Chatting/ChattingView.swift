@@ -79,6 +79,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         self.setup()
     }
     
+    
 //    required init(coder aDecoder: NSCoder) {
 //        super.init(coder: aDecoder)
 //        NSBundle.mainBundle().loadNibNamed("SomeView", owner: self, options: nil)
