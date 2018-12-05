@@ -59,13 +59,19 @@ After you started the chat by calling `openChatView()` you can close the view by
 
 
 ### 2.5 Notifications:
+App should register app delegate and push device token by calling the following function:
+
+`func application(application: application, didFinishLaunchingWithOptions: launchOptions)`
+
+`func registerForRemoteNotificationsWithDeviceToken(deviceToken: Data)`
+
 App should relay APNs notifications to the SDK to handle by calling the following function:
 
 `func handleNotification(_ userInfo: Dictionary<String, String>, completion: @escaping HandleNotificationCompletion)`
 
 The completion will be called once the SDK recognized a Chat-related notification:
 
-`public typealias HandleNotificationCompletion = (_ didMatch: Bool, _ message: Dictionary<String, String>?) -> Void`
+`public typealias HandleNotificationCompletion = (_ didMatch: Bool, _ message: [AnyHashable : Any]) -> Void`
 
 *A typed object for the message will be provided later instead of using a dictionary with keys!*
 

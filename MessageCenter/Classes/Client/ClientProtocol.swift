@@ -11,7 +11,7 @@ import Foundation
 public typealias MessageCenterFailureCompletion = (_ errorCode: Int, _ errorMessage: String) -> Void
 public typealias ConnectionSucceeded = (_ userId: String) -> Void
 public typealias UnReadMessagesSuccessCompletion = (_ unReadMessagesCount: Int) -> Void
-public typealias HandleNotificationCompletion = (_ didMatch: Bool, _ message: Dictionary<String, String>?) -> Void
+public typealias HandleNotificationCompletion = (_ didMatch: Bool, _ message: [AnyHashable : Any]) -> Void
 public typealias RegisterDevicePushTokenCompletion = (_ status: Int, _ error: Error?) -> Void
 
 public struct ChatViewTheme {
