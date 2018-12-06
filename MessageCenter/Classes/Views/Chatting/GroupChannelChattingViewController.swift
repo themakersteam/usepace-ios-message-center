@@ -623,7 +623,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     func openPicker() {
         let mediaUI = UIImagePickerController()
         mediaUI.sourceType = UIImagePickerControllerSourceType.photoLibrary
-        let mediaTypes = [String(kUTTypeImage), String(kUTTypeMovie)]
+        let mediaTypes = [String(kUTTypeImage)]
         mediaUI.mediaTypes = mediaTypes
         mediaUI.delegate = self
         self.present(mediaUI, animated: true, completion: nil)
