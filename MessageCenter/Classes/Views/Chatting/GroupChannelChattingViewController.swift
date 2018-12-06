@@ -118,7 +118,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         
         if SBDMain.getConnectState() == .closed {
             
-            // need to connect again here
+            // TODO: need to connect again here
             return
         }
         else {
