@@ -214,6 +214,7 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
     
     func getHeightOfViewCell() -> CGFloat {
         let fullMessage = self.buildMessage()
+        
         var fullMessageSize: CGSize
         
         let messageLabelMaxWidth = UIScreen.main.bounds.size.width - (self.messageContainerRightMargin.constant + self.messageContainerRightPadding.constant + self.messageContainerLeftPadding.constant + self.messageContainerLeftMargin.constant + self.messageDateLabelLeftMargin.constant + self.messageDateLabelWidth.constant)

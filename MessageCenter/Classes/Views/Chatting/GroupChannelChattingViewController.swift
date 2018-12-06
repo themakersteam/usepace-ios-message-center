@@ -598,6 +598,18 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             style: .default,
             handler: { action in
                 
+                if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                    UIImagePickerController.checkPermissionStatus(sourceType: UIImagePickerControllerSourceType.photoLibrary, completionBlockSuccess: { (status) in
+                        let imagePicker = UIImagePickerController()
+                        
+                        imagePicker.sourceType = .camera
+                        imagePicker.mediaTypes = [String(kUTTypeImage), String(kUTTypeMovie)]
+                        imagePicker.delegate = self
+                        self.present(imagePicker, animated: true, completion: nil)
+                    }, andFailureBlock: { (status) in
+                        assert(false, "Permission not granted to use Photo Library")
+                    })
+                }
         })
         action.setValue(UIImage(named: "camera-icon", in: self.podBundle, compatibleWith: nil), forKey: "image")
         return action
@@ -608,11 +620,19 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             title: "Photos",
             style: .default,
             handler: { action in
-                let imagePicker = UIImagePickerController()
-                imagePicker.sourceType = .photoLibrary
-                imagePicker.mediaTypes = [String(kUTTypeImage), String(kUTTypeMovie)]
-                imagePicker.delegate = self
-                self.present(imagePicker, animated: true, completion: nil)
+                
+                
+                UIImagePickerController.checkPermissionStatus(sourceType: UIImagePickerControllerSourceType.photoLibrary, completionBlockSuccess: { (status) in
+                    let imagePicker = UIImagePickerController()                    
+                    imagePicker.sourceType = .photoLibrary
+                    imagePicker.mediaTypes = [String(kUTTypeImage), String(kUTTypeMovie)]
+                    imagePicker.delegate = self
+                    self.present(imagePicker, animated: true, completion: nil)
+                }, andFailureBlock: { (status) in
+                    assert(false, "Permission not granted to use Photo Library")
+                })
+                
+                
         })
         action.setValue(UIImage(named: "photos-icon", in: self.podBundle, compatibleWith: nil), forKey: "image")
         return action
@@ -1263,6 +1283,8 @@ extension GroupChannelChattingViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let mediaType = info[UIImagePickerControllerMediaType] as! String
         
+        
+        
         picker.dismiss(animated: true) {
             if CFStringCompare(mediaType as CFString, kUTTypeImage, []) == CFComparisonResult.compareEqualTo {
                 let imagePath: URL = info[UIImagePickerControllerReferenceURL] as! URL
@@ -1339,7 +1361,7 @@ extension GroupChannelChattingViewController: UIImagePickerControllerDelegate {
                         }
                     })
                 }
-                else {
+                else if asset != nil {
                     PHImageManager.default().requestImage(for: asset!, targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.default, options: nil, resultHandler: { (result, info) in
                         if (result != nil) {
                             // sucess, data is in imagedata

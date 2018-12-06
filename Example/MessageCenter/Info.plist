@@ -32,6 +32,12 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Photos access</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera access</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Photos access</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
