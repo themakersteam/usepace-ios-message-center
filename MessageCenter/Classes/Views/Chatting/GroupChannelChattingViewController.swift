@@ -637,16 +637,16 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             PHPhotoLibrary.requestAuthorization { status in
                 switch status {
                 case .authorized:
-                    self.openPicker()
+                    DispatchQueue.main.async {
+                        self.openPicker()
+                    }
                     break
                 case .denied, .restricted:
                     DispatchQueue.main.async {
                         let vc = UIAlertController(title: "Error", message: "Authorization to assets is denied.", preferredStyle: UIAlertControllerStyle.alert)
                         let closeAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil)
                         vc.addAction(closeAction)
-                        DispatchQueue.main.async {
-                            self.present(vc, animated: true, completion: nil)
-                        }
+                        self.present(vc, animated: true, completion: nil)
                     }
                     break
                 case .notDetermined: break
