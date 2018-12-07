@@ -21,6 +21,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     // MARK: - Variables
     
     var groupChannel: SBDGroupChannel!
+    var themeObject: ThemeObject?
     private var podBundle: Bundle!
     private var messageQuery: SBDPreviousMessageListQuery!
     private var delegateIdentifier: String!
@@ -65,7 +66,9 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         
         self.hasNext = true
         self.isLoading = false
-        
+        if self.themeObject != nil {
+            self.chattingView.themeObject = themeObject
+        }
         self.chattingView.fileAttachButton.addTarget(self, action: #selector(openAttachmentActionSheet), for: UIControlEvents.touchUpInside)
         self.chattingView.sendButton.addTarget(self, action: #selector(sendMessage), for: UIControlEvents.touchUpInside)
         
@@ -123,8 +126,12 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     @objc private func close() {
         SBDMain.removeChannelDelegate(forIdentifier: self.description)
         SBDMain.removeConnectionDelegate(forIdentifier: self.description)
-        self.dismiss(animated: false) { 
-            
+        if self.navigationController != nil {
+            self.navigationController?.popViewController(animated: true)
+        }
+        else {
+            self.dismiss(animated: false) {
+            }
         }
     }
     
@@ -1538,14 +1545,51 @@ fileprivate extension GroupChannelChattingViewController {
 fileprivate extension GroupChannelChattingViewController {
     
     func createTitle(title: String, subTitle: String) {
-        let titleView: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width - 100, height: 64))
-        titleView.attributedText = Utils.generateNavigationTitle(mainTitle: title, subTitle: "")
-        titleView.numberOfLines = 2
-        titleView.textAlignment = NSTextAlignment.center
+        
+        let navView = UIView()
+        navView.frame = CGRect(x: UIScreen.main.bounds.size.width/4.0, y: 0.0, width: 250.0, height: 44.0)
+        let titleView: UILabel = UILabel(frame: CGRect(x: 35.0, y: 0, width: 210.0, height: 30))
+//        titleView.attributedText = Utils.generateNavigationTitle(mainTitle: title, subTitle: "")
+        titleView.numberOfLines = 1
+        titleView.textAlignment = NSTextAlignment.left
+        
+        let imageV = UIImageView()
+        
+        // suppose it is one to one chat. Not a group chat. Just for now.
+        let arrMembers = self.groupChannel.members
+        if (arrMembers?.count)! > 0 {
+            for i in 0 ... (arrMembers?.count)! - 1 {
+                let member = arrMembers![i] as! SBDMember
+                if member.userId != SBDMain.getCurrentUser()?.userId {
+                    
+                    imageV.af_setImage(withURL: URL(string: (member.profileUrl!))!, placeholderImage: UIImage(named: "img_profile", in: podBundle, compatibleWith: nil))
+                    imageV.frame = CGRect(x: 0.0,
+                                         y: 0.0,
+                                         width: 30.0,
+                                         height: 30.0)
+                    imageV.contentMode = UIViewContentMode.scaleAspectFit
+                    
+                    titleView.text = member.userId
+                    
+                    break
+                }
+            }
+        }
+        
+        navView.addSubview(titleView)
+        navView.addSubview(imageV)
+        
+        /*
+         // Create the image view
+         
+ */
+        
+        
         let titleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickReconnect))
         titleView.isUserInteractionEnabled = true
         titleView.addGestureRecognizer(titleTapRecognizer)
-        self.navItem.titleView = titleView
+        self.navItem.titleView = navView
+//        navView.sizeToFit()
     }
     
     func setNavigationItems() {

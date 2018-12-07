@@ -17,6 +17,8 @@ let ErrorDomainConnection = "com.sendbird.sample.connection"
 let ErrorDomainUser = "com.sendbird.sample.user"
 
 public class SendBirdClient: ClientProtocol {
+    
+    
     public func registerDevicePushToken(_ deviceToken: Data, completion: @escaping RegisterDevicePushTokenCompletion) {
         SBDMain.registerDevicePushToken(deviceToken, unique: true) { (status, error) in
             completion(Int(status.rawValue), error)
@@ -64,8 +66,8 @@ public class SendBirdClient: ClientProtocol {
             }
         })
     }
-    
-    public func openChatView(forChannel channelId: String, withTheme theme: ChatViewTheme?, completion: @escaping (Any?) -> Void) {
+    //
+    public func openChatView(forChannel channelId: String, withTheme theme: ThemeObject?,  completion: @escaping (Any?) -> Void) {
         //TODO: Make use of ChatViewTheme
         print("joining to chat room...")
         SBDGroupChannel.getWithUrl(channelId) { (channel, error) in

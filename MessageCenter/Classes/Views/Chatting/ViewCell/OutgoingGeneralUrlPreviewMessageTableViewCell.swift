@@ -55,7 +55,7 @@ class OutgoingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
     private var prevMessage: SBDBaseMessage?
     var previewData: Dictionary<String, Any>!
     
-    public var containerBnbackgroundColour: UIColor?
+    public var containerBackgroundColour: UIColor = UIColor(red: 122.0/255.0, green: 188.0/255.0, blue: 65.0/255.0, alpha: 1.0)
     
     static func nib() -> UINib {
         return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
@@ -274,6 +274,10 @@ class OutgoingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
         fullMessage?.addAttributes(messageAttribute, range: NSMakeRange(0, (message?.count)!))
         
         return fullMessage!
+    }
+    
+    func updateBackgroundColour () {
+        self.messageContainerView.backgroundColor = self.containerBackgroundColour
     }
     
     func getHeightOfViewCell() -> CGFloat {

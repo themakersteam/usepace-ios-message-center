@@ -35,7 +35,7 @@ class OutgoingFileMessageTableViewCell: UITableViewCell {
     private var prevMessage: SBDBaseMessage!
     private var podBundle: Bundle!
     
-    public var containerBnbackgroundColour: UIColor?
+    public var containerBackgroundColour: UIColor = UIColor(red: 122.0/255.0, green: 188.0/255.0, blue: 65.0/255.0, alpha: 1.0)
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -44,6 +44,19 @@ class OutgoingFileMessageTableViewCell: UITableViewCell {
     
     static func nib() -> UINib {
         return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.messageContainerView.selectedCornerRadius()
+//        self.messageContainerView.round(corners: [ .topLeft, .topRight, .bottomLeft ], radius: 15.0)
+        self.messageContainerView.layer.masksToBounds = true
+        
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+//        contentView.frame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsetsMake(10, 0, 0, 0))
     }
     
     static func cellReuseIdentifier() -> String {
@@ -194,6 +207,10 @@ class OutgoingFileMessageTableViewCell: UITableViewCell {
         }
         
         self.layoutIfNeeded()
+    }
+    
+    func updateBackgroundColour () {
+        self.messageContainerView.backgroundColor = self.containerBackgroundColour
     }
     
     func setPreviousMessage(aPrevMessage: SBDBaseMessage?) {

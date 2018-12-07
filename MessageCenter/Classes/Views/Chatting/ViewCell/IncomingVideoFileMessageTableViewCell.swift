@@ -28,7 +28,7 @@ class IncomingVideoFileMessageTableViewCell: UITableViewCell {
     private var prevMessage: SBDBaseMessage!
     private var podBundle: Bundle!
     
-    public var containerBnbackgroundColour: UIColor?
+    public var containerBackgroundColour: UIColor = UIColor(red: 237.0/255.0, green: 237.0/255.0, blue: 237.0/255.0, alpha: 1.0)
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -172,6 +172,10 @@ class IncomingVideoFileMessageTableViewCell: UITableViewCell {
     func setPreviousMessage(aPrevMessage: SBDBaseMessage?) {
         self.prevMessage = aPrevMessage
     }
+    
+//    func updateBackgroundColour () {
+//        self.messageContainerView.backgroundColor = self.containerBackgroundColour
+//    }
     
     func getHeightOfViewCell() -> CGFloat {
         let height = self.dateSeperatorViewTopMargin.constant + self.dateSeperatorViewHeight.constant + self.dateSeperatorViewBottomMargin.constant + self.fileImageViewHeight.constant

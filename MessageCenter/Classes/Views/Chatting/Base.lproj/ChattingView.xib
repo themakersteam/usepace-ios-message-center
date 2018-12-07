@@ -96,7 +96,7 @@
                             </state>
                         </button>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="plN-dY-ohK" userLabel="Message Text View">
-                            <rect key="frame" x="48.5" y="1" width="266.5" height="47"/>
+                            <rect key="frame" x="48.5" y="6" width="266.5" height="37"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
@@ -120,10 +120,10 @@
                         <constraint firstItem="9lv-Yc-Cue" firstAttribute="centerY" secondItem="739-8j-LpV" secondAttribute="centerY" id="HvH-u2-uPB"/>
                         <constraint firstItem="aUi-Lc-77V" firstAttribute="leading" secondItem="KKN-hB-YYf" secondAttribute="trailing" constant="14" id="K8c-Ty-DAY"/>
                         <constraint firstAttribute="height" constant="48" id="LSI-m5-Njf"/>
-                        <constraint firstItem="plN-dY-ohK" firstAttribute="top" secondItem="Qpw-eT-cuW" secondAttribute="bottom" id="Pib-N7-c4y"/>
+                        <constraint firstItem="plN-dY-ohK" firstAttribute="top" secondItem="Qpw-eT-cuW" secondAttribute="bottom" constant="5" id="Pib-N7-c4y"/>
                         <constraint firstItem="9lv-Yc-Cue" firstAttribute="centerX" secondItem="739-8j-LpV" secondAttribute="centerX" id="QTx-za-nMh"/>
                         <constraint firstAttribute="bottom" secondItem="739-8j-LpV" secondAttribute="bottom" id="TAX-0p-Ywj"/>
-                        <constraint firstAttribute="bottom" secondItem="plN-dY-ohK" secondAttribute="bottom" id="WaW-vX-fb3"/>
+                        <constraint firstAttribute="bottom" secondItem="plN-dY-ohK" secondAttribute="bottom" constant="5" id="WaW-vX-fb3"/>
                         <constraint firstItem="aUi-Lc-77V" firstAttribute="centerY" secondItem="gmQ-VZ-eb9" secondAttribute="centerY" id="XYM-L5-LnY"/>
                         <constraint firstItem="aUi-Lc-77V" firstAttribute="leading" secondItem="plN-dY-ohK" secondAttribute="trailing" constant="14" id="aIm-Cq-TnI"/>
                         <constraint firstItem="Qpw-eT-cuW" firstAttribute="leading" secondItem="gmQ-VZ-eb9" secondAttribute="leading" id="at8-zB-CBy"/>

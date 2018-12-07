@@ -14,16 +14,12 @@ public typealias UnReadMessagesSuccessCompletion = (_ unReadMessagesCount: Int) 
 public typealias HandleNotificationCompletion = (_ didMatch: Bool, _ message: [AnyHashable : Any]) -> Void
 public typealias RegisterDevicePushTokenCompletion = (_ status: Int, _ error: Error?) -> Void
 
-public struct ChatViewTheme {
-    let title: String?
-    let primaryColor: UIColor?
-    let secondaryColor: UIColor?
-}
 
 public protocol ClientProtocol {
     var isConnected: Bool { get }
     func connect(with connectionRequest: ConnectionRequest, success:  @escaping ConnectionSucceeded, failure:  @escaping MessageCenterFailureCompletion)
-    func openChatView(forChannel channelId: String, withTheme theme: ChatViewTheme?, completion: @escaping (Any?) -> Void)
+    //
+    func openChatView(forChannel channelId: String, withTheme theme: ThemeObject?, completion: @escaping (Any?) -> Void)
     func closeChatView(completion: @escaping () -> Void)
     func disconnect(completion: @escaping () -> Void)
     func getUnReadMessagesCount(forChannel channel: String?, success: @escaping UnReadMessagesSuccessCompletion, failure: @escaping MessageCenterFailureCompletion)

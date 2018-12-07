@@ -25,6 +25,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var inputContainerViewHeight: NSLayoutConstraint!
     var messages: [SBDBaseMessage] = []
     var channel: SBDBaseChannel?
+    var themeObject: ThemeObject?
     private var podBundle: Bundle!
     
     var resendableMessages: [String:SBDBaseMessage] = [:]
@@ -104,6 +105,11 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         self.typingIndicatorImageHeight.constant = 0
         
 //        self.typingIndicatorContainerView.layoutIfNeeded()
+        
+        if self.themeObject != nil {
+            messageTextView.textContainerInset = UIEdgeInsetsMake(10, 1, 0, 0);
+            self.sendButton.imageView?.tintColor = self.themeObject?.primaryColor!
+        }
         
         self.messageTextView.delegate = self
         
@@ -234,6 +240,22 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     }
     
     // MARK: UITextViewDelegate
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        self.messageTextView.layer.cornerRadius = 0.0
+        self.messageTextView.layer.borderWidth = 0.0
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if self.themeObject != nil {
+            self.messageTextView.layer.borderColor = self.themeObject?.primaryColor!.cgColor
+            self.messageTextView.layer.cornerRadius = 15.0
+            self.messageTextView.layer.masksToBounds = true
+            self.messageTextView.layer.borderWidth = 1.0
+            self.sendButton.imageView?.tintColor = self.themeObject?.primaryColor!
+        }
+    }
+    
     func textViewDidChange(_ textView: UITextView) {
         if textView == self.messageTextView {
             if textView.text.count > 0 {
@@ -335,7 +357,9 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                         self.outgoingUserMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: nil)
                     }
                     self.outgoingUserMessageSizingTableViewCell?.setModel(aMessage: userMessage, channel: self.channel)
+                    self.outgoingUserMessageSizingTableViewCell?.layoutSubviews()
                     height = (self.outgoingUserMessageSizingTableViewCell?.getHeightOfViewCell())!
+                    print(height)
                 }
             }
             else {
@@ -660,6 +684,14 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                 // Outgoing
                 if userMessage.customType == "url_preview" {
                     cell = tableView.dequeueReusableCell(withIdentifier: OutgoingGeneralUrlPreviewMessageTableViewCell.cellReuseIdentifier())
+                    
+                    if themeObject != nil {
+                        if themeObject?.primaryColor != nil {
+                            (cell as! OutgoingGeneralUrlPreviewMessageTableViewCell).containerBackgroundColour = (themeObject?.primaryColor)!
+                        }
+                    }
+                    (cell as! OutgoingGeneralUrlPreviewMessageTableViewCell).updateBackgroundColour()
+                    
                     cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
                     if indexPath.row > 0 {
                         (cell as! OutgoingGeneralUrlPreviewMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
@@ -735,6 +767,15 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                 }
                 else {
                     cell = tableView.dequeueReusableCell(withIdentifier: OutgoingUserMessageTableViewCell.cellReuseIdentifier())
+                    
+                    if themeObject != nil {
+                        if themeObject?.primaryColor != nil {
+                            (cell as! OutgoingUserMessageTableViewCell).containerBackgroundColour = (themeObject?.primaryColor)!
+                        }
+                    }
+                    
+                    (cell as! OutgoingUserMessageTableViewCell).updateBackgroundColour()
+                    
                     cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
                     if indexPath.row > 0 {
                         (cell as! OutgoingUserMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
@@ -764,6 +805,15 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                 // Incoming
                 if userMessage.customType == "url_preview" {
                     cell = tableView.dequeueReusableCell(withIdentifier: IncomingGeneralUrlPreviewMessageTableViewCell.cellReuseIdentifier())
+                    
+                    if themeObject != nil {
+                        if themeObject?.secondaryColor != nil {
+                            (cell as! IncomingGeneralUrlPreviewMessageTableViewCell).containerBackgroundColour = (themeObject?.secondaryColor)!
+                        }
+                    }
+                    
+                    (cell as! IncomingGeneralUrlPreviewMessageTableViewCell).updateBackgroundColour()
+                    
                     cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
                     if indexPath.row > 0 {
                         (cell as! IncomingGeneralUrlPreviewMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
@@ -829,6 +879,15 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                 }
                 else {
                     cell = tableView.dequeueReusableCell(withIdentifier: IncomingUserMessageTableViewCell.cellReuseIdentifier())
+                    
+                    if themeObject != nil {
+                        if themeObject?.secondaryColor != nil {
+                            (cell as! IncomingUserMessageTableViewCell).containerBackgroundColour = (themeObject?.secondaryColor)!
+                        }
+                    }
+                    
+                    (cell as! IncomingUserMessageTableViewCell).updateBackgroundColour()
+                    
                     cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
                     if indexPath.row > 0 {
                         (cell as! IncomingUserMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
@@ -849,6 +908,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                 // Outgoing
                 if fileMessage.type.hasPrefix("video") {
                     cell = tableView.dequeueReusableCell(withIdentifier: OutgoingVideoFileMessageTableViewCell.cellReuseIdentifier())
+                    
                     cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
                     if indexPath.row > 0 {
                         (cell as! OutgoingVideoFileMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
@@ -901,6 +961,15 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                 }
                 else if fileMessage.type.hasPrefix("image") {
                     cell = tableView.dequeueReusableCell(withIdentifier: OutgoingImageFileMessageTableViewCell.cellReuseIdentifier())
+                    
+                    if themeObject != nil {
+                        if themeObject?.primaryColor != nil {
+                            (cell as! OutgoingImageFileMessageTableViewCell).containerBackgroundColour = (themeObject?.primaryColor)!
+                        }
+                    }
+                    
+                    (cell as! OutgoingImageFileMessageTableViewCell).updateBackgroundColour()
+                    
                     cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
                     if indexPath.row > 0 {
                         (cell as! OutgoingImageFileMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
@@ -1000,6 +1069,13 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                 }
                 else {
                     cell = tableView.dequeueReusableCell(withIdentifier: OutgoingFileMessageTableViewCell.cellReuseIdentifier())
+                    if themeObject != nil {
+                        if themeObject?.primaryColor != nil {
+                            (cell as! OutgoingFileMessageTableViewCell).containerBackgroundColour = (themeObject?.primaryColor)!
+                        }
+                    }
+                    
+                    (cell as! OutgoingFileMessageTableViewCell).updateBackgroundColour()
                     cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
                     if indexPath.row > 0 {
                         (cell as! OutgoingFileMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
@@ -1053,6 +1129,13 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                 }
                 else if fileMessage.type.hasPrefix("image") {
                     cell = tableView.dequeueReusableCell(withIdentifier: IncomingImageFileMessageTableViewCell.cellReuseIdentifier())
+                    if themeObject != nil {
+                        if themeObject?.secondaryColor != nil {
+                            (cell as! IncomingImageFileMessageTableViewCell).containerBackgroundColour = (themeObject?.secondaryColor)!
+                        }
+                    }
+                    cell?.backgroundColor = (cell as! IncomingImageFileMessageTableViewCell).containerBackgroundColour
+                    
                     cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
                     if indexPath.row > 0 {
                         (cell as! IncomingImageFileMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
@@ -1129,6 +1212,13 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                 }
                 else {
                     cell = tableView.dequeueReusableCell(withIdentifier: IncomingFileMessageTableViewCell.cellReuseIdentifier())
+                    if themeObject != nil {
+                        if themeObject?.secondaryColor != nil {
+                            (cell as! IncomingFileMessageTableViewCell).containerBackgroundColour = (themeObject?.secondaryColor)!
+                        }
+                    }
+                    
+                    (cell as! IncomingFileMessageTableViewCell).updateBackgroundColour()
                     cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
                     if indexPath.row > 0 {
                         (cell as! IncomingFileMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
