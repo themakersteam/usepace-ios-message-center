@@ -13,7 +13,7 @@ import FLAnimatedImage
 
 class OutgoingImageFileMessageTableViewCell: UITableViewCell {
     weak var delegate: MessageDelegate?
-    
+    @IBOutlet weak var messageContainerView: UIView!
     @IBOutlet weak var dateSeperatorView: UIView!
     @IBOutlet weak var dateSeperatorLabel: UILabel!
     @IBOutlet weak var fileImageView: FLAnimatedImageView!
@@ -35,9 +35,17 @@ class OutgoingImageFileMessageTableViewCell: UITableViewCell {
     private var prevMessage: SBDBaseMessage!
     
     public var hasImageCacheData: Bool?
-
+    public var containerBnbackgroundColour: UIColor?
+    
     static func nib() -> UINib {
         return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
+    }
+    
+    override func awakeFromNib() {
+        self.messageContainerView.round(corners: [ .topLeft, .topRight, .bottomLeft ], radius: 10.0)
+        self.messageContainerView.layer.masksToBounds = true
+        
+        
     }
     
     static func cellReuseIdentifier() -> String {
@@ -188,14 +196,18 @@ class OutgoingImageFileMessageTableViewCell: UITableViewCell {
         // Unread message count
         if self.message.channelType == CHANNEL_TYPE_GROUP {
             if let channelOfMessage = channel as? SBDGroupChannel? {
+                
+                
+                
                 let unreadMessageCount = channelOfMessage?.getReadReceipt(of: self.message)
                 if unreadMessageCount == 0 {
-                    self.hideUnreadCount()
-                    self.unreadCountLabel.text = ""
+                    //self.hideUnreadCount()
+                    self.unreadCountLabel.text = "Seen"
                 }
                 else {
-                    self.showUnreadCount()
-                    self.unreadCountLabel.text = String(format: "%d", unreadMessageCount!)
+                    //self.showUnreadCount()
+                    self.unreadCountLabel.text = "Sent"
+//                    self.unreadCountLabel.text = String(format: "%d", unreadMessageCount!)
                 }
             }
         }

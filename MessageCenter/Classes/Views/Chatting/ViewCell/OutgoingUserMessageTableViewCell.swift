@@ -39,6 +39,8 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
     private var message: SBDUserMessage!
     private var prevMessage: SBDBaseMessage!
 
+    public var containerBnbackgroundColour: UIColor?
+    
     static func nib() -> UINib {
         return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
     }
@@ -92,11 +94,12 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
             if let channelOfMessage = channel as? SBDGroupChannel? {
                 let unreadMessageCount = channelOfMessage?.getReadReceipt(of: self.message)
                 if unreadMessageCount == 0 {
-                    self.hideUnreadCount()
-                    self.unreadCountLabel.text = ""
+//                    self.hideUnreadCount()
+                    self.unreadCountLabel.text = "Seen"
                 }
                 else {
-                    self.showUnreadCount()
+//                    self.showUnreadCount()
+                    self.unreadCountLabel.text = "Sent"
                     self.unreadCountLabel.text = String(format: "%d", unreadMessageCount!)
                 }
             }

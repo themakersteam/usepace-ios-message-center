@@ -26,6 +26,8 @@ class OutgoingGeneralUrlPreviewTempMessageTableViewCell: UITableViewCell {
     var message: OutgoingGeneralUrlPreviewTempModel?
     var prevMessage: SBDBaseMessage?
     
+    public var containerBnbackgroundColour: UIColor?
+    
     static func nib() -> UINib {
         return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
     }

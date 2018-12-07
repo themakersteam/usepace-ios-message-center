@@ -42,7 +42,7 @@ class IncomingUserMessageTableViewCell: UITableViewCell, TTTAttributedLabelDeleg
     private var prevMessage: SBDBaseMessage?
     private var displayNickname: Bool = true
     private var podBundle: Bundle!
-    
+    public var containerBnbackgroundColour: UIColor?
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.podBundle = Bundle(for: MessageCenter.self)

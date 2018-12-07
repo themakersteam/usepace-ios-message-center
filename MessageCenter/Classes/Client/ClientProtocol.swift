@@ -15,9 +15,9 @@ public typealias HandleNotificationCompletion = (_ didMatch: Bool, _ message: [A
 public typealias RegisterDevicePushTokenCompletion = (_ status: Int, _ error: Error?) -> Void
 
 public struct ChatViewTheme {
-    var title: String;
-    var primaryColor: UIColor;
-    var secondaryColor: UIColor;
+    let title: String?
+    let primaryColor: UIColor?
+    let secondaryColor: UIColor?
 }
 
 public protocol ClientProtocol {

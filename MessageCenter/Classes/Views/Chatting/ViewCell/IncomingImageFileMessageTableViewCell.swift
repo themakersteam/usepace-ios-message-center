@@ -31,6 +31,7 @@ class IncomingImageFileMessageTableViewCell: UITableViewCell {
     private var cachedMessage: Bool = true
     
     private var podBundle: Bundle!
+    public var containerBnbackgroundColour: UIColor?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

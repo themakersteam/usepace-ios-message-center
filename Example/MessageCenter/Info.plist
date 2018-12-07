@@ -36,6 +36,8 @@
 	<string>Photos access</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Camera access</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Location access</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Photos access</string>
 	<key>UISupportedInterfaceOrientations</key>

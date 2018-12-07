@@ -28,6 +28,8 @@ class IncomingVideoFileMessageTableViewCell: UITableViewCell {
     private var prevMessage: SBDBaseMessage!
     private var podBundle: Bundle!
     
+    public var containerBnbackgroundColour: UIColor?
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.podBundle = Bundle(for: MessageCenter.self)

@@ -55,6 +55,8 @@ class OutgoingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
     private var prevMessage: SBDBaseMessage?
     var previewData: Dictionary<String, Any>!
     
+    public var containerBnbackgroundColour: UIColor?
+    
     static func nib() -> UINib {
         return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
     }

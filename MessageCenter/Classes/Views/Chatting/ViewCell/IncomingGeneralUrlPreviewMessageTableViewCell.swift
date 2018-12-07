@@ -51,6 +51,7 @@ class IncomingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
     var previewData: Dictionary<String, Any>!
     private var displayNickname: Bool!
     private var podBundle: Bundle!
+    public var containerBnbackgroundColour: UIColor?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
