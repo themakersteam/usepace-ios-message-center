@@ -34,8 +34,6 @@ public class MessageCenter {
     private static var deviceToken: Data? = nil
     public static func connect(with connectionRequest: ConnectionRequest, success: @escaping ConnectionSucceeded, failure: @escaping MessageCenterFailureCompletion) {
         self.LAST_CLIENT = connectionRequest.client
-//        client.getClient(type: LAST_CLIENT).connect(with: connectionRequest, success: success, failure: failure)
-        
         client.getClient(type: LAST_CLIENT).connect(with: connectionRequest, success: { (status) in
             if self.deviceToken == nil {
                 NSLog("Failed to register for remote notification")
