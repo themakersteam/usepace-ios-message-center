@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="chattingTableView" destination="wXW-j4-hDA" id="vaO-Yb-3Qc"/>
                 <outlet property="fileAttachButton" destination="739-8j-LpV" id="ZwI-s1-LY6"/>
+                <outlet property="inputContainerView" destination="gmQ-VZ-eb9" id="zTp-eq-gEU"/>
                 <outlet property="inputContainerViewHeight" destination="LSI-m5-Njf" id="KTM-Fc-lPW"/>
                 <outlet property="messageTextView" destination="plN-dY-ohK" id="aBc-tK-K64"/>
                 <outlet property="placeholderLabel" destination="KKN-hB-YYf" id="cTy-Pk-M7F"/>

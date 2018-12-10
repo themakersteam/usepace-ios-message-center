@@ -34,6 +34,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     var resendableMessages: [String:SBDBaseMessage] = [:]
     var preSendMessages: [String:SBDBaseMessage] = [:]
     
+    @IBOutlet weak var inputContainerView: UIView!
     var resendableFileData: [String:[String:AnyObject]] = [:]
     var preSendFileData: [String:[String:AnyObject]] = [:]
 
@@ -97,10 +98,19 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     func setup() {
         self.chattingTableView.contentInset = UIEdgeInsetsMake(0, 0, 10, 0)
         self.messageTextView.textContainerInset = UIEdgeInsetsMake(15.5, 0, 14, 0)
+        
+//
     }
     
     func configureChattingView(channel: SBDBaseChannel?) {
         self.channel = channel;
+        
+        // Check if channel is frozen to hide the Text Sending view
+        
+        if self.channel != nil {
+            self.inputContainerView.isHidden = (self.channel?.isFrozen)!
+        }
+        
         
         self.initialLoading = true
         self.lastMessageHeight = 0

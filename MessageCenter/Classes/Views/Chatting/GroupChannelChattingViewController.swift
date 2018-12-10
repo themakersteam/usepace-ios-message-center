@@ -512,6 +512,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     }
     
     @objc private func sendMessage() {
+        
         if self.chattingView.messageTextView.text.count > 0 {
             self.groupChannel.endTyping()
             let message = self.chattingView.messageTextView.text
