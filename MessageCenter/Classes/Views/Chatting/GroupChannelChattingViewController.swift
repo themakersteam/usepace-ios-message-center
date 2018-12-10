@@ -95,7 +95,26 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             
             self.cachedMessage = true
         }
+      
         self.loadPreviousMessage(initial: true)
+        
+        if SBDMain.getConnectState() == .closed {
+            
+            // TODO: need to connect again here
+            return
+        }
+        else {
+            self.loadPreviousMessage(initial: true)
+        }
+    }
+
+    deinit {
+//        ConnectionManager.remove(connectionObserver: self as ConnectionManagerDelegate)
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -581,10 +600,10 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         }
     }
     
-    @objc private func sendFileMessage() {
+    func openPicker() {
         let mediaUI = UIImagePickerController()
         mediaUI.sourceType = UIImagePickerControllerSourceType.photoLibrary
-        let mediaTypes = [String(kUTTypeImage), String(kUTTypeMovie)]
+        let mediaTypes = [String(kUTTypeImage)]
         mediaUI.mediaTypes = mediaTypes
         mediaUI.delegate = self
         self.present(mediaUI, animated: true, completion: nil)
@@ -663,6 +682,31 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             style: .cancel,
             handler: nil
         )
+
+    @objc private func sendFileMessage() {
+        let status = PHPhotoLibrary.authorizationStatus()
+        if status == .authorized {
+            openPicker()
+        } else {
+            PHPhotoLibrary.requestAuthorization { status in
+                switch status {
+                case .authorized:
+                    DispatchQueue.main.async {
+                        self.openPicker()
+                    }
+                    break
+                case .denied, .restricted:
+                    DispatchQueue.main.async {
+                        let vc = UIAlertController(title: "Error", message: "Authorization to assets is denied.", preferredStyle: UIAlertControllerStyle.alert)
+                        let closeAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil)
+                        vc.addAction(closeAction)
+                        self.present(vc, animated: true, completion: nil)
+                    }
+                    break
+                case .notDetermined: break
+                }
+            }
+        }
     }
     
     @objc func clickReconnect() {
@@ -1302,14 +1346,13 @@ extension GroupChannelChattingViewController: UIImagePickerControllerDelegate {
                 let ext = imageName.pathExtension
                 let UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, ext as CFString, nil)?.takeRetainedValue()
                 let mimeType = UTTypeCopyPreferredTagWithClass(UTI!, kUTTagClassMIMEType)?.takeRetainedValue();
-                
                 let asset = PHAsset.fetchAssets(withALAssetURLs: [imagePath], options: nil).lastObject
                 let options = PHImageRequestOptions()
                 options.isSynchronous = true
                 options.isNetworkAccessAllowed = false
                 options.deliveryMode = PHImageRequestOptionsDeliveryMode.highQualityFormat
-                
-                if ((mimeType! as String) == "image/gif") {
+
+              if ((mimeType! as String) == "image/gif") {
                     PHImageManager.default().requestImageData(for: asset!, options: options, resultHandler: { (imageData, dataUTI, orientation, info) in
                         let isError = info?[PHImageErrorKey]
                         let isCloud = info?[PHImageResultIsInCloudKey]
