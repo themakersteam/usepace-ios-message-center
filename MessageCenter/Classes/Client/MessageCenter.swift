@@ -15,12 +15,18 @@ public enum ClientType: String {
     case other = "other"
 }
 
+public struct ThemeObject {
+    let title: String?
+    let primaryColor: UIColor?
+    let secondaryColor: UIColor?
+}
+
 public class MessageCenter {
     private static var client: Client {
         let client = Client()
         return client
     }
-    
+    public static var themeObject : ThemeObject?
     private static var _parentVC: UIViewController? = nil
     public static var parentVC: UIViewController {
         set { _parentVC = newValue}
@@ -58,7 +64,30 @@ public class MessageCenter {
         }, failure: failure)
     }
     
-    public static func openChatView(forChannel channelId: String, withTheme theme: ChatViewTheme?, completion: @escaping (Bool) -> Void ) {
+    
+    public class func createTheme(title:  String?, primaryColor: UIColor?, secondaryColor: UIColor?) -> ThemeObject {
+        var _title = ""
+        var pColor = UIColor(red: 122.0/255.0, green: 188.0/255.0, blue: 65.0/255.0, alpha: 1.0)
+        var sColor = UIColor(red: 237.0/255.0, green: 237.0/255.0, blue: 237.0/255.0, alpha: 1.0)
+        
+        if title != nil {
+            _title = title!
+        }
+        if primaryColor != nil {
+            pColor = primaryColor!
+        }
+        if secondaryColor == nil {
+            sColor = secondaryColor!
+        }
+
+        self.themeObject = ThemeObject(title: _title, primaryColor: pColor, secondaryColor: sColor)
+        return themeObject!
+    }
+    
+    //
+    //
+    public static func openChatView(forChannel channelId: String, withTheme theme: ThemeObject?, completion: @escaping (Bool) -> Void ) {
+        
         client.getClient(type: LAST_CLIENT).openChatView(forChannel: channelId, withTheme: theme, completion:  {(channel) in
             
             guard let groupChannel = channel as? SBDGroupChannel else {
@@ -69,9 +98,18 @@ public class MessageCenter {
             let podBundle = Bundle(for: MessageCenter.self)
             let groupChannelVC = GroupChannelChattingViewController(nibName: "GroupChannelChattingViewController", bundle: podBundle)
             groupChannelVC.groupChannel = groupChannel
-            parentVC.present(groupChannelVC, animated: true) {
-                NSLog("logged")
+            
+            if theme != nil {
+                groupChannelVC.themeObject = theme
             }
+            
+            if parentVC.navigationController != nil {
+                parentVC.navigationController?.pushViewController(groupChannelVC, animated: true)
+            }
+            else {
+                parentVC.present(groupChannelVC, animated: true, completion: nil)
+            }
+            
         })
         
     }

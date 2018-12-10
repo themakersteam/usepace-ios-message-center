@@ -51,6 +51,7 @@ class IncomingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
     var previewData: Dictionary<String, Any>!
     private var displayNickname: Bool!
     private var podBundle: Bundle!
+    public var containerBackgroundColour: UIColor = UIColor(red: 237.0/255.0, green: 237.0/255.0, blue: 237.0/255.0, alpha: 1.0)
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -303,6 +304,10 @@ class IncomingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
         }
         
         return fullMessage!
+    }
+    
+    func updateBackgroundColour () {
+        self.messageContainerView.backgroundColor = self.containerBackgroundColour
     }
     
     func getHeightOfViewCell() -> Float {

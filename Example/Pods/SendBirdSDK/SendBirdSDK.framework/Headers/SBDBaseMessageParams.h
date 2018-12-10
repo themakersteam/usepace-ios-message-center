@@ -14,7 +14,7 @@
 /**
  *  The `SBDBaseMessageParams` class represents the base class which has parameters to create a channel or update a channel. The `SBDUserMessageParams`, the `SBDFileMessageParams` are derived from this class.
  */
-@interface SBDBaseMessageParams : NSObject
+@interface SBDBaseMessageParams : NSObject <NSCopying>
 
 /**
  *  Message data. The default value is nil.
@@ -33,7 +33,7 @@
 /**
  The push notification delivery option that determines how to deliver the push notification when sending a user or a file message. The default value is `SBDPushNotificationDeliveryOptionDefault`.
  */
-@property (atomic) SBDPushNotificationDeliveryOption pushNotificationDeliveryOption;
+@property (nonatomic) SBDPushNotificationDeliveryOption pushNotificationDeliveryOption;
 
 /**
  Meta array keys.
@@ -45,7 +45,7 @@
  *
  *  @since 3.0.103
  */
-@property (atomic) SBDMentionType mentionType;
+@property (nonatomic) SBDMentionType mentionType;
 
 /**
  *  Can mention to specific users.

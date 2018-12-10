@@ -16,4 +16,16 @@ extension UIView {
         mask.path = path.cgPath
         self.layer.mask = mask
     }
+    
+    public func selectedCornerRadius () {
+        
+        let path = UIBezierPath(roundedRect:self.bounds,
+                                byRoundingCorners:[.topRight, .topLeft, .bottomLeft],
+                                cornerRadii: CGSize(width: 8, height:  8))
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = path.cgPath
+        self.layer.mask = maskLayer
+    }
+    
+    
 }

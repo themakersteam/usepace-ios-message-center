@@ -9,6 +9,8 @@
 import UIKit
 import SendBirdSDK
 import CryptoSwift
+import AVFoundation
+import Photos
 
 class Utils: NSObject {
     static func imageFromColor(color: UIColor) -> UIImage {
@@ -384,3 +386,47 @@ class Utils: NSObject {
         }
     }
 }
+
+
+extension UIImagePickerController {
+    class func checkPermissionStatus(sourceType:UIImagePickerControllerSourceType, completionBlockSuccess successBlock: @escaping ((Bool) -> ()), andFailureBlock failBlock: @escaping ((Bool) -> ())) {
+        
+        if sourceType == .photoLibrary || sourceType == .savedPhotosAlbum {
+            PHPhotoLibrary.requestAuthorization { (status) in
+                if status == .authorized {
+                    successBlock(true)
+                }
+                else if status == .denied || status == .restricted {
+                    failBlock(false)
+                }
+            }
+        }
+        else if sourceType == .camera {
+            PHPhotoLibrary.requestAuthorization { (status) in
+                if status == .notDetermined {
+                    AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { (status) in
+                        if status == true {
+                            successBlock(true)
+                        }
+                        else {
+                            failBlock(false)
+                        }
+                    })
+                }
+                else if status == .denied || status == .restricted {
+                    failBlock(true)
+                }
+                else if status == .authorized {
+                    successBlock(false)
+                }
+            }
+        }
+        else {
+            assert(false, "Permission type not found.")
+        }
+    }
+}
+
+
+
+

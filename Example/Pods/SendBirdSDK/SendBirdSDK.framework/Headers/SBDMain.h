@@ -17,6 +17,8 @@
 #import "SBDUserListQuery.h"
 #import "SBDInternalTypes.h"
 #import "SBDFriendListQuery.h"
+#import "SBDApplicationUserListQuery.h"
+#import "SBDBlockedUserListQuery.h"
 
 typedef void(^SBDBackgroundSessionBlock)(void);
 
@@ -355,8 +357,9 @@ typedef void(^SBDBackgroundSessionBlock)(void);
  *  Creates `SBDUserListQuery` instance for getting a list of all users of this application.
  *
  *  @return `SBDUserListQuery` instance.
+ *  @deprecated in 3.0.120. Use `createApplicationUserListQuery`.
  */
-+ (nullable SBDUserListQuery *)createAllUserListQuery;
++ (nullable SBDUserListQuery *)createAllUserListQuery DEPRECATED_ATTRIBUTE;
 
 /**
  *  Creates `SBDUserListQuery` instance for gettting a list of users of this application with user IDs.
@@ -364,15 +367,24 @@ typedef void(^SBDBackgroundSessionBlock)(void);
  *  @param userIds The user IDs to get user objects.
  *
  *  @return `SBDUserListQuery` instance.
+ *  @deprecated in 3.0.120. Use `createApplicationUserListQuery` and `userIdsFilter` of `SBDApplicationUserListQuery`.
  */
-+ (nullable SBDUserListQuery *)createUserListQueryWithUserIds:(NSArray<NSString *> * _Nonnull)userIds;
++ (nullable SBDUserListQuery *)createUserListQueryWithUserIds:(NSArray<NSString *> * _Nonnull)userIds DEPRECATED_ATTRIBUTE;
 
 /**
- *  Creates `SBDUserListQuery` instance for getting a list of blocked users by the current user.
- *
- *  @return `SBDUserListQuery` instance.
+ Creates `SBDApplicationUserListQuery` instance for getting a list of all users of this application.
+
+ @return `SBDApplicationUserListQuery` instance
+ @since 3.0.120
  */
-+ (nullable SBDUserListQuery *)createBlockedUserListQuery;
++ (nullable SBDApplicationUserListQuery *)createApplicationUserListQuery;
+
+/**
+ *  Creates `SBDBlockedUserListQuery` instance for getting a list of blocked users by the current user.
+ *
+ *  @return `SBDBlockedUserListQuery` instance.
+ */
++ (nullable SBDBlockedUserListQuery *)createBlockedUserListQuery;
 
 #pragma mark - For Current User
 /**
@@ -720,6 +732,33 @@ typedef void(^SBDBackgroundSessionBlock)(void);
 + (NSInteger)getSubscribedTotalUnreadMessageCount;
 + (NSInteger)getSubscribedCustomTypeTotalUnreadMessageCount;
 + (NSInteger)getSubscribedCustomTypeUnreadMessageCountWithCustomType:(nonnull NSString *)customType;
+
+#pragma mark - channel change logs
+/**
+ *  Requests updated channels and deleted channel URLs with token in the all my group channels.
+ *
+ *  @param token  The token used to get next pagination of changelogs.
+ *  @param customTypes  The list of custom types to request. If not set, requests all of my group channels.
+ *  @param completionHandler  The handler type of `SBDChannelChangeLogsHandler` block to execute. The `updatedChannels` is the channels that were updated. The `deletedChannelUrls` is the list of the deleted channel URLs. If there are more changelogs that are not returned yet, the `hasMore` is YES. The `token` can be used to get more changedlogs.
+ *
+ *  @since 3.0.123
+ */
++ (void)getMyGroupChannelChangeLogsByToken:(nullable NSString *)token
+                               customTypes:(nullable NSArray <NSString *> *)customTypes
+                         completionHandler:(nonnull SBDChannelChangeLogsHandler)completionHandler;
+
+/**
+ *  Requests updated channels and deleted channel URLs by timestamp in the all my group channels.
+ *
+ *  @param timestamp  The number of milli-seconds(msec). Requests changelogs from that time. This value must not be negative.
+ *  @param customTypes  The list of custom types to request. If not set, requests all of my group channels.
+ *  @param completionHandler  The handler type of `SBDChannelChangeLogsHandler` block to execute. The `updatedChannels` is the channels that were updated. The `deletedChannelUrls` is the list of the deleted channel URLs. If there are more changelogs that are not returned yet, the `hasMore` is YES. The `token` can be used to get more changedlogs.
+ *
+ *  @since 3.0.123
+ */
++ (void)getMyGroupChannelChangeLogsByTimestamp:(long long)timestamp
+                                   customTypes:(nullable NSArray <NSString *> *)customTypes
+                             completionHandler:(nonnull SBDChannelChangeLogsHandler)completionHandler;
 
 @end
 

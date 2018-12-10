@@ -13,7 +13,7 @@ import FLAnimatedImage
 
 class OutgoingImageFileMessageTableViewCell: UITableViewCell {
     weak var delegate: MessageDelegate?
-    
+    @IBOutlet weak var messageContainerView: UIView!
     @IBOutlet weak var dateSeperatorView: UIView!
     @IBOutlet weak var dateSeperatorLabel: UILabel!
     @IBOutlet weak var fileImageView: FLAnimatedImageView!
@@ -35,9 +35,24 @@ class OutgoingImageFileMessageTableViewCell: UITableViewCell {
     private var prevMessage: SBDBaseMessage!
     
     public var hasImageCacheData: Bool?
-
+    public var containerBackgroundColour: UIColor = UIColor(red: 122.0/255.0, green: 188.0/255.0, blue: 65.0/255.0, alpha: 1.0)
+    
     static func nib() -> UINib {
         return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
+    }
+    
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+//        contentView.frame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsetsMake(10, 0, 0, 0))
+    }
+    
+    override func awakeFromNib() {
+//        self.messageContainerView.round(corners: [ .topLeft, .topRight, .bottomLeft ], radius: 15.0)
+        self.messageContainerView.selectedCornerRadius()
+        self.messageContainerView.layer.masksToBounds = true
+        
+        
     }
     
     static func cellReuseIdentifier() -> String {
@@ -188,14 +203,18 @@ class OutgoingImageFileMessageTableViewCell: UITableViewCell {
         // Unread message count
         if self.message.channelType == CHANNEL_TYPE_GROUP {
             if let channelOfMessage = channel as? SBDGroupChannel? {
+                
+                
+                
                 let unreadMessageCount = channelOfMessage?.getReadReceipt(of: self.message)
                 if unreadMessageCount == 0 {
-                    self.hideUnreadCount()
-                    self.unreadCountLabel.text = ""
+                    //self.hideUnreadCount()
+                    self.unreadCountLabel.text = "Seen"
                 }
                 else {
-                    self.showUnreadCount()
-                    self.unreadCountLabel.text = String(format: "%d", unreadMessageCount!)
+                    //self.showUnreadCount()
+                    self.unreadCountLabel.text = "Sent"
+//                    self.unreadCountLabel.text = String(format: "%d", unreadMessageCount!)
                 }
             }
         }
@@ -296,11 +315,19 @@ class OutgoingImageFileMessageTableViewCell: UITableViewCell {
         self.prevMessage = aPrevMessage
     }
     
+    func updateBackgroundColour () {
+        self.messageContainerView.backgroundColor = self.containerBackgroundColour
+    }
+    
     func getHeightOfViewCell() -> CGFloat {
         let height = self.dateSeperatorViewTopMargin.constant + self.dateSeperatorViewHeight.constant + self.dateSeperatorViewBottomMargin.constant + self.fileImageViewHeight.constant
-        
+
         return height
+//        self.fileImageViewHeight.constant = 120.0
+//        self.layoutSubviews()
+//        return 170.0
     }
+    
     
     func hideUnreadCount() {
         self.unreadCountLabel.isHidden = true

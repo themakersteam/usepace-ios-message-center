@@ -35,7 +35,7 @@ class IncomingFileMessageTableViewCell: UITableViewCell {
     private var message: SBDFileMessage!
     private var prevMessage: SBDBaseMessage!
     private var podBundle: Bundle!
-    
+    public var containerBackgroundColour: UIColor = UIColor(red: 237.0/255.0, green: 237.0/255.0, blue: 237.0/255.0, alpha: 1.0)
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.podBundle = Bundle(for: MessageCenter.self)
@@ -225,6 +225,10 @@ class IncomingFileMessageTableViewCell: UITableViewCell {
     
     func setPreviousMessage(aPrevMessage: SBDBaseMessage?) {
         self.prevMessage = aPrevMessage
+    }
+    
+    func updateBackgroundColour () {
+        self.messageContainerView.backgroundColor = self.containerBackgroundColour
     }
     
     func getHeightOfViewCell() -> CGFloat {

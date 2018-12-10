@@ -9,11 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "SBDBaseMessage.h"
 #import "SBDBaseChannel.h"
+#import "SBDSender.h"
 
 /**
  The `SBDThumbnailSize` class represents the thumbnail size of thumbnail.
  */
-@interface SBDThumbnailSize : NSObject
+@interface SBDThumbnailSize : NSObject <NSCopying>
 
 /**
  The max size of the thumbnail.
@@ -79,9 +80,9 @@
 @interface SBDFileMessage : SBDBaseMessage
 
 /**
- *  Sender of the message.
+ *  Sender of the message. This is represented by `SBDSender` class.
  */
-@property (strong, nonatomic, nullable, getter = sender) SBDUser *sender;
+@property (strong, nonatomic, nullable, getter = sender) SBDSender *sender;
 
 /**
  *  The file URL.
@@ -188,6 +189,6 @@ DEPRECATED_ATTRIBUTE;
  
  @return Sender of the message.
  */
-- (nonnull SBDUser *)sender;
+- (nonnull SBDSender *)sender;
 
 @end

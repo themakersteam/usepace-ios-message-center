@@ -42,6 +42,7 @@ class IncomingUserMessageTableViewCell: UITableViewCell, TTTAttributedLabelDeleg
     private var prevMessage: SBDBaseMessage?
     private var displayNickname: Bool = true
     private var podBundle: Bundle!
+    public var containerBackgroundColour: UIColor = UIColor(red: 237.0/255.0, green: 237.0/255.0, blue: 237.0/255.0, alpha: 1.0)
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -263,6 +264,10 @@ class IncomingUserMessageTableViewCell: UITableViewCell, TTTAttributedLabelDeleg
         }
         
         return fullMessage!
+    }
+    
+    func updateBackgroundColour () {
+        self.messageContainerView.backgroundColor = self.containerBackgroundColour
     }
     
     func getHeightOfViewCell() -> CGFloat {

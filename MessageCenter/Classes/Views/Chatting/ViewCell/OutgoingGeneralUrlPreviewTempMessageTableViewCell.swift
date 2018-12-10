@@ -26,6 +26,8 @@ class OutgoingGeneralUrlPreviewTempMessageTableViewCell: UITableViewCell {
     var message: OutgoingGeneralUrlPreviewTempModel?
     var prevMessage: SBDBaseMessage?
     
+    public var containerBackgroundColour: UIColor = UIColor(red: 122.0/255.0, green: 188.0/255.0, blue: 65.0/255.0, alpha: 1.0)
+    
     static func nib() -> UINib {
         return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
     }
@@ -136,7 +138,9 @@ class OutgoingGeneralUrlPreviewTempMessageTableViewCell: UITableViewCell {
         
         return fullMessage
     }
-    
+//    func updateBackgroundColour () {
+//        self.messageContainerView.backgroundColor = self.containerBackgroundColour
+//    }
     func getHeightOfViewCell() -> CGFloat {
         let fullMessage = self.buildMessage()
         let fullMessageRect: CGRect = fullMessage.boundingRect(with: CGSize.init(width: self.messageLabelWidth.constant, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)

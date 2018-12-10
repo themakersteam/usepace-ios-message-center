@@ -17,7 +17,17 @@ class ViewController: UIViewController {
     var connectRequest: ConnectionRequest!
     
     @IBAction func onTouchJoinButton(_ sender: UIButton) {
-        MessageCenter.openChatView(forChannel: "sendbird_group_channel_2456028_1ef918c0149a1f8b0993ae21cb26fa9c16540a91", withTheme: nil) { (success) in
+        
+        
+        
+        var title = "Ikarma"
+        var primaryColor = UIColor(red: 122.0/255.0, green: 188.0/255.0, blue: 65.0/255.0, alpha: 1.0)
+        var secondaryColor = UIColor(red: 237.0/255.0, green: 237.0/255.0, blue: 237.0/255.0, alpha: 1.0)
+        
+       
+        let theme = MessageCenter.createTheme(title: title, primaryColor: primaryColor, secondaryColor: secondaryColor)
+        
+        MessageCenter.openChatView(forChannel: "sendbird_group_channel_2456028_1ef918c0149a1f8b0993ae21cb26fa9c16540a91", withTheme: theme) { (success) in
             
         }
     }

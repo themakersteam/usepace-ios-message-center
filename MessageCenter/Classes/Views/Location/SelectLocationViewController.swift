@@ -85,7 +85,7 @@ public class SelectLocationViewController: UIViewController {
         }
         
         let alert = UIAlertController(title: "send_location.title".localized, message: "send_location.location_disabled_notice.message".localized, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -198,7 +198,8 @@ public class SelectLocationViewController: UIViewController {
             return
         }
         
-        let locationUri = "location://?lat=\(finalCoordinates.latitude)&long=\(finalCoordinates.longitude)"
+//        let locationUri = "location://?lat=\(finalCoordinates.latitude)&long=\(finalCoordinates.longitude)"
+        let locationUri = "\(finalCoordinates.latitude),\(finalCoordinates.longitude)"
         self.delegate?.userDidSelect(location: locationUri)
     }
     @IBAction func cencel(_ sender: Any) {
