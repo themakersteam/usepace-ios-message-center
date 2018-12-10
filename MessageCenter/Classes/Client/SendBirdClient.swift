@@ -67,7 +67,7 @@ public class SendBirdClient: ClientProtocol {
         })
     }
     //
-    public func openChatView(forChannel channelId: String, withTheme theme: ThemeObject?,  completion: @escaping (Any?) -> Void) {
+    public func openChatView(forChannel channelId: String, welcomeMessage: String, withTheme theme: ThemeObject?,  completion: @escaping (Any?) -> Void) {
         //TODO: Make use of ChatViewTheme
         print("joining to chat room...")
         SBDGroupChannel.getWithUrl(channelId) { (channel, error) in

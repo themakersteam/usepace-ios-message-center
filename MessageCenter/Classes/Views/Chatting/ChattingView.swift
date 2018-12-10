@@ -24,9 +24,12 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var chattingTableView: UITableView!
     @IBOutlet weak var inputContainerViewHeight: NSLayoutConstraint!
     var messages: [SBDBaseMessage] = []
+    var hasLoadedAllMessages: Bool = false
     var channel: SBDBaseChannel?
     var themeObject: ThemeObject?
     private var podBundle: Bundle!
+    
+    var welcomeMessage: String = ""
     
     var resendableMessages: [String:SBDBaseMessage] = [:]
     var preSendMessages: [String:SBDBaseMessage] = [:]
@@ -59,7 +62,11 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     var incomingGeneralUrlPreviewMessageTableViewCell: IncomingGeneralUrlPreviewMessageTableViewCell?
     var outgoingGeneralUrlPreviewMessageTableViewCell: OutgoingGeneralUrlPreviewMessageTableViewCell?
     var outgoingGeneralUrlPreviewTempMessageTableViewCell: OutgoingGeneralUrlPreviewTempMessageTableViewCell?
-
+    
+    //Cell to be shown at top with a welcome message
+    var welcomeMessageTableViewCell : WelcomeMessageTableViewCell?
+    
+    
     @IBOutlet weak var placeholderLabel: UILabel!
     
     var lastMessageHeight: CGFloat = 0
@@ -127,6 +134,8 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         self.chattingTableView.register(OutgoingGeneralUrlPreviewMessageTableViewCell.nib(), forCellReuseIdentifier: OutgoingGeneralUrlPreviewMessageTableViewCell.cellReuseIdentifier())
         self.chattingTableView.register(OutgoingGeneralUrlPreviewTempMessageTableViewCell.nib(), forCellReuseIdentifier: OutgoingGeneralUrlPreviewTempMessageTableViewCell.cellReuseIdentifier())
         
+        self.chattingTableView.register(WelcomeMessageTableViewCell.nib(), forCellReuseIdentifier: WelcomeMessageTableViewCell.cellReuseIdentifier())
+        
         self.chattingTableView.delegate = self
         self.chattingTableView.dataSource = self
         
@@ -134,6 +143,11 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     }
     
     func initSizingCell() {
+        // Welcome Cell
+        self.welcomeMessageTableViewCell = (WelcomeMessageTableViewCell.nib().instantiate(withOwner: self, options: nil)[0] as? WelcomeMessageTableViewCell)!
+        self.welcomeMessageTableViewCell!.isHidden = true
+        self.addSubview(self.welcomeMessageTableViewCell!)
+        
         self.incomingUserMessageSizingTableViewCell = IncomingUserMessageTableViewCell.nib().instantiate(withOwner: self, options: nil)[0] as? IncomingUserMessageTableViewCell
         self.incomingUserMessageSizingTableViewCell?.isHidden = true
         self.addSubview(self.incomingUserMessageSizingTableViewCell!)
@@ -329,9 +343,14 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     }
     // MARK: - TableViewDelegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        if indexPath.row == 0 && self.hasLoadedAllMessages == true {
+            return 20.0
+        }
+        
         var height: CGFloat = 0
         
-        let msg = self.messages[indexPath.row]
+        let msg = self.messages[indexPath.row - (self.hasLoadedAllMessages == true ? 1 : 0)]
         
         if msg is SBDUserMessage {
             let userMessage = msg as! SBDUserMessage
@@ -668,13 +687,19 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     
     // MARK: -  UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.messages.count
+        return self.hasLoadedAllMessages == true ? self.messages.count + 1 : self.messages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell?
         
-        let msg = self.messages[indexPath.row]
+        if indexPath.row == 0 && self.hasLoadedAllMessages == true {
+            cell = tableView.dequeueReusableCell(withIdentifier: WelcomeMessageTableViewCell.cellReuseIdentifier())
+            (cell as! WelcomeMessageTableViewCell).lblMessage.text = self.welcomeMessage
+            return cell!
+        }
+        
+        let msg = self.messages[indexPath.row - (self.hasLoadedAllMessages == true ? 1 : 0)]
         
         if msg is SBDUserMessage {
             let userMessage = msg as! SBDUserMessage
