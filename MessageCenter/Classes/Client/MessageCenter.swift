@@ -86,9 +86,9 @@ public class MessageCenter {
     
     //
     //
-    public static func openChatView(forChannel channelId: String, withTheme theme: ThemeObject?, completion: @escaping (Bool) -> Void ) {
+    public static func openChatView(forChannel channelId: String, welcomeMessage: String, withTheme theme: ThemeObject?, completion: @escaping (Bool) -> Void ) {
         
-        client.getClient(type: LAST_CLIENT).openChatView(forChannel: channelId, withTheme: theme, completion:  {(channel) in
+        client.getClient(type: LAST_CLIENT).openChatView(forChannel: channelId, welcomeMessage: welcomeMessage, withTheme: theme, completion:  {(channel) in
             
             guard let groupChannel = channel as? SBDGroupChannel else {
                 completion(false)
@@ -103,6 +103,9 @@ public class MessageCenter {
                 groupChannelVC.themeObject = theme
             }
             
+            if welcomeMessage != nil {
+                groupChannelVC.welcomeMessage = welcomeMessage
+            }
             if parentVC.navigationController != nil {
                 parentVC.navigationController?.pushViewController(groupChannelVC, animated: true)
             }
@@ -186,7 +189,7 @@ public class MessageCenter {
             if (status) {
                 let sendBirdPayload = message["sendbird"] as! Dictionary<String, Any>
                 let channelId = (sendBirdPayload["channel"]  as! Dictionary<String, Any>)["channel_url"] as! String
-                client.getClient(type: LAST_CLIENT).openChatView(forChannel: channelId, withTheme: nil, completion:  {(channel) in
+                client.getClient(type: LAST_CLIENT).openChatView(forChannel: channelId, welcomeMessage: "hello" , withTheme: nil, completion:  {(channel) in
                     
                     guard let groupChannel = channel as? SBDGroupChannel else {
                         return
