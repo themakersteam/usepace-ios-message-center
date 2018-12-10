@@ -20,9 +20,9 @@ class ViewController: UIViewController {
         
         
         
-        var title = "Ikarma"
-        var primaryColor = UIColor(red: 122.0/255.0, green: 188.0/255.0, blue: 65.0/255.0, alpha: 1.0)
-        var secondaryColor = UIColor(red: 237.0/255.0, green: 237.0/255.0, blue: 237.0/255.0, alpha: 1.0)
+        let title = "Ikarma"
+        let primaryColor = UIColor(red: 122.0/255.0, green: 188.0/255.0, blue: 65.0/255.0, alpha: 1.0)
+        let secondaryColor = UIColor(red: 237.0/255.0, green: 237.0/255.0, blue: 237.0/255.0, alpha: 1.0)
         
        
         let theme = MessageCenter.createTheme(title: title, primaryColor: primaryColor, secondaryColor: secondaryColor)
