@@ -201,6 +201,8 @@ class OutgoingVideoFileMessageTableViewCell: UITableViewCell {
     func getHeightOfViewCell() -> CGFloat {
         let height = self.dateSeperatorViewTopMargin.constant + self.dateSeperatorViewHeight.constant + self.dateSeperatorViewBottomMargin.constant + self.fileImageViewHeight.constant
         
+        self.fileImageViewHeight.constant = 120.0
+        self.layoutSubviews()
         return height
     }
     

@@ -321,9 +321,13 @@ class OutgoingImageFileMessageTableViewCell: UITableViewCell {
     
     func getHeightOfViewCell() -> CGFloat {
         let height = self.dateSeperatorViewTopMargin.constant + self.dateSeperatorViewHeight.constant + self.dateSeperatorViewBottomMargin.constant + self.fileImageViewHeight.constant
-        
+
         return height
+//        self.fileImageViewHeight.constant = 120.0
+//        self.layoutSubviews()
+//        return 170.0
     }
+    
     
     func hideUnreadCount() {
         self.unreadCountLabel.isHidden = true

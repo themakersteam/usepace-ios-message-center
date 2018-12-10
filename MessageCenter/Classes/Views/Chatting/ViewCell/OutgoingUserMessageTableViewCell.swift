@@ -36,6 +36,8 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
     @IBOutlet weak var messageDateLabelLeftMargin: NSLayoutConstraint!
     @IBOutlet weak var messageDateLabelWidth: NSLayoutConstraint!
 
+    @IBOutlet weak var messageContainerWidth: NSLayoutConstraint!
+    
     private var message: SBDUserMessage!
     private var prevMessage: SBDBaseMessage!
 
@@ -46,8 +48,8 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
     }
     
     override func awakeFromNib() {
-//        self.messageContainerView.round(corners: [ .topLeft, .topRight, .bottomLeft ], radius: 15.0)
-        self.messageContainerView.selectedCornerRadius()
+        self.messageContainerView.round(corners: [ .topLeft, .topRight, .bottomLeft ], radius: 15.0)
+        //self.messageContainerView.selectedCornerRadius()
         self.messageContainerView.layer.masksToBounds = true
         
     }
@@ -105,7 +107,7 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
                 else {
 //                    self.showUnreadCount()
                     self.unreadCountLabel.text = "Sent"
-                    self.unreadCountLabel.text = String(format: "%d", unreadMessageCount!)
+                   // self.unreadCountLabel.text = String(format: "%d", unreadMessageCount!)
                 }
             }
         }
@@ -178,7 +180,7 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
                     if prevMessageSender != nil && currMessageSender != nil {
                         if prevMessageSender?.userId == currMessageSender?.userId {
                             // Reduce margin
-                            self.dateContainerTopMargin.constant = 5.0
+                            self.dateContainerTopMargin.constant = 10.0
                         }
                         else {
                             // Set default margin.
@@ -226,20 +228,33 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
     
     func getHeightOfViewCell() -> CGFloat {
         let fullMessage = self.buildMessage()
-        print(fullMessage)
+//        print(fullMessage)
         var fullMessageSize: CGSize
         
         let messageLabelMaxWidth = UIScreen.main.bounds.size.width - (self.messageContainerRightMargin.constant + self.messageContainerRightPadding.constant + self.messageContainerLeftPadding.constant + self.messageContainerLeftMargin.constant + self.messageDateLabelLeftMargin.constant + self.messageDateLabelWidth.constant)
 
 //        fullMessageRect = fullMessage.boundingRect(with: CGSize.init(width: messageLabelMaxWidth, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
         
+        //UIScreen.main.bounds.size.width - 160.0
+        
         let framesetter = CTFramesetterCreateWithAttributedString(fullMessage)
-        fullMessageSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRange(location: 0,length: 0), nil, CGSize(width: UIScreen.main.bounds.size.width - 160.0, height: CGFloat(LONG_LONG_MAX)), nil)
+        fullMessageSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRange(location: 0,length: 0), nil, CGSize(width: messageLabelMaxWidth/1, height: CGFloat(LONG_LONG_MAX)), nil)
+        print(fullMessageSize)
         
-        let cellHeight = self.dateContainerTopMargin.constant + self.dateContainerHeight.constant + self.dateContainerBottomMargin.constant + self.messageContainerTopPadding.constant + fullMessageSize.height + 10.0
-            //+ self.messageContainerBottomPadding.constant
+        if fullMessageSize.width >= messageLabelMaxWidth {
+            messageContainerWidth.constant = messageLabelMaxWidth
+        }
+        else {
+            messageContainerWidth.constant = fullMessageSize.width
+        }
+        self.messageContainerView.selectedCornerRadius()
+        self.layoutSubviews()
+        let cellHeight = self.dateContainerTopMargin.constant + self.dateContainerHeight.constant + self.dateContainerBottomMargin.constant + self.messageContainerTopPadding.constant + fullMessageSize.height
+            //
         
-        return cellHeight
+        
+        
+        return cellHeight + 25.0
     }
     
     func hideUnreadCount() {
