@@ -803,13 +803,13 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                 else {
                     cell = tableView.dequeueReusableCell(withIdentifier: OutgoingUserMessageTableViewCell.cellReuseIdentifier())
                     
-                    if themeObject != nil {
-                        if themeObject?.primaryColor != nil {
-                            (cell as! OutgoingUserMessageTableViewCell).containerBackgroundColour = (themeObject?.primaryColor)!
-                        }
-                    }
+//                    if themeObject != nil {
+//                        if themeObject?.primaryColor != nil {
+//                            (cell as! OutgoingUserMessageTableViewCell).containerBackgroundColour = (themeObject?.primaryColor)!
+//                        }
+//                    }
                     
-                    (cell as! OutgoingUserMessageTableViewCell).updateBackgroundColour()
+                    //(cell as! OutgoingUserMessageTableViewCell).updateBackgroundColour()
                     
                     cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
                     if indexPath.row > 0 {

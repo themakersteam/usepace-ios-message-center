@@ -17,7 +17,15 @@ public enum ClientType: String {
 
 public struct ThemeObject {
     let title: String?
+    let subtitle:String?
+    let welcomeMessage:String?
+    
     let primaryColor: UIColor?
+    let primaryAccentColor: UIColor?
+    let primaryButtonColor: UIColor?
+    let viewBackgroundColor: UIColor?
+    let actionIconsColor: UIColor?
+    
     let secondaryColor: UIColor?
 }
 
@@ -80,7 +88,8 @@ public class MessageCenter {
             sColor = secondaryColor!
         }
 
-        self.themeObject = ThemeObject(title: _title, primaryColor: pColor, secondaryColor: sColor)
+        self.themeObject = ThemeObject(title: "", subtitle: "", welcomeMessage: "", primaryColor: pColor, primaryAccentColor: pColor, primaryButtonColor: pColor, viewBackgroundColor: pColor, actionIconsColor: pColor, secondaryColor: pColor)
+        
         return themeObject!
     }
     
