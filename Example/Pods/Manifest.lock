@@ -5,7 +5,7 @@ PODS:
   - CryptoSwift (0.13.0)
   - FLAnimatedImage (1.0.12)
   - HTMLKit (2.1.5)
-  - MessageCenter (0.1.0):
+  - MessageCenter (0.1.1):
     - AlamofireImage
     - CryptoSwift
     - FLAnimatedImage (~> 1.0)
@@ -50,7 +50,7 @@ SPEC CHECKSUMS:
   CryptoSwift: 16e78bebf567bad1c87b2d58f6547f25b74c31aa
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   HTMLKit: 91dbd983c94f264c6ddea27d317f5a66368dd20b
-  MessageCenter: 8dfea37d63ffd9f4febc657be56c83210ade5e3b
+  MessageCenter: 8e7e536bf776222c68bfada027f647fa6b960768
   MGSwipeTableCell: dc4eca3212ed38a563b27d6aa7b3c01ce656c1e2
   NYTPhotoViewer: e80e8767f3780d2df37c6f72cbab15d6c7232911
   SendBirdSDK: ce53a84e53c3427b6e21f0ec2eeaff2b3a88cd39
