@@ -47,12 +47,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        MessageCenter.registerForRemoteNotificationsWithDeviceToken(deviceToken)
+        //MessageCenter.registerForRemoteNotificationsWithDeviceToken(deviceToken)
     }
     
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
-        MessageCenter.handleNotification(userInfo)
+        MessageCenter.handleNotification(userInfo, match: { (notification) in
+            MessageCenter.openChatView(forChannel: notification.channelId,
+                                       welcomeMessage: "",
+                                       withTheme: nil,
+                                       completion: nil)
+        }) {
+            // noMatch
+            // Proceed with handling notification other than send-bird.
+        }
     }
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

@@ -27,6 +27,14 @@ public struct ThemeObject {
     let primaryActionIconsColor: UIColor?
 }
 
+public class NotificationModel: NSObject {
+    public var title: String = ""
+    public var message: String = ""
+    public var channelId: String = ""
+    public var senderId: String = ""
+    public var senderName: String = ""
+}
+
 public class MessageCenter {
     private static var client: Client {
         let client = Client()
@@ -45,10 +53,15 @@ public class MessageCenter {
     private static var launchOptions: [UIApplicationLaunchOptionsKey: Any]? = [:]
     private static var deviceToken: Data? = nil
     
-    public static func connect(with connectionRequest: ConnectionRequest, success: @escaping ConnectionSucceeded, failure: @escaping MessageCenterFailureCompletion) {
+    public static func connect(_ connectionRequest: ConnectionRequest,
+                               pushToken: Data?,
+                               success: @escaping ConnectionSucceeded,
+                               failure: @escaping MessageCenterFailureCompletion
+        ) {
         
         self.LAST_CLIENT = connectionRequest.client
-        self.deviceToken =  "740f4707bebcf74f9b7c25d48e3358945f6aa01da5ddb387462c7eaf".data(using: .utf8)
+        self.deviceToken =  pushToken
+        
         client.getClient(type: LAST_CLIENT).connect(with: connectionRequest, success: { (status) in
             
             if self.deviceToken == nil {
@@ -98,8 +111,6 @@ public class MessageCenter {
         return themeObject!
     }
     
-    //
-    //
     public static func openChatView(forChannel channelId: String, welcomeMessage: String, withTheme theme: ThemeObject?, completion: @escaping (Bool) -> Void ) {
         
         client.getClient(type: LAST_CLIENT).openChatView(forChannel: channelId, welcomeMessage: welcomeMessage, withTheme: theme, completion:  {(channel) in
@@ -153,48 +164,46 @@ public class MessageCenter {
         parentVC = vc
     }
     
-//    public static func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-////        self.mainApplication = application
-////        self.launchOptions = launchOptions
-////        self.registerForRemoteNotification()
-//        
-//        return true
-//    }
-    
-//    static func registerForRemoteNotification() {
-//        guard mainApplication != nil else {
-//            NSLog("MainApplication is not properly configured.")
-//            return
-//        }
-//
-//    }
-    
-    public static func registerForRemoteNotificationsWithDeviceToken(_ deviceToken: Data) {
-        self.deviceToken = deviceToken
-    }
-//
-//    public static func failedToRegisterForRemoteNotificationsWithError(_ error: Error) {
-//        NSLog("Failed to register for remote notification")
-//    }
-    
-    public static func handleNotification(_ userInfo: [AnyHashable : Any]) {
-        client.getClient(type: LAST_CLIENT).handleNotification(userInfo: userInfo) { (status, message) in
+    public static func handleNotification(
+        _ userInfo: [AnyHashable : Any],
+        match: @escaping (_ notification: NotificationModel) -> Void,
+        noMatch: @escaping() -> Void) {
+        
+        client.getClient(type: LAST_CLIENT).handleNotification(userInfo: userInfo) { (status, payload) in
             if (status) {
-                let sendBirdPayload = message["sendbird"] as! Dictionary<String, Any>
-                let channelId = (sendBirdPayload["channel"]  as! Dictionary<String, Any>)["channel_url"] as! String
-                client.getClient(type: LAST_CLIENT).openChatView(forChannel: channelId, welcomeMessage: "hello" , withTheme: nil, completion:  {(channel) in
-                    
-                    guard let groupChannel = channel as? SBDGroupChannel else {
-                        return
-                    }
-                    
-                    let podBundle = Bundle(for: MessageCenter.self)
-                    let groupChannelVC = GroupChannelChattingViewController(nibName: "GroupChannelChattingViewController", bundle: podBundle)
-                    groupChannelVC.groupChannel = groupChannel
-                    parentVC.present(groupChannelVC, animated: true) {
-                        NSLog("logged")
-                    }
-                })
+                
+                guard let sbPayload = payload["sendbird"] as? Dictionary<String, Any> else {
+                    noMatch()
+                    return
+                }
+                
+                let message = sbPayload["message"] as! String
+                
+                guard let sbChannel = sbPayload["channel"] as? Dictionary<String, Any> else {
+                    noMatch()
+                    return
+                }
+                let channelURL = sbChannel["channel_url"] as! String
+                
+                guard let sbSender = sbPayload["sender"] as? Dictionary<String, Any> else {
+                    noMatch()
+                    return
+                }
+                let senderId = sbSender["id"] as! String
+                let senderName = sbSender["name"] as! String
+                
+//                let notification = NotificationModel(
+//                    title: "",
+//                    message: message,
+//                    channelId: channelURL,
+//                    senderId: senderId,
+//                    senderName: senderName
+//                )
+//                match(notification)
+                
+            }
+            else {
+                noMatch()
             }
         }
     }
