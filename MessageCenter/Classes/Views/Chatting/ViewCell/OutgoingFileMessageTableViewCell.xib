@@ -204,7 +204,7 @@
                 <outlet property="sendStatusLabel" destination="5Lu-ta-09s" id="i6M-vu-RO7"/>
                 <outlet property="unreadCountLabel" destination="rza-Ci-52U" id="O6V-uA-rK7"/>
             </connections>
-            <point key="canvasLocation" x="38" y="97.5"/>
+            <point key="canvasLocation" x="11" y="-96"/>
         </tableViewCell>
     </objects>
     <resources>
