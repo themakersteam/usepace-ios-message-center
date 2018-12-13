@@ -14,17 +14,13 @@ import FLAnimatedImage
 class IncomingImageFileMessageTableViewCell: UITableViewCell {
     weak var delegate: MessageDelegate?
     
-    @IBOutlet weak var dateSeperatorView: UIView!
-    @IBOutlet weak var dateSeperatorLabel: UILabel!
-    @IBOutlet weak var profileImageView: UIImageView!
+    
     @IBOutlet weak var fileImageView: FLAnimatedImageView!
     @IBOutlet weak var messageDateLabel: UILabel!
     @IBOutlet weak var imageLoadingIndicator: UIActivityIndicatorView!
     
-    @IBOutlet weak var dateSeperatorViewTopMargin: NSLayoutConstraint!
-    @IBOutlet weak var dateSeperatorViewHeight: NSLayoutConstraint!
-    @IBOutlet weak var dateSeperatorViewBottomMargin: NSLayoutConstraint!
-    @IBOutlet weak var fileImageHeight: NSLayoutConstraint!
+    @IBOutlet weak var messageContainer: UIView!
+    
 
     private var message: SBDFileMessage!
     private var prevMessage: SBDBaseMessage!
@@ -36,6 +32,12 @@ class IncomingImageFileMessageTableViewCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.podBundle = Bundle(for: MessageCenter.self)
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        messageContainer.layer.cornerRadius = 8.0
+        fileImageView.layer.cornerRadius = 8.0
     }
     
     static func nib() -> UINib {
@@ -60,12 +62,6 @@ class IncomingImageFileMessageTableViewCell: UITableViewCell {
     
     func setModel(aMessage: SBDFileMessage) {
         self.message = aMessage
-        
-        self.profileImageView.af_setImage(withURL: URL(string: (self.message.sender?.profileUrl!)!)!, placeholderImage: UIImage(named: "img_profile", in: podBundle, compatibleWith: nil))
-        
-        let profileImageTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickProfileImage))
-        self.profileImageView.isUserInteractionEnabled = true
-        self.profileImageView.addGestureRecognizer(profileImageTapRecognizer)
         
         let messageContainerTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickFileMessage))
         self.fileImageView.isUserInteractionEnabled = true
@@ -189,76 +185,6 @@ class IncomingImageFileMessageTableViewCell: UITableViewCell {
         let messageDateAttributedString = NSMutableAttributedString(string: messageDateString, attributes: messageDateAttribute)
         self.messageDateLabel.attributedText = messageDateAttributedString
         
-        // Seperator Date
-        let seperatorDateFormatter = DateFormatter()
-        seperatorDateFormatter.dateStyle = DateFormatter.Style.medium
-        self.dateSeperatorLabel.text = seperatorDateFormatter.string(from: messageCreatedDate as Date)
-        
-        // Relationship between the current message and the previous message
-        self.profileImageView.isHidden = false
-        if self.prevMessage != nil {
-            // Day Changed
-            let prevMessageDate = NSDate(timeIntervalSince1970: Double(self.prevMessage.createdAt) / 1000.0)
-            let currMessageDate = NSDate(timeIntervalSince1970: Double(self.message.createdAt) / 1000.0)
-            let prevMessageDateComponents = NSCalendar.current.dateComponents([.day, .month, .year], from: prevMessageDate as Date)
-            let currMessagedateComponents = NSCalendar.current.dateComponents([.day, .month, .year], from: currMessageDate as Date)
-            
-            if prevMessageDateComponents.year != currMessagedateComponents.year || prevMessageDateComponents.month != currMessagedateComponents.month || prevMessageDateComponents.day != currMessagedateComponents.day {
-                // Show date seperator.
-                self.dateSeperatorView.isHidden = false
-                self.dateSeperatorViewHeight.constant = 24.0
-                self.dateSeperatorViewTopMargin.constant = 10.0
-                self.dateSeperatorViewBottomMargin.constant = 10.0
-            }
-            else {
-                // Hide date seperator.
-                self.dateSeperatorView.isHidden = true
-                self.dateSeperatorViewHeight.constant = 0
-                self.dateSeperatorViewBottomMargin.constant = 0
-                
-                // Continuous Message
-                if self.prevMessage is SBDAdminMessage {
-                    self.dateSeperatorViewTopMargin.constant = 10.0
-                }
-                else {
-                    var prevMessageSender: SBDUser?
-                    var currMessageSender: SBDUser?
-                    
-                    if self.prevMessage is SBDUserMessage {
-                        prevMessageSender = (self.prevMessage as! SBDUserMessage).sender
-                    }
-                    else if self.prevMessage is SBDFileMessage {
-                        prevMessageSender = (self.prevMessage as! SBDFileMessage).sender
-                    }
-                    
-                    currMessageSender = self.message.sender
-                    
-                    if prevMessageSender != nil && currMessageSender != nil {
-                        if prevMessageSender?.userId == currMessageSender?.userId {
-                            // Reduce margin
-                            self.dateSeperatorViewTopMargin.constant = 5.0
-                            self.profileImageView.isHidden = true
-                        }
-                        else {
-                            // Set default margin.
-                            self.profileImageView.isHidden = false
-                            self.dateSeperatorViewTopMargin.constant = 10.0
-                        }
-                    }
-                    else {
-                        self.dateSeperatorViewTopMargin.constant = 10.0
-                    }
-                }
-            }
-        }
-        else {
-            // Show date seperator.
-            self.dateSeperatorView.isHidden = false
-            self.dateSeperatorViewHeight.constant = 24.0
-            self.dateSeperatorViewTopMargin.constant = 10.0
-            self.dateSeperatorViewBottomMargin.constant = 10.0
-        }
-        
         self.layoutIfNeeded()
     }
     
@@ -271,8 +197,6 @@ class IncomingImageFileMessageTableViewCell: UITableViewCell {
 //    }
     
     func getHeightOfViewCell() -> CGFloat {
-        let height = self.dateSeperatorViewTopMargin.constant + self.dateSeperatorViewHeight.constant + self.dateSeperatorViewBottomMargin.constant + self.fileImageHeight.constant
-        
-        return height
+        return 210.0
     }
 }

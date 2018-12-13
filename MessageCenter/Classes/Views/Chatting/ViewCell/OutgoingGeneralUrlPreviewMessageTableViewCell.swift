@@ -16,8 +16,8 @@ import FLAnimatedImage
 class OutgoingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttributedLabelDelegate {
     weak var delegate: MessageDelegate!
     
-    @IBOutlet weak var dateSeperatorView: UIView!
-    @IBOutlet weak var dateSeperatorLabel: UILabel!
+    
+    @IBOutlet weak var cnImageHeight: NSLayoutConstraint!
     @IBOutlet weak var messageLabel: TTTAttributedLabel!
     @IBOutlet weak var previewSiteNameLabel: UILabel!
     @IBOutlet weak var previewTitleLabel: UILabel!
@@ -25,34 +25,13 @@ class OutgoingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
     @IBOutlet weak var previewThumbnailImageView: FLAnimatedImageView!
     @IBOutlet weak var previewThumbnailLoadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var messageDateLabel: UILabel!
-    @IBOutlet weak var resendMessageButton: UIButton!
     @IBOutlet weak var deleteMessageButton: UIButton!
-    @IBOutlet weak var unreadCountLabel: UILabel!
     @IBOutlet weak var messageContainerView: UIView!
-    @IBOutlet weak var sendStatusLabel: UILabel!
-    
-    @IBOutlet weak var dateSeperatorViewTopMargin: NSLayoutConstraint!
-    @IBOutlet weak var dateSeperatorViewHeight: NSLayoutConstraint!
-    @IBOutlet weak var dateSeperatorViewBottomMargin: NSLayoutConstraint!
-    @IBOutlet weak var messageLabelTopMargin: NSLayoutConstraint!
-    @IBOutlet weak var messageLabelBottomMargin: NSLayoutConstraint!
-    @IBOutlet weak var dividerViewHeight: NSLayoutConstraint!
-    @IBOutlet weak var dividerViewBottomMargin: NSLayoutConstraint!
-    @IBOutlet weak var previewSiteNameLabelHeight: NSLayoutConstraint!
-    @IBOutlet weak var previewSiteNameLabelBottomMargin: NSLayoutConstraint!
-    @IBOutlet weak var previewTitleLabelHeight: NSLayoutConstraint!
-    @IBOutlet weak var previewTitleLabelBottomMargin: NSLayoutConstraint!
-    @IBOutlet weak var previewDescriptionLabelBottomMargin: NSLayoutConstraint!
-    @IBOutlet weak var previewThumbnailImageViewHeight: NSLayoutConstraint!
-    
-    @IBOutlet weak var previewThumbnailImageViewWidth: NSLayoutConstraint!
-    @IBOutlet weak var messageLabelWidth: NSLayoutConstraint!
-    @IBOutlet weak var previewSiteNameLabelWidth: NSLayoutConstraint!
-    @IBOutlet weak var previewTitleLabelWidth: NSLayoutConstraint!
-    @IBOutlet weak var previewDescriptionLabelWidth: NSLayoutConstraint!
+    @IBOutlet weak var imgMessageStatus: UIImageView!
 
     private var message: SBDUserMessage!
     private var prevMessage: SBDBaseMessage?
+    
     var previewData: Dictionary<String, Any>!
     
     public var containerBackgroundColour: UIColor = UIColor(red: 122.0/255.0, green: 188.0/255.0, blue: 65.0/255.0, alpha: 1.0)
@@ -121,112 +100,30 @@ class OutgoingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
         self.previewDescriptionLabel.isUserInteractionEnabled = true
         self.previewDescriptionLabel.addGestureRecognizer(previewDescriptionLabelTapRecognizer)
 
-        self.resendMessageButton.isHidden = true
         self.deleteMessageButton.isHidden = true
         
-        self.resendMessageButton.addTarget(self, action: #selector(clickResendUserMessage), for: UIControlEvents.touchUpInside)
         self.deleteMessageButton.addTarget(self, action: #selector(clickDeleteUserMessage), for: UIControlEvents.touchUpInside)
         
-        // Unread message count
+        // Message Status
         if self.message.channelType == CHANNEL_TYPE_GROUP {
-            if let groupChannel = channel as? SBDGroupChannel? {
-                let unreadMessageCount = groupChannel?.getReadReceipt(of: self.message)
-                if unreadMessageCount == 0 {
-                    self.hideUnreadCount()
-                    self.unreadCountLabel.text = ""
-                }
-                else {
-                    self.showUnreadCount()
-                    self.unreadCountLabel.text = String(format: "%d", unreadMessageCount!)
+            if self.message.requestId == "0" {
+                self.imgMessageStatus.image = UIImage(named: "icMsgsent", in: Bundle(for: MessageCenter.self), compatibleWith: nil)
+            }
+            else {
+                if let channelOfMessage = channel as? SBDGroupChannel? {
+                    let unreadMessageCount = channelOfMessage?.getReadReceipt(of: self.message)
+                    if unreadMessageCount == 0 {
+                        // 0 means everybody has read the message
+                        self.imgMessageStatus.image = UIImage(named: "icMsgread", in: Bundle(for: MessageCenter.self), compatibleWith: nil)
+                    }
+                    else {
+                        self.imgMessageStatus.image = UIImage(named: "icMsgdelivered", in: Bundle(for: MessageCenter.self), compatibleWith: nil)
+                    }
                 }
             }
         }
         else {
             self.hideUnreadCount()
-        }
-        
-        // Message Date
-        let messageDateAttribute = [
-            NSAttributedStringKey.font: Constants.messageDateFont(),
-            NSAttributedStringKey.foregroundColor: Constants.messageDateColor()
-        ]
-        let messageTimestamp: TimeInterval = Double(self.message.createdAt) / 1000.0
-        let dateFormatter: DateFormatter = DateFormatter()
-        dateFormatter.timeStyle = DateFormatter.Style.short
-        let messageCreateDate: Date = NSDate.init(timeIntervalSince1970: messageTimestamp) as Date
-        let messageDateString = dateFormatter.string(from: messageCreateDate)
-        let messageDateAttributedString: NSMutableAttributedString = NSMutableAttributedString(string: messageDateString, attributes: messageDateAttribute)
-        self.messageDateLabel.attributedText = messageDateAttributedString
-        
-        // Seperator Date
-        let seperatorDateFormatter: DateFormatter = DateFormatter()
-        seperatorDateFormatter.dateStyle = DateFormatter.Style.medium
-        self.dateSeperatorLabel.text = seperatorDateFormatter.string(from: messageCreateDate)
-        
-        // Relationship between the current message and the previous message
-        self.dateSeperatorView.isHidden = false
-        self.dateSeperatorViewHeight.constant = 24.0
-        self.dateSeperatorViewTopMargin.constant = 10.0
-        self.dateSeperatorViewBottomMargin.constant = 10.0
-        if self.prevMessage != nil {
-            // Day Changed
-            let prevMessageDate: Date = Date(timeIntervalSince1970: Double(self.prevMessage!.createdAt) / 1000.0)
-            let currMessageDate: Date = Date(timeIntervalSince1970: Double(self.message.createdAt) / 1000.0)
-            let prevMessageDateComponents: DateComponents = Calendar.current.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year], from: prevMessageDate)
-            let currMessageDateComponents: DateComponents = Calendar.current.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year], from: currMessageDate)
-            
-            if prevMessageDateComponents.year != currMessageDateComponents.year || prevMessageDateComponents.month != currMessageDateComponents.month || prevMessageDateComponents.day != currMessageDateComponents.day {
-                // Show date seperator.
-                self.dateSeperatorView.isHidden = false
-                self.dateSeperatorViewHeight.constant = 24.0
-                self.dateSeperatorViewTopMargin.constant = 10.0
-                self.dateSeperatorViewBottomMargin.constant = 10.0
-            }
-            else {
-                // Hide date seperator.
-                self.dateSeperatorView.isHidden = true
-                self.dateSeperatorViewHeight.constant = 0
-                self.dateSeperatorViewBottomMargin.constant = 0
-                
-                // Continuous Message
-                if (self.prevMessage?.isKind(of: SBDAdminMessage.self))! {
-                    self.dateSeperatorViewTopMargin.constant = 10.0
-                }
-                else {
-                    var prevMessageSender: SBDUser?
-                    var currMessageSender: SBDUser?
-                    
-                    if (self.prevMessage?.isKind(of: SBDUserMessage.self))! {
-                        prevMessageSender = (self.prevMessage as! SBDUserMessage).sender
-                    }
-                    else if (self.prevMessage?.isKind(of: SBDFileMessage.self))! {
-                        prevMessageSender = (self.prevMessage as! SBDFileMessage).sender
-                    }
-                    
-                    currMessageSender = self.message.sender
-                    
-                    if prevMessageSender != nil {
-                        if prevMessageSender?.userId == currMessageSender?.userId {
-                            // Reduce margin
-                            self.dateSeperatorViewTopMargin.constant = 5.0
-                        }
-                        else {
-                            // Set default margin.
-                            self.dateSeperatorViewTopMargin.constant = 10.0
-                        }
-                    }
-                    else {
-                        self.dateSeperatorViewTopMargin.constant = 10.0
-                    }
-                }
-            }
-        }
-        else {
-            // Show date seperator.
-            self.dateSeperatorView.isHidden = false
-            self.dateSeperatorViewHeight.constant = 24.0
-            self.dateSeperatorViewTopMargin.constant = 10.0
-            self.dateSeperatorViewBottomMargin.constant = 10.0
         }
         
         self.previewSiteNameLabel.text = siteName
@@ -277,87 +174,58 @@ class OutgoingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
     }
     
     func updateBackgroundColour () {
-        self.messageContainerView.backgroundColor = self.containerBackgroundColour
+       // self.messageContainerView.backgroundColor = self.containerBackgroundColour
     }
     
     func getHeightOfViewCell() -> CGFloat {
-        let message = self.buildMessage()
-        let descriptionAttributes = [
-            NSAttributedStringKey.font: Constants.urlPreviewDescriptionFont()
-        ]
-        let description: NSString = self.previewData["description"] as! NSString
-        let descriptionRect = description.boundingRect(with: CGSize(width: self.previewDescriptionLabelWidth.constant, height: CGFloat.greatestFiniteMagnitude), options: [NSStringDrawingOptions.usesLineFragmentOrigin], attributes: descriptionAttributes, context: nil)
-        let descriptionLabelHeight = descriptionRect.size.height
-        let messageRect: CGRect = message.boundingRect(with: CGSize(width: self.messageLabelWidth.constant, height: CGFloat.greatestFiniteMagnitude), options: [NSStringDrawingOptions.usesLineFragmentOrigin], context: nil)
-        let messageHeight = messageRect.size.height
-
-        // Workaround for: The compiler is unable to type-check this expression in reasonable time; try breaking up the expression into distinct sub-expressions
-        
-        let cellHeightPart1 = self.dateSeperatorViewTopMargin.constant + self.dateSeperatorViewHeight.constant + self.dateSeperatorViewBottomMargin.constant + self.messageLabelTopMargin.constant
-        let cellHeightPart2 = messageHeight + self.messageLabelBottomMargin.constant + self.dividerViewHeight.constant + self.dividerViewBottomMargin.constant
-        let cellHeightPart3 =  self.previewSiteNameLabelHeight.constant + self.previewSiteNameLabelBottomMargin.constant + self.previewTitleLabelHeight.constant + self.previewTitleLabelBottomMargin.constant
-        
-        let cellHeight = cellHeightPart1 + cellHeightPart2  + cellHeightPart3 + descriptionLabelHeight + self.previewDescriptionLabelBottomMargin.constant + self.previewThumbnailImageViewHeight.constant
-        
-        return cellHeight
+        self.cnImageHeight.constant = previewData["image"] == nil ? 0.0 : 85.0
+        self.layoutIfNeeded()
+        return 225.0 + cnImageHeight.constant
     }
     
     func hideUnreadCount() {
-        self.unreadCountLabel.isHidden = true
+        self.imgMessageStatus.isHidden = true
     }
     
     func showUnreadCount() {
         if self.message.channelType == CHANNEL_TYPE_GROUP {
-            self.unreadCountLabel.isHidden = false
-            self.resendMessageButton.isHidden = true
+            self.imgMessageStatus.isHidden = false
             self.deleteMessageButton.isHidden = true
         }
     }
     
     func hideMessageControlButton() {
-        self.resendMessageButton.isHidden = true
         self.deleteMessageButton.isHidden = true
     }
     
     func showMessageControlButton() {
-        self.sendStatusLabel.isHidden = true
-        self.messageDateLabel.isHidden = true
-        self.unreadCountLabel.isHidden = true
         
-        self.resendMessageButton.isHidden = false
+        self.imgMessageStatus.isHidden = true
         self.deleteMessageButton.isHidden = false
     }
     
     func showSendingStatus() {
-        self.messageDateLabel.isHidden = true
-        self.unreadCountLabel.isHidden = true
-        self.resendMessageButton.isHidden = true
-        self.deleteMessageButton.isHidden = true
         
-        self.sendStatusLabel.isHidden = false
-        self.sendStatusLabel.text = "Sending"
+        self.imgMessageStatus.isHidden = true
+        self.deleteMessageButton.isHidden = true
     }
     
     func showFailedStatus() {
-        self.messageDateLabel.isHidden = true
-        self.unreadCountLabel.isHidden = true
-        self.resendMessageButton.isHidden = true
+        self.imgMessageStatus.isHidden = true
         self.deleteMessageButton.isHidden = true
-        
-        self.sendStatusLabel.isHidden = false
-        self.sendStatusLabel.text = "Failed"
     }
     
     func showMessageDate() {
-        self.unreadCountLabel.isHidden = true
-        self.resendMessageButton.isHidden = true
-        self.sendStatusLabel.isHidden = true
-        
-        self.messageDateLabel.isHidden = false
+        self.imgMessageStatus.isHidden = true
     }
     
     // MARK: TTTAttributedLabelDelegate
     func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
-        UIApplication.shared.openURL(url)
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+//        UIApplication.shared.openURL(url)
     }
 }

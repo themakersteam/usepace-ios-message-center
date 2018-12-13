@@ -8,6 +8,8 @@
 
 import UIKit
 import MessageCenter
+import UserNotifications
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -16,17 +18,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        return MessageCenter.application(application: application, didFinishLaunchingWithOptions: launchOptions)
-//        return true
+        
+        if #available(iOS 10.0, *) {
+            #if !(arch(i386) || arch(x86_64))
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+                if granted {
+                    UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { (settings: UNNotificationSettings) -> Void  in
+                        guard settings.authorizationStatus == UNAuthorizationStatus.authorized else {
+                            return
+                        }
+                        DispatchQueue.main.async {
+                            self.mainApplication?.registerForRemoteNotifications()
+                        }
+                    })
+                }
+            }
+            #endif
+        } else {
+            #if !(arch(i386) || arch(x86_64))
+            let notificationSettings = UIUserNotificationSettings(types: [UIUserNotificationType.alert, UIUserNotificationType.badge, UIUserNotificationType.sound], categories: nil)
+            self.mainApplication?.registerUserNotificationSettings(notificationSettings)
+            self.mainApplication?.registerForRemoteNotifications()
+            #endif
+        }
+        
+        //return MessageCenter.application(application: application, didFinishLaunchingWithOptions: launchOptions)
+        return true
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        MessageCenter.registerForRemoteNotificationsWithDeviceToken(deviceToken)
+        //MessageCenter.registerForRemoteNotificationsWithDeviceToken(deviceToken)
     }
     
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
-        MessageCenter.handleNotification(userInfo)
+//        MessageCenter.handleNotification(userInfo, match: { (notification) in
+//            MessageCenter.openChatView(forChannel: notification.channelId, welcomeMessage: <#T##String#>, withTheme: <#T##ThemeObject?#>, completion: <#T##(Bool) -> Void#>)
+//                                       completion:
+//            
+//        }) {
+//            // noMatch
+//            // Proceed with handling notification other than send-bird.
+//        }
     }
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

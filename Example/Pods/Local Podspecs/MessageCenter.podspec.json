@@ -44,6 +44,9 @@
     ],
     "HTMLKit": [
 
+    ],
+    "Toast": [
+      "~> 4.0.0"
     ]
   },
   "resource_bundles": {

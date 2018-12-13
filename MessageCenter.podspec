@@ -39,7 +39,7 @@ TODO: Add long description of the pod here.
   s.dependency 'TTTAttributedLabel'
   s.dependency 'CryptoSwift'
   s.dependency 'HTMLKit'
-  
+  s.dependency 'Toast', '~> 4.0.0'
    s.resource_bundles = {
      'MessageCenter' => ['MessageCenter/Classes/**/*.{storyboard,xib}']
    }

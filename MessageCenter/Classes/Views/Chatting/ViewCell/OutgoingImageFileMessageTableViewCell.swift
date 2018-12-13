@@ -14,23 +14,16 @@ import FLAnimatedImage
 class OutgoingImageFileMessageTableViewCell: UITableViewCell {
     weak var delegate: MessageDelegate?
     @IBOutlet weak var messageContainerView: UIView!
-    @IBOutlet weak var dateSeperatorView: UIView!
-    @IBOutlet weak var dateSeperatorLabel: UILabel!
+    
     @IBOutlet weak var fileImageView: FLAnimatedImageView!
     @IBOutlet weak var imageLoadingIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var sendingStatusLabel: UILabel!
+    
     @IBOutlet weak var messageDateLabel: UILabel!
+    @IBOutlet weak var imgMessageStatus: UIImageView!
     @IBOutlet weak var resendMessageButton: UIButton!
-    @IBOutlet weak var deleteMessageButton: UIButton!
-    @IBOutlet weak var unreadCountLabel: UILabel!
-    
-    @IBOutlet weak var dateSeperatorViewHeight: NSLayoutConstraint!
-    @IBOutlet weak var dateSeperatorViewTopMargin: NSLayoutConstraint!
-    
-    @IBOutlet weak var dateSeperatorViewBottomMargin: NSLayoutConstraint!
-    @IBOutlet weak var fileImageViewHeight: NSLayoutConstraint!
     
 
+    @IBOutlet weak var cnMessageContainerLeftPadding: NSLayoutConstraint!
     private var message: SBDFileMessage!
     private var prevMessage: SBDBaseMessage!
     
@@ -49,9 +42,8 @@ class OutgoingImageFileMessageTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
 //        self.messageContainerView.round(corners: [ .topLeft, .topRight, .bottomLeft ], radius: 15.0)
-        self.messageContainerView.selectedCornerRadius()
-        self.messageContainerView.layer.masksToBounds = true
-        
+        self.messageContainerView.layer.cornerRadius = 8.0
+        self.fileImageView.layer.cornerRadius = 8.0
         
     }
     
@@ -198,23 +190,23 @@ class OutgoingImageFileMessageTableViewCell: UITableViewCell {
         self.fileImageView.addGestureRecognizer(messageContainerTapRecognizer)
 
         self.resendMessageButton.addTarget(self, action: #selector(clickResendUserMessage), for: UIControlEvents.touchUpInside)
-        self.deleteMessageButton.addTarget(self, action: #selector(clickDeleteUserMessage), for: UIControlEvents.touchUpInside)
         
-        // Unread message count
+        // Message Status
         if self.message.channelType == CHANNEL_TYPE_GROUP {
-            if let channelOfMessage = channel as? SBDGroupChannel? {
-                
-                
-                
-                let unreadMessageCount = channelOfMessage?.getReadReceipt(of: self.message)
-                if unreadMessageCount == 0 {
-                    //self.hideUnreadCount()
-                    self.unreadCountLabel.text = "Seen"
-                }
-                else {
-                    //self.showUnreadCount()
-                    self.unreadCountLabel.text = "Sent"
-//                    self.unreadCountLabel.text = String(format: "%d", unreadMessageCount!)
+            if self.message.requestId == "0" {
+                self.imgMessageStatus.image = UIImage(named: "icMsgsent", in: Bundle(for: MessageCenter.self), compatibleWith: nil)
+            }
+            else {
+                if let channelOfMessage = channel as? SBDGroupChannel? {
+                    let unreadMessageCount = channelOfMessage?.getReadReceipt(of: self.message)
+                    if unreadMessageCount == 0 {
+                        // 0 means everybody has read the message
+                        self.imgMessageStatus.image = UIImage(named: "icMsgread", in: Bundle(for: MessageCenter.self), compatibleWith: nil)
+                    }
+                    else {
+                        self.imgMessageStatus.image = UIImage(named: "icMsgdelivered", in: Bundle(for: MessageCenter.self), compatibleWith: nil)
+                        
+                    }
                 }
             }
         }
@@ -237,76 +229,6 @@ class OutgoingImageFileMessageTableViewCell: UITableViewCell {
         let messageDateAttributedString = NSMutableAttributedString(string: messageDateString, attributes: messageDateAttribute)
         self.messageDateLabel.attributedText = messageDateAttributedString
         
-        // Seperator Date
-        let seperatorDateFormatter = DateFormatter()
-        seperatorDateFormatter.dateStyle = DateFormatter.Style.medium
-        self.dateSeperatorLabel.text = seperatorDateFormatter.string(from: messageCreatedDate as Date)
-        
-        // Relationship between the current message and the previous message
-        self.dateSeperatorView.isHidden = false;
-        self.dateSeperatorViewHeight.constant = 24.0;
-        self.dateSeperatorViewTopMargin.constant = 10.0;
-        self.dateSeperatorViewBottomMargin.constant = 10.0;
-        if self.prevMessage != nil {
-            // Day Changed
-            let prevMessageDate = NSDate(timeIntervalSince1970: Double(self.prevMessage.createdAt) / 1000.0)
-            let currMessageDate = NSDate(timeIntervalSince1970: Double(self.message.createdAt) / 1000.0)
-            let prevMessageDateComponents = NSCalendar.current.dateComponents([.day, .month, .year], from: prevMessageDate as Date)
-            let currMessagedateComponents = NSCalendar.current.dateComponents([.day, .month, .year], from: currMessageDate as Date)
-            
-            if prevMessageDateComponents.year != currMessagedateComponents.year || prevMessageDateComponents.month != currMessagedateComponents.month || prevMessageDateComponents.day != currMessagedateComponents.day {
-                // Show date seperator.
-                self.dateSeperatorView.isHidden = false
-                self.dateSeperatorViewHeight.constant = 24.0
-                self.dateSeperatorViewTopMargin.constant = 10.0
-                self.dateSeperatorViewBottomMargin.constant = 10.0
-            }
-            else {
-                // Hide date seperator.
-                self.dateSeperatorView.isHidden = true
-                self.dateSeperatorViewHeight.constant = 0
-                self.dateSeperatorViewBottomMargin.constant = 0
-                
-                // Continuous Message
-                if self.prevMessage is SBDAdminMessage {
-                    self.dateSeperatorViewTopMargin.constant = 10.0
-                }
-                else {
-                    var prevMessageSender: SBDUser?
-                    var currMessageSender: SBDUser?
-                    
-                    if self.prevMessage is SBDUserMessage {
-                        prevMessageSender = (self.prevMessage as! SBDUserMessage).sender
-                    }
-                    else if self.prevMessage is SBDFileMessage {
-                        prevMessageSender = (self.prevMessage as! SBDFileMessage).sender
-                    }
-                    
-                    currMessageSender = self.message.sender
-                    
-                    if prevMessageSender != nil && currMessageSender != nil {
-                        if prevMessageSender?.userId == currMessageSender?.userId {
-                            // Reduce margin
-                            self.dateSeperatorViewTopMargin.constant = 5.0
-                        }
-                        else {
-                            // Set default margin.
-                            self.dateSeperatorViewTopMargin.constant = 10.0
-                        }
-                    }
-                    else {
-                        self.dateSeperatorViewTopMargin.constant = 10.0
-                    }
-                }
-            }
-        }
-        else {
-            // Show date seperator.
-            self.dateSeperatorView.isHidden = false
-            self.dateSeperatorViewHeight.constant = 24.0
-            self.dateSeperatorViewTopMargin.constant = 10.0
-            self.dateSeperatorViewBottomMargin.constant = 10.0
-        }
         
         self.layoutIfNeeded()
     }
@@ -320,9 +242,12 @@ class OutgoingImageFileMessageTableViewCell: UITableViewCell {
     }
     
     func getHeightOfViewCell() -> CGFloat {
-        let height = self.dateSeperatorViewTopMargin.constant + self.dateSeperatorViewHeight.constant + self.dateSeperatorViewBottomMargin.constant + self.fileImageViewHeight.constant
 
-        return height
+        return 210.0
+        
+        //        let height = self.dateSeperatorViewTopMargin.constant + self.dateSeperatorViewHeight.constant + self.dateSeperatorViewBottomMargin.constant + self.fileImageViewHeight.constant
+//
+//        return height
 //        self.fileImageViewHeight.constant = 120.0
 //        self.layoutSubviews()
 //        return 170.0
@@ -330,56 +255,41 @@ class OutgoingImageFileMessageTableViewCell: UITableViewCell {
     
     
     func hideUnreadCount() {
-        self.unreadCountLabel.isHidden = true
+        self.imgMessageStatus.isHidden = true
     }
     
     func showUnreadCount() {
         if self.message.channelType == CHANNEL_TYPE_GROUP {
-            self.unreadCountLabel.isHidden = false
-            self.resendMessageButton.isHidden = true
-            self.deleteMessageButton.isHidden = true
+            self.imgMessageStatus.isHidden = false
         }
     }
     
     func hideMessageControlButton() {
         self.resendMessageButton.isHidden = true
-        self.deleteMessageButton.isHidden = true
     }
     
     func showMessageControlButton() {
-        self.sendingStatusLabel.isHidden = true
-        self.messageDateLabel.isHidden = true
-        self.unreadCountLabel.isHidden = true
         
+        self.messageDateLabel.isHidden = true
+        self.imgMessageStatus.isHidden = true
         self.resendMessageButton.isHidden = false
-        self.deleteMessageButton.isHidden = false
     }
     
     func showSendingStatus() {
         self.messageDateLabel.isHidden = true
-        self.unreadCountLabel.isHidden = true
+        self.imgMessageStatus.isHidden = true
         self.resendMessageButton.isHidden = true
-        self.deleteMessageButton.isHidden = true
-        
-        self.sendingStatusLabel.isHidden = false
-        self.sendingStatusLabel.text = "Sending"
     }
     
     func showFailedStatus() {
         self.messageDateLabel.isHidden = true
-        self.unreadCountLabel.isHidden = true
+        self.imgMessageStatus.isHidden = true
         self.resendMessageButton.isHidden = true
-        self.deleteMessageButton.isHidden = true
-        
-        self.sendingStatusLabel.isHidden = false
-        self.sendingStatusLabel.text = "Failed"
     }
     
     func showMessageDate() {
-        self.unreadCountLabel.isHidden = true
+        self.imgMessageStatus.isHidden = true
         self.resendMessageButton.isHidden = true
-        self.sendingStatusLabel.isHidden = true
-        
         self.messageDateLabel.isHidden = false
     }
     

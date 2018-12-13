@@ -15,6 +15,7 @@ import Photos
 import NYTPhotoViewer
 import HTMLKit
 import FLAnimatedImage
+import Toast
 
 class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegate, SBDChannelDelegate, ChattingViewDelegate, MessageDelegate, UINavigationControllerDelegate {
     
@@ -304,7 +305,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig)
         let task: URLSessionDataTask = session.dataTask(with: request) { (data, response, error) in
-            if error != nil {
+            if error != nil || data?.count == 0 || data == nil {
                 self.sendMessageWithReplacement(replacement: aTempModel)
                 session.invalidateAndCancel()
                 
@@ -314,9 +315,9 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             let httpResponse: HTTPURLResponse = response as! HTTPURLResponse
             let contentType: String = httpResponse.allHeaderFields["Content-Type"] as! String
             if contentType.contains("text/html") {
-                let htmlBody: NSString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!
                 
-                let parser: HTMLParser = HTMLParser(string: htmlBody as String)
+                let htmlBody = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                let parser: HTMLParser = HTMLParser(string: htmlBody as! String)
                 let document = parser.parseDocument()
                 let head = document.head
                 
@@ -467,6 +468,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 }
             }
             
+            // end - if
             session.invalidateAndCancel()
         }
         
@@ -512,6 +514,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     }
     
     @objc private func sendMessage() {
+        
         if self.chattingView.messageTextView.text.count > 0 {
             self.groupChannel.endTyping()
             let message = self.chattingView.messageTextView.text
@@ -619,7 +622,12 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         alertController.addAction(photosAction())
         alertController.addAction(locationAction())
         alertController.addAction(cancelAction())
-        present(alertController, animated: true, completion: nil)
+        
+        alertController.view.tintColor = .red
+        present(alertController, animated: true) {
+            alertController.view.tintColor = .red
+        }
+        
     }
     
     private func cameraAction() -> UIAlertAction {
@@ -770,6 +778,23 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                     DispatchQueue.main.async {
                         self.chattingView.scrollToBottom(force: false)
                     }
+                }
+            }
+            else {
+                if message is SBDUserMessage {
+                    let strMessage = (message as! SBDUserMessage).message
+                    let senderName = (message as! SBDUserMessage).sender?.nickname
+                    self.view.makeToast(senderName! + " has sent you a message. \n" + strMessage!)
+                }
+                else if message is SBDFileMessage {
+                    let senderName = (message as! SBDFileMessage).sender?.nickname
+                    self.view.makeToast(senderName! + " has sent you a file.")
+                }
+                else if message is SBDAdminMessage {
+                    self.view.makeToast("You have a new message from Admin.")
+                }
+                else {
+                    self.view.makeToast("You have a new message.")
                 }
             }
         }

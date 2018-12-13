@@ -15,9 +15,7 @@ import FLAnimatedImage
 
 class IncomingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttributedLabelDelegate {
     
-    @IBOutlet weak var dateSeperatorView: UIView!
-    @IBOutlet weak var dateSeperatorLabel: UILabel!
-    @IBOutlet weak var profileImageView: UIImageView!
+    
     @IBOutlet weak var previewThumbnailImageView: FLAnimatedImageView!
     @IBOutlet weak var previewSiteNameLabel: UILabel!
     @IBOutlet weak var previewTitleLabel: UILabel!
@@ -27,24 +25,8 @@ class IncomingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
     @IBOutlet weak var messageContainerView: UIView!
     @IBOutlet weak var messageLabel: TTTAttributedLabel!
     
-    @IBOutlet weak var dateSeperatorTopMargin: NSLayoutConstraint!
-    @IBOutlet weak var dateSeperatorHeight: NSLayoutConstraint!
-    @IBOutlet weak var dateSeperatorBottomMargin: NSLayoutConstraint!
-    @IBOutlet weak var messageTopMargin: NSLayoutConstraint!
-    @IBOutlet weak var messageBottomMargin: NSLayoutConstraint!
-    @IBOutlet weak var dividerHeight: NSLayoutConstraint!
-    @IBOutlet weak var dividerBottomMargin: NSLayoutConstraint!
-    @IBOutlet weak var previewSiteNameHeight: NSLayoutConstraint!
-    @IBOutlet weak var previewSiteNameBottomMargin: NSLayoutConstraint!
-    @IBOutlet weak var previewTitleHeight: NSLayoutConstraint!
-    @IBOutlet weak var previewTitleBottomMargin: NSLayoutConstraint!
-    @IBOutlet weak var previewDescriptionBottomMargin: NSLayoutConstraint!
-    @IBOutlet weak var previewThumbnailImageHeight: NSLayoutConstraint!
     
-    @IBOutlet weak var messageWidth: NSLayoutConstraint!
-    @IBOutlet weak var previewDescriptionWidth: NSLayoutConstraint!
-    @IBOutlet weak var previewThumbnailImageWidth: NSLayoutConstraint!
-    
+    @IBOutlet weak var cnImageHeight: NSLayoutConstraint!
     weak var delegate: MessageDelegate!
     private var message: SBDUserMessage!
     private var prevMessage: SBDBaseMessage!
@@ -56,6 +38,11 @@ class IncomingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.podBundle = Bundle(for: MessageCenter.self)
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.messageContainerView.layer.cornerRadius = 8.0        
     }
     
     static func nib() -> UINib {
@@ -115,12 +102,7 @@ class IncomingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
         self.previewDescriptionLabel.isUserInteractionEnabled = true
         self.previewDescriptionLabel.addGestureRecognizer(previewDescriptionLabelTapRecognizer)
 
-        self.profileImageView.af_setImage(withURL: URL(string: (self.message.sender?.profileUrl)!)!, placeholderImage: UIImage(named: "img_profile", in: podBundle, compatibleWith: nil), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: UIImageView.ImageTransition.noTransition, runImageTransitionIfCached: true, completion: nil)
         
-        let profileImageTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickProfileImage))
-        profileImageTapRecognizer.delegate = self
-        self.profileImageView.isUserInteractionEnabled = true
-        self.profileImageView.addGestureRecognizer(profileImageTapRecognizer)
         
         // Message Date
         let messageDateAttribute = [
@@ -134,82 +116,7 @@ class IncomingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
         let messageDateString = dateFormatter.string(from: messageCreateDate)
         let messageDateAttributedString: NSMutableAttributedString = NSMutableAttributedString(string: messageDateString, attributes: messageDateAttribute)
         self.messageDateLabel.attributedText = messageDateAttributedString
-        
-        // Seperator Date
-        let seperatorDateFormatter: DateFormatter = DateFormatter()
-        seperatorDateFormatter.dateStyle = DateFormatter.Style.medium
-        self.dateSeperatorLabel.text = seperatorDateFormatter.string(from: messageCreateDate)
-        
-        // Relationship between the current message and the previous message
-        self.profileImageView.isHidden = false
-        self.dateSeperatorView.isHidden = false
-        self.dateSeperatorHeight.constant = 24.0
-        self.dateSeperatorTopMargin.constant = 10.0
-        self.dateSeperatorBottomMargin.constant = 10.0
-        self.displayNickname = true
-        if self.prevMessage != nil {
-            // Day Changed
-            let prevMessageDate: Date = Date(timeIntervalSince1970: Double(self.prevMessage.createdAt) / 1000.0)
-            let currMessageDate: Date = Date(timeIntervalSince1970: Double(self.message.createdAt) / 1000.0)
-            let prevMessageDateComponents: DateComponents = Calendar.current.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year], from: prevMessageDate)
-            let currMessageDateComponents: DateComponents = Calendar.current.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year], from: currMessageDate)
-            
-            if prevMessageDateComponents.year != currMessageDateComponents.year || prevMessageDateComponents.month != currMessageDateComponents.month || prevMessageDateComponents.day != currMessageDateComponents.day {
-                // Show date seperator.
-                self.dateSeperatorView.isHidden = false
-                self.dateSeperatorHeight.constant = 24.0
-                self.dateSeperatorTopMargin.constant = 10.0
-                self.dateSeperatorBottomMargin.constant = 10.0
-            }
-            else {
-                // Hide date seperator.
-                self.dateSeperatorView.isHidden = true
-                self.dateSeperatorHeight.constant = 0
-                self.dateSeperatorBottomMargin.constant = 0
                 
-                // Continuous Message
-                if self.prevMessage.isKind(of: SBDAdminMessage.self) {
-                    self.dateSeperatorTopMargin.constant = 10.0
-                }
-                else {
-                    var prevMessageSender: SBDUser?
-                    var currMessageSender: SBDUser?
-                    
-                    if self.prevMessage.isKind(of: SBDUserMessage.self) {
-                        prevMessageSender = (self.prevMessage as! SBDUserMessage).sender
-                    }
-                    else if self.prevMessage.isKind(of: SBDFileMessage.self) {
-                        prevMessageSender = (self.prevMessage as! SBDFileMessage).sender
-                    }
-                    
-                    currMessageSender = self.message.sender
-                    
-                    if prevMessageSender != nil {
-                        if prevMessageSender?.userId == currMessageSender?.userId {
-                            // Reduce margin
-                            self.dateSeperatorTopMargin.constant = 5.0
-                            self.profileImageView.isHidden = true
-                            self.displayNickname = false
-                        }
-                        else {
-                            // Set default margin.
-                            self.profileImageView.isHidden = false
-                            self.dateSeperatorTopMargin.constant = 10.0
-                        }
-                    }
-                    else {
-                        self.dateSeperatorTopMargin.constant = 10.0
-                    }
-                }
-            }
-        }
-        else {
-            // Show date seperator.
-            self.dateSeperatorView.isHidden = false
-            self.dateSeperatorHeight.constant = 24.0
-            self.dateSeperatorTopMargin.constant = 10.0
-            self.dateSeperatorBottomMargin.constant = 10.0
-        }
         
         self.previewSiteNameLabel.text = siteName
         self.previewTitleLabel.text = title
@@ -252,57 +159,57 @@ class IncomingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
     }
     
     private func buildMessage() -> NSMutableAttributedString {
-        var nicknameAttribute: [NSAttributedStringKey:NSObject]
-        switch (self.message.sender?.nickname?.count)! % 5 {
-        case 0:
-            nicknameAttribute = [
-                NSAttributedStringKey.font: Constants.nicknameFontInMessage(),
-                NSAttributedStringKey.foregroundColor: Constants.nicknameColorInMessageNo0()
-            ]
-        case 1:
-            nicknameAttribute = [
-                NSAttributedStringKey.font: Constants.nicknameFontInMessage(),
-                NSAttributedStringKey.foregroundColor: Constants.nicknameColorInMessageNo1()
-            ]
-        case 2:
-            nicknameAttribute = [
-                NSAttributedStringKey.font: Constants.nicknameFontInMessage(),
-                NSAttributedStringKey.foregroundColor: Constants.nicknameColorInMessageNo2()
-            ]
-        case 3:
-            nicknameAttribute = [
-                NSAttributedStringKey.font: Constants.nicknameFontInMessage(),
-                NSAttributedStringKey.foregroundColor: Constants.nicknameColorInMessageNo3()
-            ]
-        case 4:
-            nicknameAttribute = [
-                NSAttributedStringKey.font: Constants.nicknameFontInMessage(),
-                NSAttributedStringKey.foregroundColor: Constants.nicknameColorInMessageNo4()
-            ]
-        default:
-            nicknameAttribute = [
-                NSAttributedStringKey.font: Constants.nicknameFontInMessage(),
-                NSAttributedStringKey.foregroundColor: Constants.nicknameColorInMessageNo0()
-            ]
-        }
+//        var nicknameAttribute: [NSAttributedStringKey:NSObject]
+//        switch (self.message.sender?.nickname?.count)! % 5 {
+//        case 0:
+//            nicknameAttribute = [
+//                NSAttributedStringKey.font: Constants.nicknameFontInMessage(),
+//                NSAttributedStringKey.foregroundColor: Constants.nicknameColorInMessageNo0()
+//            ]
+//        case 1:
+//            nicknameAttribute = [
+//                NSAttributedStringKey.font: Constants.nicknameFontInMessage(),
+//                NSAttributedStringKey.foregroundColor: Constants.nicknameColorInMessageNo1()
+//            ]
+//        case 2:
+//            nicknameAttribute = [
+//                NSAttributedStringKey.font: Constants.nicknameFontInMessage(),
+//                NSAttributedStringKey.foregroundColor: Constants.nicknameColorInMessageNo2()
+//            ]
+//        case 3:
+//            nicknameAttribute = [
+//                NSAttributedStringKey.font: Constants.nicknameFontInMessage(),
+//                NSAttributedStringKey.foregroundColor: Constants.nicknameColorInMessageNo3()
+//            ]
+//        case 4:
+//            nicknameAttribute = [
+//                NSAttributedStringKey.font: Constants.nicknameFontInMessage(),
+//                NSAttributedStringKey.foregroundColor: Constants.nicknameColorInMessageNo4()
+//            ]
+//        default:
+//            nicknameAttribute = [
+//                NSAttributedStringKey.font: Constants.nicknameFontInMessage(),
+//                NSAttributedStringKey.foregroundColor: Constants.nicknameColorInMessageNo0()
+//            ]
+//        }
         
         let messageAttribute = [
             NSAttributedStringKey.font: Constants.messageFont()
         ]
-        let nickname = self.message.sender?.nickname
+//        let nickname = self.message.sender?.nickname
         let message = self.message.message
-        
+//        self.displayNickname = false
         var fullMessage: NSMutableAttributedString?
-        if self.displayNickname {
-            fullMessage = NSMutableAttributedString(string: String(format: "%@\n%@", nickname!, message!))
-            fullMessage?.addAttributes(nicknameAttribute, range: NSMakeRange(0, (nickname?.count)!))
-            fullMessage?.addAttributes(messageAttribute, range: NSMakeRange((nickname?.count)! + 1, (message?.count)!))
-        }
-        else {
-            fullMessage = NSMutableAttributedString(string: String(format: "%@", message!))
-            fullMessage?.addAttributes(messageAttribute, range: NSMakeRange(0, (message?.count)!))
-        }
-        
+//        if self.displayNickname {
+//            fullMessage = NSMutableAttributedString(string: String(format: "%@\n%@", nickname!, message!))
+//            fullMessage?.addAttributes(nicknameAttribute, range: NSMakeRange(0, (nickname?.count)!))
+//            fullMessage?.addAttributes(messageAttribute, range: NSMakeRange((nickname?.count)! + 1, (message?.count)!))
+//        }
+//        else {
+//
+//        }
+        fullMessage = NSMutableAttributedString(string: String(format: "%@", message!))
+        fullMessage?.addAttributes(messageAttribute, range: NSMakeRange(0, (message?.count)!))
         return fullMessage!
     }
     
@@ -311,27 +218,17 @@ class IncomingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
     }
     
     func getHeightOfViewCell() -> Float {
-        let fullMessage = self.buildMessage()
-        let fullMessageRect: CGRect = fullMessage.boundingRect(with: CGSize(width: self.messageWidth.constant, height: CGFloat.greatestFiniteMagnitude), options: [NSStringDrawingOptions.usesLineFragmentOrigin], context: nil)
-        let attributes = [
-            NSAttributedStringKey.font: Constants.urlPreviewDescriptionFont()
-        ]
-
-        let description: NSString = self.previewData["description"] as! NSString
-        let descriptionRect = description.boundingRect(with: CGSize(width: self.previewDescriptionWidth.constant, height: CGFloat.greatestFiniteMagnitude), options: [NSStringDrawingOptions.usesLineFragmentOrigin], attributes: attributes, context: nil)
-        
-        // Workaround for: The compiler is unable to type-check this expression in reasonable time; try breaking up the expression into distinct sub-expressions
-    
-        let cellHeightPart1 = self.dateSeperatorTopMargin.constant + self.dateSeperatorHeight.constant + self.dateSeperatorBottomMargin.constant + self.messageTopMargin.constant + fullMessageRect.size.height
-        let cellHeightPart2 = self.messageBottomMargin.constant + self.dividerHeight.constant + self.dividerBottomMargin.constant + self.previewSiteNameHeight.constant + self.previewSiteNameBottomMargin.constant
-        let cellHeightPart3 = self.previewDescriptionBottomMargin.constant + self.previewThumbnailImageHeight.constant
-        let cellHeight = cellHeightPart1 +  cellHeightPart2 + cellHeightPart3 + self.previewTitleHeight.constant + self.previewTitleBottomMargin.constant + descriptionRect.size.height
-        
-        return Float(cellHeight)
+        self.cnImageHeight.constant = previewData["image"] == nil ? 0.0 : 85.0
+        self.layoutIfNeeded()
+        return Float(225.0 + cnImageHeight.constant)
     }
     
     // MARK: TTTAttributedLabelDelegate
     func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
-        UIApplication.shared.openURL(url)
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
     }
 }

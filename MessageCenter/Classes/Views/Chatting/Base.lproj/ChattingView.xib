@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="chattingTableView" destination="wXW-j4-hDA" id="vaO-Yb-3Qc"/>
                 <outlet property="fileAttachButton" destination="739-8j-LpV" id="ZwI-s1-LY6"/>
+                <outlet property="inputContainerView" destination="gmQ-VZ-eb9" id="zTp-eq-gEU"/>
                 <outlet property="inputContainerViewHeight" destination="LSI-m5-Njf" id="KTM-Fc-lPW"/>
                 <outlet property="messageTextView" destination="plN-dY-ohK" id="aBc-tK-K64"/>
                 <outlet property="placeholderLabel" destination="KKN-hB-YYf" id="cTy-Pk-M7F"/>
@@ -29,9 +30,12 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BgChat" translatesAutoresizingMaskIntoConstraints="NO" id="c8I-kf-ap0">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="619"/>
+                </imageView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wXW-j4-hDA" userLabel="Chatting Table View">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="619"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <color key="separatorColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="955-1q-9ID" userLabel="Typing Indicator Container View">
@@ -137,10 +141,14 @@
                 <constraint firstItem="wXW-j4-hDA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="2a3-0K-PxG"/>
                 <constraint firstItem="wXW-j4-hDA" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="37q-Xx-xua"/>
                 <constraint firstAttribute="trailing" secondItem="wXW-j4-hDA" secondAttribute="trailing" id="3c7-mu-oKj"/>
+                <constraint firstItem="c8I-kf-ap0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="4UO-cJ-1jK"/>
+                <constraint firstAttribute="trailing" secondItem="c8I-kf-ap0" secondAttribute="trailing" id="760-DY-uNm"/>
                 <constraint firstAttribute="trailing" secondItem="955-1q-9ID" secondAttribute="trailing" id="7ON-Db-5rf"/>
                 <constraint firstItem="gmQ-VZ-eb9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="9N6-Vp-Axi"/>
                 <constraint firstItem="955-1q-9ID" firstAttribute="top" secondItem="wXW-j4-hDA" secondAttribute="bottom" id="DfI-5k-0PL"/>
                 <constraint firstAttribute="trailing" secondItem="gmQ-VZ-eb9" secondAttribute="trailing" id="SBC-V0-1b4"/>
+                <constraint firstItem="c8I-kf-ap0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="a2b-Xj-ifU"/>
+                <constraint firstItem="955-1q-9ID" firstAttribute="top" secondItem="c8I-kf-ap0" secondAttribute="bottom" id="bAC-ql-nRa"/>
                 <constraint firstAttribute="bottom" secondItem="gmQ-VZ-eb9" secondAttribute="bottom" id="fiA-Lf-fal"/>
                 <constraint firstItem="955-1q-9ID" firstAttribute="bottom" secondItem="gmQ-VZ-eb9" secondAttribute="top" id="j9A-bF-Lvu"/>
                 <constraint firstItem="955-1q-9ID" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="veA-lk-LUV"/>
@@ -149,6 +157,7 @@
     </objects>
     <resources>
         <image name="01" width="55" height="52"/>
+        <image name="BgChat" width="375" height="667"/>
         <image name="btn_add_chat" width="30" height="30"/>
         <image name="icon_send_message" width="67" height="67"/>
     </resources>
