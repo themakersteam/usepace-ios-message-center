@@ -192,14 +192,13 @@ public class MessageCenter {
                 let senderId = sbSender["id"] as! String
                 let senderName = sbSender["name"] as! String
                 
-//                let notification = NotificationModel(
-//                    title: "",
-//                    message: message,
-//                    channelId: channelURL,
-//                    senderId: senderId,
-//                    senderName: senderName
-//                )
-//                match(notification)
+                let notification = NotificationModel()
+                notification.channelId = channelURL
+                notification.senderId = senderId
+                notification.senderName = senderName
+                notification.message = message
+                
+                match(notification)
                 
             }
             else {

@@ -36,14 +36,23 @@ class ViewController: UIViewController {
         // Action sheet icons, subtitles, and send button color
         let primaryActionIconsColor = UIColor(red: 82.0/255.0, green: 67.0/255.0, blue: 62.0/255.0, alpha: 1.0)
         
-        let secondaryColor = UIColor(red: 237.0/255.0, green: 237.0/255.0, blue: 237.0/255.0, alpha: 1.0)
+//        let secondaryColor = UIColor(red: 237.0/255.0, green: 237.0/255.0, blue: 237.0/255.0, alpha: 1.0)
         
-       
+
+        let theme = MessageCenter.createThemeObject(title: title,
+                                                    subtitle: subtitle,
+                                                    welcomeMessage: welcomeMessage,
+                                                    primaryColor: primaryColor,
+                                                    primaryAccentColor: primaryAccentColor,
+                                                    primaryNavigationButtonColor: primaryNavigationIconColor,
+                                                    primaryBackgroundColor: primaryBackgroundColor,
+                                                    primaryActionIconsColor: primaryActionIconsColor)
+        
 //        let theme = MessageCenter.createTheme(title: title, primaryColor: primaryColor, secondaryColor: secondaryColor)
         
-//        MessageCenter.openChatView(forChannel: "sendbird_group_channel_2456028_1ef918c0149a1f8b0993ae21cb26fa9c16540a91", welcomeMessage: "Welcome Message", withTheme: theme) { (success) in
-//            
-//       }
+        MessageCenter.openChatView(forChannel: "sendbird_group_channel_2456028_1ef918c0149a1f8b0993ae21cb26fa9c16540a91", welcomeMessage: "Welcome Message", withTheme: theme) { (success) in
+//
+       }
     }
     
     @IBAction func onTouchConnect(_ sender: Any) {
@@ -61,12 +70,12 @@ class ViewController: UIViewController {
   
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        // Do any additional setup after loading the view, typically from a nib.        
         buttonJoin.isEnabled = false
         MessageCenter.parentVC = self
         connectRequest = ConnectionRequest(appId: "FE3AD311-7F0F-4E7E-9E22-25FF141A37C0", userId: "rider_sony", accessToken: "4a8f3c197450b4762cd2dcf02a130816a503f4f2", client: ClientType.sendBird)
-        
-        connectRequest = ConnectionRequest(appId: "FE3AD311-7F0F-4E7E-9E22-25FF141A37C0", userId: "customer_hs_184890", accessToken: "8b21b79c6a07d74e95cf6c91837ec2a64e9cbc54", client: ClientType.sendBird)
+//
+//        connectRequest = ConnectionRequest(appId: "FE3AD311-7F0F-4E7E-9E22-25FF141A37C0", userId: "customer_hs_184890", accessToken: "8b21b79c6a07d74e95cf6c91837ec2a64e9cbc54", client: ClientType.sendBird)
         MessageCenter.connect(connectRequest, pushToken: "2121212324rdfdcef".data(using: .utf8), success: { (userId) in
             print("Connected user: %@", userId);
             self.labelUserId.text = userId

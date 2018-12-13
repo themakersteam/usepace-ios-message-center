@@ -15,6 +15,7 @@ import Photos
 import NYTPhotoViewer
 import HTMLKit
 import FLAnimatedImage
+import Toast
 
 class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegate, SBDChannelDelegate, ChattingViewDelegate, MessageDelegate, UINavigationControllerDelegate {
     
@@ -777,6 +778,23 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                     DispatchQueue.main.async {
                         self.chattingView.scrollToBottom(force: false)
                     }
+                }
+            }
+            else {
+                if message is SBDUserMessage {
+                    let strMessage = (message as! SBDUserMessage).message
+                    let senderName = (message as! SBDUserMessage).sender?.nickname
+                    self.view.makeToast(senderName! + " has sent you a message. \n" + strMessage!)
+                }
+                else if message is SBDFileMessage {
+                    let senderName = (message as! SBDFileMessage).sender?.nickname
+                    self.view.makeToast(senderName! + " has sent you a file.")
+                }
+                else if message is SBDAdminMessage {
+                    self.view.makeToast("You have a new message from Admin.")
+                }
+                else {
+                    self.view.makeToast("You have a new message.")
                 }
             }
         }
