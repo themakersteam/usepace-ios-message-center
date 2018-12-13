@@ -20,7 +20,7 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
     @IBOutlet weak var resendMessageButton: UIButton!
     @IBOutlet weak var imgMessageStatus: UIImageView!
     @IBOutlet weak var vwTimestampStatus: UIView!
-    
+    @IBOutlet weak var cnMessageContainerLeftPadding: NSLayoutConstraint!
 
     private var message: SBDUserMessage!
     private var prevMessage: SBDBaseMessage!
@@ -83,17 +83,17 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
         // Message Status
         if self.message.channelType == CHANNEL_TYPE_GROUP {
             if self.message.requestId == "0" {
-                self.imgMessageStatus.image = UIImage(named: "icMsgsent")
+                self.imgMessageStatus.image = UIImage(named: "icMsgsent", in: Bundle(for: MessageCenter.self), compatibleWith: nil)
             }
             else {
                 if let channelOfMessage = channel as? SBDGroupChannel? {
                     let unreadMessageCount = channelOfMessage?.getReadReceipt(of: self.message)
                     if unreadMessageCount == 0 {
                         // 0 means everybody has read the message
-                        self.imgMessageStatus.image = UIImage(named: "icMsgread")
+                        self.imgMessageStatus.image = UIImage(named: "icMsgread", in: Bundle(for: MessageCenter.self), compatibleWith: nil)
                     }
                     else {
-                        self.imgMessageStatus.image = UIImage(named: "icMsgdelivered")
+                        self.imgMessageStatus.image = UIImage(named: "icMsgdelivered", in: Bundle(for: MessageCenter.self), compatibleWith: nil)
                         
                     }
                 }
@@ -104,13 +104,26 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
         }
         
         
-        let messageCreatedAtSeconds = message.createdAt
-        let messageDate = Date(timeIntervalSince1970: TimeInterval(messageCreatedAtSeconds))
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        let strTime = formatter.string(from: messageDate)
-        self.messageDateLabel.text = strTime
-
+//        let messageCreatedAtSeconds = message.createdAt
+//        let messageDate = Date(timeIntervalSince1970: TimeInterval(messageCreatedAtSeconds))
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "HH:mm"
+//        let strTime = formatter.string(from: messageDate)
+//        self.messageDateLabel.text = strTime
+        // Message Date
+        
+        let messageDateAttribute = [
+            NSAttributedStringKey.font: Constants.messageDateFont(),
+            NSAttributedStringKey.foregroundColor: Constants.messageDateColor()
+        ]
+        let messageTimestamp = Double(self.message.createdAt) / 1000.0
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = DateFormatter.Style.short
+        let messageCreatedDate = NSDate(timeIntervalSince1970: messageTimestamp)
+        let messageDateString = dateFormatter.string(from: messageCreatedDate as Date)
+        let messageDateAttributedString = NSMutableAttributedString(string: messageDateString, attributes: messageDateAttribute)
+        self.messageDateLabel.attributedText = messageDateAttributedString
+        
         self.layoutIfNeeded()
     }
 
@@ -139,47 +152,33 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
     func getHeightOfViewCell() -> CGFloat {
         let fullMessage = self.buildMessage()
         let heightOfString = fullMessage.height(withConstrainedWidth: UIScreen.main.bounds.size.width - 120.0)
-        return heightOfString + 45.0
-//        print(fullMessage)
-//        var fullMessageSize: CGSize
-//
-//        let messageLabelMaxWidth = UIScreen.main.bounds.size.width - (self.messageContainerRightMargin.constant + self.messageContainerRightPadding.constant + self.messageContainerLeftPadding.constant + self.messageContainerLeftMargin.constant + self.messageDateLabelLeftMargin.constant + self.messageDateLabelWidth.constant)
-//
-////        fullMessageRect = fullMessage.boundingRect(with: CGSize.init(width: messageLabelMaxWidth, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
-//
-//        //UIScreen.main.bounds.size.width - 160.0
-//
-//        let framesetter = CTFramesetterCreateWithAttributedString(fullMessage)
-//        fullMessageSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRange(location: 0,length: 0), nil, CGSize(width: messageLabelMaxWidth/1, height: CGFloat(LONG_LONG_MAX)), nil)
-//        print(fullMessageSize)
-//
-//        if fullMessageSize.width >= messageLabelMaxWidth {
-//            messageContainerWidth.constant = messageLabelMaxWidth
+        // 135  -- UIScreen.main.bounds.size.width - 120.0
+        
+//        let widthOfString = fullMessage.width(withConstrainedHeight: heightOfString)
+//        if widthOfString < 135.0 {
+//            cnMessageContainerLeftPadding.constant = 200.0
+//        }
+//        else if widthOfString >= UIScreen.main.bounds.size.width - 120.0 {
+//            cnMessageContainerLeftPadding.constant = 90.0
 //        }
 //        else {
-//            messageContainerWidth.constant = fullMessageSize.width
+//            cnMessageContainerLeftPadding.constant = UIScreen.main.bounds.size.width - widthOfString
 //        }
-//        self.messageContainerView.selectedCornerRadius()
 //        self.layoutSubviews()
-//        let cellHeight = self.dateContainerTopMargin.constant + self.dateContainerHeight.constant + self.dateContainerBottomMargin.constant + self.messageContainerTopPadding.constant + fullMessageSize.height
-//            //
-//
-//
-//
-//        return cellHeight + 25.0
+        
+        return heightOfString + 45.0
     }
     
     func hideUnreadCount() {
-        //self.unreadCountLabel.isHidden = true
+        self.imgMessageStatus.isHidden = false
         
     }
     
     func showUnreadCount() {
-//        if self.message.channelType == CHANNEL_TYPE_GROUP {
-//            self.unreadCountLabel.isHidden = false
-//            self.resendMessageButton.isHidden = true
-//            self.deleteMessageButton.isHidden = true
-//        }
+        if self.message.channelType == CHANNEL_TYPE_GROUP {
+            self.imgMessageStatus.isHidden = false
+            self.vwTimestampStatus.isHidden = false
+        }
     }
     
     func hideMessageControlButton() {

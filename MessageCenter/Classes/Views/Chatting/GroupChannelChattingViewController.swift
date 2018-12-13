@@ -304,7 +304,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig)
         let task: URLSessionDataTask = session.dataTask(with: request) { (data, response, error) in
-            if error != nil {
+            if error != nil || data?.count == 0 || data == nil {
                 self.sendMessageWithReplacement(replacement: aTempModel)
                 session.invalidateAndCancel()
                 
@@ -314,9 +314,9 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             let httpResponse: HTTPURLResponse = response as! HTTPURLResponse
             let contentType: String = httpResponse.allHeaderFields["Content-Type"] as! String
             if contentType.contains("text/html") {
-                let htmlBody: NSString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!
                 
-                let parser: HTMLParser = HTMLParser(string: htmlBody as String)
+                let htmlBody = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                let parser: HTMLParser = HTMLParser(string: htmlBody as! String)
                 let document = parser.parseDocument()
                 let head = document.head
                 
@@ -467,6 +467,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 }
             }
             
+            // end - if
             session.invalidateAndCancel()
         }
         
@@ -620,7 +621,12 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         alertController.addAction(photosAction())
         alertController.addAction(locationAction())
         alertController.addAction(cancelAction())
-        present(alertController, animated: true, completion: nil)
+        
+        alertController.view.tintColor = .red
+        present(alertController, animated: true) {
+            alertController.view.tintColor = .red
+        }
+        
     }
     
     private func cameraAction() -> UIAlertAction {

@@ -23,10 +23,8 @@ public struct ThemeObject {
     let primaryColor: UIColor?
     let primaryAccentColor: UIColor?
     let primaryButtonColor: UIColor?
-    let viewBackgroundColor: UIColor?
-    let actionIconsColor: UIColor?
-    
-    let secondaryColor: UIColor?
+    let primaryBackgroundColor: UIColor?
+    let primaryActionIconsColor: UIColor?
 }
 
 public class MessageCenter {
@@ -46,9 +44,13 @@ public class MessageCenter {
     private static var mainApplication: UIApplication? = nil
     private static var launchOptions: [UIApplicationLaunchOptionsKey: Any]? = [:]
     private static var deviceToken: Data? = nil
+    
     public static func connect(with connectionRequest: ConnectionRequest, success: @escaping ConnectionSucceeded, failure: @escaping MessageCenterFailureCompletion) {
+        
         self.LAST_CLIENT = connectionRequest.client
+        self.deviceToken =  "740f4707bebcf74f9b7c25d48e3358945f6aa01da5ddb387462c7eaf".data(using: .utf8)
         client.getClient(type: LAST_CLIENT).connect(with: connectionRequest, success: { (status) in
+            
             if self.deviceToken == nil {
                 NSLog("Failed to register for remote notification")
                 success(status)
@@ -65,7 +67,7 @@ public class MessageCenter {
                     }
                 }
                 else {
-                    
+
                 }
             }
             success(status)
@@ -73,8 +75,11 @@ public class MessageCenter {
     }
     
     
-    public class func createTheme(title:  String?, primaryColor: UIColor?, secondaryColor: UIColor?) -> ThemeObject {
+    public class func createThemeObject(title: String?, subtitle: String?, welcomeMessage: String? ,primaryColor: UIColor? , primaryAccentColor: UIColor?, primaryNavigationButtonColor: UIColor?, primaryBackgroundColor: UIColor?, primaryActionIconsColor: UIColor?) -> ThemeObject {
+        
+    
         var _title = ""
+        
         var pColor = UIColor(red: 122.0/255.0, green: 188.0/255.0, blue: 65.0/255.0, alpha: 1.0)
         var sColor = UIColor(red: 237.0/255.0, green: 237.0/255.0, blue: 237.0/255.0, alpha: 1.0)
         
@@ -84,11 +89,11 @@ public class MessageCenter {
         if primaryColor != nil {
             pColor = primaryColor!
         }
-        if secondaryColor == nil {
-            sColor = secondaryColor!
-        }
+//        if secondaryColor == nil {
+//            sColor = secondaryColor!
+//        }
 
-        self.themeObject = ThemeObject(title: "", subtitle: "", welcomeMessage: "", primaryColor: pColor, primaryAccentColor: pColor, primaryButtonColor: pColor, viewBackgroundColor: pColor, actionIconsColor: pColor, secondaryColor: pColor)
+        self.themeObject = ThemeObject(title: title, subtitle: subtitle, welcomeMessage: welcomeMessage, primaryColor: primaryColor, primaryAccentColor: primaryAccentColor, primaryButtonColor: primaryActionIconsColor, primaryBackgroundColor: primaryBackgroundColor, primaryActionIconsColor: primaryActionIconsColor)
         
         return themeObject!
     }
@@ -148,50 +153,29 @@ public class MessageCenter {
         parentVC = vc
     }
     
-    public static func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        self.mainApplication = application
-        self.launchOptions = launchOptions
-        self.registerForRemoteNotification()
-        
-        return true
-    }
+//    public static func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+////        self.mainApplication = application
+////        self.launchOptions = launchOptions
+////        self.registerForRemoteNotification()
+//        
+//        return true
+//    }
     
-    static func registerForRemoteNotification() {
-        guard mainApplication != nil else {
-            NSLog("MainApplication is not properly configured.")
-            return
-        }
-        if #available(iOS 10.0, *) {
-            #if !(arch(i386) || arch(x86_64))
-            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
-                if granted {
-                    UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { (settings: UNNotificationSettings) -> Void  in
-                        guard settings.authorizationStatus == UNAuthorizationStatus.authorized else {
-                            return
-                        }
-                        DispatchQueue.main.async {
-                            self.mainApplication?.registerForRemoteNotifications()
-                        }
-                    })
-                }
-            }
-            #endif
-        } else {
-            #if !(arch(i386) || arch(x86_64))
-            let notificationSettings = UIUserNotificationSettings(types: [UIUserNotificationType.alert, UIUserNotificationType.badge, UIUserNotificationType.sound], categories: nil)
-            self.mainApplication?.registerUserNotificationSettings(notificationSettings)
-            self.mainApplication?.registerForRemoteNotifications()
-            #endif
-        }
-    }
+//    static func registerForRemoteNotification() {
+//        guard mainApplication != nil else {
+//            NSLog("MainApplication is not properly configured.")
+//            return
+//        }
+//
+//    }
     
     public static func registerForRemoteNotificationsWithDeviceToken(_ deviceToken: Data) {
         self.deviceToken = deviceToken
     }
-    
-    public static func failedToRegisterForRemoteNotificationsWithError(_ error: Error) {
-        NSLog("Failed to register for remote notification")
-    }
+//
+//    public static func failedToRegisterForRemoteNotificationsWithError(_ error: Error) {
+//        NSLog("Failed to register for remote notification")
+//    }
     
     public static func handleNotification(_ userInfo: [AnyHashable : Any]) {
         client.getClient(type: LAST_CLIENT).handleNotification(userInfo: userInfo) { (status, message) in
