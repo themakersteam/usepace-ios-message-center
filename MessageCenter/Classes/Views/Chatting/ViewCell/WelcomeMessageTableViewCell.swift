@@ -15,6 +15,7 @@ class WelcomeMessageTableViewCell: UITableViewCell {
     private var displayNickname: Bool = true
     private var podBundle: Bundle!
 
+    @IBOutlet weak var vwBackground: UIView!
     @IBOutlet weak var lblMessage: UILabel!
     public var containerBackgroundColour: UIColor = UIColor(red: 237.0/255.0, green: 237.0/255.0, blue: 237.0/255.0, alpha: 1.0)
     

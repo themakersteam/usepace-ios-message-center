@@ -121,6 +121,8 @@ public class MessageCenter {
             }
             
             let podBundle = Bundle(for: MessageCenter.self)
+            
+            
             let groupChannelVC = GroupChannelChattingViewController(nibName: "GroupChannelChattingViewController", bundle: podBundle)
             groupChannelVC.groupChannel = groupChannel
             
@@ -128,15 +130,18 @@ public class MessageCenter {
                 groupChannelVC.themeObject = theme
             }
             
-            if welcomeMessage != nil {
-                groupChannelVC.welcomeMessage = welcomeMessage
-            }
-            if parentVC.navigationController != nil {
-                parentVC.navigationController?.pushViewController(groupChannelVC, animated: true)
-            }
-            else {
-                parentVC.present(groupChannelVC, animated: true, completion: nil)
-            }
+//            if welcomeMessage != nil {
+//                groupChannelVC.welcomeMessage = welcomeMessage
+//            }
+            let navController = UINavigationController(rootViewController: groupChannelVC)
+            navController.isNavigationBarHidden = true
+            parentVC.present(navController, animated: true, completion: nil)
+//            if parentVC.navigationController != nil {
+//                parentVC.navigationController?.pushViewController(groupChannelVC, animated: true)
+//            }
+//            else {
+//                parentVC.present(groupChannelVC, animated: true, completion: nil)
+//            }
             
         })
         

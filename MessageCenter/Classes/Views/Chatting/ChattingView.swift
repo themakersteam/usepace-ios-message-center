@@ -102,6 +102,15 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
 //
     }
     
+    func updateTheme(themeObject: ThemeObject) {
+        self.themeObject = themeObject
+        fileAttachButton.tintColor = themeObject.primaryActionIconsColor
+        sendButton.backgroundColor = themeObject.primaryAccentColor
+        sendButton.imageView?.tintColor = themeObject.primaryActionIconsColor
+        
+        sendButton.layer.cornerRadius = 22.0
+    }
+    
     func configureChattingView(channel: SBDBaseChannel?) {
         self.channel = channel;
         
@@ -706,6 +715,12 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
             cell = tableView.dequeueReusableCell(withIdentifier: WelcomeMessageTableViewCell.cellReuseIdentifier())
             (cell as! WelcomeMessageTableViewCell).lblMessage.text = self.welcomeMessage
             cell?.backgroundColor = .clear
+            
+            (cell as! WelcomeMessageTableViewCell).vwBackground.backgroundColor = self.themeObject?.primaryAccentColor
+            (cell as! WelcomeMessageTableViewCell).vwBackground.alpha = 0.4
+            (cell as! WelcomeMessageTableViewCell).vwBackground.layer.cornerRadius = 8.0
+            (cell as! WelcomeMessageTableViewCell).vwBackground.layer.masksToBounds = true
+            
             return cell!
         }
         
@@ -744,6 +759,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                         (cell as! OutgoingGeneralUrlPreviewMessageTableViewCell).previewThumbnailImageView.animatedImage = nil
                         (cell as! OutgoingGeneralUrlPreviewMessageTableViewCell).previewThumbnailLoadingIndicator.isHidden = false
                         (cell as! OutgoingGeneralUrlPreviewMessageTableViewCell).previewThumbnailLoadingIndicator.startAnimating()
+                        
                         if !imageUrl.isEmpty {
                             if ext.lowercased().hasPrefix("gif") {
                                 (cell as! OutgoingGeneralUrlPreviewMessageTableViewCell).previewThumbnailImageView.setAnimatedImageWithURL(url: URL(string: imageUrl)! , success: { (image) in
@@ -801,14 +817,6 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                 }
                 else {
                     cell = tableView.dequeueReusableCell(withIdentifier: OutgoingUserMessageTableViewCell.cellReuseIdentifier())
-                    
-//                    if themeObject != nil {
-//                        if themeObject?.primaryColor != nil {
-//                            (cell as! OutgoingUserMessageTableViewCell).containerBackgroundColour = (themeObject?.primaryColor)!
-//                        }
-//                    }
-                    
-                    //(cell as! OutgoingUserMessageTableViewCell).updateBackgroundColour()
                     
                     cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
                     if indexPath.row > 0 {

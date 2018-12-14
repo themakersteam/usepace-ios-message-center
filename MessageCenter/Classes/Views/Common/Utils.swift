@@ -23,14 +23,14 @@ class Utils: NSObject {
         return image!
     }
     
-    static func generateNavigationTitle(mainTitle: String, subTitle: String?) -> NSAttributedString? {
+    static func generateNavigationTitle(mainTitle: String, subTitle: String?, titleColor: UIColor? , subTitleColor: UIColor?) -> NSAttributedString? {
         var mainTitleAttribute: [NSAttributedStringKey:AnyObject]
         var subTitleAttribute: [NSAttributedStringKey:AnyObject]?
         var fullTitle: NSMutableAttributedString
         
         mainTitleAttribute = [
             NSAttributedStringKey.font: Constants.navigationBarTitleFont(),
-            NSAttributedStringKey.foregroundColor: UIColor.black
+            NSAttributedStringKey.foregroundColor: titleColor != nil ? titleColor! : Constants.navigationBarTitleColor()
         ]
         fullTitle = NSMutableAttributedString(string: mainTitle)
         fullTitle.addAttributes(mainTitleAttribute, range: NSMakeRange(0, mainTitle.count))
@@ -38,7 +38,7 @@ class Utils: NSObject {
         if let theSubTitle: String = subTitle {
             subTitleAttribute = [
                 NSAttributedStringKey.font: Constants.navigationBarSubTitleFont(),
-                NSAttributedStringKey.foregroundColor: Constants.navigationBarSubTitleColor()
+                NSAttributedStringKey.foregroundColor: subTitleColor != nil ? subTitleColor! : Constants.navigationBarSubTitleColor()
             ]
             fullTitle.append(NSAttributedString(string: "\n\(theSubTitle)"))
             fullTitle.addAttributes(subTitleAttribute!, range: NSMakeRange(mainTitle.count + 1, (subTitle?.count)!))

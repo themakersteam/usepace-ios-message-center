@@ -43,6 +43,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="lblMessage" destination="VRU-QE-hFJ" id="eUn-cK-Ez0"/>
+                <outlet property="vwBackground" destination="mUO-1g-KqH" id="lS0-bF-pwt"/>
             </connections>
             <point key="canvasLocation" x="40" y="-109"/>
         </tableViewCell>
