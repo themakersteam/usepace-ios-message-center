@@ -11,11 +11,11 @@ import UIKit
 class Constants: NSObject {
     
     static func navigationBarTitleColor() -> UIColor {
-        return UIColor(red: 128.0/255.0, green: 90.0/255.0, blue: 255.0/255.0, alpha: 1)
+        return UIColor(red: 245.0/255.0, green: 206.0/255.0, blue: 9.0/255.0, alpha: 1.0)
     }
     
     static func navigationBarSubTitleColor() -> UIColor {
-        return UIColor(red: 142.0/255.0, green: 142.0/255.0, blue: 142.0/255.0, alpha: 1)
+        return UIColor(red: 82.0/255.0, green: 67.0/255.0, blue: 62.0/255.0, alpha: 1.0)
     }
     
     static func navigationBarTitleFont() -> UIFont {
