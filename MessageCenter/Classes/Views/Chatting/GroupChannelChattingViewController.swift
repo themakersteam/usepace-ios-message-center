@@ -1551,28 +1551,28 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             // uri ===> Lat,Long
             //let hexValue = String(format:"0x%02X", Int(rgbRedValue)) + String(format:"%02X", Int(rgbGreenValue)) + String(format:"%02X", Int(rgbBlueValue))
             // The pin should be in the primary color chosen by user. covert RGB to HEX
-            let hexColor = "0xFF0000"
+//            let hexColor = "0xFF0000"
+//
+//            let strBaseURL = "https://maps.googleapis.com/maps/api/staticmap?"
+//            let strMapCenter = "center=\(uri!)"
+//            // zoom is set to 12.
+//            let strZoom = "&zoom=12"
+//            // image size
+//            let strSize = "&size=400x400"
+//            // marker will be at the location user chose
+//            let strMarkers = "&markers=color:\(hexColor)%7C\(uri!)"
+//            //  temporary Google Maps API key. Should force develper to use his/her own key here. Else crash the code.
+//            let strAPIKey = "&key=AIzaSyC8c5njP9WGIGeLGLYeBMY8aKRTW_NgkZ8"
+//            let strURL = strBaseURL + strMapCenter + strZoom + strSize + strMarkers + strAPIKey
+//            let url = URL(string: strURL)
             
-            let strBaseURL = "https://maps.googleapis.com/maps/api/staticmap?"
-            let strMapCenter = "center=\(uri!)"
-            // zoom is set to 12.
-            let strZoom = "&zoom=12"
-            // image size
-            let strSize = "&size=400x400"
-            // marker will be at the location user chose
-            let strMarkers = "&markers=color:\(hexColor)%7C\(uri!)"
-            //  temporary Google Maps API key. Should force develper to use his/her own key here. Else crash the code.
-            let strAPIKey = "&key=AIzaSyC8c5njP9WGIGeLGLYeBMY8aKRTW_NgkZ8"
-            //https://maps.googleapis.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=12&size=400x400&markers=color:blue%7Clabel:S%7C40.714728,-73.998672&key=AIzaSyC8c5njP9WGIGeLGLYeBMY8aKRTW_NgkZ8
-            let strURL = strBaseURL + strMapCenter + strZoom + strSize + strMarkers + strAPIKey
-            print(strURL)
-            let url = URL(string: strURL)
-            
+            let imgLocation = UIImage(named: "map_place_holder", in: self.podBundle, compatibleWith: nil)
+            if imgLocation == nil {
+                return
+            }
+            let data = (UIImagePNGRepresentation(imgLocation!))!
             let thumbnailSize = SBDThumbnailSize.make(withMaxWidth: 320.0, maxHeight: 320.0)
-            
             DispatchQueue.global().async {
-                
-                let data = try! Data.init(contentsOf: url!)
                 DispatchQueue.main.async {
                     if data.count > 0 {
                         let preSendMessage = self.groupChannel.sendFileMessage(withBinaryData: data, filename: uri! , type: "image/png", size: UInt(data.count), thumbnailSizes: [thumbnailSize!], data: "", customType: "", progressHandler: nil, completionHandler: { (fileMessage, error) in
