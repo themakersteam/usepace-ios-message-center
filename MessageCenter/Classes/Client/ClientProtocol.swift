@@ -11,7 +11,6 @@ import Foundation
 public typealias MessageCenterFailureCompletion = (_ errorCode: Int, _ errorMessage: String) -> Void
 public typealias ConnectionSucceeded = (_ userId: String) -> Void
 public typealias UnReadMessagesSuccessCompletion = (_ unReadMessagesCount: Int) -> Void
-public typealias HandleNotificationCompletion = (_ didMatch: Bool, _ message: [AnyHashable : Any]) -> Void
 public typealias RegisterDevicePushTokenCompletion = (_ status: Int, _ error: Error?) -> Void
 
 
@@ -23,6 +22,6 @@ public protocol ClientProtocol {
     func closeChatView(completion: @escaping () -> Void)
     func disconnect(completion: @escaping () -> Void)
     func getUnReadMessagesCount(forChannel channel: String?, success: @escaping UnReadMessagesSuccessCompletion, failure: @escaping MessageCenterFailureCompletion)
-    func handleNotification(userInfo: [AnyHashable : Any], completion: @escaping HandleNotificationCompletion)
+    func handleNotification(userInfo: [AnyHashable : Any]) -> Bool
     func registerDevicePushToken(_ deviceToken: Data, completion: @escaping RegisterDevicePushTokenCompletion)
 }

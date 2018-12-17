@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             return
                         }
                         DispatchQueue.main.async {
-                            self.mainApplication?.registerForRemoteNotifications()
+                            application.registerForRemoteNotifications()
                         }
                     })
                 }
@@ -37,22 +37,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             #if !(arch(i386) || arch(x86_64))
             let notificationSettings = UIUserNotificationSettings(types: [UIUserNotificationType.alert, UIUserNotificationType.badge, UIUserNotificationType.sound], categories: nil)
-            self.mainApplication?.registerUserNotificationSettings(notificationSettings)
-            self.mainApplication?.registerForRemoteNotifications()
+            application.registerUserNotificationSettings(notificationSettings)
+            application.registerForRemoteNotifications()
             #endif
         }
-        
-        //return MessageCenter.application(application: application, didFinishLaunchingWithOptions: launchOptions)
         return true
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        //MessageCenter.registerForRemoteNotificationsWithDeviceToken(deviceToken)
     }
     
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
-//        MessageCenter.handleNotification(userInfo, match: { (notification) in
+        
+        guard let notification = MessageCenter.handleMessageNotification(userInfo) else {
+            return
+        }
+        
+        print(notification)
+        
+        
+        //        MessageCenter.handleNotification(userInfo, match: { (notification) in
 //            MessageCenter.openChatView(forChannel: notification.channelId, welcomeMessage: <#T##String#>, withTheme: <#T##ThemeObject?#>, completion: <#T##(Bool) -> Void#>)
 //                                       completion:
 //            
