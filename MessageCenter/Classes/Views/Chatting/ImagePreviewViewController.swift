@@ -32,11 +32,12 @@ class ImagePreviewViewController: UIViewController {
         self.btnSend.layer.cornerRadius = 22.0
         self.imgPicture.image = imageToUpload!
         self.txtCaption.delegate = self
-        self.txtCaption.text = ""
+        self.txtCaption.text = strCaption
         self.txtCaption.textContainerInset = UIEdgeInsetsMake(15.5, 0, 14, 0)
         self.txtCaption.layer.cornerRadius = 8.0
         self.txtCaption.layer.borderColor = UIColor.black.cgColor
         self.txtCaption.layer.borderWidth = 1.0
+        
         self.addObservers()
     }
 
@@ -92,9 +93,6 @@ class ImagePreviewViewController: UIViewController {
     
     @IBAction func btnDismissTapped(_ sender: Any) {
         txtCaption.resignFirstResponder()
-        if self.delegate != nil {
-            self.delegate?.imagePreviewDidDismiss(self.imageToUpload, caption: strCaption)
-        }
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -120,8 +118,7 @@ extension ImagePreviewViewController : UITextViewDelegate {
         if text == "\n" {
             textView.resignFirstResponder()
             return false
-        }
-        
+        }        
         return true
     }
     

@@ -20,9 +20,27 @@ protocol ChattingViewDelegate: class {
 }
 
 class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate {
+    // MARK : - IBOutlets
     @IBOutlet weak var messageTextView: UITextView!
     @IBOutlet weak var chattingTableView: UITableView!
     @IBOutlet weak var inputContainerViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var cnTextViewTrailing: NSLayoutConstraint!
+    @IBOutlet weak var typingIndicatorImageHeight: NSLayoutConstraint!
+    @IBOutlet weak var typingIndicatorContainerViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var typingIndicatorImageView: UIImageView!
+    @IBOutlet weak var typingIndicatorLabel: UILabel!
+    @IBOutlet weak var typingIndicatorContainerView: UIView!    
+    @IBOutlet weak var inputContainerView: UIView!
+    @IBOutlet weak var fileAttachButton: UIButton!
+    @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var placeholderLabel: UILabel!
+    @IBOutlet weak var btnCamera: UIButton!
+    
+    // MARK: - Vars
+    var stopMeasuringVelocity: Bool = true
+    var initialLoading: Bool = true
+    var resendableFileData: [String:[String:AnyObject]] = [:]
+    var preSendFileData: [String:[String:AnyObject]] = [:]
     var messages: [SBDBaseMessage] = []
     var hasLoadedAllMessages: Bool = false
     var channel: SBDBaseChannel?
@@ -34,22 +52,9 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     var resendableMessages: [String:SBDBaseMessage] = [:]
     var preSendMessages: [String:SBDBaseMessage] = [:]
     
-    @IBOutlet weak var inputContainerView: UIView!
-    var resendableFileData: [String:[String:AnyObject]] = [:]
-    var preSendFileData: [String:[String:AnyObject]] = [:]
-
-    @IBOutlet weak var fileAttachButton: UIButton!
-    @IBOutlet weak var sendButton: UIButton!
-    var stopMeasuringVelocity: Bool = true
-    var initialLoading: Bool = true
-    
     var delegate: (ChattingViewDelegate & MessageDelegate)?
 
-    @IBOutlet weak var typingIndicatorContainerViewHeight: NSLayoutConstraint!
-    @IBOutlet weak var typingIndicatorImageView: UIImageView!
-    @IBOutlet weak var typingIndicatorLabel: UILabel!
-    @IBOutlet weak var typingIndicatorContainerView: UIView!
-    @IBOutlet weak var typingIndicatorImageHeight: NSLayoutConstraint!
+    // MARK: - Cells
     
     var incomingUserMessageSizingTableViewCell: IncomingUserMessageTableViewCell?
     var outgoingUserMessageSizingTableViewCell: OutgoingUserMessageTableViewCell?
@@ -68,7 +73,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     var welcomeMessageTableViewCell : WelcomeMessageTableViewCell?
     
     
-    @IBOutlet weak var placeholderLabel: UILabel!
+    
     
     var lastMessageHeight: CGFloat = 0
     var scrollLock: Bool = false
@@ -76,6 +81,9 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     var lastOffset: CGPoint = CGPoint(x: 0, y: 0)
     var lastOffsetCapture: TimeInterval = 0
     var isScrollingFast: Bool = false
+    
+    private var previousLine : Int = 0
+    // MARK: - viewLifeCycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -88,28 +96,24 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         self.setup()
     }
     
-    
-//    required init(coder aDecoder: NSCoder) {
-//        super.init(coder: aDecoder)
-//        NSBundle.mainBundle().loadNibNamed("SomeView", owner: self, options: nil)
-//        self.addSubview(self.view);    // adding the top level view to the view hierarchy
-//    }
-    
+    // MARK: - Helpers
     func setup() {
         self.chattingTableView.contentInset = UIEdgeInsetsMake(0, 0, 10, 0)
-        self.messageTextView.textContainerInset = UIEdgeInsetsMake(15.5, 0, 14, 0)
-        
-//
+//        self.messageTextView.textContainerInset = UIEdgeInsetsMake(25.0, 5.0, 15.0, 5.0)
     }
     
     func updateTheme(themeObject: ThemeObject) {
         self.themeObject = themeObject
         fileAttachButton.tintColor = themeObject.primaryActionIconsColor
+        btnCamera.tintColor = themeObject.primaryActionIconsColor
         sendButton.backgroundColor = themeObject.primaryAccentColor
+//        self.sendButton.imageView?.tintColor = self.themeObject?.primaryColor!
         sendButton.imageView?.tintColor = themeObject.primaryActionIconsColor
-        
         sendButton.layer.cornerRadius = 22.0
+        self.sendButton.imageView?.tintColor = self.themeObject?.primaryColor!
     }
+    
+    // MARK: - configureChatView
     
     func configureChattingView(channel: SBDBaseChannel?) {
         self.channel = channel;
@@ -132,11 +136,11 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         
 //        self.typingIndicatorContainerView.layoutIfNeeded()
         
-        if self.themeObject != nil {
-            messageTextView.textContainerInset = UIEdgeInsetsMake(10, 1, 0, 0);
-            self.sendButton.imageView?.tintColor = self.themeObject?.primaryColor!
-        }
-        
+        messageTextView.textContainerInset = UIEdgeInsetsMake(15, 1, 0, 0);
+        messageTextView.layer.borderColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.12).cgColor
+        self.messageTextView.layer.cornerRadius = 8.0
+        self.messageTextView.layer.masksToBounds = true
+        self.messageTextView.layer.borderWidth = 1.0
         self.messageTextView.delegate = self
         
         self.chattingTableView.register(IncomingUserMessageTableViewCell.nib(), forCellReuseIdentifier: IncomingUserMessageTableViewCell.cellReuseIdentifier())
@@ -216,6 +220,8 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         self.addSubview(self.outgoingGeneralUrlPreviewTempMessageTableViewCell!)
     }
     
+    // MARK: - scrollHandler
+    
     func scrollToBottom(force: Bool) {
         if self.messages.count == 0 {
             return
@@ -235,6 +241,8 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         
         self.chattingTableView.scrollToRow(at: IndexPath.init(row: position, section: 0), at: UITableViewScrollPosition.top, animated: false)
     }
+    
+    // MARK: - typingIndicatorHandlers
     
     func startTypingIndicator(text: String) {
         // Typing indicator
@@ -272,33 +280,39 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         self.typingIndicatorContainerView.layoutIfNeeded()
     }
     
-    // MARK: UITextViewDelegate
+    // MARK: - UITextViewDelegate
     
-    func textViewDidEndEditing(_ textView: UITextView) {
-        self.messageTextView.layer.cornerRadius = 0.0
-        self.messageTextView.layer.borderWidth = 0.0
-    }
-    
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if self.themeObject != nil {
-            self.messageTextView.layer.borderColor = self.themeObject?.primaryColor!.cgColor
-            self.messageTextView.layer.cornerRadius = 15.0
-            self.messageTextView.layer.masksToBounds = true
-            self.messageTextView.layer.borderWidth = 1.0
-            self.sendButton.imageView?.tintColor = self.themeObject?.primaryColor!
-        }
-    }
     
     func textViewDidChange(_ textView: UITextView) {
         if textView == self.messageTextView {
-            if textView.text.count > 0 {
+            if textView.text.count > 0  {
                 self.placeholderLabel.isHidden = true
+                if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false {
+                    self.btnCamera.isHidden = true
+                    if self.cnTextViewTrailing.constant != 65.0 {
+                        self.cnTextViewTrailing.constant = 65.0
+                        UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveLinear, animations: {
+                            self.layoutIfNeeded()
+                        }) { (status) in
+                            
+                        }
+                    }
+                }
                 if self.delegate != nil {
                     self.delegate?.startTyping(view: self)
                 }
             }
             else {
                 self.placeholderLabel.isHidden = false
+                if self.cnTextViewTrailing.constant != 12.0 {
+                    self.cnTextViewTrailing.constant = 12.0
+                    UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveLinear, animations: {
+                        self.layoutIfNeeded()
+                    }) { (status) in
+                        
+                    }
+                }
+                self.btnCamera.isHidden = false
                 if self.delegate != nil {
                     self.delegate?.endTyping(view: self)
                 }
@@ -306,7 +320,61 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         }
     }
     
-    // MARK: UITableViewDelegate
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool{
+        
+        let cursorPosition = textView.caretRect(for: textView.selectedTextRange!.start).origin
+        if cursorPosition.x.isInfinite == true || cursorPosition.y.isInfinite == true {
+            return true
+        }
+        var currentLine = Int(cursorPosition.y / textView.font!.lineHeight)
+        if text == "\n" {
+            currentLine = currentLine + 1
+        }
+        else if text == "" {
+            if currentLine != 0 {
+                currentLine = currentLine - 1
+            }
+        }
+        if previousLine > currentLine {
+            UIView.animate(withDuration: 0.3) {
+                if currentLine == 0 {
+                    self.inputContainerViewHeight.constant = 44.0
+                    textView.isScrollEnabled = false
+                }
+                else if currentLine <= 5 {
+                    textView.isScrollEnabled = false
+                    self.inputContainerViewHeight.constant = self.inputContainerViewHeight.constant - 17.0 // Padding
+                }
+                else {
+                    textView.isScrollEnabled = true
+                }
+            }
+        }
+        else if previousLine < currentLine {
+            UIView.animate(withDuration: 0.3) {
+                if currentLine == 0 {
+                    self.inputContainerViewHeight.constant = 44.0
+                    textView.isScrollEnabled = false
+                }
+                else if currentLine >= 5 {
+                    textView.isScrollEnabled = true
+                }
+                else {
+                    textView.isScrollEnabled = false
+                    self.inputContainerViewHeight.constant = self.inputContainerViewHeight.constant + 17.0 // Padding
+                }
+            }
+        }
+        
+        textView.layoutIfNeeded()
+        
+        self.updateConstraints()
+        previousLine = currentLine
+        return true
+    }
+    
+    
+    // MARK: - scrollViewDelegate
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.stopMeasuringVelocity = false
     }

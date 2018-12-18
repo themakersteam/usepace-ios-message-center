@@ -74,6 +74,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             self.chattingView.updateTheme(themeObject: themeObject!)
         }
         self.chattingView.fileAttachButton.addTarget(self, action: #selector(openAttachmentActionSheet), for: UIControlEvents.touchUpInside)
+        self.chattingView.btnCamera.addTarget(self, action: #selector(launchCamera), for: .touchUpInside)
+        
         self.chattingView.sendButton.addTarget(self, action: #selector(sendMessage), for: UIControlEvents.touchUpInside)
         
         self.dumpedMessages = Utils.loadMessagesInChannel(channelUrl: self.groupChannel.channelUrl)
@@ -110,20 +112,18 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         else {
             self.loadPreviousMessage(initial: true)
         }
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:))))
+//        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap:)))
+
+        
     }
     
     deinit {
         //        ConnectionManager.remove(connectionObserver: self as ConnectionManagerDelegate)
     }
-    
-//    override func didReceiveMemoryWarning() {
-//        super.didReceiveMemoryWarning()
-//        // Dispose of any resources that can be recreated.
-//    }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         Utils.dumpMessages(
             messages: self.chattingView.messages,
             resendableMessages: self.chattingView.resendableMessages,
@@ -150,13 +150,6 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         SBDMain.removeChannelDelegate(forIdentifier: self.description)
         SBDMain.removeConnectionDelegate(forIdentifier: self.description)
         self.dismiss(animated: true, completion: nil)
-//        if self.navigationController != nil {
-//            self.navigationController?.popViewController(animated: true)
-//        }
-//        else {
-//            self.dismiss(animated: false) {
-//            }
-//        }
     }
     
     @objc private func openMoreMenu() {
@@ -516,17 +509,35 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         }
     }
     
+    @objc func handleTap(sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            view.endEditing(true)
+        }
+        sender.cancelsTouchesInView = false
+    }
+    
     @objc private func sendMessage() {
         
-        if self.chattingView.messageTextView.text.count > 0 || imageCaption.count > 0 {
-            
+        if (self.chattingView.messageTextView.text.count > 0 || imageCaption.count > 0) {
+            /*
+            self.chattingView.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false
+            imageCaption.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false
+             */
             self.groupChannel.endTyping()
             var message = ""
-            if self.chattingView.messageTextView.text.count > 0 {
-               message = self.chattingView.messageTextView.text
+            if self.chattingView.messageTextView.text.count > 0 &&
+                self.chattingView.messageTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false {
+               
+                message = self.chattingView.messageTextView.text
             }
-            else {
+                
+            else if imageCaption.count > 0 &&
+                imageCaption.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false {
+                
                 message = self.imageCaption
+            }
+            else  {
+                return
             }
             
             self.chattingView.messageTextView.text = ""
@@ -629,6 +640,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     }
     
     @objc private func openAttachmentActionSheet() {
+        // Dismiss Keyboard if present first
+        self.chattingView.endEditing(true)
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertController.addAction(cameraAction())
         alertController.addAction(photosAction())
@@ -657,21 +670,25 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             style: .default,
             handler: { action in
                 
-                if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                    UIImagePickerController.checkPermissionStatus(sourceType: UIImagePickerControllerSourceType.photoLibrary, completionBlockSuccess: { (status) in
-                        let imagePicker = UIImagePickerController()
-                        
-                        imagePicker.sourceType = .camera
-                        imagePicker.mediaTypes = [String(kUTTypeImage), String(kUTTypeMovie)]
-                        imagePicker.delegate = self
-                        self.present(imagePicker, animated: true, completion: nil)
-                    }, andFailureBlock: { (status) in
-                        assert(false, "Permission not granted to use Photo Library")
-                    })
-                }
+                self.launchCamera()
         })
         action.setValue(UIImage(named: "camera-icon", in: self.podBundle, compatibleWith: nil), forKey: "image")
         return action
+    }
+    
+    @objc private func launchCamera() {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            UIImagePickerController.checkPermissionStatus(sourceType: UIImagePickerControllerSourceType.photoLibrary, completionBlockSuccess: { (status) in
+                let imagePicker = UIImagePickerController()
+                
+                imagePicker.sourceType = .camera
+                imagePicker.mediaTypes = [String(kUTTypeImage), String(kUTTypeMovie)]
+                imagePicker.delegate = self
+                self.present(imagePicker, animated: true, completion: nil)
+            }, andFailureBlock: { (status) in
+                assert(false, "Permission not granted to use Camera")
+            })
+        }
     }
     
     private func photosAction() -> UIAlertAction {
@@ -1411,9 +1428,13 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                                 // Call the Caption ViewController
                                 let imageCaptionVC = ImagePreviewViewController(nibName: "ImagePreviewViewController", bundle: self.podBundle)
                                 imageCaptionVC.imageToUpload = result
+                                // If user has typed any text, use it as caption
+                                if self.chattingView.messageTextView.text != nil {
+                                    imageCaptionVC.strCaption = self.chattingView.messageTextView.text
+                                }
+                                
                                 imageCaptionVC.delegate = self
-                                self.navigationController?.pushViewController(imageCaptionVC, animated: true)
-                                                            }
+                                self.navigationController?.pushViewController(imageCaptionVC, animated: true)                                                            }
                         })
                     }
                 }
@@ -1429,7 +1450,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     
     fileprivate extension GroupChannelChattingViewController {
         
-        @objc private func keyboardDidShow(notification: Notification) {
+        @objc private func keyboardWillShow(notification: Notification) {
             self.keyboardShown = true
             
             let keyboardInfo = notification.userInfo
@@ -1438,19 +1459,28 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             
             DispatchQueue.main.async {
                 self.bottomMargin.constant = keyboardFrameBeginRect.size.height
-                self.view.layoutIfNeeded()
-                self.chattingView.stopMeasuringVelocity = true
-                self.chattingView.scrollToBottom(force: false)
+                UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveLinear
+                    , animations: {
+                        self.view.layoutIfNeeded()
+                }, completion: { (status) in
+                    self.chattingView.stopMeasuringVelocity = true
+                    self.chattingView.scrollToBottom(force: false)
+                })
             }
         }
         
-        @objc private func keyboardDidHide(notification: Notification) {
+        @objc private func keyboardWillHide(notification: Notification) {
             self.keyboardShown = false
             
             DispatchQueue.main.async {
                 self.bottomMargin.constant = 0
-                self.view.layoutIfNeeded()
-                self.chattingView.scrollToBottom(force: false)
+                UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveLinear
+                    , animations: {
+                        self.view.layoutIfNeeded()
+                }, completion: { (status) in
+                    self.chattingView.scrollToBottom(force: false)
+                })
+                
             }
         }
         
@@ -1501,8 +1531,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
             NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
             
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
             
             NotificationCenter.default.addObserver(self, selector: #selector(applicationWillTerminate(notification:)), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
         }
