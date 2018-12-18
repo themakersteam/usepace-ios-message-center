@@ -131,6 +131,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             preSendMessages: self.chattingView.preSendMessages,
             channelUrl: self.groupChannel.channelUrl
         )
+        SBDMain.disconnect {} // Will activate the notifications 
     }
     
     override func viewDidLayoutSubviews() {
