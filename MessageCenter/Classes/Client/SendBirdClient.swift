@@ -15,6 +15,7 @@ import SendBirdSDK
 
 let ErrorDomainConnection = "com.sendbird.sample.connection"
 let ErrorDomainUser = "com.sendbird.sample.user"
+var lastConnectionRequest : ConnectionRequest?
 
 public class SendBirdClient: ClientProtocol {
     
@@ -36,6 +37,7 @@ public class SendBirdClient: ClientProtocol {
     public func connect(with connectionRequest: ConnectionRequest, success: @escaping ConnectionSucceeded, failure:  @escaping MessageCenterFailureCompletion) {
         SBDMain.initWithApplicationId(connectionRequest.appId)
         SBDMain.connect(withUserId: connectionRequest.userId, accessToken: connectionRequest.accessToken, completionHandler: { (user, error) in
+            lastConnectionRequest = connectionRequest
             self.connected = false
             guard error == nil else {
                 failure(error!.code, error!.localizedDescription)
@@ -70,15 +72,15 @@ public class SendBirdClient: ClientProtocol {
     public func openChatView(forChannel channelId: String, welcomeMessage: String, withTheme theme: ThemeObject?,  completion: @escaping (Any?) -> Void) {
         //TODO: Make use of ChatViewTheme
         print("joining to chat room...")
-        SBDGroupChannel.getWithUrl(channelId) { (channel, error) in
-            guard error == nil else {
-                print("Error occured while connecting to chat room: %@", error?.description)
+        if (self.isConnected) {
+            self.openChat(forChannel: channelId, welcomeMessage: welcomeMessage, withTheme: theme, completion: completion)
+        }
+        else {
+            self.connect(with: lastConnectionRequest!, success: { (success) in
+                self.openChat(forChannel: channelId, welcomeMessage: welcomeMessage, withTheme: theme, completion: completion)
+            }) { (code, message) in
                 completion(nil)
-                return
             }
-            
-            print("Joined chat room")
-            completion(channel)
         }
     }
     
@@ -128,8 +130,31 @@ public class SendBirdClient: ClientProtocol {
     }
   
     public func disconnect(completion: @escaping () -> Void) {
-        SBDMain.disconnect {
-            completion()
+        SBDMain.unregisterAllPushToken { (a, error) in
+            guard error == nil else {
+                print("Failed to Disconnect")
+                return
+            }
+            if (self.isConnected) {
+                SBDMain.disconnect {
+                    completion()
+                }
+            }
+            else {
+                completion()
+            }
+        }
+    }
+    
+    private func openChat(forChannel channelId: String, welcomeMessage: String, withTheme theme: ThemeObject?,  completion: @escaping (Any?) -> Void) {
+        SBDGroupChannel.getWithUrl(channelId) { (channel, error) in
+            guard error == nil else {
+                print("Error occured while connecting to chat room: %@", error?.description)
+                completion(nil)
+                return
+            }
+            print("Joined chat room")
+            completion(channel)
         }
     }
     
