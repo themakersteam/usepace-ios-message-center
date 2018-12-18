@@ -29,14 +29,12 @@ public class SendBirdClient: ClientProtocol {
         let client = SendBirdClient()
         return client
     }()
-    private var connected = false
-    
+
     init() { }
     
     public func connect(with connectionRequest: ConnectionRequest, success: @escaping ConnectionSucceeded, failure:  @escaping MessageCenterFailureCompletion) {
         SBDMain.initWithApplicationId(connectionRequest.appId)
         SBDMain.connect(withUserId: connectionRequest.userId, accessToken: connectionRequest.accessToken, completionHandler: { (user, error) in
-            self.connected = false
             guard error == nil else {
                 failure(error!.code, error!.localizedDescription)
                 //connection.onMessageCenterConnectionError(code: error!.code, message: error!.localizedDescription)
@@ -55,7 +53,7 @@ public class SendBirdClient: ClientProtocol {
                         return
                     }
                     
-                    self.connected = true
+            
                     if status == .pending {
                         print("Push registration is pending.")
                     }
@@ -122,9 +120,7 @@ public class SendBirdClient: ClientProtocol {
     }
     
     public var isConnected: Bool {
-        get {
-            return connected
-        }
+        return SBDMain.getConnectState().hashValue == 1 //Connection Opened
     }
   
     public func disconnect(completion: @escaping () -> Void) {
