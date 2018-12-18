@@ -120,7 +120,7 @@ public class SendBirdClient: ClientProtocol {
     }
     
     public var isConnected: Bool {
-        return SBDMain.getConnectState().hashValue == 1 //Connection Opened
+        return SBDMain.getConnectState() == .open //Connection Opened
     }
   
     public func disconnect(completion: @escaping () -> Void) {
