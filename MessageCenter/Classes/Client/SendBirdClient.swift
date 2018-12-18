@@ -109,19 +109,16 @@ public class SendBirdClient: ClientProtocol {
         }
     }
     
-    public func handleNotification(userInfo: [AnyHashable : Any], completion: @escaping HandleNotificationCompletion) {
-        //messages.adding(remoteMessage)
-        // push notification handler here
-        
+    public func handleNotification(userInfo: [AnyHashable : Any]) -> Bool {
         if userInfo["sendbird"] != nil {
             let sendBirdPayload = userInfo["sendbird"] as! Dictionary<String, Any>
-//            let channel = (sendBirdPayload["channel"]  as! Dictionary<String, Any>)["channel_url"] as! String
             let channelType = sendBirdPayload["channel_type"] as! String
             if channelType == "group_messaging" {
-                completion(true, userInfo)
+                return true
             }
-            completion(false, userInfo)
+            return false
         }
+        return false
     }
     
     public var isConnected: Bool {
