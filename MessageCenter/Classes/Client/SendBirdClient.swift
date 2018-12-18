@@ -37,7 +37,7 @@ public class SendBirdClient: ClientProtocol {
         SBDMain.initWithApplicationId(connectionRequest.appId)
         SBDMain.connect(withUserId: connectionRequest.userId, accessToken: connectionRequest.accessToken, completionHandler: { (user, error) in
             lastConnectionRequest = connectionRequest
-            self.connected = false
+//            self.connected = false
             guard error == nil else {
                 failure(error!.code, error!.localizedDescription)
                 //connection.onMessageCenterConnectionError(code: error!.code, message: error!.localizedDescription)
