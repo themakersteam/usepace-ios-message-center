@@ -220,6 +220,10 @@ extension SBMessageInputView: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
+        if text == "\n" {
+            return true
+        }
+        
         if let delegate = delegate {
             return delegate.inputView(textView: textView, shouldChangeTextInRange: range, replacementText: text)
         }
@@ -234,7 +238,7 @@ extension SBMessageInputView: UITextViewDelegate {
         lineHeight = fontLineHeight
         numberOfLines = lines
         
-        if let delegate = delegate {
+        if let delegate = delegate{
             delegate.inputViewDidChange(textView: textView)
         }
     }

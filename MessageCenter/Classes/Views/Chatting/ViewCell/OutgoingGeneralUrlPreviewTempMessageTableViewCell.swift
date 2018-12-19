@@ -40,10 +40,10 @@ class OutgoingGeneralUrlPreviewTempMessageTableViewCell: UITableViewCell {
         self.previewLoadingIndicator.startAnimating()
 
         // Message Date
-        let messageTimestamp = Double((self.message?.createdAt)!) / 1000.0
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = DateFormatter.Style.short
-        let messageCreatedDate = NSDate(timeIntervalSince1970: messageTimestamp)
+//        let messageTimestamp = Double((self.message?.createdAt)!) / 1000.0
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.timeStyle = DateFormatter.Style.short
+//        _ = NSDate(timeIntervalSince1970: messageTimestamp)
         
         self.layoutIfNeeded()
     }
@@ -65,7 +65,7 @@ class OutgoingGeneralUrlPreviewTempMessageTableViewCell: UITableViewCell {
         return fullMessage
     }
     func updateBackgroundColour () {
-//        self.messageContainerView.backgroundColor = self.containerBackgroundColour
+        self.messageContainer.backgroundColor = self.containerBackgroundColour
     }
     func getHeightOfViewCell() -> CGFloat {        
         let fullMessage = self.buildMessage()

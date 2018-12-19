@@ -97,6 +97,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     // MARK: - Helpers
     func setup() {
         self.chattingTableView.contentInset = UIEdgeInsetsMake(0, 0, 10, 0)
+        self.placeholderLabel.text = "type_message_hint".localized
     }
     
     func updateTheme(themeObject: ThemeObject) {
@@ -1028,12 +1029,15 @@ extension ChattingView: SBMessageInputViewDelegate {
                 self.btnCamera.isHidden = true
                 if self.cnTextViewTrailing.constant != 65.0 {
                     self.cnTextViewTrailing.constant = 65.0
-                    UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveLinear, animations: {
+                    UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveLinear, animations: {
                         self.layoutIfNeeded()
                     }) { (status) in
                         
                     }
                 }
+            }
+            else {
+                self.messageTextView.backgroundColor = .white
             }
             if self.delegate != nil {
                 self.delegate?.startTyping(view: self)
@@ -1041,9 +1045,10 @@ extension ChattingView: SBMessageInputViewDelegate {
         }
         else {
             self.placeholderLabel.isHidden = false
+            self.messageTextView.backgroundColor = .clear
             if self.cnTextViewTrailing.constant != 12.0 {
                 self.cnTextViewTrailing.constant = 12.0
-                UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveLinear, animations: {
+                UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveLinear, animations: {
                     self.layoutIfNeeded()
                 }) { (status) in
                     

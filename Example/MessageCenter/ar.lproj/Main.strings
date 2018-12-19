@@ -1,0 +1,15 @@
+
+/* Class = "UILabel"; text = "Status:"; ObjectID = "9Ws-uj-u6Z"; */
+"9Ws-uj-u6Z.text" = "Status:";
+
+/* Class = "UILabel"; text = "False"; ObjectID = "ISk-0V-oyr"; */
+"ISk-0V-oyr.text" = "False";
+
+/* Class = "UIButton"; normalTitle = "Join to chat"; ObjectID = "dXK-kj-4vF"; */
+"dXK-kj-4vF.normalTitle" = "Join to chat";
+
+/* Class = "UILabel"; text = "User Id:"; ObjectID = "ehv-gL-HuU"; */
+"ehv-gL-HuU.text" = "User Id:";
+
+/* Class = "UIButton"; normalTitle = "Connect again"; ObjectID = "kO1-Lf-tO4"; */
+"kO1-Lf-tO4.normalTitle" = "Connect again";

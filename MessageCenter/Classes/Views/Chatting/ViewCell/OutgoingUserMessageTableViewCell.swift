@@ -152,20 +152,6 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
     func getHeightOfViewCell() -> CGFloat {
         let fullMessage = self.buildMessage()
         let heightOfString = fullMessage.height(withConstrainedWidth: UIScreen.main.bounds.size.width - 120.0)
-        // 135  -- UIScreen.main.bounds.size.width - 120.0
-        
-//        let widthOfString = fullMessage.width(withConstrainedHeight: heightOfString)
-//        if widthOfString < 135.0 {
-//            cnMessageContainerLeftPadding.constant = 200.0
-//        }
-//        else if widthOfString >= UIScreen.main.bounds.size.width - 120.0 {
-//            cnMessageContainerLeftPadding.constant = 90.0
-//        }
-//        else {
-//            cnMessageContainerLeftPadding.constant = UIScreen.main.bounds.size.width - widthOfString
-//        }
-//        self.layoutSubviews()
-        
         return heightOfString + 45.0
     }
     
@@ -182,37 +168,25 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
     }
     
     func hideMessageControlButton() {
-//        self.resendMessageButton.isHidden = true
-//        self.deleteMessageButton.isHidden = true
+        self.resendMessageButton.isHidden = true
     }
     
     func showMessageControlButton() {
-//        self.sendingStatusLabel.isHidden = true
-//        self.messageDateLabel.isHidden = true
-//        self.unreadCountLabel.isHidden = true
-//
-//        self.resendMessageButton.isHidden = false
-//        self.deleteMessageButton.isHidden = false
+        self.messageDateLabel.isHidden = true
+        self.imgMessageStatus.isHidden = true
+        self.resendMessageButton.isHidden = false
     }
     
     func showSendingStatus() {
-//        self.messageDateLabel.isHidden = true
-//        self.unreadCountLabel.isHidden = true
-//        self.resendMessageButton.isHidden = true
-//        self.deleteMessageButton.isHidden = true
-//
-//        self.sendingStatusLabel.isHidden = false
-//        self.sendingStatusLabel.text = "Sending"
+        self.messageDateLabel.isHidden = true
+        self.imgMessageStatus.isHidden = true
+        self.resendMessageButton.isHidden = true
     }
     
     func showFailedStatus() {
-//        self.messageDateLabel.isHidden = true
-//        self.unreadCountLabel.isHidden = true
-//        self.resendMessageButton.isHidden = true
-//        self.deleteMessageButton.isHidden = true
-//
-//        self.sendingStatusLabel.isHidden = false
-//        self.sendingStatusLabel.text = "Failed"
+        self.messageDateLabel.isHidden = true
+        self.imgMessageStatus.isHidden = true
+        self.resendMessageButton.isHidden = false
     }
     
     func showMessageDate() {
