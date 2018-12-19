@@ -518,17 +518,17 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     
     @objc private func sendMessage() {
         
-        if (self.chattingView.messageTextView.text.count > 0 || imageCaption.count > 0) {
+        if (self.chattingView.messageTextView.textView.text.count > 0 || imageCaption.count > 0) {
             /*
             self.chattingView.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false
             imageCaption.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false
              */
             self.groupChannel.endTyping()
             var message = ""
-            if self.chattingView.messageTextView.text.count > 0 &&
-                self.chattingView.messageTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false {
+            if self.chattingView.messageTextView.textView.text.count > 0 &&
+                self.chattingView.messageTextView.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false {
                
-                message = self.chattingView.messageTextView.text
+                message = self.chattingView.messageTextView.textView.text
             }
                 
             else if imageCaption.count > 0 &&
@@ -540,7 +540,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 return
             }
             
-            self.chattingView.messageTextView.text = ""
+            self.chattingView.messageTextView.textView.text = ""
             self.imageCaption = ""
             
             do {
@@ -1429,8 +1429,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                                 let imageCaptionVC = ImagePreviewViewController(nibName: "ImagePreviewViewController", bundle: self.podBundle)
                                 imageCaptionVC.imageToUpload = result
                                 // If user has typed any text, use it as caption
-                                if self.chattingView.messageTextView.text != nil {
-                                    imageCaptionVC.strCaption = self.chattingView.messageTextView.text
+                                if self.chattingView.messageTextView.textView.text != nil {
+                                    imageCaptionVC.strCaption = self.chattingView.messageTextView.textView.text
                                 }
                                 
                                 imageCaptionVC.delegate = self

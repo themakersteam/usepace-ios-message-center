@@ -174,7 +174,7 @@ class OutgoingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
     }
     
     func updateBackgroundColour () {
-       // self.messageContainerView.backgroundColor = self.containerBackgroundColour
+        self.messageContainerView.backgroundColor = self.containerBackgroundColour
     }
     
     func getHeightOfViewCell() -> CGFloat {

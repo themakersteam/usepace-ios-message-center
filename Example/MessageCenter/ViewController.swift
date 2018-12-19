@@ -26,7 +26,9 @@ class ViewController: UIViewController {
         // Welcome Message
         let welcomeMessage = "Hungerstation rider is here to serve you!"
         // Sender bubble color
-        let primaryColor = UIColor(red: 255.0/255.0, green: 247.0/255.0, blue: 214.0/255.0, alpha: 1.0)
+        let primaryColor = UIColor.red
+        
+        //UIColor(red: 255.0/255.0, green: 247.0/255.0, blue: 214.0/255.0, alpha: 1.0)
         // Color for Title, welcome message background (with alpha 0.4) and Send button background
         let primaryAccentColor = UIColor(red: 245.0/255.0, green: 206.0/255.0, blue: 9.0/255.0, alpha: 1.0)
         // Back button color

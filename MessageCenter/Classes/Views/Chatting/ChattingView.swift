@@ -21,7 +21,7 @@ protocol ChattingViewDelegate: class {
 
 class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate {
     // MARK : - IBOutlets
-    @IBOutlet weak var messageTextView: UITextView!
+    @IBOutlet weak var messageTextView: SBMessageInputView!
     @IBOutlet weak var chattingTableView: UITableView!
     @IBOutlet weak var inputContainerViewHeight: NSLayoutConstraint!
     @IBOutlet weak var cnTextViewTrailing: NSLayoutConstraint!
@@ -56,23 +56,21 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
 
     // MARK: - Cells
     
+    var neutralMessageSizingTableViewCell: NeutralMessageTableViewCell?
+    
     var incomingUserMessageSizingTableViewCell: IncomingUserMessageTableViewCell?
     var outgoingUserMessageSizingTableViewCell: OutgoingUserMessageTableViewCell?
-    var neutralMessageSizingTableViewCell: NeutralMessageTableViewCell?
-    var incomingFileMessageSizingTableViewCell: IncomingFileMessageTableViewCell?
+    
     var outgoingImageFileMessageSizingTableViewCell: OutgoingImageFileMessageTableViewCell?
-    var outgoingFileMessageSizingTableViewCell: OutgoingFileMessageTableViewCell?
     var incomingImageFileMessageSizingTableViewCell: IncomingImageFileMessageTableViewCell?
-    var incomingVideoFileMessageSizingTableViewCell: IncomingVideoFileMessageTableViewCell?
-    var outgoingVideoFileMessageSizingTableViewCell: OutgoingVideoFileMessageTableViewCell?
+    
     var incomingGeneralUrlPreviewMessageTableViewCell: IncomingGeneralUrlPreviewMessageTableViewCell?
     var outgoingGeneralUrlPreviewMessageTableViewCell: OutgoingGeneralUrlPreviewMessageTableViewCell?
+    // when sending URL
     var outgoingGeneralUrlPreviewTempMessageTableViewCell: OutgoingGeneralUrlPreviewTempMessageTableViewCell?
     
     //Cell to be shown at top with a welcome message
     var welcomeMessageTableViewCell : WelcomeMessageTableViewCell?
-    
-    
     
     
     var lastMessageHeight: CGFloat = 0
@@ -99,7 +97,6 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     // MARK: - Helpers
     func setup() {
         self.chattingTableView.contentInset = UIEdgeInsetsMake(0, 0, 10, 0)
-//        self.messageTextView.textContainerInset = UIEdgeInsetsMake(25.0, 5.0, 15.0, 5.0)
     }
     
     func updateTheme(themeObject: ThemeObject) {
@@ -136,7 +133,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         
 //        self.typingIndicatorContainerView.layoutIfNeeded()
         
-        messageTextView.textContainerInset = UIEdgeInsetsMake(15, 1, 0, 0);
+//        messageTextView.textContainerInset = UIEdgeInsetsMake(15, 1, 0, 0);
         messageTextView.layer.borderColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.12).cgColor
         self.messageTextView.layer.cornerRadius = 8.0
         self.messageTextView.layer.masksToBounds = true
@@ -146,12 +143,10 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         self.chattingTableView.register(IncomingUserMessageTableViewCell.nib(), forCellReuseIdentifier: IncomingUserMessageTableViewCell.cellReuseIdentifier())
         self.chattingTableView.register(OutgoingUserMessageTableViewCell.nib(), forCellReuseIdentifier: OutgoingUserMessageTableViewCell.cellReuseIdentifier())
         self.chattingTableView.register(NeutralMessageTableViewCell.nib(), forCellReuseIdentifier: NeutralMessageTableViewCell.cellReuseIdentifier())
-        self.chattingTableView.register(IncomingFileMessageTableViewCell.nib(), forCellReuseIdentifier: IncomingFileMessageTableViewCell.cellReuseIdentifier())
+
         self.chattingTableView.register(OutgoingImageFileMessageTableViewCell.nib(), forCellReuseIdentifier: OutgoingImageFileMessageTableViewCell.cellReuseIdentifier())
-        self.chattingTableView.register(OutgoingFileMessageTableViewCell.nib(), forCellReuseIdentifier: OutgoingFileMessageTableViewCell.cellReuseIdentifier())
+        
         self.chattingTableView.register(IncomingImageFileMessageTableViewCell.nib(), forCellReuseIdentifier: IncomingImageFileMessageTableViewCell.cellReuseIdentifier())
-        self.chattingTableView.register(IncomingVideoFileMessageTableViewCell.nib(), forCellReuseIdentifier: IncomingVideoFileMessageTableViewCell.cellReuseIdentifier())
-        self.chattingTableView.register(OutgoingVideoFileMessageTableViewCell.nib(), forCellReuseIdentifier: OutgoingVideoFileMessageTableViewCell.cellReuseIdentifier())
         
         self.chattingTableView.register(IncomingGeneralUrlPreviewMessageTableViewCell.nib(), forCellReuseIdentifier: IncomingGeneralUrlPreviewMessageTableViewCell.cellReuseIdentifier())
         self.chattingTableView.register(OutgoingGeneralUrlPreviewMessageTableViewCell.nib(), forCellReuseIdentifier: OutgoingGeneralUrlPreviewMessageTableViewCell.cellReuseIdentifier())
@@ -183,30 +178,14 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         self.neutralMessageSizingTableViewCell?.isHidden = true
         self.addSubview(self.neutralMessageSizingTableViewCell!)
         
-        self.incomingFileMessageSizingTableViewCell = IncomingFileMessageTableViewCell.nib().instantiate(withOwner: self, options: nil)[0] as? IncomingFileMessageTableViewCell
-        self.incomingFileMessageSizingTableViewCell?.isHidden = true
-        self.addSubview(self.incomingFileMessageSizingTableViewCell!)
-        
         self.outgoingImageFileMessageSizingTableViewCell = OutgoingImageFileMessageTableViewCell.nib().instantiate(withOwner: self, options: nil)[0] as? OutgoingImageFileMessageTableViewCell
         self.outgoingImageFileMessageSizingTableViewCell?.isHidden = true
         self.addSubview(self.outgoingImageFileMessageSizingTableViewCell!)
-        
-        self.outgoingFileMessageSizingTableViewCell = OutgoingFileMessageTableViewCell.nib().instantiate(withOwner: self, options: nil)[0] as? OutgoingFileMessageTableViewCell
-        self.outgoingFileMessageSizingTableViewCell?.isHidden = true
-        self.addSubview(self.outgoingFileMessageSizingTableViewCell!)
         
         self.incomingImageFileMessageSizingTableViewCell = IncomingImageFileMessageTableViewCell.nib().instantiate(withOwner: self, options: nil)[0] as? IncomingImageFileMessageTableViewCell
         self.incomingImageFileMessageSizingTableViewCell?.isHidden = true
         self.addSubview(self.incomingImageFileMessageSizingTableViewCell!)
         
-        self.incomingVideoFileMessageSizingTableViewCell = IncomingVideoFileMessageTableViewCell.nib().instantiate(withOwner: self, options: nil)[0] as? IncomingVideoFileMessageTableViewCell
-        self.incomingVideoFileMessageSizingTableViewCell?.isHidden = true
-        self.addSubview(self.incomingVideoFileMessageSizingTableViewCell!)
-        
-        self.outgoingVideoFileMessageSizingTableViewCell = OutgoingVideoFileMessageTableViewCell.nib().instantiate(withOwner: self, options: nil)[0] as? OutgoingVideoFileMessageTableViewCell
-        self.outgoingVideoFileMessageSizingTableViewCell?.isHidden = true
-        self.addSubview(self.outgoingVideoFileMessageSizingTableViewCell!)
-
         self.incomingGeneralUrlPreviewMessageTableViewCell = IncomingGeneralUrlPreviewMessageTableViewCell.nib().instantiate(withOwner: self, options: nil)[0] as? IncomingGeneralUrlPreviewMessageTableViewCell
         self.incomingGeneralUrlPreviewMessageTableViewCell?.isHidden = true
         self.addSubview(self.incomingGeneralUrlPreviewMessageTableViewCell!)
@@ -317,59 +296,60 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                     self.delegate?.endTyping(view: self)
                 }
             }
+            let cursorPosition = textView.caretRect(for: textView.selectedTextRange!.start).origin
+            if cursorPosition.x.isInfinite == true || cursorPosition.y.isInfinite == true {
+                return
+            }
+            //textView.font!.lineHeight
+            var currentLine = Int(cursorPosition.y / 16.0 )
+
+            print(cursorPosition)
+            print(textView.frame.size)
+            print(currentLine)
+            if cursorPosition.x >= (textView.frame.size.width - 15.0) {
+                currentLine = currentLine + 1
+            }
+            
+            if previousLine > currentLine {
+                UIView.animate(withDuration: 0.3) {
+                    if currentLine == 0 {
+                        self.inputContainerViewHeight.constant = 44.0
+                        textView.isScrollEnabled = false
+                    }
+                    else if currentLine <= 5 {
+                        textView.isScrollEnabled = false
+                        self.inputContainerViewHeight.constant = self.inputContainerViewHeight.constant - 17.0 // Padding
+                    }
+                    else {
+                        textView.isScrollEnabled = true
+                    }
+                }
+            }
+            else if previousLine < currentLine {
+                UIView.animate(withDuration: 0.3) {
+                    if currentLine == 0 {
+                        self.inputContainerViewHeight.constant = 44.0
+                        textView.isScrollEnabled = false
+                    }
+                    else if currentLine >= 5 {
+                        textView.isScrollEnabled = true
+                    }
+                    else {
+                        textView.isScrollEnabled = false
+                        self.inputContainerViewHeight.constant = self.inputContainerViewHeight.constant + 17.0 // Padding
+                    }
+                }
+            }
+            
+            textView.layoutIfNeeded()
+            
+            self.updateConstraints()
+            previousLine = currentLine
         }
+        
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool{
-        
-        let cursorPosition = textView.caretRect(for: textView.selectedTextRange!.start).origin
-        if cursorPosition.x.isInfinite == true || cursorPosition.y.isInfinite == true {
-            return true
-        }
-        var currentLine = Int(cursorPosition.y / textView.font!.lineHeight)
-        if text == "\n" {
-            currentLine = currentLine + 1
-        }
-        else if text == "" {
-            if currentLine != 0 {
-                currentLine = currentLine - 1
-            }
-        }
-        if previousLine > currentLine {
-            UIView.animate(withDuration: 0.3) {
-                if currentLine == 0 {
-                    self.inputContainerViewHeight.constant = 44.0
-                    textView.isScrollEnabled = false
-                }
-                else if currentLine <= 5 {
-                    textView.isScrollEnabled = false
-                    self.inputContainerViewHeight.constant = self.inputContainerViewHeight.constant - 17.0 // Padding
-                }
-                else {
-                    textView.isScrollEnabled = true
-                }
-            }
-        }
-        else if previousLine < currentLine {
-            UIView.animate(withDuration: 0.3) {
-                if currentLine == 0 {
-                    self.inputContainerViewHeight.constant = 44.0
-                    textView.isScrollEnabled = false
-                }
-                else if currentLine >= 5 {
-                    textView.isScrollEnabled = true
-                }
-                else {
-                    textView.isScrollEnabled = false
-                    self.inputContainerViewHeight.constant = self.inputContainerViewHeight.constant + 17.0 // Padding
-                }
-            }
-        }
-        
-        textView.layoutIfNeeded()
-        
-        self.updateConstraints()
-        previousLine = currentLine
         return true
     }
     
@@ -498,27 +478,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
             
             if sender?.userId == SBDMain.getCurrentUser()?.userId {
                 // Outgoing
-                if fileMessage.type.hasPrefix("video") {
-                    if indexPath.row > 0 {
-                        self.outgoingVideoFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
-                    }
-                    else {
-                        self.outgoingVideoFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: nil)
-                    }
-                    self.outgoingVideoFileMessageSizingTableViewCell?.setModel(aMessage: fileMessage, channel: self.channel)
-                    height = (self.outgoingVideoFileMessageSizingTableViewCell?.getHeightOfViewCell())!
-                }
-                else if fileMessage.type.hasPrefix("audio") {
-                    if indexPath.row > 0 {
-                        self.outgoingFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
-                    }
-                    else {
-                        self.outgoingFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: nil)
-                    }
-                    self.outgoingFileMessageSizingTableViewCell?.setModel(aMessage: fileMessage, channel: self.channel)
-                    height = (self.outgoingFileMessageSizingTableViewCell?.getHeightOfViewCell())!
-                }
-                else if fileMessage.type.hasPrefix("image") {
+                if fileMessage.type.hasPrefix("image") {
                     if indexPath.row > 0 {
                         self.outgoingImageFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
                     }
@@ -528,40 +488,10 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                     self.outgoingImageFileMessageSizingTableViewCell?.setModel(aMessage: fileMessage, channel: self.channel)
                     height = (self.outgoingImageFileMessageSizingTableViewCell?.getHeightOfViewCell())!
                 }
-                else {
-                    if indexPath.row > 0 {
-                        self.outgoingFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
-                    }
-                    else {
-                        self.outgoingFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: nil)
-                    }
-                    self.outgoingFileMessageSizingTableViewCell?.setModel(aMessage: fileMessage, channel: self.channel)
-                    height = (self.outgoingFileMessageSizingTableViewCell?.getHeightOfViewCell())!
-                }
             }
             else {
                 // Incoming
-                if fileMessage.type.hasPrefix("video") {
-                    if indexPath.row > 0 {
-                        self.incomingVideoFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
-                    }
-                    else {
-                        self.incomingVideoFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: nil)
-                    }
-                    self.incomingVideoFileMessageSizingTableViewCell?.setModel(aMessage: fileMessage)
-                    height = (self.incomingVideoFileMessageSizingTableViewCell?.getHeightOfViewCell())!
-                }
-                else if fileMessage.type.hasPrefix("audio") {
-                    if indexPath.row > 0 {
-                        self.incomingFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
-                    }
-                    else {
-                        self.incomingFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: nil)
-                    }
-                    self.incomingFileMessageSizingTableViewCell?.setModel(aMessage: fileMessage)
-                    height = (self.incomingFileMessageSizingTableViewCell?.getHeightOfViewCell())!
-                }
-                else if fileMessage.type.hasPrefix("image") {
+                if fileMessage.type.hasPrefix("image") {
                     if indexPath.row > 0 {
                         self.incomingImageFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
                     }
@@ -570,16 +500,6 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                     }
                     self.incomingImageFileMessageSizingTableViewCell?.setModel(aMessage: fileMessage)
                     height = (self.incomingImageFileMessageSizingTableViewCell?.getHeightOfViewCell())!
-                }
-                else {
-                    if indexPath.row > 0 {
-                        self.incomingFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
-                    }
-                    else {
-                        self.incomingFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: nil)
-                    }
-                    self.incomingFileMessageSizingTableViewCell?.setModel(aMessage: fileMessage)
-                    height = (self.incomingFileMessageSizingTableViewCell?.getHeightOfViewCell())!
                 }
             }
         }
@@ -613,152 +533,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         
         return height
     }
-    
-    /*
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        var height: CGFloat = 0
-        
-        let msg = self.messages[indexPath.row]
-        
-        if msg is SBDUserMessage {
-            let userMessage = msg as! SBDUserMessage
-            let sender = userMessage.sender
-            
-            if sender?.userId == SBDMain.getCurrentUser()?.userId {
-                // Outgoing
-                if indexPath.row > 0 {
-                    self.outgoingUserMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
-                }
-                else {
-                    self.outgoingUserMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: nil)
-                }
-                self.outgoingUserMessageSizingTableViewCell?.setModel(aMessage: userMessage)
-                height = (self.outgoingUserMessageSizingTableViewCell?.getHeightOfViewCell())!
-            }
-            else {
-                // Incoming
-                if indexPath.row > 0 {
-                    self.incomingUserMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
-                }
-                else {
-                    self.incomingUserMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: nil)
-                }
-                self.incomingUserMessageSizingTableViewCell?.setModel(aMessage: userMessage)
-                height = (self.incomingUserMessageSizingTableViewCell?.getHeightOfViewCell())!
-            }
-        }
-        else if msg is SBDFileMessage {
-            let fileMessage = msg as! SBDFileMessage
-            let sender = fileMessage.sender
-            
-            if sender?.userId == SBDMain.getCurrentUser()?.userId {
-                // Outgoing
-                if fileMessage.type.hasPrefix("video") {
-                    if indexPath.row > 0 {
-                        self.outgoingFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
-                    }
-                    else {
-                        self.outgoingFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: nil)
-                    }
-                    self.outgoingFileMessageSizingTableViewCell?.setModel(aMessage: fileMessage)
-                    height = (self.outgoingFileMessageSizingTableViewCell?.getHeightOfViewCell())!
-                }
-                else if fileMessage.type.hasPrefix("audio") {
-                    if indexPath.row > 0 {
-                        self.outgoingFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
-                    }
-                    else {
-                        self.outgoingFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: nil)
-                    }
-                    self.outgoingFileMessageSizingTableViewCell?.setModel(aMessage: fileMessage)
-                    height = (self.outgoingFileMessageSizingTableViewCell?.getHeightOfViewCell())!
-                }
-                else if fileMessage.type.hasPrefix("image") {
-                    if indexPath.row > 0 {
-                        self.outgoingImageFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
-                    }
-                    else {
-                        self.outgoingImageFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: nil)
-                    }
-                    self.outgoingImageFileMessageSizingTableViewCell?.setModel(aMessage: fileMessage)
-                    height = (self.outgoingImageFileMessageSizingTableViewCell?.getHeightOfViewCell())!
-                }
-                else {
-                    if indexPath.row > 0 {
-                        self.outgoingFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
-                    }
-                    else {
-                        self.outgoingFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: nil)
-                    }
-                    self.outgoingFileMessageSizingTableViewCell?.setModel(aMessage: fileMessage)
-                    height = (self.outgoingFileMessageSizingTableViewCell?.getHeightOfViewCell())!
-                }
-            }
-            else {
-                // Incoming
-                if fileMessage.type.hasPrefix("video") {
-                    if indexPath.row > 0 {
-                        self.incomingFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
-                    }
-                    else {
-                        self.incomingFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: nil)
-                    }
-                    self.incomingFileMessageSizingTableViewCell?.setModel(aMessage: fileMessage)
-                    height = (self.incomingFileMessageSizingTableViewCell?.getHeightOfViewCell())!
-                }
-                else if fileMessage.type.hasPrefix("audio") {
-                    if indexPath.row > 0 {
-                        self.incomingFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
-                    }
-                    else {
-                        self.incomingFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: nil)
-                    }
-                    self.incomingFileMessageSizingTableViewCell?.setModel(aMessage: fileMessage)
-                    height = (self.incomingFileMessageSizingTableViewCell?.getHeightOfViewCell())!
-                }
-                else if fileMessage.type.hasPrefix("image") {
-                    if indexPath.row > 0 {
-                        self.incomingImageFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
-                    }
-                    else {
-                        self.incomingImageFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: nil)
-                    }
-                    self.incomingImageFileMessageSizingTableViewCell?.setModel(aMessage: fileMessage)
-                    height = (self.incomingImageFileMessageSizingTableViewCell?.getHeightOfViewCell())!
-                }
-                else {
-                    if indexPath.row > 0 {
-                        self.incomingFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
-                    }
-                    else {
-                        self.incomingFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: nil)
-                    }
-                    self.incomingFileMessageSizingTableViewCell?.setModel(aMessage: fileMessage)
-                    height = (self.incomingFileMessageSizingTableViewCell?.getHeightOfViewCell())!
-                }
-            }
-        }
-        else if msg is SBDAdminMessage {
-            let adminMessage = msg as! SBDAdminMessage
-            if indexPath.row > 0 {
-                self.neutralMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
-            }
-            else {
-                self.neutralMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: nil)
-            }
-            
-            self.neutralMessageSizingTableViewCell?.setModel(aMessage: adminMessage)
-            height = (self.neutralMessageSizingTableViewCell?.getHeightOfViewCell())!
-        }
-        
-        if self.messages.count > 0 && self.messages.count - 1 == indexPath.row {
-            self.lastMessageHeight = height
-        }
-        
-        return height
-    }
- */
-    
+
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         return 0
     }
@@ -896,13 +671,20 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                     (cell as! OutgoingUserMessageTableViewCell).setModel(aMessage: userMessage, channel: self.channel)
                     (cell as! OutgoingUserMessageTableViewCell).delegate = self.delegate
                     
+                    if themeObject != nil {
+                        if themeObject?.primaryColor != nil {
+                            (cell as! OutgoingUserMessageTableViewCell).containerBackgroundColour = (themeObject?.primaryColor)!
+                        }
+                    }
+                    (cell as! OutgoingUserMessageTableViewCell).updateBackgroundColour()
+                    
                     if self.preSendMessages[userMessage.requestId!] != nil {
                         (cell as! OutgoingUserMessageTableViewCell).showSendingStatus()
                     }
                     else {
                         if self.resendableMessages[userMessage.requestId!] != nil {
                             (cell as! OutgoingUserMessageTableViewCell).showMessageControlButton()
-//                            (cell as! OutgoingUserMessageTableViewCell).showFailedStatus()
+                            (cell as! OutgoingUserMessageTableViewCell).showFailedStatus()
                         }
                         else {
                             (cell as! OutgoingUserMessageTableViewCell).showMessageDate()
@@ -999,71 +781,17 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
             
             if sender?.userId == SBDMain.getCurrentUser()?.userId {
                 // Outgoing
-                if fileMessage.type.hasPrefix("video") {
-                    cell = tableView.dequeueReusableCell(withIdentifier: OutgoingVideoFileMessageTableViewCell.cellReuseIdentifier())
-                    
-                    cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
-                    if indexPath.row > 0 {
-                        (cell as! OutgoingVideoFileMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
-                    }
-                    else {
-                        (cell as! OutgoingVideoFileMessageTableViewCell).setPreviousMessage(aPrevMessage: nil)
-                    }
-                    (cell as! OutgoingVideoFileMessageTableViewCell).setModel(aMessage: fileMessage, channel: self.channel)
-                    (cell as! OutgoingVideoFileMessageTableViewCell).delegate = self.delegate
-                    
-                    if self.preSendMessages[fileMessage.requestId!] != nil {
-                        (cell as! OutgoingVideoFileMessageTableViewCell).showSendingStatus()
-                    }
-                    else {
-                        if self.resendableMessages[fileMessage.requestId!] != nil {
-                            (cell as! OutgoingVideoFileMessageTableViewCell).showMessageControlButton()
-//                            (cell as! OutgoingVideoFileMessageTableViewCell).showFailedStatus()
-                        }
-                        else {
-                            (cell as! OutgoingVideoFileMessageTableViewCell).showMessageDate()
-                            (cell as! OutgoingVideoFileMessageTableViewCell).showUnreadCount()
-                        }
-                    }
-                }
-                else if fileMessage.type.hasPrefix("audio") {
-                    cell = tableView.dequeueReusableCell(withIdentifier: OutgoingFileMessageTableViewCell.cellReuseIdentifier())
-                    cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
-                    if indexPath.row > 0 {
-                        (cell as! OutgoingFileMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
-                    }
-                    else {
-                        (cell as! OutgoingFileMessageTableViewCell).setPreviousMessage(aPrevMessage: nil)
-                    }
-                    (cell as! OutgoingFileMessageTableViewCell).setModel(aMessage: fileMessage, channel: self.channel)
-                    (cell as! OutgoingFileMessageTableViewCell).delegate = self.delegate
-                    
-                    if self.preSendMessages[fileMessage.requestId!] != nil {
-                        (cell as! OutgoingFileMessageTableViewCell).showSendingStatus()
-                    }
-                    else {
-                        if self.resendableMessages[fileMessage.requestId!] != nil {
-                            (cell as! OutgoingFileMessageTableViewCell).showMessageControlButton()
-//                            (cell as! OutgoingFileMessageTableViewCell).showFailedStatus()
-                        }
-                        else {
-                            (cell as! OutgoingFileMessageTableViewCell).showMessageDate()
-                            (cell as! OutgoingFileMessageTableViewCell).showUnreadCount()
-                        }
-                    }
-                }
-                    // MARK: - Outgoing - File Image
-                    
-                else if fileMessage.type.hasPrefix("image") {
+                // MARK: - Outgoing - File Image
+                if fileMessage.type.hasPrefix("image") {
                     cell = tableView.dequeueReusableCell(withIdentifier: OutgoingImageFileMessageTableViewCell.cellReuseIdentifier())
                     
-//                    if themeObject != nil {
-//                        if themeObject?.primaryColor != nil {
-//                            (cell as! OutgoingImageFileMessageTableViewCell).containerBackgroundColour = (themeObject?.primaryColor)!
-//                        }
-//                    }
-//
-//                    (cell as! OutgoingImageFileMessageTableViewCell).updateBackgroundColour()
+                    if themeObject != nil {
+                        if themeObject?.primaryColor != nil {
+                            (cell as! OutgoingImageFileMessageTableViewCell).containerBackgroundColour = (themeObject?.primaryColor)!
+                        }
+                    }
+
+                    (cell as! OutgoingImageFileMessageTableViewCell).updateBackgroundColour()
                     
                     cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
                     if indexPath.row > 0 {
@@ -1162,73 +890,11 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                         }
                     }
                 }
-                else {
-                    cell = tableView.dequeueReusableCell(withIdentifier: OutgoingFileMessageTableViewCell.cellReuseIdentifier())
-                    if themeObject != nil {
-                        if themeObject?.primaryColor != nil {
-                            (cell as! OutgoingFileMessageTableViewCell).containerBackgroundColour = (themeObject?.primaryColor)!
-                        }
-                    }
-                    
-                    (cell as! OutgoingFileMessageTableViewCell).updateBackgroundColour()
-                    cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
-                    if indexPath.row > 0 {
-                        (cell as! OutgoingFileMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
-                    }
-                    else {
-                        (cell as! OutgoingFileMessageTableViewCell).setPreviousMessage(aPrevMessage: nil)
-                    }
-                    (cell as! OutgoingFileMessageTableViewCell).setModel(aMessage: fileMessage, channel: self.channel)
-                    (cell as! OutgoingFileMessageTableViewCell).delegate = self.delegate
-                    
-                    if self.preSendMessages[fileMessage.requestId!] != nil {
-                        (cell as! OutgoingFileMessageTableViewCell).showSendingStatus()
-                    }
-                    else {
-                        if self.resendableMessages[fileMessage.requestId!] != nil {
-                            (cell as! OutgoingFileMessageTableViewCell).showMessageControlButton()
-//                            (cell as! OutgoingFileMessageTableViewCell).showFailedStatus()
-                        }
-                        else {
-                            (cell as! OutgoingFileMessageTableViewCell).showMessageDate()
-                            (cell as! OutgoingFileMessageTableViewCell).showUnreadCount()
-                        }
-                    }
-                }
             }
             else {
                 // Incoming
-                if fileMessage.type.hasPrefix("video") {
-                    cell = tableView.dequeueReusableCell(withIdentifier: IncomingVideoFileMessageTableViewCell.cellReuseIdentifier())
-                    cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
-                    if indexPath.row > 0 {
-                        (cell as! IncomingVideoFileMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
-                    }
-                    else {
-                        (cell as! IncomingVideoFileMessageTableViewCell).setPreviousMessage(aPrevMessage: nil)
-                    }
-                    (cell as! IncomingVideoFileMessageTableViewCell).setModel(aMessage: fileMessage)
-                    (cell as! IncomingVideoFileMessageTableViewCell).delegate = self.delegate
-                }
-                else if fileMessage.type.hasPrefix("audio") {
-                    cell = tableView.dequeueReusableCell(withIdentifier: IncomingFileMessageTableViewCell.cellReuseIdentifier())
-                    cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
-                    if indexPath.row > 0 {
-                        (cell as! IncomingFileMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
-                    }
-                    else {
-                        (cell as! IncomingFileMessageTableViewCell).setPreviousMessage(aPrevMessage: nil)
-                    }
-                    (cell as! IncomingFileMessageTableViewCell).setModel(aMessage: fileMessage)
-                    (cell as! IncomingFileMessageTableViewCell).delegate = self.delegate
-                }
-                else if fileMessage.type.hasPrefix("image") {
+                if fileMessage.type.hasPrefix("image") {
                     cell = tableView.dequeueReusableCell(withIdentifier: IncomingImageFileMessageTableViewCell.cellReuseIdentifier())
-//                    if themeObject != nil {
-//                        if themeObject?.secondaryColor != nil {
-//                            (cell as! IncomingImageFileMessageTableViewCell).containerBackgroundColour = (themeObject?.secondaryColor)!
-//                        }
-//                    }
                     cell?.backgroundColor = (cell as! IncomingImageFileMessageTableViewCell).containerBackgroundColour
                     
                     cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
@@ -1305,18 +971,6 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                         })
                     }
                 }
-                else {
-                    cell = tableView.dequeueReusableCell(withIdentifier: IncomingFileMessageTableViewCell.cellReuseIdentifier())
-                    cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
-                    if indexPath.row > 0 {
-                        (cell as! IncomingFileMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
-                    }
-                    else {
-                        (cell as! IncomingFileMessageTableViewCell).setPreviousMessage(aPrevMessage: nil)
-                    }
-                    (cell as! IncomingFileMessageTableViewCell).setModel(aMessage: fileMessage)
-                    (cell as! IncomingFileMessageTableViewCell).delegate = self.delegate
-                }
             }
         }
         else if msg is SBDAdminMessage {
@@ -1350,5 +1004,55 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         
         cell?.backgroundColor = .clear
         return cell!
+    }
+}
+
+extension ChattingView: SBMessageInputViewDelegate {
+    func inputViewDidTapButton(button: UIButton) {
+        
+    }
+    func inputViewDidBeginEditing(textView: UITextView) {
+        
+    }
+    func inputViewShouldBeginEditing(textView: UITextView) -> Bool {
+        return true
+    }
+    func inputView(textView: UITextView, shouldChangeTextInRange: NSRange, replacementText: String) -> Bool {
+        return true
+    }
+    
+    func inputViewDidChange(textView: UITextView) {
+        if textView.text.count > 0  {
+            self.placeholderLabel.isHidden = true
+            if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false {
+                self.btnCamera.isHidden = true
+                if self.cnTextViewTrailing.constant != 65.0 {
+                    self.cnTextViewTrailing.constant = 65.0
+                    UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveLinear, animations: {
+                        self.layoutIfNeeded()
+                    }) { (status) in
+                        
+                    }
+                }
+            }
+            if self.delegate != nil {
+                self.delegate?.startTyping(view: self)
+            }
+        }
+        else {
+            self.placeholderLabel.isHidden = false
+            if self.cnTextViewTrailing.constant != 12.0 {
+                self.cnTextViewTrailing.constant = 12.0
+                UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveLinear, animations: {
+                    self.layoutIfNeeded()
+                }) { (status) in
+                    
+                }
+            }
+            self.btnCamera.isHidden = false
+            if self.delegate != nil {
+                self.delegate?.endTyping(view: self)
+            }
+        }
     }
 }

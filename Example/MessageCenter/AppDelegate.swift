@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             return
                         }
                         DispatchQueue.main.async {
-                            self.mainApplication?.registerForRemoteNotifications()
+                            UIApplication.shared.registerForRemoteNotifications()
                         }
                     })
                 }
@@ -37,8 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             #if !(arch(i386) || arch(x86_64))
             let notificationSettings = UIUserNotificationSettings(types: [UIUserNotificationType.alert, UIUserNotificationType.badge, UIUserNotificationType.sound], categories: nil)
-            self.mainApplication?.registerUserNotificationSettings(notificationSettings)
-            self.mainApplication?.registerForRemoteNotifications()
+            UIApplication.shared.registerUserNotificationSettings(notificationSettings)
+            UIApplication.shared.registerForRemoteNotifications()
             #endif
         }
         

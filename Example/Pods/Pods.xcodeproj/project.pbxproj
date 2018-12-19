@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		001F7C4FA7517EC3958454926B4A6E74 /* DisconnectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91DBA8DD7A5F24FC9766A0D30FDD35E /* DisconnectionProtocol.swift */; };
-		00F7FD9E98DB5E4AF533DAD921FF017D /* OutgoingFileMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F082C2B0E67F6333CCD38780EB57F5C /* OutgoingFileMessageTableViewCell.swift */; };
-		011A85A5D9B1E89CF95EE0493998A0F7 /* IncomingVideoFileMessageTableViewCell.xib in Sources */ = {isa = PBXBuildFile; fileRef = 7292FBCB35FC432C194E0A5799CD8B17 /* IncomingVideoFileMessageTableViewCell.xib */; };
 		016B7CF476C8E860B648A4EAD309E846 /* ECB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE66FF7948CA4B2C9DC7E6A0B644493 /* ECB.swift */; };
 		027FA3C42E65798AFACC3F9E7D807389 /* ConnectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B95E7CDA2258845A7909936B242507 /* ConnectionProtocol.swift */; };
 		02DBB98D2A68764D14548288BD1FB78F /* NYTPhotoCaptionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 68FAB948875BC177C878F399A161C01A /* NYTPhotoCaptionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -39,7 +37,6 @@
 		13B12ACCAA9A07CDE02637C10425DD9E /* CSSNthExpressionSelector.h in Headers */ = {isa = PBXBuildFile; fileRef = 43FFBD55F2171C2CB6522833FE0763A8 /* CSSNthExpressionSelector.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		147CBDA0BFF227FB9386576FF41DBA13 /* UInt32+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B844FCFD4349E22193C11DC1902A3F /* UInt32+Extension.swift */; };
 		1491187E44076B9847D57500233F9257 /* HTMLListOfActiveFormattingElements.h in Headers */ = {isa = PBXBuildFile; fileRef = 0FF4332FC9F58AF5E35174650C4C3517 /* HTMLListOfActiveFormattingElements.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		14C6A6009B75CE4BCD717C4AA834D50F /* IncomingVideoFileMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6909416B7D2CC368880B205CBDB4711D /* IncomingVideoFileMessageTableViewCell.swift */; };
 		1594A2F4C5062A92154124AB7B1509C7 /* NSString+HTMLKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C06112E00C92E035B1E5A46021B61004 /* NSString+HTMLKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		15F7E036F4B5CF6C067882D7AEE81D17 /* HTMLNodeIterator+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FBAF25C7221F4E3FFCE017C2D36BD0E /* HTMLNodeIterator+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		161301436F5B1B770CD6914A7E194A8F /* Array+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F295A349BF9DD910C42463789DD9D00 /* Array+Foundation.swift */; };
@@ -49,6 +46,7 @@
 		173434DD5EFF290DC82BA3B5904F987E /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D55C6D918AFAEE24A2C8FF8ABCA91ED8 /* CoreText.framework */; };
 		18EDF8BA418537DEE8937AA5F79ACDC6 /* IncomingGeneralUrlPreviewMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C10657B0B5402241BC8A93DEADA755D0 /* IncomingGeneralUrlPreviewMessageTableViewCell.xib */; };
 		1A3CA02F958C68587FAAF15D62F97ED1 /* OutgoingUserMessageTableViewCell.xib in Sources */ = {isa = PBXBuildFile; fileRef = 5642A8B815C3592A3056BCF3FAD34888 /* OutgoingUserMessageTableViewCell.xib */; };
+		1A7B142A21C932A400A801B5 /* SBMessageInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7B142921C932A400A801B5 /* SBMessageInputView.swift */; };
 		1AA22D1121C3D43A002959AB /* ImagePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA22D0F21C3D43A002959AB /* ImagePreviewViewController.swift */; };
 		1AA22D1221C3D43A002959AB /* ImagePreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AA22D1021C3D43A002959AB /* ImagePreviewViewController.xib */; };
 		1ABA74442437F5EA26A3C83FE16E31B0 /* NeutralMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F3B17A250680DC39435978BB3DFA769 /* NeutralMessageTableViewCell.xib */; };
@@ -67,11 +65,9 @@
 		1DCCC04D5C075AAA96B35409CC34CC19 /* HTMLMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB72D011BDDB27BE3880B23BE01C1DE /* HTMLMarker.m */; };
 		1F62185C82CCFDE219B5416C3671AD63 /* CryptoSwift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 333561CBB9401D914B32BEDF30AB1227 /* CryptoSwift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		202822E4668C16D115A8F68F3ADF0E0F /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E2608A8866D7D4263E1D4E370094F6 /* ImageDownloader.swift */; };
-		203CC99B858C3C7822546B96EDA91F82 /* IncomingFileMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49D3378C7C5998B2A86CCB8199210E5F /* IncomingFileMessageTableViewCell.xib */; };
 		20AFD2DEF3A2B20F068BB257B8CC825E /* BatchedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E1391A67CF0CB8F10D711EA00C4FB5 /* BatchedCollection.swift */; };
 		21060359B4C04A2A1A165DD669D64478 /* NYTPhotoViewer-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CF120A54F1EFCACA7C59BDC7332219DC /* NYTPhotoViewer-dummy.m */; };
 		210FB25A68E3501A484AA2B0DB8F678D /* CSSCompoundSelector.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C5139F63FF07F91CA30543E4C19388D /* CSSCompoundSelector.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		213B68083771F2C4C05A83F81E0AEDAB /* OutgoingFileMessageTableViewCell.xib in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF86AA309D8329A27EF3AFD393A9E9 /* OutgoingFileMessageTableViewCell.xib */; };
 		22478993D9F52972B13C44F0036AC483 /* CBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D30F8A13343F41EBB94E89755F52B6 /* CBC.swift */; };
 		25F37B7999E3EBCA7121A85D50A1301B /* SecureBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445FD9DA5C3C969B82BC20F907D75C84 /* SecureBytes.swift */; };
 		261BBE266F106C4D041898845412741C /* Toast-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 32CC74203B94F3A5AD537E71CC4EB836 /* Toast-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -113,7 +109,6 @@
 		3D6A4990F8A8F2BEA2C9CB6EF152E29A /* HTMLComment.h in Headers */ = {isa = PBXBuildFile; fileRef = B15D544524077CBC5BB3A8BD44EBB08C /* HTMLComment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3F7FEA2190810C4807730CA6732E4461 /* HTMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = B58DF6A487F071B0A5110AE120285659 /* HTMLParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		41893E7D246CB05EEF40BE5325BDCC86 /* UInt16+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718C9A2CF4E7A07CCB9871A775945C2D /* UInt16+Extension.swift */; };
-		4254FE3013A788BE9106C9B90E9FD2B8 /* OutgoingVideoFileMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE83B5DF5FA07A13BAE4673E1BE2958 /* OutgoingVideoFileMessageTableViewCell.swift */; };
 		42AB8EFF07CA7829174ABF9DCF8ED792 /* OutgoingGeneralUrlPreviewMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154B6E07CFA976BA62AEE64F93C6C44E /* OutgoingGeneralUrlPreviewMessageTableViewCell.xib */; };
 		43BD742C023379F5B48C48D1D4987BF0 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68720B5BF2EC465BE96E2562709E5CF6 /* FLAnimatedImage.framework */; };
 		440904E15A3378A70CE05DE4ABC6BCD4 /* StreamDecryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E78C20D5B74135397AA6084D20C548 /* StreamDecryptor.swift */; };
@@ -152,7 +147,6 @@
 		587675C9A1443638C3FFEF8D24E25305 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B26091753DF2346FEC5DEF8FF9CCE91 /* Collection+Extension.swift */; };
 		5877B7F496E7633CC2312C90A1185352 /* HTMLDOMTokenList.h in Headers */ = {isa = PBXBuildFile; fileRef = 38D866F214134E6AACDB8759E55F3FEA /* HTMLDOMTokenList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A040981D09639842BD10EAD7459F11B /* Rabbit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D4327E524BC10CA4B9A3808830681C /* Rabbit.swift */; };
-		5AC859573D6C2CE3CCC62E78B26F8280 /* OutgoingVideoFileMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 111A974939EB9287339D7D4829104555 /* OutgoingVideoFileMessageTableViewCell.xib */; };
 		5B6CA795CF2BFE39355B4E9F91841D43 /* NYTPhotosOverlayView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A3BB208E9C5ECBDE4F5EB9765BA32DC /* NYTPhotosOverlayView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5CC3CCA46EB15D359619375F08B3D437 /* HTMLNamespaces.h in Headers */ = {isa = PBXBuildFile; fileRef = A71F9DA390A4F0002E505D4DEFAB5487 /* HTMLNamespaces.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5DB791A539E29406619A53AC28C0BDBF /* UInt128.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC29DB503CB6F0B629EE8A97CC415C99 /* UInt128.swift */; };
@@ -181,7 +175,6 @@
 		6CD2558475E9130C3D82829B3D8454CA /* String+FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813265B8B59DCF610B1AE12561FDC36E /* String+FoundationExtension.swift */; };
 		6D1AE3AD75CE9591EC2227777DF3273E /* CSSNthExpressionSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = B7EDD59E98B8B89B31BDE92E3B57BB84 /* CSSNthExpressionSelector.m */; };
 		6DB790C2E98FEA8D3AD6D76420D504F6 /* HTMLDOMUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC44A1E8233AD2F68270C10C5DD1CAF /* HTMLDOMUtils.m */; };
-		6DB909B1FE3F9335289F1E3809E7D9A8 /* OutgoingFileMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF86AA309D8329A27EF3AFD393A9E9 /* OutgoingFileMessageTableViewCell.xib */; };
 		6E0A5652754FAFA62697764E2A05F877 /* TTTAttributedLabel-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD7D6991005F977449104FA9DFB099 /* TTTAttributedLabel-dummy.m */; };
 		6E0AE0AF21821F2ED5D4D5A9419D3519 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F60E170D9688BED2E518A9B7725CE37C /* Foundation.framework */; };
 		6E0D6A979E314974B414CE7C76A2039C /* HMAC+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16432A1695CEF1CC4BA5B279C4F4F43 /* HMAC+Foundation.swift */; };
@@ -204,7 +197,6 @@
 		7B5FE28C7EA4122B0598738E54DBEBD8 /* SessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E41ED63896F8DAEC5EAEF6701B19ED /* SessionDelegate.swift */; };
 		7B9A7A5FAD06998F1F174736957A08BF /* CryptoSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA186756114F04F42EC518F502F7948 /* CryptoSwift-dummy.m */; };
 		7C0DEA489F6B2164462867D3200FC3B9 /* HTMLTokenizerEntities.h in Headers */ = {isa = PBXBuildFile; fileRef = 58703CAF6E083A09E2FC09BC7E286271 /* HTMLTokenizerEntities.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		7C246AE269032512FED4665952EA68A4 /* IncomingFileMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5015CDEE702628AA253DF057D6566378 /* IncomingFileMessageTableViewCell.swift */; };
 		7C74D8F6F7E4D705600B9B58AA9E8E2B /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004D6BDF48135849FE68A83C76225E75 /* CustomNavigationBar.swift */; };
 		7D8CC01E8C9EFFF9F4D65406CDE0AB66 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC2E01378E9338E4B2735F3CE9D165C /* Result.swift */; };
 		7E5C16B81F4D37359324B2AACDA693C8 /* ConnectionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28F36B49FC3CF7DDAABE989AABFAA50 /* ConnectionRequest.swift */; };
@@ -371,12 +363,10 @@
 		E4704B47F24145FD4541BBE3BCB4CA57 /* MessageCenter-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4D3B29E03B02FD43DA19FE54F24084 /* MessageCenter-dummy.m */; };
 		E4EE07AD35527D07CE093944FF639711 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 239DBDF6164016288649CE0ACC6BD863 /* MGSwipeButton.m */; };
 		E5BD95AB9698817005392D50FFD1000A /* CSSPseudoClassSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ED72867B7709306596788F5691C73D9 /* CSSPseudoClassSelector.m */; };
-		E73C53D42A82A6BDA053DF5D75B08230 /* OutgoingVideoFileMessageTableViewCell.xib in Sources */ = {isa = PBXBuildFile; fileRef = 111A974939EB9287339D7D4829104555 /* OutgoingVideoFileMessageTableViewCell.xib */; };
 		E94ED1978BAA4BEF36F5F4180BAE903F /* HTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 52FC74AC0BDF22D10B5D8777663A8E91 /* HTMLNode.m */; };
 		EAC5BF884D21510CB8ABD4E75FDDB026 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97AA5B23E1E62E8A5401113E2CBEF2B5 /* MGSwipeTableCell.m */; };
 		EAF6A2BD87CBEC03E30A2E7F09418C2A /* HTMLKitErrorDomain.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AE99022D8640E93C78ACCD20396B09D /* HTMLKitErrorDomain.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EDAEA114EB492A26FE2EB3F1135294FC /* String+SendBird.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C712235A517B2B517C3C15C1BBB6B87 /* String+SendBird.swift */; };
-		EE9AEE981E5AB9020161C298E619D0D6 /* IncomingVideoFileMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7292FBCB35FC432C194E0A5799CD8B17 /* IncomingVideoFileMessageTableViewCell.xib */; };
 		EFD264FC408EBF3BA2528E70B08DDD94 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DF2F325C027FE82958BF16B8715746 /* Notifications.swift */; };
 		F0E68B28E0FDA9FF9661B25E88D677E6 /* ChattingView.xib in Sources */ = {isa = PBXBuildFile; fileRef = C5E5AD6B52C21859FBDBE9D336AE4BBF /* ChattingView.xib */; };
 		F16C2384B3F7377B1C6ED2DE58738F7B /* OutgoingGeneralUrlPreviewTempMessageTableViewCell.xib in Sources */ = {isa = PBXBuildFile; fileRef = 5C486D622FC27B72CA8000A32F8BAC96 /* OutgoingGeneralUrlPreviewTempMessageTableViewCell.xib */; };
@@ -396,7 +386,6 @@
 		FDC59282E061E5C29141BF218BECEE1C /* NYTPhotoViewerCloseButtonX.png in Resources */ = {isa = PBXBuildFile; fileRef = 08BE14598D2233F031D21F41BFFEAB14 /* NYTPhotoViewerCloseButtonX.png */; };
 		FECBD8251E86C223E8193ACE963D0484 /* HTMLDocumentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A370D28F6E89E7DDC31F19398D761B4 /* HTMLDocumentType.m */; };
 		FECE323C8B327679635D0D1BDC7E5428 /* IncomingGeneralUrlPreviewMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9220DD1EF26C05C58BEC96E8F40C767 /* IncomingGeneralUrlPreviewMessageTableViewCell.swift */; };
-		FF721E23B21FC3250139A2B80C8B2E8E /* IncomingFileMessageTableViewCell.xib in Sources */ = {isa = PBXBuildFile; fileRef = 49D3378C7C5998B2A86CCB8199210E5F /* IncomingFileMessageTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -590,7 +579,6 @@
 		0FF4332FC9F58AF5E35174650C4C3517 /* HTMLListOfActiveFormattingElements.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HTMLListOfActiveFormattingElements.h; path = Sources/include/HTMLListOfActiveFormattingElements.h; sourceTree = "<group>"; };
 		10662A7B83E8DF614801BC01D04A6A45 /* PBKDF1.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PBKDF1.swift; path = Sources/CryptoSwift/PKCS/PBKDF1.swift; sourceTree = "<group>"; };
 		10716648259F186FBE0A47DDEA8DC792 /* ResourceBundle-NYTPhotoViewer-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-NYTPhotoViewer-Info.plist"; sourceTree = "<group>"; };
-		111A974939EB9287339D7D4829104555 /* OutgoingVideoFileMessageTableViewCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = OutgoingVideoFileMessageTableViewCell.xib; sourceTree = "<group>"; };
 		11B7B0F36C4CE5810BC349128E5F75D8 /* ProgressProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProgressProtocol.swift; sourceTree = "<group>"; };
 		13B8F75A28F4CA4269FAFFB69121D12B /* TTTAttributedLabel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TTTAttributedLabel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1511B25320A5B576E7B69F4303B99569 /* NYTPhotoContainer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NYTPhotoContainer.h; path = Pod/Classes/ios/Protocols/NYTPhotoContainer.h; sourceTree = "<group>"; };
@@ -603,6 +591,7 @@
 		189BC5BBE93F5759199609C8FB2C99B3 /* CSSTypeSelector.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CSSTypeSelector.h; path = Sources/include/CSSTypeSelector.h; sourceTree = "<group>"; };
 		193CD5B356C436C58C11AC517FC0D5E6 /* MessageCenter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MessageCenter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A206F9538A8F2273640B3E29E287A2B /* ChaCha20.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChaCha20.swift; path = Sources/CryptoSwift/ChaCha20.swift; sourceTree = "<group>"; };
+		1A7B142921C932A400A801B5 /* SBMessageInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBMessageInputView.swift; sourceTree = "<group>"; };
 		1AA22D0F21C3D43A002959AB /* ImagePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewViewController.swift; sourceTree = "<group>"; };
 		1AA22D1021C3D43A002959AB /* ImagePreviewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImagePreviewViewController.xib; sourceTree = "<group>"; };
 		1AB72D011BDDB27BE3880B23BE01C1DE /* HTMLMarker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HTMLMarker.m; path = Sources/HTMLMarker.m; sourceTree = "<group>"; };
@@ -659,7 +648,6 @@
 		3A3BB208E9C5ECBDE4F5EB9765BA32DC /* NYTPhotosOverlayView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NYTPhotosOverlayView.h; path = Pod/Classes/ios/NYTPhotosOverlayView.h; sourceTree = "<group>"; };
 		3A4CD689A8303CFA51DF5AA44B6FB9DC /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A6B69319D2AA787C22A2162A4B77EC8 /* SHA1.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SHA1.swift; path = Sources/CryptoSwift/SHA1.swift; sourceTree = "<group>"; };
-		3AAF86AA309D8329A27EF3AFD393A9E9 /* OutgoingFileMessageTableViewCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = OutgoingFileMessageTableViewCell.xib; sourceTree = "<group>"; };
 		3B3D38558187232A0B8018009C7182F2 /* AFError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AFError.swift; path = Source/AFError.swift; sourceTree = "<group>"; };
 		3B87C37A6493C3CF2E74A730DE1BD29C /* Utils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = Sources/CryptoSwift/Utils.swift; sourceTree = "<group>"; };
 		3BB63A7240DEFFA59920D70BF63FA4B7 /* Checksum.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Checksum.swift; path = Sources/CryptoSwift/Checksum.swift; sourceTree = "<group>"; };
@@ -668,7 +656,6 @@
 		3C8602C93951824AD4C6AB5525FE8EF5 /* FLAnimatedImage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLAnimatedImage.m; path = FLAnimatedImage/FLAnimatedImage.m; sourceTree = "<group>"; };
 		3D7E19972C13561DE8913AD69D6BDE7B /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DE5A798EEDB997CFBEF63A1AF3CF600 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		3F082C2B0E67F6333CCD38780EB57F5C /* OutgoingFileMessageTableViewCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OutgoingFileMessageTableViewCell.swift; sourceTree = "<group>"; };
 		3F1213208D0AA8BA0ACC40E48CC854FF /* NYTPhotoViewer.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = NYTPhotoViewer.xcconfig; sourceTree = "<group>"; };
 		4021B91AB5906AAC28FFD6CF6847944F /* BlockModeOptions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BlockModeOptions.swift; path = Sources/CryptoSwift/BlockMode/BlockModeOptions.swift; sourceTree = "<group>"; };
 		40B081A112D381F928E5B6840ACB0B09 /* AlamofireImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AlamofireImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -684,7 +671,6 @@
 		47DF2F325C027FE82958BF16B8715746 /* Notifications.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Notifications.swift; path = Source/Notifications.swift; sourceTree = "<group>"; };
 		48A0A18018236582F3EB6188F07A33F8 /* FLAnimatedImageView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLAnimatedImageView.m; path = FLAnimatedImage/FLAnimatedImageView.m; sourceTree = "<group>"; };
 		49D30F8A13343F41EBB94E89755F52B6 /* CBC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CBC.swift; path = Sources/CryptoSwift/BlockMode/CBC.swift; sourceTree = "<group>"; };
-		49D3378C7C5998B2A86CCB8199210E5F /* IncomingFileMessageTableViewCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = IncomingFileMessageTableViewCell.xib; sourceTree = "<group>"; };
 		4A2F2144DF1A8CE8F94B4BFB000C09A8 /* HTMLInputStreamReader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HTMLInputStreamReader.m; path = Sources/HTMLInputStreamReader.m; sourceTree = "<group>"; };
 		4A370D28F6E89E7DDC31F19398D761B4 /* HTMLDocumentType.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HTMLDocumentType.m; path = Sources/HTMLDocumentType.m; sourceTree = "<group>"; };
 		4A6655F53EBE3E0058E24F2E1A6AD5D5 /* MapType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MapType.swift; sourceTree = "<group>"; };
@@ -694,7 +680,6 @@
 		4C5139F63FF07F91CA30543E4C19388D /* CSSCompoundSelector.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CSSCompoundSelector.h; path = Sources/include/CSSCompoundSelector.h; sourceTree = "<group>"; };
 		4D37CA8A224CDBB43EF2B6D3A9FFAB29 /* NYTPhotoViewer-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NYTPhotoViewer-umbrella.h"; sourceTree = "<group>"; };
 		4FBAF25C7221F4E3FFCE017C2D36BD0E /* HTMLNodeIterator+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "HTMLNodeIterator+Private.h"; path = "Sources/include/HTMLNodeIterator+Private.h"; sourceTree = "<group>"; };
-		5015CDEE702628AA253DF057D6566378 /* IncomingFileMessageTableViewCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = IncomingFileMessageTableViewCell.swift; sourceTree = "<group>"; };
 		529842DE590D09C943F5FB1CE63DB7ED /* NYTPhotosViewControllerDataSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NYTPhotosViewControllerDataSource.h; path = Pod/Classes/ios/Protocols/NYTPhotosViewControllerDataSource.h; sourceTree = "<group>"; };
 		52EF948F3C3939E42D3B6D3DA0868EB3 /* Pods-MessageCenter_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-MessageCenter_Example.modulemap"; sourceTree = "<group>"; };
 		52FC74AC0BDF22D10B5D8777663A8E91 /* HTMLNode.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HTMLNode.m; path = Sources/HTMLNode.m; sourceTree = "<group>"; };
@@ -735,7 +720,6 @@
 		685D6E523B3FE3BCAE1708BB339B0091 /* Toast-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Toast-prefix.pch"; sourceTree = "<group>"; };
 		68720B5BF2EC465BE96E2562709E5CF6 /* FLAnimatedImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FLAnimatedImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		68FAB948875BC177C878F399A161C01A /* NYTPhotoCaptionView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NYTPhotoCaptionView.h; path = Pod/Classes/ios/NYTPhotoCaptionView.h; sourceTree = "<group>"; };
-		6909416B7D2CC368880B205CBDB4711D /* IncomingVideoFileMessageTableViewCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = IncomingVideoFileMessageTableViewCell.swift; sourceTree = "<group>"; };
 		6971B7932E9EB575DDEC2E87573DEED3 /* ImageFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageFilter.swift; path = Source/ImageFilter.swift; sourceTree = "<group>"; };
 		6A0C866272585A7C88F34A814DBB388E /* ChatImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ChatImage.swift; sourceTree = "<group>"; };
 		6A6FEC6AB6C56EBCA0B3FBC0661ED707 /* Toast-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Toast-dummy.m"; sourceTree = "<group>"; };
@@ -751,7 +735,6 @@
 		71B6A862C837150A3CF718FEBE8A3DE4 /* HTMLDOCTYPEToken.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HTMLDOCTYPEToken.m; path = Sources/HTMLDOCTYPEToken.m; sourceTree = "<group>"; };
 		71E9B6C2433A1428D4E5F8E00E00BD42 /* BlockEncryptor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BlockEncryptor.swift; path = Sources/CryptoSwift/BlockEncryptor.swift; sourceTree = "<group>"; };
 		72256C6A93C410BA3750595AEB3BBF20 /* HTMLTreeWalker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HTMLTreeWalker.m; path = Sources/HTMLTreeWalker.m; sourceTree = "<group>"; };
-		7292FBCB35FC432C194E0A5799CD8B17 /* IncomingVideoFileMessageTableViewCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = IncomingVideoFileMessageTableViewCell.xib; sourceTree = "<group>"; };
 		730BD5A877D0B8884F65F9AC2705F709 /* Pods-MessageCenter_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MessageCenter_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		73203A5CBF9C4DF7942878E8C0009990 /* HTMLDocument.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HTMLDocument.m; path = Sources/HTMLDocument.m; sourceTree = "<group>"; };
 		736EF87A1352C340EEA5E40309E1FB90 /* MessageCenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MessageCenter.swift; sourceTree = "<group>"; };
@@ -957,7 +940,6 @@
 		EA046C0AE398482AF834417B0614C1ED /* HTMLCommentToken.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HTMLCommentToken.m; path = Sources/HTMLCommentToken.m; sourceTree = "<group>"; };
 		EAD83F2DD982EC322050D5FB8279EE95 /* MGSwipeTableCell.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MGSwipeTableCell.xcconfig; sourceTree = "<group>"; };
 		EBE35FA34D81E66949D46F87BBD009F7 /* Pods-MessageCenter_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MessageCenter_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		EBE83B5DF5FA07A13BAE4673E1BE2958 /* OutgoingVideoFileMessageTableViewCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OutgoingVideoFileMessageTableViewCell.swift; sourceTree = "<group>"; };
 		EC196EDF6970D213CABB6EF720686833 /* RandomBytesSequence.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RandomBytesSequence.swift; path = Sources/CryptoSwift/RandomBytesSequence.swift; sourceTree = "<group>"; };
 		EDFA9D9962547BD41E2B09E3E9F1F481 /* AlamofireImage-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "AlamofireImage-dummy.m"; sourceTree = "<group>"; };
 		EE4EC43D97C2868C75D452EB753F1112 /* NYTPhotoTransitionAnimator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = NYTPhotoTransitionAnimator.m; path = Pod/Classes/ios/NYTPhotoTransitionAnimator.m; sourceTree = "<group>"; };
@@ -1552,21 +1534,15 @@
 		9F6319D98C8ED444EA630F4160DD693B /* ViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				5015CDEE702628AA253DF057D6566378 /* IncomingFileMessageTableViewCell.swift */,
-				49D3378C7C5998B2A86CCB8199210E5F /* IncomingFileMessageTableViewCell.xib */,
 				A9220DD1EF26C05C58BEC96E8F40C767 /* IncomingGeneralUrlPreviewMessageTableViewCell.swift */,
 				C10657B0B5402241BC8A93DEADA755D0 /* IncomingGeneralUrlPreviewMessageTableViewCell.xib */,
 				4C36395D098796EA5352C3A65F6D06EF /* IncomingImageFileMessageTableViewCell.swift */,
 				B5080FBA2C7F02FDDC8A74D8911D0D5A /* IncomingImageFileMessageTableViewCell.xib */,
 				57E7ECB594A6CF28A7AA7ACF0B405995 /* IncomingUserMessageTableViewCell.swift */,
 				C2E4F2C772191A4C27839820E66781B1 /* IncomingUserMessageTableViewCell.xib */,
-				6909416B7D2CC368880B205CBDB4711D /* IncomingVideoFileMessageTableViewCell.swift */,
-				7292FBCB35FC432C194E0A5799CD8B17 /* IncomingVideoFileMessageTableViewCell.xib */,
 				C7B1B9E9C20AF86C985843C436805339 /* MessageDelegate.swift */,
 				F65A66823F0D353A20BA9AA964AA50BA /* NeutralMessageTableViewCell.swift */,
 				8F3B17A250680DC39435978BB3DFA769 /* NeutralMessageTableViewCell.xib */,
-				3F082C2B0E67F6333CCD38780EB57F5C /* OutgoingFileMessageTableViewCell.swift */,
-				3AAF86AA309D8329A27EF3AFD393A9E9 /* OutgoingFileMessageTableViewCell.xib */,
 				659854C435723E73CAFD74C388C91A79 /* OutgoingGeneralUrlPreviewMessageTableViewCell.swift */,
 				154B6E07CFA976BA62AEE64F93C6C44E /* OutgoingGeneralUrlPreviewMessageTableViewCell.xib */,
 				B23C0189181AA37ABF27D1D08EDC8861 /* OutgoingGeneralUrlPreviewTempMessageTableViewCell.swift */,
@@ -1575,8 +1551,6 @@
 				807DE821072F7BFC5603F56CC7EDF9F7 /* OutgoingImageFileMessageTableViewCell.xib */,
 				64AEEAA94291E1E9C0F85ED233BEB683 /* OutgoingUserMessageTableViewCell.swift */,
 				5642A8B815C3592A3056BCF3FAD34888 /* OutgoingUserMessageTableViewCell.xib */,
-				EBE83B5DF5FA07A13BAE4673E1BE2958 /* OutgoingVideoFileMessageTableViewCell.swift */,
-				111A974939EB9287339D7D4829104555 /* OutgoingVideoFileMessageTableViewCell.xib */,
 				D6141BDAC50AB2A18D47AC2C7A8B4EED /* WelcomeMessageTableViewCell.swift */,
 				00FE6285C49955293A1D92FAF94DA93A /* WelcomeMessageTableViewCell.xib */,
 			);
@@ -1586,6 +1560,7 @@
 		A6F2496D046867EACD6FA48A5E2F75A6 /* Chatting */ = {
 			isa = PBXGroup;
 			children = (
+				1A7B142921C932A400A801B5 /* SBMessageInputView.swift */,
 				6A0C866272585A7C88F34A814DBB388E /* ChatImage.swift */,
 				2A01F585295EC264CCB35143200FCF4D /* ChattingView.swift */,
 				D85E745F285124BE7023430E02E35C19 /* ChattingView.xib */,
@@ -2378,18 +2353,14 @@
 			files = (
 				D772D41D83216AE341D4F604320EC6C3 /* ChattingView.xib in Resources */,
 				3AEF33F0A129EEC6DE0FADE1635393CE /* GroupChannelChattingViewController.xib in Resources */,
-				203CC99B858C3C7822546B96EDA91F82 /* IncomingFileMessageTableViewCell.xib in Resources */,
 				18EDF8BA418537DEE8937AA5F79ACDC6 /* IncomingGeneralUrlPreviewMessageTableViewCell.xib in Resources */,
 				DD4EF91400FFCA289B7A3152F3EA2D57 /* IncomingImageFileMessageTableViewCell.xib in Resources */,
 				0BA226AE145918A23DBDB50C914E66F7 /* IncomingUserMessageTableViewCell.xib in Resources */,
-				EE9AEE981E5AB9020161C298E619D0D6 /* IncomingVideoFileMessageTableViewCell.xib in Resources */,
 				1ABA74442437F5EA26A3C83FE16E31B0 /* NeutralMessageTableViewCell.xib in Resources */,
-				6DB909B1FE3F9335289F1E3809E7D9A8 /* OutgoingFileMessageTableViewCell.xib in Resources */,
 				42AB8EFF07CA7829174ABF9DCF8ED792 /* OutgoingGeneralUrlPreviewMessageTableViewCell.xib in Resources */,
 				DCFDC01A8A79829FBEEE3683A3C5ABC8 /* OutgoingGeneralUrlPreviewTempMessageTableViewCell.xib in Resources */,
 				503E39AA57BECDE7D4CCB7F0F86E63A6 /* OutgoingImageFileMessageTableViewCell.xib in Resources */,
 				1D174EB89465B8B1FDCE177501181C92 /* OutgoingUserMessageTableViewCell.xib in Resources */,
-				5AC859573D6C2CE3CCC62E78B26F8280 /* OutgoingVideoFileMessageTableViewCell.xib in Resources */,
 				4E61AA54A90577F94AE9B203CE6E8D1C /* SelectLocationView.xib in Resources */,
 				52318117AC9CE64C8DE4750E9ADD33F5 /* WelcomeMessageTableViewCell.xib in Resources */,
 			);
@@ -2664,16 +2635,12 @@
 				2803AA4827F2BE6A316A47BF421498D4 /* FLAnimatedImageView+ImageCache.swift in Sources */,
 				B735EE86649EA75C7D434C01463595C4 /* GroupChannelChattingViewController.swift in Sources */,
 				ACDACA0528415183C52FA78F5451601A /* GroupChannelChattingViewController.xib in Sources */,
-				7C246AE269032512FED4665952EA68A4 /* IncomingFileMessageTableViewCell.swift in Sources */,
-				FF721E23B21FC3250139A2B80C8B2E8E /* IncomingFileMessageTableViewCell.xib in Sources */,
 				FECE323C8B327679635D0D1BDC7E5428 /* IncomingGeneralUrlPreviewMessageTableViewCell.swift in Sources */,
 				2BE6721F892B8A6E51BF0F44AE516D05 /* IncomingGeneralUrlPreviewMessageTableViewCell.xib in Sources */,
 				97991DB093A11D7F1713EDEDB1635919 /* IncomingImageFileMessageTableViewCell.swift in Sources */,
 				338A00433C3F09CBB5FD888B87DB619F /* IncomingImageFileMessageTableViewCell.xib in Sources */,
 				3BFC837D8EDB603B2BB6C25E01B42EFD /* IncomingUserMessageTableViewCell.swift in Sources */,
 				9A80DBE97534FF3FE79B83D4A3C4CE41 /* IncomingUserMessageTableViewCell.xib in Sources */,
-				14C6A6009B75CE4BCD717C4AA834D50F /* IncomingVideoFileMessageTableViewCell.swift in Sources */,
-				011A85A5D9B1E89CF95EE0493998A0F7 /* IncomingVideoFileMessageTableViewCell.xib in Sources */,
 				635D848A3936BBDD6369E58D01951A8D /* LocalizableButton.swift in Sources */,
 				97D85E7A5DEB9B7D5C4ED17407D328A4 /* LocalizableLabel.swift in Sources */,
 				AC6E2B4B0D3C4875C07A075D3EB25F8D /* MapType.swift in Sources */,
@@ -2682,9 +2649,7 @@
 				77F57B66DCA8F1D87A21A63DC4D87634 /* MessageDelegate.swift in Sources */,
 				6BDE4B54FC77E9B1407970282C6EA970 /* NeutralMessageTableViewCell.swift in Sources */,
 				BA62B1A4079B111DC500A956299DFC33 /* NeutralMessageTableViewCell.xib in Sources */,
-				00F7FD9E98DB5E4AF533DAD921FF017D /* OutgoingFileMessageTableViewCell.swift in Sources */,
 				1AA22D1121C3D43A002959AB /* ImagePreviewViewController.swift in Sources */,
-				213B68083771F2C4C05A83F81E0AEDAB /* OutgoingFileMessageTableViewCell.xib in Sources */,
 				BC3D9EA8D087C87CCC1209FDF89DB93C /* OutgoingGeneralUrlPreviewMessageTableViewCell.swift in Sources */,
 				B150D23A7F2774D0052E50E3C4D4EC1D /* OutgoingGeneralUrlPreviewMessageTableViewCell.xib in Sources */,
 				0CD59F0C17A4B3CFB5D79781C45DE62B /* OutgoingGeneralUrlPreviewTempMessageTableViewCell.swift in Sources */,
@@ -2694,8 +2659,7 @@
 				ADF32A2A7DE8836C4B25CCAE8BB8F4FE /* OutgoingImageFileMessageTableViewCell.xib in Sources */,
 				2ABB42B733E37B4CB58E9D8F2DEDE68F /* OutgoingUserMessageTableViewCell.swift in Sources */,
 				1A3CA02F958C68587FAAF15D62F97ED1 /* OutgoingUserMessageTableViewCell.xib in Sources */,
-				4254FE3013A788BE9106C9B90E9FD2B8 /* OutgoingVideoFileMessageTableViewCell.swift in Sources */,
-				E73C53D42A82A6BDA053DF5D75B08230 /* OutgoingVideoFileMessageTableViewCell.xib in Sources */,
+				1A7B142A21C932A400A801B5 /* SBMessageInputView.swift in Sources */,
 				4D3E45D3D4ABA4BB5BA5C36D351867B5 /* ProgressProtocol.swift in Sources */,
 				BBEA9DE18782941953D4FCA73E2736E5 /* ResultProtocol.swift in Sources */,
 				DC8D8B0CD9B741C67BC6C234958F60D4 /* ReusableViewFromXib.swift in Sources */,
