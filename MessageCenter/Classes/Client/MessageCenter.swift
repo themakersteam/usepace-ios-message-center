@@ -131,20 +131,35 @@ public class MessageCenter {
             if theme != nil {
                 groupChannelVC.themeObject = theme
             }
-            
-//            if welcomeMessage != nil {
-//                groupChannelVC.welcomeMessage = welcomeMessage
-//            }
+            else {
+                let title = ""
+                // Subtitle to be displayed below title on navigation bar
+                let subtitle = ""
+                // Welcome Message
+                let welcomeMessage = ""
+                // Sender bubble color
+                let primaryColor = UIColor(red: 255.0/255.0, green: 247.0/255.0, blue: 214.0/255.0, alpha: 1.0)
+                // Color for Title, welcome message background (with alpha 0.4) and Send button background
+                let primaryAccentColor = UIColor(red: 245.0/255.0, green: 206.0/255.0, blue: 9.0/255.0, alpha: 1.0)
+                // Back button color
+                let primaryNavigationIconColor = UIColor(red: 245.0/255.0, green: 200.0/255.0, blue: 0.0/255.0, alpha: 1.0)
+                // Chat background color
+                let primaryBackgroundColor = UIColor(red: 244.0/255.0, green: 242.0/255.0, blue: 230.0/255.0, alpha: 1.0)
+                // Action sheet icons, subtitles, and send button color
+                let primaryActionIconsColor = UIColor(red: 82.0/255.0, green: 67.0/255.0, blue: 62.0/255.0, alpha: 1.0)
+                let theme = MessageCenter.createThemeObject(title: title,
+                                                            subtitle: subtitle,
+                                                            welcomeMessage: welcomeMessage,
+                                                            primaryColor: primaryColor,
+                                                            primaryAccentColor: primaryAccentColor,
+                                                            primaryNavigationButtonColor: primaryNavigationIconColor,
+                                                            primaryBackgroundColor: primaryBackgroundColor,
+                                                            primaryActionIconsColor: primaryActionIconsColor)
+                groupChannelVC.themeObject = theme
+            }
             let navController = UINavigationController(rootViewController: groupChannelVC)
             navController.isNavigationBarHidden = true
             parentVC.present(navController, animated: true, completion: nil)
-//            if parentVC.navigationController != nil {
-//                parentVC.navigationController?.pushViewController(groupChannelVC, animated: true)
-//            }
-//            else {
-//                parentVC.present(groupChannelVC, animated: true, completion: nil)
-//            }
-            
         })
         
     }

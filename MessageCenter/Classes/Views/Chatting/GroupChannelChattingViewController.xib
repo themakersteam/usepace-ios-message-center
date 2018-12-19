@@ -45,6 +45,9 @@
                     <subviews>
                         <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2JN-2a-q7v">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="iKd-7l-71D"/>
+                            </constraints>
                             <color key="barTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <items>
                                 <navigationItem id="Emv-36-QNT"/>

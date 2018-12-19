@@ -131,6 +131,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             preSendMessages: self.chattingView.preSendMessages,
             channelUrl: self.groupChannel.channelUrl
         )
+        SBDMain.disconnect {}
     }
     
     override func viewDidLayoutSubviews() {
@@ -149,7 +150,6 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     @objc private func close() {
         SBDMain.removeChannelDelegate(forIdentifier: self.description)
         SBDMain.removeConnectionDelegate(forIdentifier: self.description)
-        SBDMain.disconnect {}
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -543,6 +543,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             
             self.chattingView.messageTextView.textView.text = ""
             self.imageCaption = ""
+            self.chattingView.inputViewDidChange(textView: self.chattingView.messageTextView.textView)
             
             do {
                 let detector: NSDataDetector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
@@ -667,7 +668,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     
     private func cameraAction() -> UIAlertAction {
         let action = UIAlertAction(
-            title: "Camera",
+            title: "ms_camera".localized,
             style: .default,
             handler: { action in
                 
@@ -679,32 +680,32 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     
     @objc private func launchCamera() {
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            UIImagePickerController.checkPermissionStatus(sourceType: UIImagePickerControllerSourceType.photoLibrary, completionBlockSuccess: { (status) in
+            UIImagePickerController.checkPermissionStatus(sourceType: UIImagePickerControllerSourceType.camera, completionBlockSuccess: { (status) in
                 let imagePicker = UIImagePickerController()
                 
                 imagePicker.sourceType = .camera
-                imagePicker.mediaTypes = [String(kUTTypeImage), String(kUTTypeMovie)]
+                imagePicker.mediaTypes = [String(kUTTypeImage)]
                 imagePicker.delegate = self
                 self.present(imagePicker, animated: true, completion: nil)
             }, andFailureBlock: { (status) in
-                assert(false, "Permission not granted to use Camera")
+                assert(false, "camera_permission_disable".localized)
             })
         }
     }
     
     private func photosAction() -> UIAlertAction {
         let action = UIAlertAction(
-            title: "Photos",
+            title: "ms_photos".localized,
             style: .default,
             handler: { action in
                 UIImagePickerController.checkPermissionStatus(sourceType: UIImagePickerControllerSourceType.photoLibrary, completionBlockSuccess: { (status) in
                     let imagePicker = UIImagePickerController()                    
                     imagePicker.sourceType = .photoLibrary
-                    imagePicker.mediaTypes = [String(kUTTypeImage), String(kUTTypeMovie)]
+                    imagePicker.mediaTypes = [String(kUTTypeImage)]
                     imagePicker.delegate = self
                     self.present(imagePicker, animated: true, completion: nil)
                 }, andFailureBlock: { (status) in
-                    assert(false, "Permission not granted to use Photo Library")
+                    assert(false, "photos_permission_disable".localized)
                 })
                 
                 
@@ -715,12 +716,12 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     
     private func locationAction() -> UIAlertAction {
         let action = UIAlertAction(
-            title: "Location",
+            title: "ms_location".localized,
             style: .default,
             handler: { action in
                 let podBundle = Bundle(for: MessageCenter.self)
                 let locationPickerVC = SelectLocationViewController(nibName: "SelectLocationView", bundle: podBundle)
-                locationPickerVC.delegate = self as! SelectLocationDelegate
+                locationPickerVC.delegate = self as SelectLocationDelegate
                 self.present(locationPickerVC, animated: true, completion: nil)
         })
         action.setValue(UIImage(named: "location-icon", in: self.podBundle, compatibleWith: nil), forKey: "image")
@@ -729,7 +730,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     
     private func cancelAction() -> UIAlertAction {
         return UIAlertAction(
-            title: "Cancel",
+            title: "cancel".localized,
             style: .cancel,
             handler: nil
         )
@@ -749,8 +750,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                         break
                     case .denied, .restricted:
                         DispatchQueue.main.async {
-                            let vc = UIAlertController(title: "Error", message: "Authorization to assets is denied.", preferredStyle: UIAlertControllerStyle.alert)
-                            let closeAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil)
+                            let vc = UIAlertController(title: "error".localized, message: "Authorization to assets is denied.", preferredStyle: UIAlertControllerStyle.alert)
+                            let closeAction = UIAlertAction(title: "close".localized, style: UIAlertActionStyle.cancel, handler: nil)
                             vc.addAction(closeAction)
                             self.present(vc, animated: true, completion: nil)
                         }
@@ -775,7 +776,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 if error == nil {
                     if self.navItem.titleView is UILabel, let label: UILabel = self.navItem.titleView as? UILabel {
                         let title: String = (NSString.init(format: "Group Channel (%ld)", self.groupChannel.memberCount)) as String
-                        let subtitle: String? = "Reconneted" as String?
+                        let subtitle: String? = "reconnect".localized as String?
                         DispatchQueue.main.async {
                             label.attributedText = Utils.generateNavigationTitle(mainTitle: title, subTitle: subtitle, titleColor: self.themeObject?.primaryAccentColor, subTitleColor: self.themeObject?.primaryActionIconsColor)
                             
@@ -791,14 +792,14 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         func didDisconnect() {
             if self.navItem.titleView is UILabel, let label: UILabel = self.navItem.titleView as? UILabel {
                 let title: String = NSString.init(format: "Group Channel (%ld)" as NSString, self.groupChannel.memberCount) as String
-                var subtitle: String? = "Reconnetion Failed" as String?
+                var subtitle: String? = "reconnection_failed".localized as String?
                 
                 DispatchQueue.main.async {
                     label.attributedText = Utils.generateNavigationTitle(mainTitle: title, subTitle: subtitle, titleColor: self.themeObject?.primaryAccentColor, subTitleColor: self.themeObject?.primaryActionIconsColor)
                 }
                 
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
-                    subtitle = "Reconnecting..."
+                    subtitle = "reconnect".localized
                     label.attributedText = Utils.generateNavigationTitle(mainTitle: title, subTitle: subtitle, titleColor: self.themeObject?.primaryAccentColor, subTitleColor: self.themeObject?.primaryActionIconsColor)
                 }
             }
@@ -823,17 +824,18 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 if message is SBDUserMessage {
                     let strMessage = (message as! SBDUserMessage).message
                     let senderName = (message as! SBDUserMessage).sender?.nickname
-                    self.view.makeToast(senderName! + " has sent you a message. \n" + strMessage!)
+                    let strMessageLoc = "message_center_new_message_from".localized
+                    self.view.makeToast(strMessageLoc + senderName! + "\n" + strMessage!)
                 }
                 else if message is SBDFileMessage {
                     let senderName = (message as! SBDFileMessage).sender?.nickname
-                    self.view.makeToast(senderName! + " has sent you a file.")
+                    self.view.makeToast("message_center_new_message_from".localized + senderName!)
                 }
                 else if message is SBDAdminMessage {
-                    self.view.makeToast("You have a new message from Admin.")
+                    self.view.makeToast("message_center_new_message_from".localized + "Admin")
                 }
                 else {
-                    self.view.makeToast("You have a new message.")
+                    self.view.makeToast("message_center_new_message_from".localized + "")
                 }
             }
         }
@@ -853,10 +855,10 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 }
                 else {
                     if sender.getTypingMembers()?.count == 1 {
-                        self.chattingView.startTypingIndicator(text: String(format: "%@ is typing...", (sender.getTypingMembers()?[0].nickname)!))
+                        self.chattingView.startTypingIndicator(text: String(format: "%@ %@", (sender.getTypingMembers()?[0].nickname)!, "is_typing".localized))
                     }
                     else {
-                        self.chattingView.startTypingIndicator(text: "Several people are typing...")
+                        self.chattingView.startTypingIndicator(text: "multiple_users_are_typing".localized)
                     }
                 }
             }
@@ -1075,11 +1077,11 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 let url = fileMessage.url
                 
                 if sender?.userId == SBDMain.getCurrentUser()?.userId {
-                    deleteMessageAction = UIAlertAction(title: "Delete the message", style: UIAlertActionStyle.destructive, handler: { (action) in
+                    deleteMessageAction = UIAlertAction(title: "delete_message".localized, style: UIAlertActionStyle.destructive, handler: { (action) in
                         self.groupChannel.delete(fileMessage, completionHandler: { (error) in
                             if error != nil {
-                                let alert = UIAlertController(title: "Error", message: error?.domain, preferredStyle: UIAlertControllerStyle.alert)
-                                let closeAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil)
+                                let alert = UIAlertController(title: "error".localized, message: error?.domain, preferredStyle: UIAlertControllerStyle.alert)
+                                let closeAction = UIAlertAction(title: "close".localized, style: UIAlertActionStyle.cancel, handler: nil)
                                 alert.addAction(closeAction)
                                 DispatchQueue.main.async {
                                     self.present(alert, animated: true, completion: nil)
@@ -1205,9 +1207,9 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         }
         
         func clickResend(view: UIView, message: SBDBaseMessage) {
-            let vc = UIAlertController(title: "Resend Message", message: "Do you want to resend the message?", preferredStyle: UIAlertControllerStyle.alert)
-            let closeAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil)
-            let resendAction = UIAlertAction(title: "Resend", style: UIAlertActionStyle.default) { (action) in
+            let vc = UIAlertController(title: "resend_message".localized, message: "resend_message_description".localized, preferredStyle: UIAlertControllerStyle.alert)
+            let closeAction = UIAlertAction(title: "close".localized, style: UIAlertActionStyle.cancel, handler: nil)
+            let resendAction = UIAlertAction(title: "resend_message".localized, style: UIAlertActionStyle.default) { (action) in
                 if message is SBDUserMessage {
                     let resendableUserMessage = message as! SBDUserMessage
                     var targetLanguages:[String] = []
@@ -1261,8 +1263,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                                         self.chattingView.scrollToBottom(force: true)
                                     }
                                     
-                                    let alert = UIAlertController(title: "Error", message: error?.domain, preferredStyle: UIAlertControllerStyle.alert)
-                                    let closeAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil)
+                                    let alert = UIAlertController(title: "error".localized, message: error?.domain, preferredStyle: UIAlertControllerStyle.alert)
+                                    let closeAction = UIAlertAction(title: "close".localized, style: UIAlertActionStyle.cancel, handler: nil)
                                     alert.addAction(closeAction)
                                     DispatchQueue.main.async {
                                         self.present(alert, animated: true, completion: nil)
@@ -1312,8 +1314,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                                     self.chattingView.scrollToBottom(force: true)
                                 }
                                 
-                                let alert = UIAlertController(title: "Error", message: error?.domain, preferredStyle: UIAlertControllerStyle.alert)
-                                let closeAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil)
+                                let alert = UIAlertController(title: "error".localized, message: error?.domain, preferredStyle: UIAlertControllerStyle.alert)
+                                let closeAction = UIAlertAction(title: "close".localized, style: UIAlertActionStyle.cancel, handler: nil)
                                 alert.addAction(closeAction)
                                 DispatchQueue.main.async {
                                     self.present(alert, animated: true, completion: nil)
@@ -1354,9 +1356,9 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         }
         
         func clickDelete(view: UIView, message: SBDBaseMessage) {
-            let vc = UIAlertController(title: "Delete Message", message: "Do you want to delete the message?", preferredStyle: UIAlertControllerStyle.alert)
-            let closeAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil)
-            let deleteAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.destructive) { (action) in
+            let vc = UIAlertController(title: "delete_message".localized, message: "Do you want to delete the message?", preferredStyle: UIAlertControllerStyle.alert)
+            let closeAction = UIAlertAction(title: "close".localized, style: UIAlertActionStyle.cancel, handler: nil)
+            let deleteAction = UIAlertAction(title: "delete_message".localized, style: UIAlertActionStyle.destructive) { (action) in
                 var requestId: String?
                 if message is SBDUserMessage {
                     requestId = (message as! SBDUserMessage).requestId
