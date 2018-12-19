@@ -44,7 +44,6 @@ public class SendBirdClient: ClientProtocol {
                 return;
             }
             
-            SBDMain.disconnect(completionHandler: {})
             //connection.onMessageCenterConnected(userId: (user?.userId)!)
             success((user?.userId)!)
             
@@ -54,16 +53,13 @@ public class SendBirdClient: ClientProtocol {
                         print("APNS registration failed.")
                         // TODO: Confirm, should we fire a failure in case of APNs registration failed??
                         //connection.onMessageCenterConnectionError(code: error!.code, message: error!.localizedFailureReason!)
+                         SBDMain.disconnect(completionHandler: {})
                         return
                     }
                     
             
-                    if status == .pending {
-                        print("Push registration is pending.")
-                    }
-                    else {
-                        print("APNS Token is registered.")
-                    }
+                    SBDMain.disconnect(completionHandler: {})
+                    print("APNS Token is registered.")
                 })
             }
         })
