@@ -93,29 +93,29 @@ public class MessageCenter {
     public class func createThemeObject(title: String?, subtitle: String?, welcomeMessage: String? ,primaryColor: UIColor? , primaryAccentColor: UIColor?, primaryNavigationButtonColor: UIColor?, primaryBackgroundColor: UIColor?, primaryActionIconsColor: UIColor?) -> ThemeObject {
         
     
-        var _title = ""
-        
-        var pColor = UIColor(red: 122.0/255.0, green: 188.0/255.0, blue: 65.0/255.0, alpha: 1.0)
-        var sColor = UIColor(red: 237.0/255.0, green: 237.0/255.0, blue: 237.0/255.0, alpha: 1.0)
-        
-        if title != nil {
-            _title = title!
-        }
-        if primaryColor != nil {
-            pColor = primaryColor!
-        }
-//        if secondaryColor == nil {
-//            sColor = secondaryColor!
+//        var _title = ""
+//
+//        var pColor = UIColor(red: 122.0/255.0, green: 188.0/255.0, blue: 65.0/255.0, alpha: 1.0)
+//        var sColor = UIColor(red: 237.0/255.0, green: 237.0/255.0, blue: 237.0/255.0, alpha: 1.0)
+//
+//        if title != nil {
+//            _title = title!
 //        }
+//        if primaryColor != nil {
+//            pColor = primaryColor!
+//        }
+////        if secondaryColor == nil {
+////            sColor = secondaryColor!
+////        }
 
         self.themeObject = ThemeObject(title: title, subtitle: subtitle, welcomeMessage: welcomeMessage, primaryColor: primaryColor, primaryAccentColor: primaryAccentColor, primaryButtonColor: primaryActionIconsColor, primaryBackgroundColor: primaryBackgroundColor, primaryActionIconsColor: primaryActionIconsColor)
         
         return themeObject!
     }
     
-    public static func openChatView(forChannel channelId: String, welcomeMessage: String, withTheme theme: ThemeObject?, completion: @escaping (Bool) -> Void ) {
+    public static func openChatView(_ channelId: String, theme: ThemeObject?, completion: @escaping (Bool) -> Void ) {
         
-        client.getClient(type: LAST_CLIENT).openChatView(forChannel: channelId, welcomeMessage: welcomeMessage, withTheme: theme, completion:  {(channel) in
+        client.getClient(type: LAST_CLIENT).openChatView(channelId, theme: theme, completion:  {(channel) in
             
             guard let groupChannel = channel as? SBDGroupChannel else {
                 completion(false)

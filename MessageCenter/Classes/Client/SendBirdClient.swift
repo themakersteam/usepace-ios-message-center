@@ -65,18 +65,18 @@ public class SendBirdClient: ClientProtocol {
         })
     }
     //
-    public func openChatView(forChannel channelId: String, welcomeMessage: String, withTheme theme: ThemeObject?,  completion: @escaping (Any?) -> Void) {
+    public func openChatView(_ channelId: String, theme: ThemeObject?,  completion: @escaping (Any?) -> Void) {
         //TODO: Make use of ChatViewTheme
         print("joining to chat room...")
         if (self.isConnected) {
-            self.openChat(forChannel: channelId, welcomeMessage: welcomeMessage, withTheme: theme, completion: completion)
+            self.openChat(channelId, theme: theme, completion: completion)
         }
         else {
             SBDMain.connect(withUserId: (lastConnectionRequest?.userId)!, accessToken: lastConnectionRequest?.accessToken, completionHandler: { (user, error) in
                 guard error == nil else {
                     return;
                 }
-                self.openChat(forChannel: channelId, welcomeMessage: welcomeMessage, withTheme: theme, completion: completion)
+                self.openChat(channelId, theme: theme, completion: completion)
             }
         )}
     }
@@ -141,7 +141,7 @@ public class SendBirdClient: ClientProtocol {
         }
     }
     
-    private func openChat(forChannel channelId: String, welcomeMessage: String, withTheme theme: ThemeObject?,  completion: @escaping (Any?) -> Void) {
+    private func openChat(_ channelId: String, theme theme: ThemeObject?,  completion: @escaping (Any?) -> Void) {
         SBDGroupChannel.getWithUrl(channelId) { (channel, error) in
             guard error == nil else {
                 print("Error occured while connecting to chat room: %@", error?.description)

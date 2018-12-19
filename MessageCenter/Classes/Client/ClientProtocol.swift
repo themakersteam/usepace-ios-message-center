@@ -18,7 +18,7 @@ public protocol ClientProtocol {
     var isConnected: Bool { get }
     func connect(with connectionRequest: ConnectionRequest, success:  @escaping ConnectionSucceeded, failure:  @escaping MessageCenterFailureCompletion)
     //
-    func openChatView(forChannel channelId: String, welcomeMessage: String, withTheme theme: ThemeObject?, completion: @escaping (Any?) -> Void)
+    func openChatView(_ channelId: String, theme: ThemeObject?, completion: @escaping (Any?) -> Void)
     func closeChatView(completion: @escaping () -> Void)
     func disconnect(completion: @escaping () -> Void)
     func getUnReadMessagesCount(forChannel channel: String?, success: @escaping UnReadMessagesSuccessCompletion, failure: @escaping MessageCenterFailureCompletion)

@@ -549,6 +549,9 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     
     // MARK: -  UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.messages.count == 0 {
+            self.hasLoadedAllMessages = true
+        }
         return self.hasLoadedAllMessages == true ? self.messages.count + 1 : self.messages.count
     }
     
@@ -557,7 +560,13 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         
         if indexPath.row == 0 && self.hasLoadedAllMessages == true {
             cell = tableView.dequeueReusableCell(withIdentifier: WelcomeMessageTableViewCell.cellReuseIdentifier())
-            (cell as! WelcomeMessageTableViewCell).lblMessage.text = self.welcomeMessage
+            if self.themeObject != nil {
+                (cell as! WelcomeMessageTableViewCell).lblMessage.text = self.themeObject?.welcomeMessage
+            }
+            else {
+                (cell as! WelcomeMessageTableViewCell).lblMessage.text = "We are here to serve you!"
+            }
+            
             cell?.backgroundColor = .clear
             
             (cell as! WelcomeMessageTableViewCell).vwBackground.backgroundColor = self.themeObject?.primaryAccentColor
