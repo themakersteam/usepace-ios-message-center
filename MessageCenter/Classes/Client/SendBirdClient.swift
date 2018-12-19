@@ -44,6 +44,7 @@ public class SendBirdClient: ClientProtocol {
                 return;
             }
             
+            SBDMain.disconnect(completionHandler: {})
             //connection.onMessageCenterConnected(userId: (user?.userId)!)
             success((user?.userId)!)
             
@@ -75,12 +76,13 @@ public class SendBirdClient: ClientProtocol {
             self.openChat(forChannel: channelId, welcomeMessage: welcomeMessage, withTheme: theme, completion: completion)
         }
         else {
-            self.connect(with: lastConnectionRequest!, success: { (success) in
+            SBDMain.connect(withUserId: (lastConnectionRequest?.userId)!, accessToken: lastConnectionRequest?.accessToken, completionHandler: { (user, error) in
+                guard error == nil else {
+                    return;
+                }
                 self.openChat(forChannel: channelId, welcomeMessage: welcomeMessage, withTheme: theme, completion: completion)
-            }) { (code, message) in
-                completion(nil)
             }
-        }
+        )}
     }
     
     public func closeChatView(completion: @escaping () -> Void) {
