@@ -543,6 +543,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             
             self.chattingView.messageTextView.textView.text = ""
             self.imageCaption = ""
+            self.chattingView.inputViewDidChange(textView: self.chattingView.messageTextView.textView)
             
             do {
                 let detector: NSDataDetector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
