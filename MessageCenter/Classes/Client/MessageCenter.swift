@@ -33,6 +33,8 @@ public class NotificationModel: NSObject {
     public var channelId: String = ""
     public var senderId: String = ""
     public var senderName: String = ""
+    public var image: String = ""
+    
 }
 
 public class MessageCenter {
@@ -169,46 +171,40 @@ public class MessageCenter {
         parentVC = vc
     }
     
-    public static func handleNotification(
-        _ userInfo: [AnyHashable : Any],
-        match: @escaping (_ notification: NotificationModel) -> Void,
-        noMatch: @escaping() -> Void) {
+    public static func handleMessageNotification(_ userInfo: [AnyHashable : Any]) -> NotificationModel? {
         
-        client.getClient(type: LAST_CLIENT).handleNotification(userInfo: userInfo) { (status, payload) in
-            if (status) {
-                
-                guard let sbPayload = payload["sendbird"] as? Dictionary<String, Any> else {
-                    noMatch()
-                    return
-                }
-                
-                let message = sbPayload["message"] as! String
-                
-                guard let sbChannel = sbPayload["channel"] as? Dictionary<String, Any> else {
-                    noMatch()
-                    return
-                }
-                let channelURL = sbChannel["channel_url"] as! String
-                
-                guard let sbSender = sbPayload["sender"] as? Dictionary<String, Any> else {
-                    noMatch()
-                    return
-                }
-                let senderId = sbSender["id"] as! String
-                let senderName = sbSender["name"] as! String
-                
-                let notification = NotificationModel()
-                notification.channelId = channelURL
-                notification.senderId = senderId
-                notification.senderName = senderName
-                notification.message = message
-                
-                match(notification)
-                
+        let handle = client.getClient(type: LAST_CLIENT).handleNotification(userInfo: userInfo)
+        if handle == true {
+            var message = ""
+            guard let sbPayload = userInfo["sendbird"] as? Dictionary<String, Any> else {
+                return nil
             }
-            else {
-                noMatch()
+            
+            if sbPayload["message"] as? String != nil {
+                message = sbPayload["message"] as! String
             }
+            
+            guard let sbChannel = sbPayload["channel"] as? Dictionary<String, Any> else {
+                return nil
+            }
+            let channelURL = sbChannel["channel_url"] as! String
+            
+            guard let sbSender = sbPayload["sender"] as? Dictionary<String, Any> else {
+                return nil
+            }
+            let senderId = sbSender["id"] as! String
+            let senderName = sbSender["name"] as! String
+            
+            let notification = NotificationModel()
+            notification.channelId = channelURL
+            notification.senderId = senderId
+            notification.senderName = senderName
+            notification.message = message
+            
+            return notification
+        }
+        else {
+            return nil
         }
     }
 }
