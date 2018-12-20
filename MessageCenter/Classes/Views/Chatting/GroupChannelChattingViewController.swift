@@ -85,23 +85,6 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         self.minMessageTimestamp = LLONG_MAX
         self.cachedMessage = false
         
-        if self.dumpedMessages.count > 0 {
-            self.chattingView.messages.append(contentsOf: self.dumpedMessages)
-            
-            self.chattingView.chattingTableView.reloadData()
-            self.chattingView.chattingTableView.layoutIfNeeded()
-            
-            let viewHeight = UIScreen.main.bounds.size.height - self.navigationBarHeight.constant - self.chattingView.inputContainerViewHeight.constant - 10
-            let contentSize = self.chattingView.chattingTableView.contentSize
-            
-            if contentSize.height > viewHeight {
-                let newContentOffset = CGPoint(x: 0, y: contentSize.height - viewHeight)
-                self.chattingView.chattingTableView.setContentOffset(newContentOffset, animated: false)
-            }
-            
-            self.cachedMessage = true
-        }
-        
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:))))
         if SBDMain.getConnectState() == .closed {
             SBDMain.connect(withUserId: (lastConnectionRequest?.userId)!, accessToken: lastConnectionRequest?.accessToken) { (user, error) in
