@@ -49,6 +49,8 @@ public class MessageCenter {
         get { return _parentVC! }
     }
     
+    public static var completionHandler : ((Bool) -> Void)? = nil
+    
     private static var LAST_CLIENT: ClientType = ClientType.sendBird
     private static var notificationInboxMessages: NSArray = []
     private static var mainApplication: UIApplication? = nil
@@ -91,22 +93,7 @@ public class MessageCenter {
     
     
     public class func createThemeObject(title: String?, subtitle: String?, welcomeMessage: String? ,primaryColor: UIColor? , primaryAccentColor: UIColor?, primaryNavigationButtonColor: UIColor?, primaryBackgroundColor: UIColor?, primaryActionIconsColor: UIColor?) -> ThemeObject {
-        
-    
-//        var _title = ""
-//
-//        var pColor = UIColor(red: 122.0/255.0, green: 188.0/255.0, blue: 65.0/255.0, alpha: 1.0)
-//        var sColor = UIColor(red: 237.0/255.0, green: 237.0/255.0, blue: 237.0/255.0, alpha: 1.0)
-//
-//        if title != nil {
-//            _title = title!
-//        }
-//        if primaryColor != nil {
-//            pColor = primaryColor!
-//        }
-////        if secondaryColor == nil {
-////            sColor = secondaryColor!
-////        }
+
 
         self.themeObject = ThemeObject(title: title, subtitle: subtitle, welcomeMessage: welcomeMessage, primaryColor: primaryColor, primaryAccentColor: primaryAccentColor, primaryButtonColor: primaryActionIconsColor, primaryBackgroundColor: primaryBackgroundColor, primaryActionIconsColor: primaryActionIconsColor)
         
@@ -122,6 +109,7 @@ public class MessageCenter {
                 return
             }
             
+            self.completionHandler = completion
             let podBundle = Bundle(for: MessageCenter.self)
             
             

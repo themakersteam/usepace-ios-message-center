@@ -13,11 +13,13 @@ protocol ImagePreviewProtocol: class {
 
 class ImagePreviewViewController: UIViewController {
 
+    @IBOutlet weak var messageInputView: SBMessageInputView!
     @IBOutlet weak var imgPicture: UIImageView!
-    @IBOutlet weak var txtCaption: UITextView!
     @IBOutlet weak var btnSend: UIButton!
     @IBOutlet weak var btnDismiss: UIButton!
+    @IBOutlet weak var lblCaption: UILabel!
     
+    @IBOutlet weak var inputViewContainerHeight: NSLayoutConstraint!
     @IBOutlet weak var bottomMargin: NSLayoutConstraint!
     
     private var keyboardShown: Bool = false
@@ -31,16 +33,22 @@ class ImagePreviewViewController: UIViewController {
         super.viewDidLoad()
         self.btnSend.layer.cornerRadius = 22.0
         self.imgPicture.image = imageToUpload!
-        self.txtCaption.delegate = self
-        self.txtCaption.text = strCaption
-        self.txtCaption.textContainerInset = UIEdgeInsetsMake(15.5, 0, 14, 0)
-        self.txtCaption.layer.cornerRadius = 8.0
-        self.txtCaption.layer.borderColor = UIColor.black.cgColor
-        self.txtCaption.layer.borderWidth = 1.0
+        
+        self.messageInputView.textView.text = strCaption
+        messageInputView.layer.borderColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.12).cgColor
+        self.messageInputView.layer.cornerRadius = 8.0
+        self.messageInputView.layer.masksToBounds = true
+        self.messageInputView.layer.borderWidth = 1.0
+        self.messageInputView.delegate = self
+        self.lblCaption.isHidden = strCaption.count > 0
+        self.lblCaption.text = "caption".localized
         
         self.addObservers()
     }
 
+    @IBAction func tapHandler(_ sender: Any) {
+        self.view.endEditing(true)
+    }
     func addObservers() {
         
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
@@ -68,8 +76,6 @@ class ImagePreviewViewController: UIViewController {
             }, completion: { (status) in
                 
             })
-//            self.chattingView.stopMeasuringVelocity = true
-//            self.chattingView.scrollToBottom(force: false)
         }
     }
     
@@ -92,12 +98,15 @@ class ImagePreviewViewController: UIViewController {
     
     
     @IBAction func btnDismissTapped(_ sender: Any) {
-        txtCaption.resignFirstResponder()
+        self.view.endEditing(true)
         self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func btnSendTapped(_ sender: Any) {
-        txtCaption.resignFirstResponder()
+        self.view.endEditing(true)
+        if strCaption.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == true {
+            strCaption = ""
+        }
         if self.delegate != nil {
             self.delegate?.imagePreviewDidDismiss(self.imageToUpload, caption: strCaption)
         }
@@ -122,4 +131,29 @@ extension ImagePreviewViewController : UITextViewDelegate {
         return true
     }
     
+}
+
+extension ImagePreviewViewController: SBMessageInputViewDelegate {
+    func inputViewDidTapButton(button: UIButton) {
+        
+    }
+    func inputViewDidBeginEditing(textView: UITextView) {
+        
+    }
+    func inputViewShouldBeginEditing(textView: UITextView) -> Bool {
+        return true
+    }
+    func inputView(textView: UITextView, shouldChangeTextInRange: NSRange, replacementText: String) -> Bool {
+        return true
+    }
+    
+    func inputViewDidChange(textView: UITextView) {
+        
+        if textView.text.count > 0  {
+            self.lblCaption.isHidden = true
+        }
+        else {
+            self.lblCaption.isHidden = false
+        }
+    }
 }

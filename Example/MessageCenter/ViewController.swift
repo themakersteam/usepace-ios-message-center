@@ -52,6 +52,12 @@ class ViewController: UIViewController {
         
         MessageCenter.openChatView("sendbird_group_channel_2456028_72db325775728aa550b52e11990d891167ed5f1f", theme: theme) { (success) in
 //
+            if success == true {
+                
+            }
+            else {
+                
+            }
        }
     }
     

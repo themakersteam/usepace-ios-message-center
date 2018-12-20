@@ -102,22 +102,40 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             self.cachedMessage = true
         }
         
-        self.loadPreviousMessage(initial: true)
-        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:))))
         if SBDMain.getConnectState() == .closed {
-            
-            // TODO: need to connect again here
-            return
+            SBDMain.connect(withUserId: (lastConnectionRequest?.userId)!, accessToken: lastConnectionRequest?.accessToken) { (user, error) in
+                if error == nil {
+                    self.loadMessages()
+                }
+            }
         }
         else {
-            self.loadPreviousMessage(initial: true)
+            self.loadMessages()
         }
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:))))
-//        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap:)))
-
-        
     }
     
+    func loadMessages () {
+        
+        self.dumpedMessages = Utils.loadMessagesInChannel(channelUrl: self.groupChannel.channelUrl)
+        if self.dumpedMessages.count > 0 {
+            self.chattingView.messages.append(contentsOf: self.dumpedMessages)
+            
+            self.chattingView.chattingTableView.reloadData()
+            self.chattingView.chattingTableView.layoutIfNeeded()
+            
+            let viewHeight = UIScreen.main.bounds.size.height - self.navigationBarHeight.constant - self.chattingView.inputContainerViewHeight.constant - 10
+            let contentSize = self.chattingView.chattingTableView.contentSize
+            
+            if contentSize.height > viewHeight {
+                let newContentOffset = CGPoint(x: 0, y: contentSize.height - viewHeight)
+                self.chattingView.chattingTableView.setContentOffset(newContentOffset, animated: false)
+            }
+            
+            self.cachedMessage = true
+        }
+        self.loadPreviousMessage(initial: true)
+    }
     deinit {
         //        ConnectionManager.remove(connectionObserver: self as ConnectionManagerDelegate)
     }
@@ -150,7 +168,11 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     @objc private func close() {
         SBDMain.removeChannelDelegate(forIdentifier: self.description)
         SBDMain.removeConnectionDelegate(forIdentifier: self.description)
-        self.dismiss(animated: true, completion: nil)
+        if MessageCenter.completionHandler != nil {
+            MessageCenter.completionHandler!(true)
+        }
+        
+        self.dismiss(animated: true, completion: nil)        
     }
     
     @objc private func openMoreMenu() {
@@ -825,7 +847,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                     let strMessage = (message as! SBDUserMessage).message
                     let senderName = (message as! SBDUserMessage).sender?.nickname
                     let strMessageLoc = "message_center_new_message_from".localized
-                    self.view.makeToast(strMessageLoc + senderName! + "\n" + strMessage!)
+                    self.view.makeToast(strMessageLoc + senderName!)
                 }
                 else if message is SBDFileMessage {
                     let senderName = (message as! SBDFileMessage).sender?.nickname
