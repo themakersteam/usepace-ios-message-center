@@ -13,6 +13,7 @@
 "send_location.send_button.case_my_location.title" = "إرسل موقعي الحالي";
 "send_location.send_button.case_pin_location.title" = "إرسل هذا الموقع";
 "send_location.location_disabled_notice.message" = "هنقرستيشن لايستطيع الوصول إلى موقعك. لتفعيل خاصية المواقع. الرجاء تفعيل خدمات الموقع من الاعدادات";
+"caption" = "شرح";
 "camera_permission_disable" = "الرجاء اعطاء صلاحية للكاميرا";
 "photos_permission_disable" = "الرجاء اعطاء صلاحية لقراءة الصور";
 "download" = "تحميل";
@@ -45,7 +46,7 @@
 "ms_chat_failed_to_send" = "لم تصل! إضغط لإعادة المحاولة";
 "message_center_toolbar_title" = "مركز الرسائل";
 "message_center_channel_is_frozen" = "تم تجميد المحادثة";
-"message_center_new_message_from" = "لديك رسالة جديدة من: ";
+"message_center_new_message_from" = "لديك رسالة جديدة من ";
 "need_gps_permission" = "الرجاء اعطاء صلاحية GPS للاستمرار";
 "reconnection_failed" = "فشل اعادة الاتصال";
 "reconnect" = "إعادة الاتصال";

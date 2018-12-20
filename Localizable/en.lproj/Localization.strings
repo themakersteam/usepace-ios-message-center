@@ -13,8 +13,8 @@
 "send_location.send_button.case_my_location.title" = "Send your current location";
 "send_location.send_button.case_pin_location.title" = "Send this location";
 "send_location.location_disabled_notice.message" = "Hungerstation doesn’t have access to your location. To enable access, tap Settings > Location.";
-
-"message_center_new_message_from" = "New Message From: ";
+"caption" = "Caption";
+"message_center_new_message_from" = "New Message From ";
 "need_gps_permission" = "Need GPS permission for getting your location";
 
 "camera_permission_disable" = "Permission not granted to use Camera";
