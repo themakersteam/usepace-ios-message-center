@@ -86,26 +86,18 @@ public class SendBirdClient: ClientProtocol {
     }
     
     public func getUnReadMessagesCount(forChannel channel: String?, success: @escaping UnReadMessagesSuccessCompletion, failure: @escaping MessageCenterFailureCompletion) {
-        if let channel = channel {
-            SBDGroupChannel.getWithUrl(channel) { (chanelObj, error) in
-                guard error == nil, let chanelObj = chanelObj else {
-                    failure(error!.code, error!.localizedDescription)
-                    return
-                }
-                
-                success(Int(chanelObj.unreadMessageCount))
-            }
+        if (self.isConnected) {
+            self.excuteGetUnreadMessageCount(forChannel: channel, success: success, failure: failure)
         }
         else {
-            SBDMain.getTotalUnreadChannelCount() { (count, error) in
+            SBDMain.connect(withUserId: (lastConnectionRequest?.userId)!, accessToken: lastConnectionRequest?.accessToken, completionHandler: { (user, error) in
                 guard error == nil else {
                     failure(error!.code, error!.localizedDescription)
-                    return
+                    return;
                 }
-                
-                success(Int(count))
+                self.excuteGetUnreadMessageCount(forChannel: channel, success: success, failure: failure)
             }
-        }
+        )}
     }
     
     public func handleNotification(userInfo: [AnyHashable : Any]) -> Bool {
@@ -150,6 +142,29 @@ public class SendBirdClient: ClientProtocol {
             }
             print("Joined chat room")
             completion(channel)
+        }
+    }
+    
+    private func excuteGetUnreadMessageCount(forChannel channel: String?, success: @escaping UnReadMessagesSuccessCompletion, failure: @escaping MessageCenterFailureCompletion) {
+        if let channel = channel {
+            SBDGroupChannel.getWithUrl(channel) { (chanelObj, error) in
+                guard error == nil, let chanelObj = chanelObj else {
+                    failure(error!.code, error!.localizedDescription)
+                    return
+                }
+                success(Int(chanelObj.unreadMessageCount))
+                SBDMain.disconnect(completionHandler: {})
+            }
+        }
+        else {
+            SBDMain.getTotalUnreadChannelCount() { (count, error) in
+                guard error == nil else {
+                    failure(error!.code, error!.localizedDescription)
+                    return
+                }
+                success(Int(count))
+                SBDMain.disconnect(completionHandler: {})
+            }
         }
     }
     
