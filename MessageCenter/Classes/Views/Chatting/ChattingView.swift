@@ -119,7 +119,24 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         // Check if channel is frozen to hide the Text Sending view
         
         if self.channel != nil {
-            self.inputContainerView.isHidden = (self.channel?.isFrozen)!
+            if (self.channel?.isFrozen)! {
+                self.inputContainerView.isUserInteractionEnabled = false
+                self.inputContainerView.alpha = 0.75
+                self.btnCamera.isUserInteractionEnabled = false
+                self.btnCamera.alpha = 0.75
+                self.fileAttachButton.isUserInteractionEnabled = false
+                self.fileAttachButton.alpha = 0.75
+//                self.placeholderLabel.text = "Chat is disabled."
+            }
+            else {
+                self.inputContainerView.isUserInteractionEnabled = true
+                self.inputContainerView.alpha = 1.0
+                self.btnCamera.isUserInteractionEnabled = true
+                self.btnCamera.alpha = 1.0
+                self.fileAttachButton.isUserInteractionEnabled = true
+                self.fileAttachButton.alpha = 1.0
+                self.placeholderLabel.text = "type_message_hint".localized
+            }
         }
         
         
