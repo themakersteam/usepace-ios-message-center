@@ -81,7 +81,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         self.chattingView.delegate = self
         self.minMessageTimestamp = LLONG_MAX
         self.cachedMessage = false
-        
+        self.loadPreviousMessage(initial: true)
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:))))
         if SBDMain.getConnectState() == .closed {
             SBDMain.connect(withUserId: (lastConnectionRequest?.userId)!, accessToken: lastConnectionRequest?.accessToken) { (user, error) in
