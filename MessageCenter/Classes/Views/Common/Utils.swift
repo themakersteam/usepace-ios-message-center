@@ -110,6 +110,9 @@ class Utils: NSObject {
                 return
             }
         }
+        if SBDMain.getCurrentUser() == nil {
+            return
+        }
         
         let messageFileNamePrefix = Utils.sha256(string: String(format: "%@_%@", (SBDMain.getCurrentUser()?.userId.urlencoding())!, channelUrl))
         let messageDumpFileName = String(format: "%@.data", messageFileNamePrefix!)

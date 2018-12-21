@@ -77,9 +77,6 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         self.chattingView.btnCamera.addTarget(self, action: #selector(launchCamera), for: .touchUpInside)
         
         self.chattingView.sendButton.addTarget(self, action: #selector(sendMessage), for: UIControlEvents.touchUpInside)
-        
-        self.dumpedMessages = Utils.loadMessagesInChannel(channelUrl: self.groupChannel.channelUrl)
-        
         self.chattingView.configureChattingView(channel: self.groupChannel)
         self.chattingView.delegate = self
         self.minMessageTimestamp = LLONG_MAX
@@ -1585,43 +1582,45 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                     if data.count > 0 {
                         let preSendMessage = self.groupChannel.sendFileMessage(withBinaryData: data, filename: uri! , type: "image/png", size: UInt(data.count), thumbnailSizes: [thumbnailSize!], data: "", customType: "", progressHandler: nil, completionHandler: { (fileMessage, error) in
                             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(150), execute: {
-                                let preSendMessage = self.chattingView.preSendMessages[(fileMessage?.requestId)!] as! SBDFileMessage
-                                self.chattingView.preSendMessages.removeValue(forKey: (fileMessage?.requestId)!)
-                                
-                                if error != nil {
-                                    self.chattingView.resendableMessages[(fileMessage?.requestId)!] = preSendMessage
-                                    self.chattingView.resendableFileData[preSendMessage.requestId!]?["data"] = data as AnyObject?
-                                    self.chattingView.resendableFileData[preSendMessage.requestId!]?["type"] = "image/png" as AnyObject?
-                                    self.chattingView.chattingTableView.reloadData()
-                                    DispatchQueue.main.async {
-                                        self.chattingView.scrollToBottom(force: true)
-                                    }
-                                    return
-                                }
-                                if fileMessage != nil {
-                                    self.chattingView.resendableMessages.removeValue(forKey: (fileMessage?.requestId)!)
-                                    self.chattingView.resendableFileData.removeValue(forKey: (fileMessage?.requestId)!)
+                                if let preSendMessage = self.chattingView.preSendMessages[(fileMessage?.requestId)!] as? SBDFileMessage {
                                     self.chattingView.preSendMessages.removeValue(forKey: (fileMessage?.requestId)!)
-                                    self.chattingView.messages[self.chattingView.messages.index(of: preSendMessage)!] = fileMessage!
                                     
-                                    DispatchQueue.main.async {
+                                    if error != nil {
+                                        self.chattingView.resendableMessages[(fileMessage?.requestId)!] = preSendMessage
+                                        self.chattingView.resendableFileData[preSendMessage.requestId!]?["data"] = data as AnyObject?
+                                        self.chattingView.resendableFileData[preSendMessage.requestId!]?["type"] = "image/png" as AnyObject?
                                         self.chattingView.chattingTableView.reloadData()
-                                        self.chattingView.scrollToBottom(force: true)
+                                        DispatchQueue.main.async {
+                                            self.chattingView.scrollToBottom(force: true)
+                                        }
+                                        return
+                                    }
+                                    if fileMessage != nil {
+                                        self.chattingView.resendableMessages.removeValue(forKey: (fileMessage?.requestId)!)
+                                        self.chattingView.resendableFileData.removeValue(forKey: (fileMessage?.requestId)!)
+                                        self.chattingView.preSendMessages.removeValue(forKey: (fileMessage?.requestId)!)
+                                        self.chattingView.messages[self.chattingView.messages.index(of: preSendMessage)!] = fileMessage!
+                                        
+                                        DispatchQueue.main.async {
+                                            self.chattingView.chattingTableView.reloadData()
+                                            self.chattingView.scrollToBottom(force: true)
+                                        }
                                     }
                                 }
                             })
                         })
-                        
-                        self.chattingView.preSendFileData[preSendMessage.requestId!] = [
-                            "data": data as AnyObject,
-                            "type": "image/png" as AnyObject,
-                        ]
-                        self.chattingView.preSendMessages[preSendMessage.requestId!] = preSendMessage
-                        self.chattingView.messages.append(preSendMessage)
-                        self.chattingView.chattingTableView.reloadData()
-                        DispatchQueue.main.async {
-                            self.chattingView.scrollToBottom(force: true)
+                        if self.chattingView.preSendFileData.count > 0 {
+                            self.chattingView.preSendFileData[preSendMessage.requestId!] = [
+                                "data": data as AnyObject,
+                                "type": "image/png" as AnyObject,
+                            ]
+                            self.chattingView.preSendMessages[preSendMessage.requestId!] = preSendMessage
+                            self.chattingView.messages.append(preSendMessage)
                             self.chattingView.chattingTableView.reloadData()
+                            DispatchQueue.main.async {
+                                self.chattingView.scrollToBottom(force: true)
+                                self.chattingView.chattingTableView.reloadData()
+                            }
                         }
                     }
                 }
@@ -1656,56 +1655,53 @@ extension GroupChannelChattingViewController : ImagePreviewProtocol {
                 
                 let preSendMessage = self.groupChannel.sendFileMessage(withBinaryData: imageData!, filename: imageName as String, type: mimeType! as String, size: UInt((imageData?.count)!), thumbnailSizes: [thumbnailSize!], data: "", customType: "", progressHandler: nil, completionHandler: { (fileMessage, error) in
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(150), execute: {
-                        let preSendMessage = self.chattingView.preSendMessages[(fileMessage?.requestId)!] as! SBDFileMessage
-                        self.chattingView.preSendMessages.removeValue(forKey: (fileMessage?.requestId)!)
-                        self.mediaInfo = nil
-                        if error != nil {
-                            self.chattingView.resendableMessages[(fileMessage?.requestId)!] = preSendMessage
-                            self.chattingView.resendableFileData[preSendMessage.requestId!]?["data"] = imageData as AnyObject?
-                            self.chattingView.resendableFileData[preSendMessage.requestId!]?["type"] = mimeType as AnyObject?
-                            self.chattingView.chattingTableView.reloadData()
-                            DispatchQueue.main.async {
-                                self.chattingView.scrollToBottom(force: true)
-                            }
-                            
-                            return
-                        }
-                        
-                        if fileMessage != nil {
-                            if self.imageCaption.count > 0 {
-                                self.sendMessage()
-                            }
-                            self.chattingView.resendableMessages.removeValue(forKey: (fileMessage?.requestId)!)
-                            self.chattingView.resendableFileData.removeValue(forKey: (fileMessage?.requestId)!)
+                        if let preSendMessage = self.chattingView.preSendMessages[(fileMessage?.requestId)!] as? SBDFileMessage {
                             self.chattingView.preSendMessages.removeValue(forKey: (fileMessage?.requestId)!)
-                            self.chattingView.messages[self.chattingView.messages.index(of: preSendMessage)!] = fileMessage!
-                            
-                            DispatchQueue.main.async {
+                            self.mediaInfo = nil
+                            if error != nil {
+                                self.chattingView.resendableMessages[(fileMessage?.requestId)!] = preSendMessage
+                                self.chattingView.resendableFileData[preSendMessage.requestId!]?["data"] = imageData as AnyObject?
+                                self.chattingView.resendableFileData[preSendMessage.requestId!]?["type"] = mimeType as AnyObject?
                                 self.chattingView.chattingTableView.reloadData()
                                 DispatchQueue.main.async {
                                     self.chattingView.scrollToBottom(force: true)
+                                }
+                                
+                                return
+                            }
+                            
+                            if fileMessage != nil {
+                                if self.imageCaption.count > 0 {
+                                    self.sendMessage()
+                                }
+                                self.chattingView.resendableMessages.removeValue(forKey: (fileMessage?.requestId)!)
+                                self.chattingView.resendableFileData.removeValue(forKey: (fileMessage?.requestId)!)
+                                self.chattingView.preSendMessages.removeValue(forKey: (fileMessage?.requestId)!)
+                                self.chattingView.messages[self.chattingView.messages.index(of: preSendMessage)!] = fileMessage!
+                                
+                                DispatchQueue.main.async {
+                                    self.chattingView.chattingTableView.reloadData()
+                                    DispatchQueue.main.async {
+                                        self.chattingView.scrollToBottom(force: true)
+                                    }
                                 }
                             }
                         }
                     })
                 })
-                
-                self.chattingView.preSendFileData[preSendMessage.requestId!] = [
-                    "data": imageData as AnyObject,
-                    "type": mimeType as AnyObject,
-                ]
-                self.chattingView.preSendMessages[preSendMessage.requestId!] = preSendMessage
-                self.chattingView.messages.append(preSendMessage)
-                self.chattingView.chattingTableView.reloadData()
-                DispatchQueue.main.async {
-                    self.chattingView.scrollToBottom(force: true)
+                if self.chattingView.preSendFileData.count > 0 {
+                    self.chattingView.preSendFileData[preSendMessage.requestId!] = [
+                        "data": imageData as AnyObject,
+                        "type": mimeType as AnyObject,
+                    ]
+                    self.chattingView.preSendMessages[preSendMessage.requestId!] = preSendMessage
+                    self.chattingView.messages.append(preSendMessage)
+                    self.chattingView.chattingTableView.reloadData()
+                    DispatchQueue.main.async {
+                        self.chattingView.scrollToBottom(force: true)
+                    }
                 }
-                
             }
-            
-            
-
-            
         }
     }
     

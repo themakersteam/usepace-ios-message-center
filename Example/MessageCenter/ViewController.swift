@@ -50,7 +50,9 @@ class ViewController: UIViewController {
                                                     primaryBackgroundColor: primaryBackgroundColor,
                                                     primaryActionIconsColor: primaryActionIconsColor)
         
-        MessageCenter.openChatView("sendbird_group_channel_2456028_72db325775728aa550b52e11990d891167ed5f1f", theme: theme) { (success) in
+//        sendbird_group_channel_2456028_1ef918c0149a1f8b0993ae21cb26fa9c16540a91
+//        sendbird_group_channel_2456028_72db325775728aa550b52e11990d891167ed5f1f
+        MessageCenter.openChatView("sendbird_group_channel_2456028_1ef918c0149a1f8b0993ae21cb26fa9c16540a91", theme: theme) { (success) in
 //
             if success == true {
                 
