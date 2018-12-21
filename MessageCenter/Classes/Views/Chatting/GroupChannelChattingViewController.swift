@@ -1609,7 +1609,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                                 }
                             })
                         })
-                        if self.chattingView.preSendFileData.count > 0 {
+                        
                             self.chattingView.preSendFileData[preSendMessage.requestId!] = [
                                 "data": data as AnyObject,
                                 "type": "image/png" as AnyObject,
@@ -1621,7 +1621,6 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                                 self.chattingView.scrollToBottom(force: true)
                                 self.chattingView.chattingTableView.reloadData()
                             }
-                        }
                     }
                 }
             }
@@ -1655,7 +1654,7 @@ extension GroupChannelChattingViewController : ImagePreviewProtocol {
                 
                 let preSendMessage = self.groupChannel.sendFileMessage(withBinaryData: imageData!, filename: imageName as String, type: mimeType! as String, size: UInt((imageData?.count)!), thumbnailSizes: [thumbnailSize!], data: "", customType: "", progressHandler: nil, completionHandler: { (fileMessage, error) in
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(150), execute: {
-                        if let preSendMessage = self.chattingView.preSendMessages[(fileMessage?.requestId)!] as? SBDFileMessage {
+                        let preSendMessage = self.chattingView.preSendMessages[(fileMessage?.requestId)!] as! SBDFileMessage
                             self.chattingView.preSendMessages.removeValue(forKey: (fileMessage?.requestId)!)
                             self.mediaInfo = nil
                             if error != nil {
@@ -1686,10 +1685,9 @@ extension GroupChannelChattingViewController : ImagePreviewProtocol {
                                     }
                                 }
                             }
-                        }
                     })
                 })
-                if self.chattingView.preSendFileData.count > 0 {
+                
                     self.chattingView.preSendFileData[preSendMessage.requestId!] = [
                         "data": imageData as AnyObject,
                         "type": mimeType as AnyObject,
@@ -1700,7 +1698,6 @@ extension GroupChannelChattingViewController : ImagePreviewProtocol {
                     DispatchQueue.main.async {
                         self.chattingView.scrollToBottom(force: true)
                     }
-                }
             }
         }
     }
