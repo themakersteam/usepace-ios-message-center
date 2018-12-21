@@ -19,6 +19,7 @@ class ImagePreviewViewController: UIViewController {
     @IBOutlet weak var btnDismiss: UIButton!
     @IBOutlet weak var lblCaption: UILabel!
     
+    @IBOutlet weak var vwGradient: UIView!
     @IBOutlet weak var inputViewContainerHeight: NSLayoutConstraint!
     @IBOutlet weak var bottomMargin: NSLayoutConstraint!
     
@@ -46,6 +47,27 @@ class ImagePreviewViewController: UIViewController {
         self.addObservers()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.createGradientLayer()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    func createGradientLayer() {
+        let gradientLayer = CAGradientLayer()
+        let startColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.52)
+        let endColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
+        
+        gradientLayer.frame = self.vwGradient.bounds
+        
+        gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
+        gradientLayer.locations = [0.0, 0.15]
+        self.imgPicture.layer.addSublayer(gradientLayer)
+    }
+    
     @IBAction func tapHandler(_ sender: Any) {
         self.view.endEditing(true)
     }

@@ -19,11 +19,11 @@ class Constants: NSObject {
     }
     
     static func navigationBarTitleFont() -> UIFont {
-        return UIFont(name: "HelveticaNeue", size: 16.0)!
+        return UIFont(name: "HelveticaNeue", size: 17.0)!
     }
     
     static func navigationBarSubTitleFont() -> UIFont {
-        return UIFont(name: "HelveticaNeue-LightItalic", size: 10.0)!
+        return UIFont(name: "HelveticaNeue-LightItalic", size: 17.0)!
     }
     
     static func textFieldLineColorNormal() -> UIColor {

@@ -12,7 +12,7 @@ public extension String {
     
     public var localized : String {
         get{
-            return NSLocalizedString(self, tableName: "Localization", bundle: Bundle(for: MessageCenter.self), value: "", comment: "")
+            return NSLocalizedString(self, tableName: "MessageCenter", bundle: Bundle(for: MessageCenter.self), value: "", comment: "")
         }
     }
 }

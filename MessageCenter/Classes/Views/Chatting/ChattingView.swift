@@ -413,7 +413,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if indexPath.row == 0 && self.hasLoadedAllMessages == true {
-            return 44.0
+            return 50.0
         }
         
         var height: CGFloat = 0
