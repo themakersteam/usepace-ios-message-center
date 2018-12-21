@@ -32,7 +32,7 @@ class ViewController: UIViewController {
         // Color for Title, welcome message background (with alpha 0.4) and Send button background
         let primaryAccentColor = UIColor(red: 245.0/255.0, green: 206.0/255.0, blue: 9.0/255.0, alpha: 1.0)
         // Back button color
-        let primaryNavigationIconColor = UIColor(red: 245.0/255.0, green: 200.0/255.0, blue: 0.0/255.0, alpha: 1.0)
+        let primaryNavigationIconColor = UIColor(red: 255.0/255.0, green: 200.0/255.0, blue: 0.0/255.0, alpha: 1.0)
         // Chat background color
         let primaryBackgroundColor = UIColor(red: 244.0/255.0, green: 242.0/255.0, blue: 230.0/255.0, alpha: 1.0)
         // Action sheet icons, subtitles, and send button color
@@ -50,7 +50,9 @@ class ViewController: UIViewController {
                                                     primaryBackgroundColor: primaryBackgroundColor,
                                                     primaryActionIconsColor: primaryActionIconsColor)
         
-        MessageCenter.openChatView("sendbird_group_channel_2456028_72db325775728aa550b52e11990d891167ed5f1f", theme: theme) { (success) in
+//        sendbird_group_channel_2456028_1ef918c0149a1f8b0993ae21cb26fa9c16540a91
+//        sendbird_group_channel_2456028_72db325775728aa550b52e11990d891167ed5f1f
+        MessageCenter.openChatView("sendbird_group_channel_2456028_1ef918c0149a1f8b0993ae21cb26fa9c16540a91", theme: theme) { (success) in
 //
             if success == true {
                 

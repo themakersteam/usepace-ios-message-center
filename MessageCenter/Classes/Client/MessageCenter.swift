@@ -25,6 +25,7 @@ public struct ThemeObject {
     let primaryButtonColor: UIColor?
     let primaryBackgroundColor: UIColor?
     let primaryActionIconsColor: UIColor?
+    let primaryNavigationButtonColor: UIColor?
 }
 
 public class NotificationModel: NSObject {
@@ -95,7 +96,15 @@ public class MessageCenter {
     public class func createThemeObject(title: String?, subtitle: String?, welcomeMessage: String? ,primaryColor: UIColor? , primaryAccentColor: UIColor?, primaryNavigationButtonColor: UIColor?, primaryBackgroundColor: UIColor?, primaryActionIconsColor: UIColor?) -> ThemeObject {
 
 
-        self.themeObject = ThemeObject(title: title, subtitle: subtitle, welcomeMessage: welcomeMessage, primaryColor: primaryColor, primaryAccentColor: primaryAccentColor, primaryButtonColor: primaryActionIconsColor, primaryBackgroundColor: primaryBackgroundColor, primaryActionIconsColor: primaryActionIconsColor)
+        self.themeObject = ThemeObject(title: title,
+                                       subtitle: subtitle,
+                                       welcomeMessage: welcomeMessage,
+                                       primaryColor: primaryColor,
+                                       primaryAccentColor: primaryAccentColor,
+                                       primaryButtonColor: primaryActionIconsColor,
+                                       primaryBackgroundColor: primaryBackgroundColor,
+                                       primaryActionIconsColor: primaryActionIconsColor,
+                                       primaryNavigationButtonColor: primaryNavigationButtonColor)
         
         return themeObject!
     }
@@ -130,7 +139,7 @@ public class MessageCenter {
                 // Color for Title, welcome message background (with alpha 0.4) and Send button background
                 let primaryAccentColor = UIColor(red: 245.0/255.0, green: 206.0/255.0, blue: 9.0/255.0, alpha: 1.0)
                 // Back button color
-                let primaryNavigationIconColor = UIColor(red: 245.0/255.0, green: 200.0/255.0, blue: 0.0/255.0, alpha: 1.0)
+                let primaryNavigationIconColor = UIColor(red: 255.0/255.0, green: 200.0/255.0, blue: 0.0/255.0, alpha: 1.0)
                 // Chat background color
                 let primaryBackgroundColor = UIColor(red: 244.0/255.0, green: 242.0/255.0, blue: 230.0/255.0, alpha: 1.0)
                 // Action sheet icons, subtitles, and send button color
