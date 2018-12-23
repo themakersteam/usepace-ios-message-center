@@ -133,10 +133,10 @@ public class SendBirdClient: ClientProtocol {
         }
     }
     
-    private func openChat(_ channelId: String, theme theme: ThemeObject?,  completion: @escaping (Any?) -> Void) {
+    private func openChat(_ channelId: String, theme: ThemeObject?,  completion: @escaping (Any?) -> Void) {
         SBDGroupChannel.getWithUrl(channelId) { (channel, error) in
             guard error == nil else {
-                print("Error occured while connecting to chat room: %@", error?.description)
+                print("Error occured while connecting to chat room: %@", error?.description ?? "Error")
                 completion(nil)
                 return
             }

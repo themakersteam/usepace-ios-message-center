@@ -36,8 +36,8 @@ class IncomingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
     public var containerBackgroundColour: UIColor = UIColor(red: 237.0/255.0, green: 237.0/255.0, blue: 237.0/255.0, alpha: 1.0)
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.podBundle = Bundle(for: MessageCenter.self)
+        super.init(coder: aDecoder)    
+        self.podBundle = Bundle.bundleForXib(IncomingGeneralUrlPreviewMessageTableViewCell.self)
     }
     
     override func awakeFromNib() {
@@ -46,7 +46,8 @@ class IncomingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
     }
     
     static func nib() -> UINib {
-        return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
+        let podBundle = Bundle.bundleForXib(IncomingGeneralUrlPreviewMessageTableViewCell.self)
+        return UINib(nibName: String(describing: self), bundle: podBundle)
     }
     
     static func cellReuseIdentifier() -> String {

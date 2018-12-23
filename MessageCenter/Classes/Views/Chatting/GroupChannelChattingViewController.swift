@@ -53,11 +53,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.podBundle = Bundle(for: MessageCenter.self)
-        
-//        if self.themeObject != nil {
-//            createTitle(title: (self.themeObject?.title)! , subTitle: (self.themeObject?.subtitle)!)
-//        }
+        self.podBundle = Bundle.bundleForXib(GroupChannelChattingViewController.self)
         setNavigationItems()
         
         addObservers()
@@ -65,7 +61,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
         negativeLeftSpacerForImageViewerLoading.width = -2
         
-        let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close", in: podBundle, compatibleWith: nil), style: UIBarButtonItemStyle.done, target: self, action: #selector(close))
+        let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close.png", in: podBundle, compatibleWith: nil), style: UIBarButtonItemStyle.done, target: self, action: #selector(close))
         
         self.imageViewerLoadingViewNavItem.leftBarButtonItems = [negativeLeftSpacerForImageViewerLoading, leftCloseItemForImageViewerLoading]
         
@@ -320,7 +316,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             if contentType.contains("text/html") {
                 
                 let htmlBody = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-                let parser: HTMLParser = HTMLParser(string: htmlBody as! String)
+                let parser: HTMLParser = HTMLParser(string: htmlBody! as String)
                 let document = parser.parseDocument()
                 let head = document.head
                 
@@ -526,10 +522,6 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     @objc private func sendMessage() {
         
         if (self.chattingView.messageTextView.textView.text.count > 0 || imageCaption.count > 0) {
-            /*
-            self.chattingView.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false
-            imageCaption.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false
-             */
             self.groupChannel.endTyping()
             var message = ""
             if self.chattingView.messageTextView.textView.text.count > 0 &&
@@ -681,7 +673,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 self.vwActionSheet.isHidden = true
                 self.launchCamera()
         })
-        action.setValue(UIImage(named: "camera-icon", in: self.podBundle, compatibleWith: nil), forKey: "image")
+        action.setValue(UIImage(named: "camera-icon.png", in: Bundle(for: MessageCenter.self), compatibleWith: nil), forKey: "image")
         return action
     }
     
@@ -718,7 +710,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 
                 
         })
-        action.setValue(UIImage(named: "photos-icon", in: self.podBundle, compatibleWith: nil), forKey: "image")
+        action.setValue(UIImage(named: "photos-icon.png", in: Bundle(for: MessageCenter.self), compatibleWith: nil), forKey: "image")
         return action
     }
     
@@ -728,12 +720,12 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             style: .default,
             handler: { action in
                 self.vwActionSheet.isHidden = true
-                let podBundle = Bundle(for: MessageCenter.self)
+                let podBundle = Bundle.bundleForXib(GroupChannelChattingViewController.self)
                 let locationPickerVC = SelectLocationViewController(nibName: "SelectLocationView", bundle: podBundle)
                 locationPickerVC.delegate = self as SelectLocationDelegate
                 self.present(locationPickerVC, animated: true, completion: nil)
         })
-        action.setValue(UIImage(named: "location-icon", in: self.podBundle, compatibleWith: nil), forKey: "image")
+        action.setValue(UIImage(named: "location-icon.png", in: Bundle(for: MessageCenter.self), compatibleWith: nil), forKey: "image")
         return action
     }
     
@@ -832,7 +824,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             }
             else {
                 if message is SBDUserMessage {
-                    let strMessage = (message as! SBDUserMessage).message
+                    _ = (message as! SBDUserMessage).message
                     let senderName = (message as! SBDUserMessage).sender?.nickname
                     let strMessageLoc = "message_center_new_message_from".localized
                     self.view.makeToast(strMessageLoc + senderName!)
@@ -1138,7 +1130,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                             let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
                             negativeLeftSpacerForImageViewerLoading.width = -2
                             
-                            let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close", in: self.podBundle, compatibleWith: nil), style: UIBarButtonItemStyle.done, target: self, action: #selector(self.closeImageViewer))
+                            let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close.png", in: self.podBundle, compatibleWith: nil), style: UIBarButtonItemStyle.done, target: self, action: #selector(self.closeImageViewer))
                             
                             self.imageViewerLoadingViewNavItem.leftBarButtonItems = [negativeLeftSpacerForImageViewerLoading, leftCloseItemForImageViewerLoading]
                             
@@ -1172,7 +1164,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                                     let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
                                     negativeLeftSpacerForImageViewerLoading.width = -2
                                     
-                                    let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close", in: self.podBundle, compatibleWith: nil), style: UIBarButtonItemStyle.done, target: self, action: #selector(self.closeImageViewer))
+                                    let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close.png", in: self.podBundle, compatibleWith: nil), style: UIBarButtonItemStyle.done, target: self, action: #selector(self.closeImageViewer))
                                     
                                     self.imageViewerLoadingViewNavItem.leftBarButtonItems = [negativeLeftSpacerForImageViewerLoading, leftCloseItemForImageViewerLoading]
                                     
@@ -1428,7 +1420,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                     let imageName: NSString = (imagePath.lastPathComponent as NSString?)!
                     let ext = imageName.pathExtension
                     let UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, ext as CFString, nil)?.takeRetainedValue()
-                    let mimeType = UTTypeCopyPreferredTagWithClass(UTI!, kUTTagClassMIMEType)?.takeRetainedValue();
+                    _ = UTTypeCopyPreferredTagWithClass(UTI!, kUTTagClassMIMEType)?.takeRetainedValue();
                     let asset = PHAsset.fetchAssets(withALAssetURLs: [imagePath], options: nil).lastObject
                     let options = PHImageRequestOptions()
                     options.isSynchronous = true
@@ -1611,7 +1603,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
 //            let strURL = strBaseURL + strMapCenter + strZoom + strSize + strMarkers + strAPIKey
 //            let url = URL(string: strURL)
             
-            let imgLocation = UIImage(named: "map_place_holder", in: self.podBundle, compatibleWith: nil)
+            let imgLocation = UIImage(named: "map_place_holder.png", in: self.podBundle, compatibleWith: nil)
             if imgLocation == nil {
                 return
             }

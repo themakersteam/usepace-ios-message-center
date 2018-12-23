@@ -89,8 +89,9 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     }
     
     required init?(coder aDecoder: NSCoder) {
+        
         super.init(coder: aDecoder)
-        self.podBundle = Bundle(for: MessageCenter.self)
+        self.podBundle = Bundle.bundleForXib(ChattingView.self)
         self.setup()
     }
     
@@ -253,7 +254,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         if self.typingIndicatorImageView.isAnimating == false {
             var typingImages: [UIImage] = []
             for i in 1...50 {
-                let typingImageFrameName = String.init(format: "%02d", i)
+                let typingImageFrameName = String.init(format: "%02d.png", i)
                 typingImages.append(UIImage(named: typingImageFrameName, in: podBundle, compatibleWith: nil)!)
             }
             self.typingIndicatorImageView.animationImages = typingImages

@@ -28,7 +28,7 @@ class IncomingUserMessageTableViewCell: UITableViewCell, TTTAttributedLabelDeleg
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.podBundle = Bundle(for: MessageCenter.self)
+        self.podBundle =  Bundle.bundleForXib(IncomingUserMessageTableViewCell.self)
     }
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -36,7 +36,8 @@ class IncomingUserMessageTableViewCell: UITableViewCell, TTTAttributedLabelDeleg
     }
     
     static func nib() -> UINib {
-        return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
+        let podBundle =  Bundle.bundleForXib(IncomingUserMessageTableViewCell.self)
+        return UINib(nibName: String(describing: self), bundle: podBundle)
     }
     
     static func cellReuseIdentifier() -> String {

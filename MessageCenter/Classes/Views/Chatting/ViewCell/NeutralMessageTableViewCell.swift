@@ -32,7 +32,8 @@ class NeutralMessageTableViewCell: UITableViewCell {
     private var prevMessage: SBDBaseMessage!
 
     static func nib() -> UINib {
-        return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
+        let podBundle = Bundle.bundleForXib(NeutralMessageTableViewCell.self)
+        return UINib(nibName: String(describing: self), bundle: podBundle)
     }
     
     static func cellReuseIdentifier() -> String {

@@ -28,7 +28,8 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
     public var containerBackgroundColour: UIColor = UIColor(red: 122.0/255.0, green: 188.0/255.0, blue: 65.0/255.0, alpha: 1.0)
     
     static func nib() -> UINib {
-        return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
+        let podBundle = Bundle.bundleForXib(OutgoingUserMessageTableViewCell.self)
+        return UINib(nibName: String(describing: self), bundle: podBundle)
     }
     
     override func awakeFromNib() {
@@ -83,17 +84,17 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
         // Message Status
         if self.message.channelType == CHANNEL_TYPE_GROUP {
             if self.message.requestId == "0" {
-                self.imgMessageStatus.image = UIImage(named: "icMsgsent", in: Bundle(for: MessageCenter.self), compatibleWith: nil)
+                self.imgMessageStatus.image = UIImage(named: "icMsgsent.png", in: Bundle(for: MessageCenter.self), compatibleWith: nil)
             }
             else {
                 if let channelOfMessage = channel as? SBDGroupChannel? {
                     let unreadMessageCount = channelOfMessage?.getReadReceipt(of: self.message)
                     if unreadMessageCount == 0 {
                         // 0 means everybody has read the message
-                        self.imgMessageStatus.image = UIImage(named: "icMsgread", in: Bundle(for: MessageCenter.self), compatibleWith: nil)
+                        self.imgMessageStatus.image = UIImage(named: "icMsgread.png", in: Bundle(for: MessageCenter.self), compatibleWith: nil)
                     }
                     else {
-                        self.imgMessageStatus.image = UIImage(named: "icMsgdelivered", in: Bundle(for: MessageCenter.self), compatibleWith: nil)
+                        self.imgMessageStatus.image = UIImage(named: "icMsgdelivered.png", in: Bundle(for: MessageCenter.self), compatibleWith: nil)
                         
                     }
                 }

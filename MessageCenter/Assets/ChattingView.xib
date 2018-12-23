@@ -33,7 +33,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BgChat" translatesAutoresizingMaskIntoConstraints="NO" id="c8I-kf-ap0">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mainpattern.png" translatesAutoresizingMaskIntoConstraints="NO" id="c8I-kf-ap0">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="601"/>
                 </imageView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wXW-j4-hDA" userLabel="Chatting Table View">
@@ -44,7 +44,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="955-1q-9ID" userLabel="Typing Indicator Container View">
                     <rect key="frame" x="0.0" y="601" width="375" height="0.0"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="01" translatesAutoresizingMaskIntoConstraints="NO" id="Zfr-CO-RUQ" userLabel="Typing Indicator Image View">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="01.png" translatesAutoresizingMaskIntoConstraints="NO" id="Zfr-CO-RUQ" userLabel="Typing Indicator Image View">
                             <rect key="frame" x="14" y="-13" width="27.5" height="26"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="26" id="08k-a4-TyY"/>
@@ -84,7 +84,7 @@
                             <constraints>
                                 <constraint firstAttribute="width" constant="24" id="sZh-DA-k78"/>
                             </constraints>
-                            <state key="normal" title="Button" image="icAdd"/>
+                            <state key="normal" image="icAdd.png"/>
                         </button>
                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aUi-Lc-77V">
                             <rect key="frame" x="317" y="11" width="44" height="44"/>
@@ -93,7 +93,7 @@
                                 <constraint firstAttribute="height" constant="44" id="u1m-N6-n8O"/>
                                 <constraint firstAttribute="width" constant="44" id="uDj-wC-j6Z"/>
                             </constraints>
-                            <state key="normal" image="icSend">
+                            <state key="normal" image="icSend.png">
                                 <color key="titleColor" red="0.50196078431372548" green="0.3529411764705882" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                         </button>
@@ -135,7 +135,7 @@
                                 <constraint firstAttribute="width" constant="44" id="SHy-d0-ENw"/>
                                 <constraint firstAttribute="height" constant="44" id="zC5-XC-wbQ"/>
                             </constraints>
-                            <state key="normal" image="icCamera">
+                            <state key="normal" image="icCamera.png">
                                 <color key="titleColor" red="0.50196078430000002" green="0.35294117650000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                         </button>
@@ -184,10 +184,10 @@
         </view>
     </objects>
     <resources>
-        <image name="01" width="55" height="52"/>
-        <image name="BgChat" width="375" height="667"/>
-        <image name="icAdd" width="24" height="24"/>
-        <image name="icCamera" width="24" height="24"/>
-        <image name="icSend" width="24" height="24"/>
+        <image name="01.png" width="27" height="26"/>
+        <image name="icAdd.png" width="24" height="24"/>
+        <image name="icCamera.png" width="24" height="24"/>
+        <image name="icSend.png" width="24" height="24"/>
+        <image name="mainpattern.png" width="375" height="667"/>
     </resources>
 </document>

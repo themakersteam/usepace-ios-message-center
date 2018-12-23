@@ -97,7 +97,7 @@ class SBMessageInputView: UIView {
     }
     
     class func getDefaultImage()-> UIImage {
-        if let defaultImage = UIImage(named: "send") {
+        if let defaultImage = UIImage(named: "send.png") {
             return defaultImage
         } else {
             return UIImage()

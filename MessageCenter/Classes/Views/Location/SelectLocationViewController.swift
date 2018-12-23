@@ -213,11 +213,11 @@ public class SelectLocationViewController: UIViewController {
         
         if hasDroppedPin {
             sendLocationBtn.setTitle("send_location.send_button.case_pin_location.title".localized, for: .normal)
-            sendLocationIcon.image = UIImage(named: "icredpin", in: Bundle(for: MessageCenter.self), compatibleWith: nil)
+            sendLocationIcon.image = UIImage(named: "icredpin.png", in: Bundle(for: MessageCenter.self), compatibleWith: nil)
         }
         else  {
             sendLocationBtn.setTitle("send_location.send_button.case_my_location.title".localized, for: .normal)
-            sendLocationIcon.image = UIImage(named: "sendlocation", in: Bundle(for: MessageCenter.self), compatibleWith: nil)
+            sendLocationIcon.image = UIImage(named: "sendlocation.png", in: Bundle(for: MessageCenter.self), compatibleWith: nil)
         } 
     }
     private func setRegionToMyLocation(){
@@ -302,7 +302,8 @@ extension SelectLocationViewController : CLLocationManagerDelegate {
 // -MARK: Class Helpers
 extension SelectLocationViewController {
     class func present(on vc: UIViewController, withDelegate delegate: SelectLocationDelegate, animated: Bool = true, completion: (() -> Void)? = nil) {
-        let podBundle = Bundle(for: MessageCenter.self)
+        
+        let podBundle = Bundle.bundleForXib(SelectLocationViewController.self)
         let selectLocationVC = SelectLocationViewController(nibName: "SelectLocationView", bundle: podBundle)
         selectLocationVC.delegate = delegate
         vc.present(selectLocationVC, animated: animated, completion: completion)
