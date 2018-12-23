@@ -1567,6 +1567,11 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 self.lblSubTitle.textColor = self.themeObject?.primaryActionIconsColor
                 self.btnBack.tintColor = self.themeObject?.primaryNavigationButtonColor
             }
+            
+            if UIView.userInterfaceLayoutDirection(for: UIView.appearance().semanticContentAttribute) == .rightToLeft {
+                btnBack.transform = btnBack.transform.rotated(by: CGFloat(Double.pi))
+            }
+            
             self.btnBack.addTarget(self, action: #selector(close), for: .touchUpInside)
             
         }

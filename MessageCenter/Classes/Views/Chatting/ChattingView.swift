@@ -139,6 +139,11 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
             }
         }
         
+        // Workaround: Attach button in Arabic Layout is shifting to the right
+        if UIView.userInterfaceLayoutDirection(for: UIView.appearance().semanticContentAttribute) == .rightToLeft {
+            fileAttachButton.imageEdgeInsets.left = -fileAttachButton.frame.width
+        }
+        
         
         self.initialLoading = true
         self.lastMessageHeight = 0
@@ -227,8 +232,8 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         if self.scrollLock == true && force == false {
             return
         }
-        
-        self.chattingTableView.scrollToRow(at: IndexPath.init(row: self.messages.count - 1, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
+
+        self.chattingTableView.scrollToRow(at: IndexPath.init(row: self.messages.count, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
     }
     
     func scrollToPosition(position: Int) {
