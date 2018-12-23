@@ -38,23 +38,7 @@
 		161301436F5B1B770CD6914A7E194A8F /* Array+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F295A349BF9DD910C42463789DD9D00 /* Array+Foundation.swift */; };
 		163DEFC11FEC2A8F71990079093EB790 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F60E170D9688BED2E518A9B7725CE37C /* Foundation.framework */; };
 		16BF15378C934EAE558A776C57264C75 /* RandomBytesSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC196EDF6970D213CABB6EF720686833 /* RandomBytesSequence.swift */; };
-		1A483F7A21CD132D00CA9C4D /* MessageCenter.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F7721CD132C00CA9C4D /* MessageCenter.strings */; };
-		1A483F7B21CD133300CA9C4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F4E21CD0C8300CA9C4D /* Assets.xcassets */; };
-		1A483F7C21CD133800CA9C4D /* ChattingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F5521CD0C8300CA9C4D /* ChattingView.xib */; };
-		1A483F7D21CD133C00CA9C4D /* WelcomeMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F5D21CD0C8300CA9C4D /* WelcomeMessageTableViewCell.xib */; };
-		1A483F7E21CD134300CA9C4D /* SelectLocationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F5621CD0C8300CA9C4D /* SelectLocationView.xib */; };
-		1A483F7F21CD134700CA9C4D /* OutgoingUserMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F5821CD0C8300CA9C4D /* OutgoingUserMessageTableViewCell.xib */; };
-		1A483F8021CD134A00CA9C4D /* OutgoingImageFileMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F4C21CD0C8300CA9C4D /* OutgoingImageFileMessageTableViewCell.xib */; };
-		1A483F8121CD134E00CA9C4D /* OutgoingGeneralUrlPreviewTempMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F5421CD0C8300CA9C4D /* OutgoingGeneralUrlPreviewTempMessageTableViewCell.xib */; };
-		1A483F8221CD135800CA9C4D /* OutgoingGeneralUrlPreviewMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F5721CD0C8300CA9C4D /* OutgoingGeneralUrlPreviewMessageTableViewCell.xib */; };
-		1A483F8421CD136700CA9C4D /* NeutralMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F4A21CD0C8300CA9C4D /* NeutralMessageTableViewCell.xib */; };
-		1A483F8521CD137800CA9C4D /* IncomingUserMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F5221CD0C8300CA9C4D /* IncomingUserMessageTableViewCell.xib */; };
-		1A483F8621CD137D00CA9C4D /* IncomingImageFileMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F5F21CD0C8300CA9C4D /* IncomingImageFileMessageTableViewCell.xib */; };
-		1A483F8721CD138600CA9C4D /* IncomingGeneralUrlPreviewMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F5121CD0C8300CA9C4D /* IncomingGeneralUrlPreviewMessageTableViewCell.xib */; };
-		1A483F8821CD138B00CA9C4D /* ImagePreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F5E21CD0C8300CA9C4D /* ImagePreviewViewController.xib */; };
-		1A483F8921CD138F00CA9C4D /* GroupChannelChattingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F5321CD0C8300CA9C4D /* GroupChannelChattingViewController.xib */; };
 		1A483F8A21CD140800CA9C4D /* MessageCenter.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F7421CD132C00CA9C4D /* MessageCenter.strings */; };
-		1A483F8B21CD142E00CA9C4D /* MessageCenter.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F7421CD132C00CA9C4D /* MessageCenter.strings */; };
 		1A483F8C21CD143A00CA9C4D /* MessageCenter.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F7721CD132C00CA9C4D /* MessageCenter.strings */; };
 		1A483F8D21CD144100CA9C4D /* ChattingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F5521CD0C8300CA9C4D /* ChattingView.xib */; };
 		1A483F8E21CD144500CA9C4D /* GroupChannelChattingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F5321CD0C8300CA9C4D /* GroupChannelChattingViewController.xib */; };
@@ -2396,22 +2380,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A483F8421CD136700CA9C4D /* NeutralMessageTableViewCell.xib in Resources */,
-				1A483F8021CD134A00CA9C4D /* OutgoingImageFileMessageTableViewCell.xib in Resources */,
-				1A483F7D21CD133C00CA9C4D /* WelcomeMessageTableViewCell.xib in Resources */,
-				1A483F8B21CD142E00CA9C4D /* MessageCenter.strings in Resources */,
-				1A483F8121CD134E00CA9C4D /* OutgoingGeneralUrlPreviewTempMessageTableViewCell.xib in Resources */,
-				1A483F8621CD137D00CA9C4D /* IncomingImageFileMessageTableViewCell.xib in Resources */,
-				1A483F7B21CD133300CA9C4D /* Assets.xcassets in Resources */,
-				1A483F7F21CD134700CA9C4D /* OutgoingUserMessageTableViewCell.xib in Resources */,
-				1A483F7E21CD134300CA9C4D /* SelectLocationView.xib in Resources */,
-				1A483F8721CD138600CA9C4D /* IncomingGeneralUrlPreviewMessageTableViewCell.xib in Resources */,
-				1A483F8521CD137800CA9C4D /* IncomingUserMessageTableViewCell.xib in Resources */,
-				1A483F7C21CD133800CA9C4D /* ChattingView.xib in Resources */,
-				1A483F7A21CD132D00CA9C4D /* MessageCenter.strings in Resources */,
-				1A483F8221CD135800CA9C4D /* OutgoingGeneralUrlPreviewMessageTableViewCell.xib in Resources */,
-				1A483F8921CD138F00CA9C4D /* GroupChannelChattingViewController.xib in Resources */,
-				1A483F8821CD138B00CA9C4D /* ImagePreviewViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
