@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MessageCenter'
-  s.version          = '0.1.17'
+  s.version          = '0.1.19'
   s.summary          = 'MessageCenter is chatting SDK'
 
 # This description is used to generate tags and improve search results.
@@ -41,7 +41,7 @@ TODO: Add long description of the pod here.
   s.dependency 'HTMLKit'
   s.dependency 'Toast', '~> 4.0.0'
    s.resource_bundles = {
-     'MessageCenter' => ['MessageCenter/Assets/*.{storyboard,xib,xcassets,*.lproj/*.strings}',]
+     'MessageCenter' => ['MessageCenter/Assets/*.{storyboard,xib,xcassets,*.lproj/*.strings,strings}',]
    }
 #   s.resources = 'MessageCenter/Assets/*.xcassets'
    #'MessageCenter/Localizable/*.lproj/*.strings'

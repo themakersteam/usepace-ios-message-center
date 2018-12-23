@@ -38,22 +38,23 @@
 		161301436F5B1B770CD6914A7E194A8F /* Array+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F295A349BF9DD910C42463789DD9D00 /* Array+Foundation.swift */; };
 		163DEFC11FEC2A8F71990079093EB790 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F60E170D9688BED2E518A9B7725CE37C /* Foundation.framework */; };
 		16BF15378C934EAE558A776C57264C75 /* RandomBytesSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC196EDF6970D213CABB6EF720686833 /* RandomBytesSequence.swift */; };
-		1A483F8A21CD140800CA9C4D /* MessageCenter.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F7421CD132C00CA9C4D /* MessageCenter.strings */; };
-		1A483F8C21CD143A00CA9C4D /* MessageCenter.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F7721CD132C00CA9C4D /* MessageCenter.strings */; };
-		1A483F8D21CD144100CA9C4D /* ChattingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F5521CD0C8300CA9C4D /* ChattingView.xib */; };
-		1A483F8E21CD144500CA9C4D /* GroupChannelChattingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F5321CD0C8300CA9C4D /* GroupChannelChattingViewController.xib */; };
-		1A483F8F21CD149000CA9C4D /* ImagePreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F5E21CD0C8300CA9C4D /* ImagePreviewViewController.xib */; };
-		1A483F9021CD149300CA9C4D /* IncomingGeneralUrlPreviewMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F5121CD0C8300CA9C4D /* IncomingGeneralUrlPreviewMessageTableViewCell.xib */; };
-		1A483F9121CD149700CA9C4D /* IncomingImageFileMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F5F21CD0C8300CA9C4D /* IncomingImageFileMessageTableViewCell.xib */; };
-		1A483F9221CD149A00CA9C4D /* IncomingUserMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F5221CD0C8300CA9C4D /* IncomingUserMessageTableViewCell.xib */; };
-		1A483F9321CD149D00CA9C4D /* NeutralMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F4A21CD0C8300CA9C4D /* NeutralMessageTableViewCell.xib */; };
-		1A483F9421CD14A000CA9C4D /* OutgoingGeneralUrlPreviewMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F5721CD0C8300CA9C4D /* OutgoingGeneralUrlPreviewMessageTableViewCell.xib */; };
-		1A483F9521CD14A300CA9C4D /* OutgoingGeneralUrlPreviewTempMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F5421CD0C8300CA9C4D /* OutgoingGeneralUrlPreviewTempMessageTableViewCell.xib */; };
-		1A483F9621CD14A600CA9C4D /* OutgoingImageFileMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F4C21CD0C8300CA9C4D /* OutgoingImageFileMessageTableViewCell.xib */; };
-		1A483F9721CD14A900CA9C4D /* OutgoingUserMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F5821CD0C8300CA9C4D /* OutgoingUserMessageTableViewCell.xib */; };
-		1A483F9821CD14AC00CA9C4D /* SelectLocationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F5621CD0C8300CA9C4D /* SelectLocationView.xib */; };
-		1A483F9921CD14AE00CA9C4D /* WelcomeMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F5D21CD0C8300CA9C4D /* WelcomeMessageTableViewCell.xib */; };
-		1A483F9A21CD150100CA9C4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F4E21CD0C8300CA9C4D /* Assets.xcassets */; };
+		1A483FB621CF575300CA9C4D /* IncomingGeneralUrlPreviewMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F9D21CF574D00CA9C4D /* IncomingGeneralUrlPreviewMessageTableViewCell.xib */; };
+		1A483FB721CF575300CA9C4D /* ImagePreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F9E21CF574D00CA9C4D /* ImagePreviewViewController.xib */; };
+		1A483FB921CF575300CA9C4D /* OutgoingGeneralUrlPreviewMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483FA021CF574D00CA9C4D /* OutgoingGeneralUrlPreviewMessageTableViewCell.xib */; };
+		1A483FBA21CF575300CA9C4D /* WelcomeMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483FA121CF574D00CA9C4D /* WelcomeMessageTableViewCell.xib */; };
+		1A483FBB21CF575300CA9C4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A483FA221CF574D00CA9C4D /* Assets.xcassets */; };
+		1A483FBC21CF575300CA9C4D /* IncomingFileMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483FA321CF574E00CA9C4D /* IncomingFileMessageTableViewCell.xib */; };
+		1A483FBE21CF575300CA9C4D /* NeutralMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483FA521CF574E00CA9C4D /* NeutralMessageTableViewCell.xib */; };
+		1A483FBF21CF575300CA9C4D /* OutgoingGeneralUrlPreviewTempMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483FA621CF574E00CA9C4D /* OutgoingGeneralUrlPreviewTempMessageTableViewCell.xib */; };
+		1A483FC121CF575300CA9C4D /* OutgoingUserMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483FA821CF574F00CA9C4D /* OutgoingUserMessageTableViewCell.xib */; };
+		1A483FC221CF575300CA9C4D /* GroupChannelChattingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483FA921CF574F00CA9C4D /* GroupChannelChattingViewController.xib */; };
+		1A483FC321CF575300CA9C4D /* ChattingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483FAA21CF574F00CA9C4D /* ChattingView.xib */; };
+		1A483FC421CF575300CA9C4D /* MessageCenter.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1A483FAC21CF575000CA9C4D /* MessageCenter.strings */; };
+		1A483FC521CF575300CA9C4D /* MessageCenter.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1A483FAF21CF575000CA9C4D /* MessageCenter.strings */; };
+		1A483FC621CF575300CA9C4D /* IncomingImageFileMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483FB121CF575000CA9C4D /* IncomingImageFileMessageTableViewCell.xib */; };
+		1A483FC821CF575300CA9C4D /* IncomingUserMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483FB321CF575100CA9C4D /* IncomingUserMessageTableViewCell.xib */; };
+		1A483FC921CF575300CA9C4D /* OutgoingImageFileMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483FB421CF575200CA9C4D /* OutgoingImageFileMessageTableViewCell.xib */; };
+		1A483FCA21CF575300CA9C4D /* SelectLocationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483FB521CF575200CA9C4D /* SelectLocationView.xib */; };
 		1AE88E3C8E174CD5E4EFBB8C4B5CA768 /* ProgressProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DF7528E712E30A3745D3180FFCDC5F8 /* ProgressProtocol.swift */; };
 		1B35F735A0D7EDAFA1387607403C1D83 /* ZeroPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BA6862EBE4C4458C14846425FF45A4 /* ZeroPadding.swift */; };
 		1B534F0A1A4AA31C0C4A2F33F04E3EC1 /* PKCS7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286BDF1B4DC24E5E14AC7837EDBB7E29 /* PKCS7.swift */; };
@@ -587,22 +588,23 @@
 		189BC5BBE93F5759199609C8FB2C99B3 /* CSSTypeSelector.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CSSTypeSelector.h; path = Sources/include/CSSTypeSelector.h; sourceTree = "<group>"; };
 		193CD5B356C436C58C11AC517FC0D5E6 /* MessageCenter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MessageCenter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A206F9538A8F2273640B3E29E287A2B /* ChaCha20.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChaCha20.swift; path = Sources/CryptoSwift/ChaCha20.swift; sourceTree = "<group>"; };
-		1A483F4A21CD0C8300CA9C4D /* NeutralMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NeutralMessageTableViewCell.xib; sourceTree = "<group>"; };
-		1A483F4C21CD0C8300CA9C4D /* OutgoingImageFileMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutgoingImageFileMessageTableViewCell.xib; sourceTree = "<group>"; };
-		1A483F4E21CD0C8300CA9C4D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		1A483F5121CD0C8300CA9C4D /* IncomingGeneralUrlPreviewMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IncomingGeneralUrlPreviewMessageTableViewCell.xib; sourceTree = "<group>"; };
-		1A483F5221CD0C8300CA9C4D /* IncomingUserMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IncomingUserMessageTableViewCell.xib; sourceTree = "<group>"; };
-		1A483F5321CD0C8300CA9C4D /* GroupChannelChattingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupChannelChattingViewController.xib; sourceTree = "<group>"; };
-		1A483F5421CD0C8300CA9C4D /* OutgoingGeneralUrlPreviewTempMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutgoingGeneralUrlPreviewTempMessageTableViewCell.xib; sourceTree = "<group>"; };
-		1A483F5521CD0C8300CA9C4D /* ChattingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChattingView.xib; sourceTree = "<group>"; };
-		1A483F5621CD0C8300CA9C4D /* SelectLocationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectLocationView.xib; sourceTree = "<group>"; };
-		1A483F5721CD0C8300CA9C4D /* OutgoingGeneralUrlPreviewMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutgoingGeneralUrlPreviewMessageTableViewCell.xib; sourceTree = "<group>"; };
-		1A483F5821CD0C8300CA9C4D /* OutgoingUserMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutgoingUserMessageTableViewCell.xib; sourceTree = "<group>"; };
-		1A483F5D21CD0C8300CA9C4D /* WelcomeMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomeMessageTableViewCell.xib; sourceTree = "<group>"; };
-		1A483F5E21CD0C8300CA9C4D /* ImagePreviewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImagePreviewViewController.xib; sourceTree = "<group>"; };
-		1A483F5F21CD0C8300CA9C4D /* IncomingImageFileMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IncomingImageFileMessageTableViewCell.xib; sourceTree = "<group>"; };
-		1A483F7521CD132C00CA9C4D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = MessageCenter.strings; sourceTree = "<group>"; };
-		1A483F7821CD132C00CA9C4D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = MessageCenter.strings; sourceTree = "<group>"; };
+		1A483F9D21CF574D00CA9C4D /* IncomingGeneralUrlPreviewMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IncomingGeneralUrlPreviewMessageTableViewCell.xib; sourceTree = "<group>"; };
+		1A483F9E21CF574D00CA9C4D /* ImagePreviewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImagePreviewViewController.xib; sourceTree = "<group>"; };
+		1A483FA021CF574D00CA9C4D /* OutgoingGeneralUrlPreviewMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutgoingGeneralUrlPreviewMessageTableViewCell.xib; sourceTree = "<group>"; };
+		1A483FA121CF574D00CA9C4D /* WelcomeMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomeMessageTableViewCell.xib; sourceTree = "<group>"; };
+		1A483FA221CF574D00CA9C4D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1A483FA321CF574E00CA9C4D /* IncomingFileMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IncomingFileMessageTableViewCell.xib; sourceTree = "<group>"; };
+		1A483FA521CF574E00CA9C4D /* NeutralMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NeutralMessageTableViewCell.xib; sourceTree = "<group>"; };
+		1A483FA621CF574E00CA9C4D /* OutgoingGeneralUrlPreviewTempMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutgoingGeneralUrlPreviewTempMessageTableViewCell.xib; sourceTree = "<group>"; };
+		1A483FA821CF574F00CA9C4D /* OutgoingUserMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutgoingUserMessageTableViewCell.xib; sourceTree = "<group>"; };
+		1A483FA921CF574F00CA9C4D /* GroupChannelChattingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupChannelChattingViewController.xib; sourceTree = "<group>"; };
+		1A483FAA21CF574F00CA9C4D /* ChattingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChattingView.xib; sourceTree = "<group>"; };
+		1A483FAD21CF575000CA9C4D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = MessageCenter.strings; sourceTree = "<group>"; };
+		1A483FB021CF575000CA9C4D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = MessageCenter.strings; sourceTree = "<group>"; };
+		1A483FB121CF575000CA9C4D /* IncomingImageFileMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IncomingImageFileMessageTableViewCell.xib; sourceTree = "<group>"; };
+		1A483FB321CF575100CA9C4D /* IncomingUserMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IncomingUserMessageTableViewCell.xib; sourceTree = "<group>"; };
+		1A483FB421CF575200CA9C4D /* OutgoingImageFileMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutgoingImageFileMessageTableViewCell.xib; sourceTree = "<group>"; };
+		1A483FB521CF575200CA9C4D /* SelectLocationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectLocationView.xib; sourceTree = "<group>"; };
 		1AB72D011BDDB27BE3880B23BE01C1DE /* HTMLMarker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HTMLMarker.m; path = Sources/HTMLMarker.m; sourceTree = "<group>"; };
 		1B3ACCC9473545AC5FC1D5521F686CD6 /* UInt64+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UInt64+Extension.swift"; path = "Sources/CryptoSwift/UInt64+Extension.swift"; sourceTree = "<group>"; };
 		1C1D028FE558B52C973AB83D8CB5491E /* String+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+Extension.swift"; path = "Sources/CryptoSwift/String+Extension.swift"; sourceTree = "<group>"; };
@@ -1149,39 +1151,40 @@
 		1A483F4821CD0C8300CA9C4D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				1A483F7321CD132C00CA9C4D /* ar.lproj */,
-				1A483F7621CD132C00CA9C4D /* en.lproj */,
-				1A483F4E21CD0C8300CA9C4D /* Assets.xcassets */,
-				1A483F5521CD0C8300CA9C4D /* ChattingView.xib */,
-				1A483F5321CD0C8300CA9C4D /* GroupChannelChattingViewController.xib */,
-				1A483F5E21CD0C8300CA9C4D /* ImagePreviewViewController.xib */,
-				1A483F5121CD0C8300CA9C4D /* IncomingGeneralUrlPreviewMessageTableViewCell.xib */,
-				1A483F5F21CD0C8300CA9C4D /* IncomingImageFileMessageTableViewCell.xib */,
-				1A483F5221CD0C8300CA9C4D /* IncomingUserMessageTableViewCell.xib */,
-				1A483F4A21CD0C8300CA9C4D /* NeutralMessageTableViewCell.xib */,
-				1A483F5721CD0C8300CA9C4D /* OutgoingGeneralUrlPreviewMessageTableViewCell.xib */,
-				1A483F5421CD0C8300CA9C4D /* OutgoingGeneralUrlPreviewTempMessageTableViewCell.xib */,
-				1A483F4C21CD0C8300CA9C4D /* OutgoingImageFileMessageTableViewCell.xib */,
-				1A483F5821CD0C8300CA9C4D /* OutgoingUserMessageTableViewCell.xib */,
-				1A483F5621CD0C8300CA9C4D /* SelectLocationView.xib */,
-				1A483F5D21CD0C8300CA9C4D /* WelcomeMessageTableViewCell.xib */,
+				1A483FAB21CF575000CA9C4D /* ar.lproj */,
+				1A483FA221CF574D00CA9C4D /* Assets.xcassets */,
+				1A483FAA21CF574F00CA9C4D /* ChattingView.xib */,
+				1A483FAE21CF575000CA9C4D /* en.lproj */,
+				1A483FA921CF574F00CA9C4D /* GroupChannelChattingViewController.xib */,
+				1A483F9E21CF574D00CA9C4D /* ImagePreviewViewController.xib */,
+				1A483FA321CF574E00CA9C4D /* IncomingFileMessageTableViewCell.xib */,
+				1A483F9D21CF574D00CA9C4D /* IncomingGeneralUrlPreviewMessageTableViewCell.xib */,
+				1A483FB121CF575000CA9C4D /* IncomingImageFileMessageTableViewCell.xib */,
+				1A483FB321CF575100CA9C4D /* IncomingUserMessageTableViewCell.xib */,
+				1A483FA521CF574E00CA9C4D /* NeutralMessageTableViewCell.xib */,
+				1A483FA021CF574D00CA9C4D /* OutgoingGeneralUrlPreviewMessageTableViewCell.xib */,
+				1A483FA621CF574E00CA9C4D /* OutgoingGeneralUrlPreviewTempMessageTableViewCell.xib */,
+				1A483FB421CF575200CA9C4D /* OutgoingImageFileMessageTableViewCell.xib */,
+				1A483FA821CF574F00CA9C4D /* OutgoingUserMessageTableViewCell.xib */,
+				1A483FB521CF575200CA9C4D /* SelectLocationView.xib */,
+				1A483FA121CF574D00CA9C4D /* WelcomeMessageTableViewCell.xib */,
 			);
 			name = Assets;
 			path = MessageCenter/Assets;
 			sourceTree = "<group>";
 		};
-		1A483F7321CD132C00CA9C4D /* ar.lproj */ = {
+		1A483FAB21CF575000CA9C4D /* ar.lproj */ = {
 			isa = PBXGroup;
 			children = (
-				1A483F7421CD132C00CA9C4D /* MessageCenter.strings */,
+				1A483FAC21CF575000CA9C4D /* MessageCenter.strings */,
 			);
 			path = ar.lproj;
 			sourceTree = "<group>";
 		};
-		1A483F7621CD132C00CA9C4D /* en.lproj */ = {
+		1A483FAE21CF575000CA9C4D /* en.lproj */ = {
 			isa = PBXGroup;
 			children = (
-				1A483F7721CD132C00CA9C4D /* MessageCenter.strings */,
+				1A483FAF21CF575000CA9C4D /* MessageCenter.strings */,
 			);
 			path = en.lproj;
 			sourceTree = "<group>";
@@ -2408,23 +2411,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A483F9421CD14A000CA9C4D /* OutgoingGeneralUrlPreviewMessageTableViewCell.xib in Resources */,
 				35F5EB87FEA3EACBEFC14EBDAFBAA7A7 /* MessageCenter.bundle in Resources */,
-				1A483F9121CD149700CA9C4D /* IncomingImageFileMessageTableViewCell.xib in Resources */,
-				1A483F9521CD14A300CA9C4D /* OutgoingGeneralUrlPreviewTempMessageTableViewCell.xib in Resources */,
-				1A483F9921CD14AE00CA9C4D /* WelcomeMessageTableViewCell.xib in Resources */,
-				1A483F9221CD149A00CA9C4D /* IncomingUserMessageTableViewCell.xib in Resources */,
-				1A483F9A21CD150100CA9C4D /* Assets.xcassets in Resources */,
-				1A483F8C21CD143A00CA9C4D /* MessageCenter.strings in Resources */,
-				1A483F9021CD149300CA9C4D /* IncomingGeneralUrlPreviewMessageTableViewCell.xib in Resources */,
-				1A483F9321CD149D00CA9C4D /* NeutralMessageTableViewCell.xib in Resources */,
-				1A483F8D21CD144100CA9C4D /* ChattingView.xib in Resources */,
-				1A483F8E21CD144500CA9C4D /* GroupChannelChattingViewController.xib in Resources */,
-				1A483F9721CD14A900CA9C4D /* OutgoingUserMessageTableViewCell.xib in Resources */,
-				1A483F9621CD14A600CA9C4D /* OutgoingImageFileMessageTableViewCell.xib in Resources */,
-				1A483F9821CD14AC00CA9C4D /* SelectLocationView.xib in Resources */,
-				1A483F8A21CD140800CA9C4D /* MessageCenter.strings in Resources */,
-				1A483F8F21CD149000CA9C4D /* ImagePreviewViewController.xib in Resources */,
+				1A483FBC21CF575300CA9C4D /* IncomingFileMessageTableViewCell.xib in Resources */,
+				1A483FC421CF575300CA9C4D /* MessageCenter.strings in Resources */,
+				1A483FC821CF575300CA9C4D /* IncomingUserMessageTableViewCell.xib in Resources */,
+				1A483FCA21CF575300CA9C4D /* SelectLocationView.xib in Resources */,
+				1A483FBA21CF575300CA9C4D /* WelcomeMessageTableViewCell.xib in Resources */,
+				1A483FC921CF575300CA9C4D /* OutgoingImageFileMessageTableViewCell.xib in Resources */,
+				1A483FBF21CF575300CA9C4D /* OutgoingGeneralUrlPreviewTempMessageTableViewCell.xib in Resources */,
+				1A483FB621CF575300CA9C4D /* IncomingGeneralUrlPreviewMessageTableViewCell.xib in Resources */,
+				1A483FBE21CF575300CA9C4D /* NeutralMessageTableViewCell.xib in Resources */,
+				1A483FBB21CF575300CA9C4D /* Assets.xcassets in Resources */,
+				1A483FC621CF575300CA9C4D /* IncomingImageFileMessageTableViewCell.xib in Resources */,
+				1A483FB721CF575300CA9C4D /* ImagePreviewViewController.xib in Resources */,
+				1A483FB921CF575300CA9C4D /* OutgoingGeneralUrlPreviewMessageTableViewCell.xib in Resources */,
+				1A483FC321CF575300CA9C4D /* ChattingView.xib in Resources */,
+				1A483FC521CF575300CA9C4D /* MessageCenter.strings in Resources */,
+				1A483FC221CF575300CA9C4D /* GroupChannelChattingViewController.xib in Resources */,
+				1A483FC121CF575300CA9C4D /* OutgoingUserMessageTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2887,18 +2891,18 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		1A483F7421CD132C00CA9C4D /* MessageCenter.strings */ = {
+		1A483FAC21CF575000CA9C4D /* MessageCenter.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				1A483F7521CD132C00CA9C4D /* ar */,
+				1A483FAD21CF575000CA9C4D /* ar */,
 			);
 			name = MessageCenter.strings;
 			sourceTree = "<group>";
 		};
-		1A483F7721CD132C00CA9C4D /* MessageCenter.strings */ = {
+		1A483FAF21CF575000CA9C4D /* MessageCenter.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				1A483F7821CD132C00CA9C4D /* en */,
+				1A483FB021CF575000CA9C4D /* en */,
 			);
 			name = MessageCenter.strings;
 			sourceTree = "<group>";
