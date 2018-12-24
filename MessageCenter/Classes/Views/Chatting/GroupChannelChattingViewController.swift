@@ -1415,16 +1415,76 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     }
     
     // MARK: - UIImagePickerController Methods
+extension GroupChannelChattingViewController: UIImagePickerControllerDelegate {
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            print(error)
+        } else {
+            fetchLastImage()
+        }
+    }
     
-    extension GroupChannelChattingViewController: UIImagePickerControllerDelegate {
+    func fetchLastImage()
+    {
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        fetchOptions.fetchLimit = 1
+        let fetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
+        if (fetchResult.firstObject != nil){
+            let lastImageAsset: PHAsset = fetchResult.firstObject as! PHAsset
+            sendImageProcess(assest: lastImageAsset)
+        }
+    }
+    func sendImageProcess (assest: PHAsset){
+        let asset = assest
+        let options = PHImageRequestOptions()
+        options.isSynchronous = true
+        options.isNetworkAccessAllowed = false
+        options.deliveryMode = PHImageRequestOptionsDeliveryMode.highQualityFormat
+        if asset != nil {
+            PHImageManager.default().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.default, options: nil, resultHandler: { (result, info) in
+                if (result != nil) {
+                    // Call the Caption ViewController
+                    let imageCaptionVC = ImagePreviewViewController(nibName: "ImagePreviewViewController", bundle: self.podBundle)
+                    imageCaptionVC.imageToUpload = result
+                    // If user has typed any text, use it as caption
+                    if self.chattingView.messageTextView.textView.text != nil {
+                        imageCaptionVC.strCaption = self.chattingView.messageTextView.textView.text
+                    }
+                    imageCaptionVC.delegate = self
+                    self.navigationController?.pushViewController(imageCaptionVC, animated: true)                                                            }
+            })
+        }
+    }
+  
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let mediaType = info[UIImagePickerControllerMediaType] as! String
         
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-            let mediaType = info[UIImagePickerControllerMediaType] as! String
-            
-            picker.dismiss(animated: true) {
-                if CFStringCompare(mediaType as CFString, kUTTypeImage, []) == CFComparisonResult.compareEqualTo {
-                    self.mediaInfo = info
-                    let imagePath: URL = self.mediaInfo![UIImagePickerControllerReferenceURL] as! URL
+        picker.dismiss(animated: true) {
+            if CFStringCompare(mediaType as CFString, kUTTypeImage, []) == CFComparisonResult.compareEqualTo {
+                self.mediaInfo = [String : Any] ()
+                self.mediaInfo = info
+                
+                // Delegate didFinishPickingMediaWithInfo gets called after a pic is taken using the camera.
+                // UIImagePickerControllerReferenceURL object will be nil as the image has not been saved to the camera roll yet.
+                guard let path =  self.mediaInfo![UIImagePickerControllerReferenceURL]  else {
+                    // image from camera
+                    if (picker.sourceType == UIImagePickerControllerSourceType.camera) {
+                        var selectedImage: UIImage!
+                        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
+                            selectedImage = image
+                        } else if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+                            selectedImage = image
+                        }
+                        // save image
+                        UIImageWriteToSavedPhotosAlbum(selectedImage, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
+                    }
+                    return
+                }
+                
+                // image from photo library
+                if  let imagePath: URL = self.mediaInfo![UIImagePickerControllerReferenceURL] as! URL {
                     let imageName: NSString = (imagePath.lastPathComponent as NSString?)!
                     let ext = imageName.pathExtension
                     let UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, ext as CFString, nil)?.takeRetainedValue()
@@ -1451,13 +1511,15 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                         })
                     }
                 }
+                
             }
         }
         
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            picker.dismiss(animated: true, completion: nil)
-        }
     }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
     
     // MARK: - Observer Methods
     
@@ -1673,13 +1735,20 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
 }
 
 extension GroupChannelChattingViewController : ImagePreviewProtocol {
-    
+
     func imagePreviewDidDismiss(_ image: UIImage?, caption: String) {
         if self.mediaInfo != nil && image != nil {
-            
             self.imageCaption = caption
-            let imagePath: URL = self.mediaInfo![UIImagePickerControllerReferenceURL] as! URL
-            let imageName: NSString = (imagePath.lastPathComponent as NSString?)!
+            // Delegate didFinishPickingMediaWithInfo gets called after a pic is taken using the camera.
+            // UIImagePickerControllerReferenceURL object will be nil as the image has not been saved to the camera roll yet.
+            var imageName: NSString = ""
+            if  self.mediaInfo![UIImagePickerControllerReferenceURL]  == nil {
+                imageName = "camera.JPEG"
+            }else{
+                let imagePath: URL = self.mediaInfo![UIImagePickerControllerReferenceURL] as! URL
+                 imageName = (imagePath.lastPathComponent as NSString?)!
+            }
+
             let ext = imageName.pathExtension
             let UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, ext as CFString, nil)?.takeRetainedValue()
             let mimeType = UTTypeCopyPreferredTagWithClass(UTI!, kUTTagClassMIMEType)?.takeRetainedValue();
