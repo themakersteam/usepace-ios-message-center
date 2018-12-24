@@ -126,6 +126,7 @@ class ImagePreviewViewController: UIViewController {
     
     @IBAction func btnSendTapped(_ sender: Any) {
         self.view.endEditing(true)
+        strCaption = messageInputView?.textView.text ?? ""
         if strCaption.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == true {
             strCaption = ""
         }
