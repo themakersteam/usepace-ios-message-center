@@ -30,16 +30,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nxZ-VX-cuY">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="95"/>
+                    <rect key="frame" x="0.0" y="20" width="375" height="65"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rider Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CpO-UK-WRT">
-                            <rect key="frame" x="142.5" y="32" width="90" height="21"/>
+                            <rect key="frame" x="142.5" y="4" width="90" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="1" green="0.80784313725490198" blue="0.035294117647058823" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#12345678 • Restaurant" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zCi-UH-VIJ">
-                            <rect key="frame" x="93.5" y="60" width="188" height="21"/>
+                            <rect key="frame" x="93.5" y="32" width="188" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.32156862745098036" green="0.2627450980392157" blue="0.24313725490196078" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -56,11 +56,11 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="CpO-UK-WRT" firstAttribute="top" secondItem="nxZ-VX-cuY" secondAttribute="top" constant="32" id="ZwP-rg-gBc"/>
+                        <constraint firstItem="CpO-UK-WRT" firstAttribute="top" secondItem="nxZ-VX-cuY" secondAttribute="top" constant="4" id="ZwP-rg-gBc"/>
                         <constraint firstItem="zCi-UH-VIJ" firstAttribute="top" secondItem="CpO-UK-WRT" secondAttribute="bottom" constant="7" id="bs3-T8-PJI"/>
                         <constraint firstItem="0tl-JU-cyo" firstAttribute="leading" secondItem="nxZ-VX-cuY" secondAttribute="leading" constant="9" id="dfJ-ds-CtQ"/>
-                        <constraint firstAttribute="height" constant="95" id="dh8-Iq-4aQ"/>
-                        <constraint firstItem="CpO-UK-WRT" firstAttribute="centerY" secondItem="0tl-JU-cyo" secondAttribute="centerY" id="ig7-35-WWG"/>
+                        <constraint firstAttribute="height" constant="65" id="dh8-Iq-4aQ"/>
+                        <constraint firstItem="0tl-JU-cyo" firstAttribute="centerY" secondItem="zCi-UH-VIJ" secondAttribute="centerY" id="ig7-35-WWG"/>
                         <constraint firstItem="CpO-UK-WRT" firstAttribute="centerX" secondItem="nxZ-VX-cuY" secondAttribute="centerX" id="jAJ-dN-kRK"/>
                         <constraint firstItem="zCi-UH-VIJ" firstAttribute="centerX" secondItem="nxZ-VX-cuY" secondAttribute="centerX" id="qjH-3k-IJm"/>
                     </constraints>
@@ -69,7 +69,7 @@
                     <rect key="frame" x="0.0" y="95" width="375" height="572"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AAA-Vq-7hk" customClass="ChattingView" customModule="MessageCenter" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="95" width="375" height="572"/>
+                    <rect key="frame" x="0.0" y="85" width="375" height="582"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view hidden="YES" alpha="0.75" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mOk-Vz-mXb" userLabel="BgActionSheet">
@@ -124,7 +124,7 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="mOk-Vz-mXb" firstAttribute="trailing" secondItem="8zt-xK-G6h" secondAttribute="trailing" id="0MF-Yo-H4p"/>
-                <constraint firstItem="nxZ-VX-cuY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="2Yf-r1-SUO"/>
+                <constraint firstItem="nxZ-VX-cuY" firstAttribute="top" secondItem="8zt-xK-G6h" secondAttribute="top" id="2Yf-r1-SUO"/>
                 <constraint firstAttribute="bottom" secondItem="AAA-Vq-7hk" secondAttribute="bottom" id="5Ab-UI-o7I"/>
                 <constraint firstItem="AAA-Vq-7hk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="6TI-Ys-n4Z"/>
                 <constraint firstItem="nxZ-VX-cuY" firstAttribute="leading" secondItem="8zt-xK-G6h" secondAttribute="leading" id="95g-cX-IYL"/>
@@ -139,7 +139,7 @@
                 <constraint firstItem="mOk-Vz-mXb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="jrb-XI-ccp"/>
                 <constraint firstAttribute="trailing" secondItem="Kgd-6s-sEz" secondAttribute="trailing" id="poM-97-6RZ"/>
                 <constraint firstItem="Kgd-6s-sEz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="rcY-nS-x5K"/>
-                <constraint firstItem="mOk-Vz-mXb" firstAttribute="bottom" secondItem="8zt-xK-G6h" secondAttribute="bottom" id="sqE-EN-eNq"/>
+                <constraint firstItem="mOk-Vz-mXb" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="sqE-EN-eNq"/>
                 <constraint firstAttribute="trailing" secondItem="AAA-Vq-7hk" secondAttribute="trailing" id="vXg-FO-oE6"/>
                 <constraint firstItem="8zt-xK-G6h" firstAttribute="bottom" secondItem="QWO-03-UeJ" secondAttribute="bottom" id="vYC-7U-Kit"/>
             </constraints>
@@ -148,6 +148,7 @@
         </view>
     </objects>
     <resources>
+        <image name="BgChat" width="16" height="16"/>
         <image name="back.png" width="24" height="24"/>
         <image name="mainpattern.png" width="375" height="667"/>
     </resources>

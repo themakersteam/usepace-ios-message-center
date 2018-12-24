@@ -1099,6 +1099,7 @@ extension ChattingView: SBMessageInputViewDelegate {
                 self.cnTextViewTrailing.constant = 12.0
                 UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveLinear, animations: {
                     self.layoutIfNeeded()
+                    self.inputContainerViewHeight.constant = 44.0
                 }) { (status) in
                     
                 }

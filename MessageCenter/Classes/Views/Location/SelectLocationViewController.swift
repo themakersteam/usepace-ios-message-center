@@ -85,6 +85,10 @@ public class SelectLocationViewController: UIViewController {
             return
         }
         
+        if locationAuthorizationStatus == .notDetermined {
+            // Yet to be determined.
+            return
+        }
         let alert = UIAlertController(title: "send_location.title".localized, message: "send_location.location_disabled_notice.message".localized, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "ok".localized, style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
