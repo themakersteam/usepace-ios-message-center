@@ -14,9 +14,11 @@ extension Bundle {
         let frameworkBundle = Bundle(for: viewController )
         let bundleURL = frameworkBundle.resourceURL?.appendingPathComponent("MessageCenter.bundle")
         var resourceBundle = Bundle(url: bundleURL!)
-        if resourceBundle?.path(forResource: String(describing: viewController), ofType: "xib") == nil {
-            resourceBundle = Bundle(for: MessageCenter.self)
-        }
+// Only for development pod. Not to be used otherwise. 
+        
+//        if resourceBundle?.path(forResource: String(describing: viewController), ofType: "xib") == nil {
+//            resourceBundle = Bundle(for: MessageCenter.self)
+//        }
         return resourceBundle
     }
 }

@@ -175,7 +175,20 @@ class SBMessageInputView: UIView {
             
             textView.clipsToBounds = true
 //            textView.layer.cornerRadius = containerViewHeight / 2.0
+            
             textView.contentInset = UIEdgeInsets(top: textViewTopInset, left: 0.0, bottom: 0.0, right: 0.0)
+            
+            if #available(iOS 9.0, *) {
+                if UIView.userInterfaceLayoutDirection(for: self.semanticContentAttribute) == .rightToLeft {
+                    textView.contentInset = UIEdgeInsets(top: textViewTopInset, left: 35.0, bottom: 0.0, right: 0.0)
+                }
+            } else {
+                if UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft {
+                    textView.contentInset = UIEdgeInsets(top: textViewTopInset, left: 35.0, bottom: 0.0, right: 0.0)
+                }
+            }
+            
+            
             textView.font = UIFont.systemFont(ofSize: 14.0)
             textView.backgroundColor = .clear
             mainView.addSubview(textView)

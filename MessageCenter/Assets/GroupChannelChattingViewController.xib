@@ -65,7 +65,7 @@
                         <constraint firstItem="zCi-UH-VIJ" firstAttribute="centerX" secondItem="nxZ-VX-cuY" secondAttribute="centerX" id="qjH-3k-IJm"/>
                     </constraints>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BgChat" translatesAutoresizingMaskIntoConstraints="NO" id="QWO-03-UeJ">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mainpattern.png" translatesAutoresizingMaskIntoConstraints="NO" id="QWO-03-UeJ">
                     <rect key="frame" x="0.0" y="95" width="375" height="572"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AAA-Vq-7hk" customClass="ChattingView" customModule="MessageCenter" customModuleProvider="target">
@@ -149,5 +149,6 @@
     </objects>
     <resources>
         <image name="back.png" width="24" height="24"/>
+        <image name="mainpattern.png" width="375" height="667"/>
     </resources>
 </document>
