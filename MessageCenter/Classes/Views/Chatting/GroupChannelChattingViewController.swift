@@ -1529,6 +1529,12 @@ fileprivate extension GroupChannelChattingViewController {
             if UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft {
                 self.btnBack.transform = CGAffineTransform(scaleX: -1,y: 1)
             }
+            if UIView.userInterfaceLayoutDirection(for: UIView.appearance().semanticContentAttribute) == .rightToLeft {
+                btnBack.transform = btnBack.transform.rotated(by: CGFloat(Double.pi))
+            }
+            
+            self.btnBack.addTarget(self, action: #selector(close), for: .touchUpInside)
+            
         }
         
         self.btnBack.addTarget(self, action: #selector(close), for: .touchUpInside)

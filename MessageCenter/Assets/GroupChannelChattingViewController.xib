@@ -65,9 +65,12 @@
                         <constraint firstItem="zCi-UH-VIJ" firstAttribute="centerX" secondItem="nxZ-VX-cuY" secondAttribute="centerX" id="qjH-3k-IJm"/>
                     </constraints>
                 </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BgChat" translatesAutoresizingMaskIntoConstraints="NO" id="QWO-03-UeJ">
+                    <rect key="frame" x="0.0" y="95" width="375" height="572"/>
+                </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AAA-Vq-7hk" customClass="ChattingView" customModule="MessageCenter" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="95" width="375" height="572"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view hidden="YES" alpha="0.75" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mOk-Vz-mXb" userLabel="BgActionSheet">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -128,13 +131,17 @@
                 <constraint firstItem="AAA-Vq-7hk" firstAttribute="top" secondItem="nxZ-VX-cuY" secondAttribute="bottom" id="AvC-v0-Z0J"/>
                 <constraint firstAttribute="bottom" secondItem="Kgd-6s-sEz" secondAttribute="bottom" id="CMH-VW-AZI"/>
                 <constraint firstItem="mOk-Vz-mXb" firstAttribute="leading" secondItem="8zt-xK-G6h" secondAttribute="leading" id="Nnf-hU-vfv"/>
+                <constraint firstItem="8zt-xK-G6h" firstAttribute="trailing" secondItem="QWO-03-UeJ" secondAttribute="trailing" id="SDd-0C-K7E"/>
                 <constraint firstItem="Kgd-6s-sEz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="YCq-AK-MYQ"/>
                 <constraint firstItem="nxZ-VX-cuY" firstAttribute="trailing" secondItem="8zt-xK-G6h" secondAttribute="trailing" id="cQB-um-Clg"/>
+                <constraint firstItem="QWO-03-UeJ" firstAttribute="leading" secondItem="8zt-xK-G6h" secondAttribute="leading" id="hcP-ER-VE5"/>
+                <constraint firstItem="QWO-03-UeJ" firstAttribute="top" secondItem="nxZ-VX-cuY" secondAttribute="bottom" id="i97-Q9-alh"/>
                 <constraint firstItem="mOk-Vz-mXb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="jrb-XI-ccp"/>
                 <constraint firstAttribute="trailing" secondItem="Kgd-6s-sEz" secondAttribute="trailing" id="poM-97-6RZ"/>
                 <constraint firstItem="Kgd-6s-sEz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="rcY-nS-x5K"/>
                 <constraint firstItem="mOk-Vz-mXb" firstAttribute="bottom" secondItem="8zt-xK-G6h" secondAttribute="bottom" id="sqE-EN-eNq"/>
                 <constraint firstAttribute="trailing" secondItem="AAA-Vq-7hk" secondAttribute="trailing" id="vXg-FO-oE6"/>
+                <constraint firstItem="8zt-xK-G6h" firstAttribute="bottom" secondItem="QWO-03-UeJ" secondAttribute="bottom" id="vYC-7U-Kit"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="8zt-xK-G6h"/>
             <point key="canvasLocation" x="525.60000000000002" y="73.313343328335833"/>
