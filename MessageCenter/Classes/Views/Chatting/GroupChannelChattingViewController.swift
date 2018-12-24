@@ -523,7 +523,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         if sender.state == .ended {
             view.endEditing(true)
         }
-        sender.cancelsTouchesInView = false
+        //sender.cancelsTouchesInView = false
     }
     
     @objc private func sendMessage() {
@@ -599,7 +599,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                         return
                     }
                     
-                    let index = IndexPath(row: self.chattingView.messages.index(of: preSendMessage)!, section: 0)
+                    let index = IndexPath(row: self.chattingView.messages.index(of: preSendMessage)! + 1, section: 0)
                     self.chattingView.chattingTableView.beginUpdates()
                     self.chattingView.messages[self.chattingView.messages.index(of: preSendMessage)!] = userMessage!
                     
@@ -625,7 +625,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 
                 UIView.setAnimationsEnabled(false)
                 
-                self.chattingView.chattingTableView.insertRows(at: [IndexPath(row: self.chattingView.messages.index(of: preSendMessage)!, section: 0)], with: UITableViewRowAnimation.none)
+                self.chattingView.chattingTableView.insertRows(at: [IndexPath(row: self.chattingView.messages.index(of: preSendMessage)! + 1, section: 0)], with: UITableViewRowAnimation.none)
                 UIView.setAnimationsEnabled(true)
                 self.chattingView.chattingTableView.endUpdates()
                 
@@ -669,7 +669,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 alertController.view.tintColor = UIColor(red: 82.0/255.0, green: 67.0/255.0, blue: 62.0/255.0, alpha: 1.0)
             }
         }
-        self.vwActionSheet.isHidden = false
+        //self.vwActionSheet.isHidden = false
+        setVwActionSheet(hidden: false)
     }
     
     private func cameraAction() -> UIAlertAction {
@@ -677,7 +678,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             title: "ms_camera".localized,
             style: .default,
             handler: { action in
-                self.vwActionSheet.isHidden = true
+                //self.vwActionSheet.isHidden = true
+                self.setVwActionSheet(hidden: true)
                 self.launchCamera()
         })
         action.setValue(UIImage(named: "camera-icon.png", in: Bundle(for: MessageCenter.self), compatibleWith: nil), forKey: "image")
@@ -704,7 +706,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             title: "ms_photos".localized,
             style: .default,
             handler: { action in
-                self.vwActionSheet.isHidden = true
+                //self.vwActionSheet.isHidden = true
+                self.setVwActionSheet(hidden: true)
                 UIImagePickerController.checkPermissionStatus(sourceType: UIImagePickerControllerSourceType.photoLibrary, completionBlockSuccess: { (status) in
                     let imagePicker = UIImagePickerController()                    
                     imagePicker.sourceType = .photoLibrary
@@ -726,7 +729,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             title: "ms_location".localized,
             style: .default,
             handler: { action in
-                self.vwActionSheet.isHidden = true
+                //self.vwActionSheet.isHidden = true
+                self.setVwActionSheet(hidden: true)
                 let podBundle = Bundle.bundleForXib(GroupChannelChattingViewController.self)
                 let locationPickerVC = SelectLocationViewController(nibName: "SelectLocationView", bundle: podBundle)
                 locationPickerVC.delegate = self as SelectLocationDelegate
@@ -741,7 +745,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             title: "cancel".localized,
             style: .cancel,
             handler : {action in
-                self.vwActionSheet.isHidden = true
+                //self.vwActionSheet.isHidden = true
+                self.setVwActionSheet(hidden: true)
         })
     }
     
@@ -1411,6 +1416,15 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             self.photosViewController.dismiss(animated: true, completion: nil)
         }
     }
+
+    // Disclaimer: I have no idea what vw stands for, but for the sake of convention, I'm naming my method accordingly.
+    private func setVwActionSheet(hidden: Bool) {
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.vwActionSheet.alpha = hidden ? 0.0 : 0.75
+            })
+        }
+    }
 }
 
 // MARK: - UIImagePickerController Methods
@@ -1530,10 +1544,11 @@ fileprivate extension GroupChannelChattingViewController {
         let keyboardInfo = notification.userInfo
         let keyboardFrameBegin = keyboardInfo?[UIKeyboardFrameEndUserInfoKey]
         let keyboardFrameBeginRect = (keyboardFrameBegin as! NSValue).cgRectValue
-        
+        let duration = keyboardInfo?[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber
+        let curve = keyboardInfo?[UIKeyboardAnimationCurveUserInfoKey] as! UInt
         DispatchQueue.main.async {
             self.bottomMargin.constant = keyboardFrameBeginRect.size.height
-            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveLinear
+            UIView.animate(withDuration: duration.doubleValue, delay: 0.0, options: [UIViewAnimationOptions(rawValue: UInt(curve))]
                 , animations: {
                     self.view.layoutIfNeeded()
             }, completion: { (status) in
@@ -1546,9 +1561,11 @@ fileprivate extension GroupChannelChattingViewController {
     
     @objc private func keyboardWillHide(notification: Notification) {
         self.keyboardShown = false
+        let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber
+        let curve = notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as! UInt
         DispatchQueue.main.async {
             self.bottomMargin.constant = 0
-            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveLinear
+            UIView.animate(withDuration: duration.doubleValue, delay: 0.0, options: [UIViewAnimationOptions(rawValue: UInt(curve))]
                 , animations: {
                     self.view.layoutIfNeeded()
             }, completion: { (status) in
