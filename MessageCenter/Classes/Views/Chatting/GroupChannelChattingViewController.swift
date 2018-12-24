@@ -56,7 +56,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         self.podBundle = Bundle.bundleForXib(GroupChannelChattingViewController.self)
         setNavigationItems()
         
-        addObservers()
+        
         
         let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
         negativeLeftSpacerForImageViewerLoading.width = -2
@@ -120,6 +120,11 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         //        ConnectionManager.remove(connectionObserver: self as ConnectionManagerDelegate)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        addObservers()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         Utils.dumpMessages(
@@ -129,6 +134,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             preSendMessages: self.chattingView.preSendMessages,
             channelUrl: self.groupChannel.channelUrl
         )
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         // SBDMain.disconnect {}
     }
     
@@ -1546,6 +1553,7 @@ fileprivate extension GroupChannelChattingViewController {
                     self.view.layoutIfNeeded()
             }, completion: { (status) in
                 self.chattingView.stopMeasuringVelocity = true
+//                self.chattingView.chattingTableView.setContentOffset(CGPoint(x: 0.0, y: 0.0 ), animated: true)
                 self.chattingView.scrollToBottom(force: false)
             })
         }
@@ -1561,7 +1569,9 @@ fileprivate extension GroupChannelChattingViewController {
                 , animations: {
                     self.view.layoutIfNeeded()
             }, completion: { (status) in
-                self.chattingView.scrollToBottom(force: false)
+                self.chattingView.scrollToBottom(force: false)                
+                self.chattingView.chattingTableView.contentInset = UIEdgeInsetsMake(0, 0, 0.0, 0)
+//                self.chattingView.chattingTableView.setContentOffset(CGPoint(x: 0.0,y: 0.0), animated: true)
             })
             
         }
@@ -1599,20 +1609,16 @@ fileprivate extension GroupChannelChattingViewController {
         }
         
         if #available(iOS 9.0, *) {
-            if UIView.userInterfaceLayoutDirection(
-                for: self.view.semanticContentAttribute) == .rightToLeft {
+            if UIView.userInterfaceLayoutDirection(for: self.view.semanticContentAttribute) == .rightToLeft {
                 self.btnBack.transform = CGAffineTransform(scaleX: -1,y: 1)
             }
         } else {
             if UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft {
                 self.btnBack.transform = CGAffineTransform(scaleX: -1,y: 1)
             }
-            if UIView.userInterfaceLayoutDirection(for: UIView.appearance().semanticContentAttribute) == .rightToLeft {
-                btnBack.transform = btnBack.transform.rotated(by: CGFloat(Double.pi))
-            }
-            
-            self.btnBack.addTarget(self, action: #selector(close), for: .touchUpInside)
-            
+//            if UIView.userInterfaceLayoutDirection(for: UIView.appearance().semanticContentAttribute) == .rightToLeft {
+//                btnBack.transform = btnBack.transform.rotated(by: CGFloat(Double.pi))
+//            }
         }
         
         self.btnBack.addTarget(self, action: #selector(close), for: .touchUpInside)
