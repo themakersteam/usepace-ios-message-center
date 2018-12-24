@@ -29,10 +29,8 @@ class ReusableViewFromXib: UIView {
         super.init(coder: aDecoder)
         let className = String(describing: type(of: self))
         
-        let podBundle = Bundle(for: MessageCenter.self)
-        self.customView = podBundle.loadNibNamed(className, owner: self, options: nil)!.first as? UIView
-        
-//        self.customView = Bundle.main.loadNibNamed(className, owner: self, options: nil)!.first as? UIView
+        let resourceBundle = Bundle.bundleForXib(ReusableViewFromXib.self)
+        self.customView = resourceBundle!.loadNibNamed(className, owner: self, options: nil)!.first as? UIView
         self.customView?.frame = self.bounds
         
         self.addSubview(self.customView!)

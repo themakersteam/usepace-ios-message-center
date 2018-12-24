@@ -12,7 +12,13 @@ public extension String {
     
     public var localized : String {
         get{
-            return NSLocalizedString(self, tableName: "MessageCenter", bundle: Bundle(for: MessageCenter.self), value: "", comment: "")
+            let frameworkBundle = Bundle(for: MessageCenter.self)
+            let bundleURL = frameworkBundle.resourceURL?.appendingPathComponent("MessageCenter.bundle")
+            var podBundle = Bundle(url: bundleURL!)
+            if NSLocalizedString(self, tableName: "MessageCenter", bundle: podBundle!, value: "", comment: "") == self {
+                podBundle = Bundle(for: MessageCenter.self)
+            }
+            return NSLocalizedString(self, tableName: "MessageCenter", bundle: podBundle!, value: "", comment: "")
         }
     }
 }

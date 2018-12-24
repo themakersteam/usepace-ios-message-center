@@ -32,10 +32,10 @@ class IncomingVideoFileMessageTableViewCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.podBundle = Bundle(for: MessageCenter.self)
+        self.podBundle = Bundle.bundleForXib(IncomingVideoFileMessageTableViewCell.self)
     }
     static func nib() -> UINib {
-        return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
+        return UINib(nibName: String(describing: self), bundle: Bundle.bundleForXib(IncomingVideoFileMessageTableViewCell.self))
     }
     
     static func cellReuseIdentifier() -> String {

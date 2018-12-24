@@ -23,7 +23,9 @@ class OutgoingGeneralUrlPreviewTempMessageTableViewCell: UITableViewCell {
     public var containerBackgroundColour: UIColor = UIColor(red: 122.0/255.0, green: 188.0/255.0, blue: 65.0/255.0, alpha: 1.0)
     
     static func nib() -> UINib {
-        return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
+        
+        let podBundle = Bundle.bundleForXib(OutgoingGeneralUrlPreviewTempMessageTableViewCell.self)
+        return UINib(nibName: String(describing: self), bundle: podBundle)
     }
     
     static func cellReuseIdentifier() -> String {

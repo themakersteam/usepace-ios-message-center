@@ -39,11 +39,12 @@ class OutgoingFileMessageTableViewCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.podBundle = Bundle(for: MessageCenter.self)
+        self.podBundle = Bundle.bundleForXib(OutgoingFileMessageTableViewCell.self)
     }
     
     static func nib() -> UINib {
-        return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
+        let podBundle = Bundle.bundleForXib(OutgoingFileMessageTableViewCell.self)
+        return UINib(nibName: String(describing: self), bundle: podBundle)
     }
     
     override func awakeFromNib() {

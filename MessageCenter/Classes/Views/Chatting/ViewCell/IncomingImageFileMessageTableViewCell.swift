@@ -31,7 +31,7 @@ class IncomingImageFileMessageTableViewCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.podBundle = Bundle(for: MessageCenter.self)
+        self.podBundle =  Bundle.bundleForXib(IncomingImageFileMessageTableViewCell.self)
     }
     
     override func awakeFromNib() {
@@ -41,7 +41,9 @@ class IncomingImageFileMessageTableViewCell: UITableViewCell {
     }
     
     static func nib() -> UINib {
-        return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
+        let podBundle =  Bundle.bundleForXib(IncomingImageFileMessageTableViewCell.self)
+        return UINib(nibName: String(describing: self), bundle: podBundle)
+
     }
     
     static func cellReuseIdentifier() -> String {

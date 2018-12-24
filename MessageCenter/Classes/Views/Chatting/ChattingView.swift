@@ -89,8 +89,9 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     }
     
     required init?(coder aDecoder: NSCoder) {
+        
         super.init(coder: aDecoder)
-        self.podBundle = Bundle(for: MessageCenter.self)
+        self.podBundle = Bundle.bundleForXib(ChattingView.self)
         self.setup()
     }
     
@@ -137,6 +138,11 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                 self.fileAttachButton.alpha = 1.0
                 self.placeholderLabel.text = "type_message_hint".localized
             }
+        }
+        
+        // Workaround: Attach button in Arabic Layout is shifting to the right
+        if UIView.userInterfaceLayoutDirection(for: UIView.appearance().semanticContentAttribute) == .rightToLeft {
+            fileAttachButton.imageEdgeInsets.left = -fileAttachButton.frame.width
         }
         
         
@@ -227,8 +233,8 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         if self.scrollLock == true && force == false {
             return
         }
-        
-        self.chattingTableView.scrollToRow(at: IndexPath.init(row: self.messages.count - 1, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
+
+        self.chattingTableView.scrollToRow(at: IndexPath.init(row: self.messages.count, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
     }
     
     func scrollToPosition(position: Int) {
@@ -253,7 +259,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         if self.typingIndicatorImageView.isAnimating == false {
             var typingImages: [UIImage] = []
             for i in 1...50 {
-                let typingImageFrameName = String.init(format: "%02d", i)
+                let typingImageFrameName = String.init(format: "%02d.png", i)
                 typingImages.append(UIImage(named: typingImageFrameName, in: podBundle, compatibleWith: nil)!)
             }
             self.typingIndicatorImageView.animationImages = typingImages
@@ -1076,6 +1082,7 @@ extension ChattingView: SBMessageInputViewDelegate {
                 self.cnTextViewTrailing.constant = 12.0
                 UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveLinear, animations: {
                     self.layoutIfNeeded()
+                    self.inputContainerViewHeight.constant = 44.0
                 }) { (status) in
                     
                 }

@@ -38,11 +38,12 @@ class IncomingFileMessageTableViewCell: UITableViewCell {
     public var containerBackgroundColour: UIColor = UIColor(red: 237.0/255.0, green: 237.0/255.0, blue: 237.0/255.0, alpha: 1.0)
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.podBundle = Bundle(for: MessageCenter.self)
+        self.podBundle = Bundle.bundleForXib(IncomingFileMessageTableViewCell.self)
     }
 
     static func nib() -> UINib {
-        return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
+        let podBundle = Bundle.bundleForXib(IncomingFileMessageTableViewCell.self)
+        return UINib(nibName: String(describing: self), bundle: podBundle)
     }
     
     static func cellReuseIdentifier() -> String {
@@ -64,7 +65,7 @@ class IncomingFileMessageTableViewCell: UITableViewCell {
     func setModel(aMessage: SBDFileMessage) {
         self.message = aMessage
         
-        self.profileImageView.af_setImage(withURL: URL(string: (self.message.sender?.profileUrl!)!)!, placeholderImage: UIImage(named: "img_profile", in: podBundle, compatibleWith: nil))
+        self.profileImageView.af_setImage(withURL: URL(string: (self.message.sender?.profileUrl!)!)!, placeholderImage: UIImage(named: "img_profile.png", in: podBundle, compatibleWith: nil))
         
         let profileImageTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickProfileImage))
         self.profileImageView.isUserInteractionEnabled = true
