@@ -344,8 +344,7 @@
 		1A48422F21CFFC9700CA9C4D /* photos-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A48422921CFFC9700CA9C4D /* photos-icon@2x.png */; };
 		1A8F626221D0F48D00C57CFA /* IncomingLocationMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8F626021D0F48D00C57CFA /* IncomingLocationMessageTableViewCell.swift */; };
 		1A8F626621D0F4A600C57CFA /* OutgoingLocationMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8F626421D0F4A600C57CFA /* OutgoingLocationMessageTableViewCell.swift */; };
-		1A8F626A21D0F55C00C57CFA /* OutgoingLocationMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A8F626821D0F55B00C57CFA /* OutgoingLocationMessageTableViewCell.xib */; };
-		1A8F626B21D0F55C00C57CFA /* IncomingLocationMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A8F626921D0F55C00C57CFA /* IncomingLocationMessageTableViewCell.xib */; };
+		1A8F626F21D1233D00C57CFA /* IncomingLocationMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A8F626E21D1233D00C57CFA /* IncomingLocationMessageTableViewCell.xib */; };
 		1AE88E3C8E174CD5E4EFBB8C4B5CA768 /* ProgressProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DF7528E712E30A3745D3180FFCDC5F8 /* ProgressProtocol.swift */; };
 		1B35F735A0D7EDAFA1387607403C1D83 /* ZeroPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BA6862EBE4C4458C14846425FF45A4 /* ZeroPadding.swift */; };
 		1B534F0A1A4AA31C0C4A2F33F04E3EC1 /* PKCS7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286BDF1B4DC24E5E14AC7837EDBB7E29 /* PKCS7.swift */; };
@@ -486,7 +485,6 @@
 		7AFF4400FEAABF4469046B1B5C55FFFE /* HTMLTokenizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 98E0EAF29B12DA01F233C84665DFD8BB /* HTMLTokenizer.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		7B06FEA9C94D4F0EB24A48EE7B406516 /* SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6B69319D2AA787C22A2162A4B77EC8 /* SHA1.swift */; };
 		7B5FE28C7EA4122B0598738E54DBEBD8 /* SessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E41ED63896F8DAEC5EAEF6701B19ED /* SessionDelegate.swift */; };
-		7B6E050A222DFF9C64614CC8CCD3FC41 /* OutgoingVideoFileMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDB8D327530B83E9381513AADCB904C /* OutgoingVideoFileMessageTableViewCell.swift */; };
 		7B9A7A5FAD06998F1F174736957A08BF /* CryptoSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA186756114F04F42EC518F502F7948 /* CryptoSwift-dummy.m */; };
 		7BF0464C73445C2391478A8CA6AC9AF5 /* NYTPhotoViewerCloseButtonXLandscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 842D2FC358677B429136D61943C39F76 /* NYTPhotoViewerCloseButtonXLandscape@2x.png */; };
 		7C0DEA489F6B2164462867D3200FC3B9 /* HTMLTokenizerEntities.h in Headers */ = {isa = PBXBuildFile; fileRef = 58703CAF6E083A09E2FC09BC7E286271 /* HTMLTokenizerEntities.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -505,7 +503,6 @@
 		85C7E89137265CC5CD82DE54E9DFE745 /* PCBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D670CD4E3BC0F5BFC83D967DC5E7FC47 /* PCBC.swift */; };
 		85D42E9EF7F6CB9DCD834EF0364A30BB /* HTMLParseErrorToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 374945BB6AEA6128752190FBA794553D /* HTMLParseErrorToken.m */; };
 		86365876E410B61429E0099501DD345C /* PBKDF2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95932461B5B239932B4F566D1E303F3F /* PBKDF2.swift */; };
-		864846BA002C4391471A850B0985B0AD /* IncomingVideoFileMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081F4E04C7B480AECEB1AA135F16F3FD /* IncomingVideoFileMessageTableViewCell.swift */; };
 		879F3C72BF6A5122BA70CAEEDDC5B845 /* FLAnimatedImage-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A517DFAAD6F3C27EE641DF0D058038CB /* FLAnimatedImage-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87CD9D328EC49DC3703F5C1A99E83C44 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E48BE3C644EBD71A180CF7AE2BD4DE86 /* MobileCoreServices.framework */; };
 		887FFB328591D8CCB59189733EDFBE82 /* HTMLOrderedDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = E4A8A6C93C94F1C47020E49391F73CAA /* HTMLOrderedDictionary.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -856,7 +853,6 @@
 		066187C687C60D28E0B4B742CB263996 /* FLAnimatedImage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLAnimatedImage.h; path = FLAnimatedImage/FLAnimatedImage.h; sourceTree = "<group>"; };
 		079F6F147CB8D231F7EDD2498257757E /* CryptoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CryptoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		07A6C23AC5AF8D16BC599449283226A8 /* Toast.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Toast.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		081F4E04C7B480AECEB1AA135F16F3FD /* IncomingVideoFileMessageTableViewCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = IncomingVideoFileMessageTableViewCell.swift; sourceTree = "<group>"; };
 		0886ABAB6B3A1D024E372E99A1F3766E /* NYTPhotoViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = NYTPhotoViewController.m; path = Pod/Classes/ios/NYTPhotoViewController.m; sourceTree = "<group>"; };
 		08BE14598D2233F031D21F41BFFEAB14 /* NYTPhotoViewerCloseButtonX.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = NYTPhotoViewerCloseButtonX.png; path = Pod/Assets/ios/NYTPhotoViewerCloseButtonX.png; sourceTree = "<group>"; };
 		0B92E9E245B68D700AF539B11E7A9722 /* CSSNthExpressionParser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CSSNthExpressionParser.h; path = Sources/include/CSSNthExpressionParser.h; sourceTree = "<group>"; };
@@ -865,7 +861,6 @@
 		0F5923DA3B9CBDB3BD6E2295D2A95D4F /* Utils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		0F7A59B3053AB985A73E7DB8C1AF2583 /* CSSSelector.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CSSSelector.m; path = Sources/CSSSelector.m; sourceTree = "<group>"; };
 		0FAA0323C5E0C66B4E50A8BBCA52DC00 /* HTMLDOMTokenList.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HTMLDOMTokenList.m; path = Sources/HTMLDOMTokenList.m; sourceTree = "<group>"; };
-		0FDB8D327530B83E9381513AADCB904C /* OutgoingVideoFileMessageTableViewCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OutgoingVideoFileMessageTableViewCell.swift; sourceTree = "<group>"; };
 		0FF4332FC9F58AF5E35174650C4C3517 /* HTMLListOfActiveFormattingElements.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HTMLListOfActiveFormattingElements.h; path = Sources/include/HTMLListOfActiveFormattingElements.h; sourceTree = "<group>"; };
 		10662A7B83E8DF614801BC01D04A6A45 /* PBKDF1.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PBKDF1.swift; path = Sources/CryptoSwift/PKCS/PBKDF1.swift; sourceTree = "<group>"; };
 		10716648259F186FBE0A47DDEA8DC792 /* ResourceBundle-NYTPhotoViewer-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-NYTPhotoViewer-Info.plist"; sourceTree = "<group>"; };
@@ -1185,8 +1180,7 @@
 		1A48422921CFFC9700CA9C4D /* photos-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photos-icon@2x.png"; sourceTree = "<group>"; };
 		1A8F626021D0F48D00C57CFA /* IncomingLocationMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingLocationMessageTableViewCell.swift; sourceTree = "<group>"; };
 		1A8F626421D0F4A600C57CFA /* OutgoingLocationMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingLocationMessageTableViewCell.swift; sourceTree = "<group>"; };
-		1A8F626821D0F55B00C57CFA /* OutgoingLocationMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutgoingLocationMessageTableViewCell.xib; sourceTree = "<group>"; };
-		1A8F626921D0F55C00C57CFA /* IncomingLocationMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IncomingLocationMessageTableViewCell.xib; sourceTree = "<group>"; };
+		1A8F626E21D1233D00C57CFA /* IncomingLocationMessageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IncomingLocationMessageTableViewCell.xib; sourceTree = "<group>"; };
 		1AB72D011BDDB27BE3880B23BE01C1DE /* HTMLMarker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HTMLMarker.m; path = Sources/HTMLMarker.m; sourceTree = "<group>"; };
 		1B3ACCC9473545AC5FC1D5521F686CD6 /* UInt64+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UInt64+Extension.swift"; path = "Sources/CryptoSwift/UInt64+Extension.swift"; sourceTree = "<group>"; };
 		1C1D028FE558B52C973AB83D8CB5491E /* String+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+Extension.swift"; path = "Sources/CryptoSwift/String+Extension.swift"; sourceTree = "<group>"; };
@@ -1731,8 +1725,6 @@
 		1A483F4821CD0C8300CA9C4D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				1A8F626921D0F55C00C57CFA /* IncomingLocationMessageTableViewCell.xib */,
-				1A8F626821D0F55B00C57CFA /* OutgoingLocationMessageTableViewCell.xib */,
 				1A48422821CFFC9600CA9C4D /* camera-icon.png */,
 				1A48422721CFFC9600CA9C4D /* camera-icon@2x.png */,
 				1A48422421CFFC9500CA9C4D /* camera-icon@3x.png */,
@@ -2037,6 +2029,7 @@
 				1A483FA821CF574F00CA9C4D /* OutgoingUserMessageTableViewCell.xib */,
 				1A483FB521CF575200CA9C4D /* SelectLocationView.xib */,
 				1A483FA121CF574D00CA9C4D /* WelcomeMessageTableViewCell.xib */,
+				1A8F626E21D1233D00C57CFA /* IncomingLocationMessageTableViewCell.xib */,
 			);
 			name = Assets;
 			path = MessageCenter/Assets;
@@ -2595,7 +2588,6 @@
 				C5721E8F514C1DE277C00EC0374DDEBA /* IncomingImageFileMessageTableViewCell.swift */,
 				1A8F626021D0F48D00C57CFA /* IncomingLocationMessageTableViewCell.swift */,
 				A09F8110809CB4A72C73B9D80E1D2EC9 /* IncomingUserMessageTableViewCell.swift */,
-				081F4E04C7B480AECEB1AA135F16F3FD /* IncomingVideoFileMessageTableViewCell.swift */,
 				462E9E88D13E6759BC4BEA040F78470E /* MessageDelegate.swift */,
 				E6D741E5FB073D18EED8A563B5BA319E /* NeutralMessageTableViewCell.swift */,
 				BA741E6E18357CDCBA819A3806B66104 /* OutgoingFileMessageTableViewCell.swift */,
@@ -2604,7 +2596,6 @@
 				2C4CFB8DBB89578B2CD27DE5BC472481 /* OutgoingImageFileMessageTableViewCell.swift */,
 				1A8F626421D0F4A600C57CFA /* OutgoingLocationMessageTableViewCell.swift */,
 				05A5B75B29554AE233685490403375DF /* OutgoingUserMessageTableViewCell.swift */,
-				0FDB8D327530B83E9381513AADCB904C /* OutgoingVideoFileMessageTableViewCell.swift */,
 				68AD5AAB88C77AC233051263F43D9B39 /* WelcomeMessageTableViewCell.swift */,
 			);
 			path = ViewCell;
@@ -3430,11 +3421,11 @@
 				1A48422E21CFFC9700CA9C4D /* camera-icon.png in Resources */,
 				1A4841D221CFF30800CA9C4D /* 19@2x.png in Resources */,
 				1A48419E21CFF30700CA9C4D /* 47.png in Resources */,
+				1A8F626F21D1233D00C57CFA /* IncomingLocationMessageTableViewCell.xib in Resources */,
 				1A48421021CFF30800CA9C4D /* 49.png in Resources */,
 				1A4841C721CFF30700CA9C4D /* 45@3x.png in Resources */,
 				1A48420B21CFF30800CA9C4D /* btn_selected.png in Resources */,
 				1A483FB621CF575300CA9C4D /* IncomingGeneralUrlPreviewMessageTableViewCell.xib in Resources */,
-				1A8F626A21D0F55C00C57CFA /* OutgoingLocationMessageTableViewCell.xib in Resources */,
 				1A4841D121CFF30800CA9C4D /* 39@2x.png in Resources */,
 				1A48416221CFF30700CA9C4D /* 46@3x.png in Resources */,
 				1A48421321CFF30800CA9C4D /* 11.png in Resources */,
@@ -3585,7 +3576,6 @@
 				1A48419D21CFF30700CA9C4D /* 07@2x.png in Resources */,
 				1A4841FC21CFF30800CA9C4D /* 04@3x.png in Resources */,
 				1A4841BF21CFF30700CA9C4D /* icMsgread@3x.png in Resources */,
-				1A8F626B21D0F55C00C57CFA /* IncomingLocationMessageTableViewCell.xib in Resources */,
 				1A48412F21CFF30700CA9C4D /* 35@2x.png in Resources */,
 				1A48412221CFF30700CA9C4D /* 09@3x.png in Resources */,
 				1A4841C121CFF30700CA9C4D /* btn_request_chat@2x.png in Resources */,
@@ -3682,7 +3672,6 @@
 				AC55F3694C3D1A4580AE61550C77AE86 /* IncomingGeneralUrlPreviewMessageTableViewCell.swift in Sources */,
 				B5D5791CDD62560EBA0911633C3749C7 /* IncomingImageFileMessageTableViewCell.swift in Sources */,
 				912200E6405B2C73EC46A14B014C07D8 /* IncomingUserMessageTableViewCell.swift in Sources */,
-				864846BA002C4391471A850B0985B0AD /* IncomingVideoFileMessageTableViewCell.swift in Sources */,
 				50FED60FB80C79EFFACCE86FB6385D19 /* LocalizableButton.swift in Sources */,
 				27444E5848F2D13C8E0E98B073F7C8D2 /* LocalizableLabel.swift in Sources */,
 				394D8D658891EBE6CE9DCE7E27D3E9A3 /* MapType.swift in Sources */,
@@ -3696,7 +3685,6 @@
 				A5ABEE05E2A377294F2FC4CD7DD73991 /* OutgoingGeneralUrlPreviewTempModel.swift in Sources */,
 				DA8840914278287AB92E19EC5F59BD52 /* OutgoingImageFileMessageTableViewCell.swift in Sources */,
 				B7A6CDBC7310FD7FAD9F01D766419961 /* OutgoingUserMessageTableViewCell.swift in Sources */,
-				7B6E050A222DFF9C64614CC8CCD3FC41 /* OutgoingVideoFileMessageTableViewCell.swift in Sources */,
 				1AE88E3C8E174CD5E4EFBB8C4B5CA768 /* ProgressProtocol.swift in Sources */,
 				CD5B449DD394E1D2399DF1103BDF59A4 /* ResultProtocol.swift in Sources */,
 				3D1A89CE8F4368FC9C284EA030D78996 /* ReusableViewFromXib.swift in Sources */,
