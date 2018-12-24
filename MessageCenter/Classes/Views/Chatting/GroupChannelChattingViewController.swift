@@ -53,11 +53,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.podBundle = Bundle(for: MessageCenter.self)
-        
-//        if self.themeObject != nil {
-//            createTitle(title: (self.themeObject?.title)! , subTitle: (self.themeObject?.subtitle)!)
-//        }
+        self.podBundle = Bundle.bundleForXib(GroupChannelChattingViewController.self)
         setNavigationItems()
         
         addObservers()
@@ -65,7 +61,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
         negativeLeftSpacerForImageViewerLoading.width = -2
         
-        let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close", in: podBundle, compatibleWith: nil), style: UIBarButtonItemStyle.done, target: self, action: #selector(close))
+        let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close.png", in: podBundle, compatibleWith: nil), style: UIBarButtonItemStyle.done, target: self, action: #selector(close))
         
         self.imageViewerLoadingViewNavItem.leftBarButtonItems = [negativeLeftSpacerForImageViewerLoading, leftCloseItemForImageViewerLoading]
         
@@ -123,7 +119,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     deinit {
         //        ConnectionManager.remove(connectionObserver: self as ConnectionManagerDelegate)
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         Utils.dumpMessages(
@@ -133,7 +129,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             preSendMessages: self.chattingView.preSendMessages,
             channelUrl: self.groupChannel.channelUrl
         )
-       // SBDMain.disconnect {}
+        // SBDMain.disconnect {}
     }
     
     override func viewDidLayoutSubviews() {
@@ -141,9 +137,9 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         self.chattingView.chattingTableView.reloadData()
     }
     
-//    deinit {
-//
-//    }
+    //    deinit {
+    //
+    //    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -320,7 +316,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             if contentType.contains("text/html") {
                 
                 let htmlBody = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-                let parser: HTMLParser = HTMLParser(string: htmlBody as! String)
+                let parser: HTMLParser = HTMLParser(string: htmlBody! as String)
                 let document = parser.parseDocument()
                 let head = document.head
                 
@@ -526,15 +522,11 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     @objc private func sendMessage() {
         
         if (self.chattingView.messageTextView.textView.text.count > 0 || imageCaption.count > 0) {
-            /*
-            self.chattingView.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false
-            imageCaption.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false
-             */
             self.groupChannel.endTyping()
             var message = ""
             if self.chattingView.messageTextView.textView.text.count > 0 &&
                 self.chattingView.messageTextView.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false {
-               
+                
                 message = self.chattingView.messageTextView.textView.text
             }
                 
@@ -681,7 +673,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 self.vwActionSheet.isHidden = true
                 self.launchCamera()
         })
-        action.setValue(UIImage(named: "camera-icon", in: self.podBundle, compatibleWith: nil), forKey: "image")
+        action.setValue(UIImage(named: "camera-icon.png", in: Bundle(for: MessageCenter.self), compatibleWith: nil), forKey: "image")
         return action
     }
     
@@ -718,7 +710,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 
                 
         })
-        action.setValue(UIImage(named: "photos-icon", in: self.podBundle, compatibleWith: nil), forKey: "image")
+        action.setValue(UIImage(named: "photos-icon.png", in: Bundle(for: MessageCenter.self), compatibleWith: nil), forKey: "image")
         return action
     }
     
@@ -728,12 +720,12 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             style: .default,
             handler: { action in
                 self.vwActionSheet.isHidden = true
-                let podBundle = Bundle(for: MessageCenter.self)
+                let podBundle = Bundle.bundleForXib(GroupChannelChattingViewController.self)
                 let locationPickerVC = SelectLocationViewController(nibName: "SelectLocationView", bundle: podBundle)
                 locationPickerVC.delegate = self as SelectLocationDelegate
                 self.present(locationPickerVC, animated: true, completion: nil)
         })
-        action.setValue(UIImage(named: "location-icon", in: self.podBundle, compatibleWith: nil), forKey: "image")
+        action.setValue(UIImage(named: "location-icon.png", in: Bundle(for: MessageCenter.self), compatibleWith: nil), forKey: "image")
         return action
     }
     
@@ -747,351 +739,309 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     }
     
     @objc private func sendFileMessage() {
-            let status = PHPhotoLibrary.authorizationStatus()
-            if status == .authorized {
-                openPicker()
-            } else {
-                PHPhotoLibrary.requestAuthorization { status in
-                    switch status {
-                    case .authorized:
-                        DispatchQueue.main.async {
-                            self.openPicker()
-                        }
-                        break
-                    case .denied, .restricted:
-                        DispatchQueue.main.async {
-                            let vc = UIAlertController(title: "error".localized, message: "Authorization to assets is denied.", preferredStyle: UIAlertControllerStyle.alert)
-                            let closeAction = UIAlertAction(title: "close".localized, style: UIAlertActionStyle.cancel, handler: nil)
-                            vc.addAction(closeAction)
-                            self.present(vc, animated: true, completion: nil)
-                        }
-                        break
-                    case .notDetermined: break
-                    }
-                }
-            }
-        }
-        
-        @objc func clickReconnect() {
-            if SBDMain.getConnectState() != SBDWebSocketConnectionState.open && SBDMain.getConnectState() != SBDWebSocketConnectionState.connecting {
-                SBDMain.reconnect()
-            }
-        }
-        
-        // MARK: Connection manager delegate
-        func didConnect(isReconnection: Bool) {
-            self.loadPreviousMessage(initial: true)
-            
-            self.groupChannel.refresh { (error) in
-                if error == nil {
-//                    if self.navItem.titleView is UILabel, let label: UILabel = self.navItem.titleView as? UILabel {
-//                        let title: String = (NSString.init(format: "Group Channel (%ld)", self.groupChannel.memberCount)) as String
-//                        let subtitle: String? = "reconnect".localized as String?
-//                        DispatchQueue.main.async {
-//                            label.attributedText = Utils.generateNavigationTitle(mainTitle: title, subTitle: subtitle, titleColor: self.themeObject?.primaryAccentColor, subTitleColor: self.themeObject?.primaryActionIconsColor)
-//
-//                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
-//                                label.attributedText = Utils.generateNavigationTitle(mainTitle: title, subTitle: subtitle, titleColor: self.themeObject?.primaryAccentColor, subTitleColor: self.themeObject?.primaryActionIconsColor)
-//                            }
-//                        }
-//                    }
-                }
-            }
-        }
-        
-        func didDisconnect() {
-//            if self.navItem.titleView is UILabel, let label: UILabel = self.navItem.titleView as? UILabel {
-//                let title: String = NSString.init(format: "Group Channel (%ld)" as NSString, self.groupChannel.memberCount) as String
-//                var subtitle: String? = "reconnection_failed".localized as String?
-//
-//                DispatchQueue.main.async {
-//                    label.attributedText = Utils.generateNavigationTitle(mainTitle: title, subTitle: subtitle, titleColor: self.themeObject?.primaryAccentColor, subTitleColor: self.themeObject?.primaryActionIconsColor)
-//                }
-//
-//                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
-//                    subtitle = "reconnect".localized
-//                    label.attributedText = Utils.generateNavigationTitle(mainTitle: title, subTitle: subtitle, titleColor: self.themeObject?.primaryAccentColor, subTitleColor: self.themeObject?.primaryActionIconsColor)
-//                }
-//            }
-        }
-        
-        // MARK: SBDChannelDelegate
-        func channel(_ sender: SBDBaseChannel, didReceive message: SBDBaseMessage) {
-            if sender == self.groupChannel {
-                self.groupChannel.markAsRead()
-                
-                DispatchQueue.main.async {
-                    UIView.setAnimationsEnabled(false)
-                    self.chattingView.messages.append(message)
-                    self.chattingView.chattingTableView.reloadData()
-                    UIView.setAnimationsEnabled(true)
+        let status = PHPhotoLibrary.authorizationStatus()
+        if status == .authorized {
+            openPicker()
+        } else {
+            PHPhotoLibrary.requestAuthorization { status in
+                switch status {
+                case .authorized:
                     DispatchQueue.main.async {
-                        self.chattingView.scrollToBottom(force: false)
+                        self.openPicker()
                     }
+                    break
+                case .denied, .restricted:
+                    DispatchQueue.main.async {
+                        let vc = UIAlertController(title: "error".localized, message: "Authorization to assets is denied.", preferredStyle: UIAlertControllerStyle.alert)
+                        let closeAction = UIAlertAction(title: "close".localized, style: UIAlertActionStyle.cancel, handler: nil)
+                        vc.addAction(closeAction)
+                        self.present(vc, animated: true, completion: nil)
+                    }
+                    break
+                case .notDetermined: break
                 }
+            }
+        }
+    }
+    
+    @objc func clickReconnect() {
+        if SBDMain.getConnectState() != SBDWebSocketConnectionState.open && SBDMain.getConnectState() != SBDWebSocketConnectionState.connecting {
+            SBDMain.reconnect()
+        }
+    }
+    
+    // MARK: Connection manager delegate
+    func didConnect(isReconnection: Bool) {
+        self.loadPreviousMessage(initial: true)
+        
+        self.groupChannel.refresh { (error) in
+            if error == nil {
+                //                    if self.navItem.titleView is UILabel, let label: UILabel = self.navItem.titleView as? UILabel {
+                //                        let title: String = (NSString.init(format: "Group Channel (%ld)", self.groupChannel.memberCount)) as String
+                //                        let subtitle: String? = "reconnect".localized as String?
+                //                        DispatchQueue.main.async {
+                //                            label.attributedText = Utils.generateNavigationTitle(mainTitle: title, subTitle: subtitle, titleColor: self.themeObject?.primaryAccentColor, subTitleColor: self.themeObject?.primaryActionIconsColor)
+                //
+                //                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+                //                                label.attributedText = Utils.generateNavigationTitle(mainTitle: title, subTitle: subtitle, titleColor: self.themeObject?.primaryAccentColor, subTitleColor: self.themeObject?.primaryActionIconsColor)
+                //                            }
+                //                        }
+                //                    }
+            }
+        }
+    }
+    
+    func didDisconnect() {
+        //            if self.navItem.titleView is UILabel, let label: UILabel = self.navItem.titleView as? UILabel {
+        //                let title: String = NSString.init(format: "Group Channel (%ld)" as NSString, self.groupChannel.memberCount) as String
+        //                var subtitle: String? = "reconnection_failed".localized as String?
+        //
+        //                DispatchQueue.main.async {
+        //                    label.attributedText = Utils.generateNavigationTitle(mainTitle: title, subTitle: subtitle, titleColor: self.themeObject?.primaryAccentColor, subTitleColor: self.themeObject?.primaryActionIconsColor)
+        //                }
+        //
+        //                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+        //                    subtitle = "reconnect".localized
+        //                    label.attributedText = Utils.generateNavigationTitle(mainTitle: title, subTitle: subtitle, titleColor: self.themeObject?.primaryAccentColor, subTitleColor: self.themeObject?.primaryActionIconsColor)
+        //                }
+        //            }
+    }
+    
+    // MARK: SBDChannelDelegate
+    func channel(_ sender: SBDBaseChannel, didReceive message: SBDBaseMessage) {
+        if sender == self.groupChannel {
+            self.groupChannel.markAsRead()
+            
+            DispatchQueue.main.async {
+                UIView.setAnimationsEnabled(false)
+                self.chattingView.messages.append(message)
+                self.chattingView.chattingTableView.reloadData()
+                UIView.setAnimationsEnabled(true)
+                DispatchQueue.main.async {
+                    self.chattingView.scrollToBottom(force: false)
+                }
+            }
+        }
+        else {
+            if message is SBDUserMessage {
+                _ = (message as! SBDUserMessage).message
+                let senderName = (message as! SBDUserMessage).sender?.nickname
+                let strMessageLoc = "message_center_new_message_from".localized
+                self.view.makeToast(strMessageLoc + senderName!)
+            }
+            else if message is SBDFileMessage {
+                let senderName = (message as! SBDFileMessage).sender?.nickname
+                self.view.makeToast("message_center_new_message_from".localized + senderName!)
+            }
+            else if message is SBDAdminMessage {
+                self.view.makeToast("message_center_new_message_from".localized + "Admin")
             }
             else {
-                if message is SBDUserMessage {
-                    let strMessage = (message as! SBDUserMessage).message
-                    let senderName = (message as! SBDUserMessage).sender?.nickname
-                    let strMessageLoc = "message_center_new_message_from".localized
-                    self.view.makeToast(strMessageLoc + senderName!)
-                }
-                else if message is SBDFileMessage {
-                    let senderName = (message as! SBDFileMessage).sender?.nickname
-                    self.view.makeToast("message_center_new_message_from".localized + senderName!)
-                }
-                else if message is SBDAdminMessage {
-                    self.view.makeToast("message_center_new_message_from".localized + "Admin")
+                self.view.makeToast("message_center_new_message_from".localized + "")
+            }
+        }
+    }
+    
+    func channelDidUpdateReadReceipt(_ sender: SBDGroupChannel) {
+        if sender == self.groupChannel {
+            DispatchQueue.main.async {
+                self.chattingView.chattingTableView.reloadData()
+            }
+        }
+    }
+    
+    func channelDidUpdateTypingStatus(_ sender: SBDGroupChannel) {
+        if sender == self.groupChannel {
+            if sender.getTypingMembers()?.count == 0 {
+                self.chattingView.endTypingIndicator()
+            }
+            else {
+                if sender.getTypingMembers()?.count == 1 {
+                    self.chattingView.startTypingIndicator(text: String(format: "%@ %@", (sender.getTypingMembers()?[0].nickname)!, "is_typing".localized))
                 }
                 else {
-                    self.view.makeToast("message_center_new_message_from".localized + "")
+                    self.chattingView.startTypingIndicator(text: "multiple_users_are_typing".localized)
                 }
             }
         }
+    }
+    
+    func channel(_ sender: SBDGroupChannel, userDidJoin user: SBDUser) {
+        //            if self.navItem.titleView != nil && self.navItem.titleView is UILabel {
+        //                DispatchQueue.main.async {
+        //                    (self.navItem.titleView as! UILabel).attributedText = Utils.generateNavigationTitle(mainTitle: (self.themeObject?.title)!, subTitle: (self.themeObject?.subtitle)!, titleColor: self.themeObject?.primaryAccentColor, subTitleColor: self.themeObject?.primaryActionIconsColor)
+        //                }
+        //            }
+    }
+    
+    func channel(_ sender: SBDGroupChannel, userDidLeave user: SBDUser) {
+        //            if self.navItem.titleView != nil && self.navItem.titleView is UILabel {
+        //                DispatchQueue.main.async {
+        //                    (self.navItem.titleView as! UILabel).attributedText = Utils.generateNavigationTitle(mainTitle: (self.themeObject?.title)!, subTitle: (self.themeObject?.subtitle)!, titleColor: self.themeObject?.primaryAccentColor, subTitleColor: self.themeObject?.primaryActionIconsColor)
+        //                }
+        //            }
+    }
+    
+    func channel(_ sender: SBDOpenChannel, userDidEnter user: SBDUser) {
         
-        func channelDidUpdateReadReceipt(_ sender: SBDGroupChannel) {
-            if sender == self.groupChannel {
-                DispatchQueue.main.async {
-                    self.chattingView.chattingTableView.reloadData()
-                }
-            }
+    }
+    
+    func channel(_ sender: SBDOpenChannel, userDidExit user: SBDUser) {
+        
+    }
+    
+    func channel(_ sender: SBDBaseChannel, userWasMuted user: SBDUser) {
+        
+    }
+    
+    func channel(_ sender: SBDBaseChannel, userWasUnmuted user: SBDUser) {
+        
+    }
+    
+    func channel(_ sender: SBDBaseChannel, userWasBanned user: SBDUser) {
+        
+    }
+    
+    func channel(_ sender: SBDBaseChannel, userWasUnbanned user: SBDUser) {
+        
+    }
+    
+    func channelWasFrozen(_ sender: SBDBaseChannel) {
+        
+    }
+    
+    func channelWasUnfrozen(_ sender: SBDBaseChannel) {
+        
+    }
+    
+    func channelWasChanged(_ sender: SBDBaseChannel) {
+        //            if sender == self.groupChannel {
+        //                DispatchQueue.main.async {
+        //                    self.navItem.title = String(format: "Group Channel (%ld)", self.groupChannel.memberCount)
+        //                }
+        //            }
+    }
+    
+    func channelWasDeleted(_ channelUrl: String, channelType: SBDChannelType) {
+        let vc = UIAlertController(title: "Channel has been deleted.", message: "This channel has been deleted. It will be closed.", preferredStyle: UIAlertControllerStyle.alert)
+        let closeAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel) { (action) in
+            self.close()
         }
-        
-        func channelDidUpdateTypingStatus(_ sender: SBDGroupChannel) {
-            if sender == self.groupChannel {
-                if sender.getTypingMembers()?.count == 0 {
-                    self.chattingView.endTypingIndicator()
-                }
-                else {
-                    if sender.getTypingMembers()?.count == 1 {
-                        self.chattingView.startTypingIndicator(text: String(format: "%@ %@", (sender.getTypingMembers()?[0].nickname)!, "is_typing".localized))
-                    }
-                    else {
-                        self.chattingView.startTypingIndicator(text: "multiple_users_are_typing".localized)
-                    }
-                }
-            }
+        vc.addAction(closeAction)
+        DispatchQueue.main.async {
+            self.present(vc, animated: true, completion: nil)
         }
-        
-        func channel(_ sender: SBDGroupChannel, userDidJoin user: SBDUser) {
-//            if self.navItem.titleView != nil && self.navItem.titleView is UILabel {
-//                DispatchQueue.main.async {
-//                    (self.navItem.titleView as! UILabel).attributedText = Utils.generateNavigationTitle(mainTitle: (self.themeObject?.title)!, subTitle: (self.themeObject?.subtitle)!, titleColor: self.themeObject?.primaryAccentColor, subTitleColor: self.themeObject?.primaryActionIconsColor)
-//                }
-//            }
-        }
-        
-        func channel(_ sender: SBDGroupChannel, userDidLeave user: SBDUser) {
-//            if self.navItem.titleView != nil && self.navItem.titleView is UILabel {
-//                DispatchQueue.main.async {
-//                    (self.navItem.titleView as! UILabel).attributedText = Utils.generateNavigationTitle(mainTitle: (self.themeObject?.title)!, subTitle: (self.themeObject?.subtitle)!, titleColor: self.themeObject?.primaryAccentColor, subTitleColor: self.themeObject?.primaryActionIconsColor)
-//                }
-//            }
-        }
-        
-        func channel(_ sender: SBDOpenChannel, userDidEnter user: SBDUser) {
-            
-        }
-        
-        func channel(_ sender: SBDOpenChannel, userDidExit user: SBDUser) {
-            
-        }
-        
-        func channel(_ sender: SBDBaseChannel, userWasMuted user: SBDUser) {
-            
-        }
-        
-        func channel(_ sender: SBDBaseChannel, userWasUnmuted user: SBDUser) {
-            
-        }
-        
-        func channel(_ sender: SBDBaseChannel, userWasBanned user: SBDUser) {
-            
-        }
-        
-        func channel(_ sender: SBDBaseChannel, userWasUnbanned user: SBDUser) {
-            
-        }
-        
-        func channelWasFrozen(_ sender: SBDBaseChannel) {
-            
-        }
-        
-        func channelWasUnfrozen(_ sender: SBDBaseChannel) {
-            
-        }
-        
-        func channelWasChanged(_ sender: SBDBaseChannel) {
-//            if sender == self.groupChannel {
-//                DispatchQueue.main.async {
-//                    self.navItem.title = String(format: "Group Channel (%ld)", self.groupChannel.memberCount)
-//                }
-//            }
-        }
-        
-        func channelWasDeleted(_ channelUrl: String, channelType: SBDChannelType) {
-            let vc = UIAlertController(title: "Channel has been deleted.", message: "This channel has been deleted. It will be closed.", preferredStyle: UIAlertControllerStyle.alert)
-            let closeAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel) { (action) in
-                self.close()
-            }
-            vc.addAction(closeAction)
-            DispatchQueue.main.async {
-                self.present(vc, animated: true, completion: nil)
-            }
-        }
-        
-        func channel(_ sender: SBDBaseChannel, messageWasDeleted messageId: Int64) {
-            if sender == self.groupChannel {
-                for message in self.chattingView.messages {
-                    if message.messageId == messageId {
-                        self.chattingView.messages.remove(at: self.chattingView.messages.index(of: message)!)
-                        DispatchQueue.main.async {
-                            self.chattingView.chattingTableView.reloadData()
-                        }
-                        break
-                    }
-                }
-            }
-        }
-        
-        // MARK: ChattingViewDelegate
-        func loadMoreMessage(view: UIView) {
-            if self.cachedMessage {
-                return
-            }
-            
-            self.loadPreviousMessage(initial: false)
-        }
-        
-        func startTyping(view: UIView) {
-            self.groupChannel.startTyping()
-        }
-        
-        func endTyping(view: UIView) {
-            self.groupChannel.endTyping()
-        }
-        
-        func hideKeyboardWhenFastScrolling(view: UIView) {
-            if self.keyboardShown == false {
-                return
-            }
-            
-            DispatchQueue.main.async {
-                self.bottomMargin.constant = 0
-                self.view.layoutIfNeeded()
-                self.chattingView.scrollToBottom(force: false)
-            }
-            self.view.endEditing(true)
-        }
-        
-        // MARK: MessageDelegate
-        func clickProfileImage(viewCell: UITableViewCell, user: SBDUser) {
-            let vc = UIAlertController(title: user.nickname, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-            let seeBlockUserAction = UIAlertAction(title: "Block the user", style: UIAlertActionStyle.default) { (action) in
-                SBDMain.blockUser(user, completionHandler: { (blockedUser, error) in
-                    if error != nil {
-                        DispatchQueue.main.async {
-                            let vc = UIAlertController(title: "Error", message: error?.domain, preferredStyle: UIAlertControllerStyle.alert)
-                            let closeAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil)
-                            vc.addAction(closeAction)
-                            DispatchQueue.main.async {
-                                self.present(vc, animated: true, completion: nil)
-                            }
-                        }
-                        
-                        return
-                    }
-                    
+    }
+    
+    func channel(_ sender: SBDBaseChannel, messageWasDeleted messageId: Int64) {
+        if sender == self.groupChannel {
+            for message in self.chattingView.messages {
+                if message.messageId == messageId {
+                    self.chattingView.messages.remove(at: self.chattingView.messages.index(of: message)!)
                     DispatchQueue.main.async {
-                        let vc = UIAlertController(title: "User blocked", message: String(format: "%@ is blocked.", user.nickname!), preferredStyle: UIAlertControllerStyle.alert)
+                        self.chattingView.chattingTableView.reloadData()
+                    }
+                    break
+                }
+            }
+        }
+    }
+    
+    // MARK: ChattingViewDelegate
+    func loadMoreMessage(view: UIView) {
+        if self.cachedMessage {
+            return
+        }
+        
+        self.loadPreviousMessage(initial: false)
+    }
+    
+    func startTyping(view: UIView) {
+        self.groupChannel.startTyping()
+    }
+    
+    func endTyping(view: UIView) {
+        self.groupChannel.endTyping()
+    }
+    
+    func hideKeyboardWhenFastScrolling(view: UIView) {
+        if self.keyboardShown == false {
+            return
+        }
+        
+        DispatchQueue.main.async {
+            self.bottomMargin.constant = 0
+            self.view.layoutIfNeeded()
+            self.chattingView.scrollToBottom(force: false)
+        }
+        self.view.endEditing(true)
+    }
+    
+    // MARK: MessageDelegate
+    func clickProfileImage(viewCell: UITableViewCell, user: SBDUser) {
+        let vc = UIAlertController(title: user.nickname, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        let seeBlockUserAction = UIAlertAction(title: "Block the user", style: UIAlertActionStyle.default) { (action) in
+            SBDMain.blockUser(user, completionHandler: { (blockedUser, error) in
+                if error != nil {
+                    DispatchQueue.main.async {
+                        let vc = UIAlertController(title: "Error", message: error?.domain, preferredStyle: UIAlertControllerStyle.alert)
                         let closeAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil)
                         vc.addAction(closeAction)
                         DispatchQueue.main.async {
                             self.present(vc, animated: true, completion: nil)
                         }
                     }
-                })
-            }
-            let closeAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil)
-            vc.addAction(seeBlockUserAction)
-            vc.addAction(closeAction)
-            
-            DispatchQueue.main.async {
-                self.present(vc, animated: true, completion: nil)
-            }
+                    
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    let vc = UIAlertController(title: "User blocked", message: String(format: "%@ is blocked.", user.nickname!), preferredStyle: UIAlertControllerStyle.alert)
+                    let closeAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil)
+                    vc.addAction(closeAction)
+                    DispatchQueue.main.async {
+                        self.present(vc, animated: true, completion: nil)
+                    }
+                }
+            })
         }
+        let closeAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil)
+        vc.addAction(seeBlockUserAction)
+        vc.addAction(closeAction)
         
-        func clickMessage(view: UIView, message: SBDBaseMessage) {
-            let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-            let closeAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil)
-            var deleteMessageAction: UIAlertAction?
-            var openURLsAction: [UIAlertAction] = []
-            
-            if message is SBDUserMessage {
-                let userMessage = message as! SBDUserMessage
-                if userMessage.customType != nil && userMessage.customType == "url_preview" {
-                    let data: Data = (userMessage.data?.data(using: String.Encoding.utf8)!)!
-                    do {
-                        let previewData = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.init(rawValue: 0))
-                        let url = URL(string: ((previewData as! Dictionary<String, Any>)["url"] as! String))
-                        UIApplication.shared.openURL(url!)
-                    }
-                    catch {
-                        
-                    }
-                    
+        DispatchQueue.main.async {
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
+    
+    func clickMessage(view: UIView, message: SBDBaseMessage) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        let closeAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil)
+        var deleteMessageAction: UIAlertAction?
+        var openURLsAction: [UIAlertAction] = []
+        
+        if message is SBDUserMessage {
+            let userMessage = message as! SBDUserMessage
+            if userMessage.customType != nil && userMessage.customType == "url_preview" {
+                let data: Data = (userMessage.data?.data(using: String.Encoding.utf8)!)!
+                do {
+                    let previewData = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.init(rawValue: 0))
+                    let url = URL(string: ((previewData as! Dictionary<String, Any>)["url"] as! String))
+                    UIApplication.shared.openURL(url!)
                 }
-                else {
-                    let sender = (message as! SBDUserMessage).sender
-                    if sender?.userId == SBDMain.getCurrentUser()?.userId {
-                        deleteMessageAction = UIAlertAction(title: "Delete the message", style: UIAlertActionStyle.destructive, handler: { (action) in
-                            self.groupChannel.delete(message, completionHandler: { (error) in
-                                if error != nil {
-                                    let alert = UIAlertController(title: "Error", message: error?.domain, preferredStyle: UIAlertControllerStyle.alert)
-                                    let closeAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil)
-                                    alert.addAction(closeAction)
-                                    DispatchQueue.main.async {
-                                        self.present(alert, animated: true, completion: nil)
-                                    }
-                                }
-                            })
-                        })
-                    }
+                catch {
                     
-                    do {
-                        let detector: NSDataDetector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-                        let matches = detector.matches(in: (message as! SBDUserMessage).message!, options: [], range: NSMakeRange(0, ((message as! SBDUserMessage).message?.count)!))
-                        for match in matches as [NSTextCheckingResult] {
-                            let url: URL = match.url!
-                            let openURLAction = UIAlertAction(title: url.relativeString, style: UIAlertActionStyle.default, handler: { (action) in
-                                if #available(iOS 10.0, *) {
-                                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                                } else {
-                                    UIApplication.shared.openURL(url)
-                                }
-                            })
-                            openURLsAction.append(openURLAction)
-                        }
-                    }
-                    catch {
-                        
-                    }
                 }
                 
             }
-            else if message is SBDFileMessage {
-                let fileMessage: SBDFileMessage = message as! SBDFileMessage
-                let sender = fileMessage.sender
-                let type = fileMessage.type
-                let url = fileMessage.url
-                
+            else {
+                let sender = (message as! SBDUserMessage).sender
                 if sender?.userId == SBDMain.getCurrentUser()?.userId {
-                    deleteMessageAction = UIAlertAction(title: "delete_message".localized, style: UIAlertActionStyle.destructive, handler: { (action) in
-                        self.groupChannel.delete(fileMessage, completionHandler: { (error) in
+                    deleteMessageAction = UIAlertAction(title: "Delete the message", style: UIAlertActionStyle.destructive, handler: { (action) in
+                        self.groupChannel.delete(message, completionHandler: { (error) in
                             if error != nil {
-                                let alert = UIAlertController(title: "error".localized, message: error?.domain, preferredStyle: UIAlertControllerStyle.alert)
-                                let closeAction = UIAlertAction(title: "close".localized, style: UIAlertActionStyle.cancel, handler: nil)
+                                let alert = UIAlertController(title: "Error", message: error?.domain, preferredStyle: UIAlertControllerStyle.alert)
+                                let closeAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil)
                                 alert.addAction(closeAction)
                                 DispatchQueue.main.async {
                                     self.present(alert, animated: true, completion: nil)
@@ -1101,224 +1051,215 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                     })
                 }
                 
-                if type.hasPrefix("video") {
-                    let videoUrl = NSURL(string: url)
-                    let player = AVPlayer(url: videoUrl! as URL)
-                    let vc = AVPlayerViewController()
-                    vc.player = player
-                    self.present(vc, animated: true, completion: {
-                        player.play()
-                    })
-                    
-                    return
-                }
-                else if type.hasPrefix("audio") {
-                    let audioUrl = NSURL(string: url)
-                    let player = AVPlayer(url: audioUrl! as URL)
-                    let vc = AVPlayerViewController()
-                    vc.player = player
-                    self.present(vc, animated: true, completion: {
-                        player.play()
-                    })
-                    
-                    return
-                }
-                else if type.hasPrefix("image") {
-                    self.showImageViewerLoading()
-                    let photo = ChatImage()
-                    let cachedData = FLAnimatedImageView.cachedImageForURL(url: URL(string: url)!)
-                    if cachedData != nil {
-                        photo.imageData = cachedData
-                        
-                        self.photosViewController = NYTPhotosViewController(photos: [photo])
-                        DispatchQueue.main.async {
-                            self.photosViewController.rightBarButtonItems = nil
-                            self.photosViewController.rightBarButtonItem = nil
-                            
-                            let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
-                            negativeLeftSpacerForImageViewerLoading.width = -2
-                            
-                            let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close", in: self.podBundle, compatibleWith: nil), style: UIBarButtonItemStyle.done, target: self, action: #selector(self.closeImageViewer))
-                            
-                            self.imageViewerLoadingViewNavItem.leftBarButtonItems = [negativeLeftSpacerForImageViewerLoading, leftCloseItemForImageViewerLoading]
-                            
-                            
-                            self.present(self.photosViewController, animated: true, completion: {
-                                self.hideImageViewerLoading()
-                            })
-                        }
+                do {
+                    let detector: NSDataDetector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+                    let matches = detector.matches(in: (message as! SBDUserMessage).message!, options: [], range: NSMakeRange(0, ((message as! SBDUserMessage).message?.count)!))
+                    for match in matches as [NSTextCheckingResult] {
+                        let url: URL = match.url!
+                        let openURLAction = UIAlertAction(title: url.relativeString, style: UIAlertActionStyle.default, handler: { (action) in
+                            if #available(iOS 10.0, *) {
+                                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                            } else {
+                                UIApplication.shared.openURL(url)
+                            }
+                        })
+                        openURLsAction.append(openURLAction)
                     }
-                    else {
-                        let session = URLSession.shared
-                        let request = URLRequest(url: URL(string: url)!)
-                        session.dataTask(with: request, completionHandler: { (data, response, error) in
-                            if error != nil {
-                                self.hideImageViewerLoading()
-                                
-                                return;
+                }
+                catch {
+                    
+                }
+            }
+            
+        }
+        else if message is SBDFileMessage {
+            let fileMessage: SBDFileMessage = message as! SBDFileMessage
+            let sender = fileMessage.sender
+            let type = fileMessage.type
+            let url = fileMessage.url
+            
+            if sender?.userId == SBDMain.getCurrentUser()?.userId {
+                deleteMessageAction = UIAlertAction(title: "delete_message".localized, style: UIAlertActionStyle.destructive, handler: { (action) in
+                    self.groupChannel.delete(fileMessage, completionHandler: { (error) in
+                        if error != nil {
+                            let alert = UIAlertController(title: "error".localized, message: error?.domain, preferredStyle: UIAlertControllerStyle.alert)
+                            let closeAction = UIAlertAction(title: "close".localized, style: UIAlertActionStyle.cancel, handler: nil)
+                            alert.addAction(closeAction)
+                            DispatchQueue.main.async {
+                                self.present(alert, animated: true, completion: nil)
                             }
-                            
-                            let resp = response as! HTTPURLResponse
-                            if resp.statusCode >= 200 && resp.statusCode < 300 {
-                                //                            AppDelegate.imageCache().setObject(data as AnyObject, forKey: url as AnyObject)
-                                let photo = ChatImage()
-                                photo.imageData = data
-                                
-                                self.photosViewController = NYTPhotosViewController(photos: [photo])
-                                DispatchQueue.main.async {
-                                    self.photosViewController.rightBarButtonItems = nil
-                                    self.photosViewController.rightBarButtonItem = nil
-                                    
-                                    let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
-                                    negativeLeftSpacerForImageViewerLoading.width = -2
-                                    
-                                    let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close", in: self.podBundle, compatibleWith: nil), style: UIBarButtonItemStyle.done, target: self, action: #selector(self.closeImageViewer))
-                                    
-                                    self.imageViewerLoadingViewNavItem.leftBarButtonItems = [negativeLeftSpacerForImageViewerLoading, leftCloseItemForImageViewerLoading]
-                                    
-                                    self.present(self.photosViewController, animated: true, completion: {
-                                        self.hideImageViewerLoading()
-                                    })
-                                }
-                            }
-                            else {
-                                self.hideImageViewerLoading()
-                            }
-                        }).resume()
+                        }
+                    })
+                })
+            }
+            
+            if type.hasPrefix("video") {
+                let videoUrl = NSURL(string: url)
+                let player = AVPlayer(url: videoUrl! as URL)
+                let vc = AVPlayerViewController()
+                vc.player = player
+                self.present(vc, animated: true, completion: {
+                    player.play()
+                })
+                
+                return
+            }
+            else if type.hasPrefix("audio") {
+                let audioUrl = NSURL(string: url)
+                let player = AVPlayer(url: audioUrl! as URL)
+                let vc = AVPlayerViewController()
+                vc.player = player
+                self.present(vc, animated: true, completion: {
+                    player.play()
+                })
+                
+                return
+            }
+            else if type.hasPrefix("image") {
+                self.showImageViewerLoading()
+                let photo = ChatImage()
+                let cachedData = FLAnimatedImageView.cachedImageForURL(url: URL(string: url)!)
+                if cachedData != nil {
+                    photo.imageData = cachedData
+                    
+                    self.photosViewController = NYTPhotosViewController(photos: [photo])
+                    DispatchQueue.main.async {
+                        self.photosViewController.rightBarButtonItems = nil
+                        self.photosViewController.rightBarButtonItem = nil
                         
-                        return
+                        let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
+                        negativeLeftSpacerForImageViewerLoading.width = -2
+                        
+                        let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close.png", in: self.podBundle, compatibleWith: nil), style: UIBarButtonItemStyle.done, target: self, action: #selector(self.closeImageViewer))
+                        
+                        self.imageViewerLoadingViewNavItem.leftBarButtonItems = [negativeLeftSpacerForImageViewerLoading, leftCloseItemForImageViewerLoading]
+                        
+                        
+                        self.present(self.photosViewController, animated: true, completion: {
+                            self.hideImageViewerLoading()
+                        })
                     }
                 }
                 else {
-                    // TODO: Download file. Is this possible on iOS?
+                    let session = URLSession.shared
+                    let request = URLRequest(url: URL(string: url)!)
+                    session.dataTask(with: request, completionHandler: { (data, response, error) in
+                        if error != nil {
+                            self.hideImageViewerLoading()
+                            
+                            return;
+                        }
+                        
+                        let resp = response as! HTTPURLResponse
+                        if resp.statusCode >= 200 && resp.statusCode < 300 {
+                            //                            AppDelegate.imageCache().setObject(data as AnyObject, forKey: url as AnyObject)
+                            let photo = ChatImage()
+                            photo.imageData = data
+                            
+                            self.photosViewController = NYTPhotosViewController(photos: [photo])
+                            DispatchQueue.main.async {
+                                self.photosViewController.rightBarButtonItems = nil
+                                self.photosViewController.rightBarButtonItem = nil
+                                
+                                let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
+                                negativeLeftSpacerForImageViewerLoading.width = -2
+                                
+                                let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close.png", in: self.podBundle, compatibleWith: nil), style: UIBarButtonItemStyle.done, target: self, action: #selector(self.closeImageViewer))
+                                
+                                self.imageViewerLoadingViewNavItem.leftBarButtonItems = [negativeLeftSpacerForImageViewerLoading, leftCloseItemForImageViewerLoading]
+                                
+                                self.present(self.photosViewController, animated: true, completion: {
+                                    self.hideImageViewerLoading()
+                                })
+                            }
+                        }
+                        else {
+                            self.hideImageViewerLoading()
+                        }
+                    }).resume()
+                    
+                    return
                 }
             }
-            else if message is SBDAdminMessage {
-                return
+            else {
+                // TODO: Download file. Is this possible on iOS?
             }
-            
-            alert.addAction(closeAction)
-            
-            if openURLsAction.count > 0 {
-                for action in openURLsAction {
-                    alert.addAction(action)
-                }
-            }
-            
-            if deleteMessageAction != nil {
-                alert.addAction(deleteMessageAction!)
-            }
-            
-            if openURLsAction.count > 0 || deleteMessageAction != nil {
-                DispatchQueue.main.async {
-                    self.present(alert, animated: true, completion: nil)
-                }
+        }
+        else if message is SBDAdminMessage {
+            return
+        }
+        
+        alert.addAction(closeAction)
+        
+        if openURLsAction.count > 0 {
+            for action in openURLsAction {
+                alert.addAction(action)
             }
         }
         
-        func clickResend(view: UIView, message: SBDBaseMessage) {
-            let vc = UIAlertController(title: "resend_message".localized, message: "resend_message_description".localized, preferredStyle: UIAlertControllerStyle.alert)
-            let closeAction = UIAlertAction(title: "close".localized, style: UIAlertActionStyle.cancel, handler: nil)
-            let resendAction = UIAlertAction(title: "resend_message".localized, style: UIAlertActionStyle.default) { (action) in
-                if message is SBDUserMessage {
-                    let resendableUserMessage = message as! SBDUserMessage
-                    var targetLanguages:[String] = []
-                    if resendableUserMessage.translations != nil {
-                        targetLanguages = Array(resendableUserMessage.translations!.keys) as! [String]
+        if deleteMessageAction != nil {
+            alert.addAction(deleteMessageAction!)
+        }
+        
+        if openURLsAction.count > 0 || deleteMessageAction != nil {
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func clickResend(view: UIView, message: SBDBaseMessage) {
+        let vc = UIAlertController(title: "resend_message".localized, message: "resend_message_description".localized, preferredStyle: UIAlertControllerStyle.alert)
+        let closeAction = UIAlertAction(title: "close".localized, style: UIAlertActionStyle.cancel, handler: nil)
+        let resendAction = UIAlertAction(title: "resend_message".localized, style: UIAlertActionStyle.default) { (action) in
+            if message is SBDUserMessage {
+                let resendableUserMessage = message as! SBDUserMessage
+                var targetLanguages:[String] = []
+                if resendableUserMessage.translations != nil {
+                    targetLanguages = Array(resendableUserMessage.translations!.keys) as! [String]
+                }
+                
+                do {
+                    let detector: NSDataDetector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+                    let matches = detector.matches(in: resendableUserMessage.message!, options: NSRegularExpression.MatchingOptions.init(rawValue: 0), range: NSMakeRange(0, (resendableUserMessage.message!.count)))
+                    var url: URL? = nil
+                    for item in matches {
+                        let match = item as NSTextCheckingResult
+                        url = match.url
+                        break
                     }
                     
-                    do {
-                        let detector: NSDataDetector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-                        let matches = detector.matches(in: resendableUserMessage.message!, options: NSRegularExpression.MatchingOptions.init(rawValue: 0), range: NSMakeRange(0, (resendableUserMessage.message!.count)))
-                        var url: URL? = nil
-                        for item in matches {
-                            let match = item as NSTextCheckingResult
-                            url = match.url
-                            break
+                    if url != nil {
+                        let tempModel = OutgoingGeneralUrlPreviewTempModel()
+                        tempModel.createdAt = Int64(NSDate().timeIntervalSince1970 * 1000)
+                        tempModel.message = resendableUserMessage.message!
+                        
+                        self.chattingView.messages[self.chattingView.messages.index(of: resendableUserMessage)!] = tempModel
+                        self.chattingView.resendableMessages.removeValue(forKey: resendableUserMessage.requestId!)
+                        
+                        DispatchQueue.main.async {
+                            self.chattingView.chattingTableView.reloadData()
+                            DispatchQueue.main.async {
+                                self.chattingView.scrollToBottom(force: true)
+                            }
                         }
                         
-                        if url != nil {
-                            let tempModel = OutgoingGeneralUrlPreviewTempModel()
-                            tempModel.createdAt = Int64(NSDate().timeIntervalSince1970 * 1000)
-                            tempModel.message = resendableUserMessage.message!
-                            
-                            self.chattingView.messages[self.chattingView.messages.index(of: resendableUserMessage)!] = tempModel
-                            self.chattingView.resendableMessages.removeValue(forKey: resendableUserMessage.requestId!)
-                            
-                            DispatchQueue.main.async {
-                                self.chattingView.chattingTableView.reloadData()
-                                DispatchQueue.main.async {
-                                    self.chattingView.scrollToBottom(force: true)
-                                }
-                            }
-                            
-                            // Send preview
-                            self.sendUrlPreview(url: url!, message: resendableUserMessage.message!, aTempModel: tempModel)
-                        }
-                    }
-                    catch {
-                        
-                    }
-                    
-                    let preSendMessage = self.groupChannel.sendUserMessage(resendableUserMessage.message, data: resendableUserMessage.data, customType: resendableUserMessage.customType, targetLanguages: targetLanguages, completionHandler: { (userMessage, error) in
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(150), execute: {
-                            DispatchQueue.main.async {
-                                let preSendMessage = self.chattingView.preSendMessages[(userMessage?.requestId)!]
-                                self.chattingView.preSendMessages.removeValue(forKey: (userMessage?.requestId)!)
-                                
-                                if error != nil {
-                                    self.chattingView.resendableMessages[(userMessage?.requestId)!] = userMessage
-                                    self.chattingView.chattingTableView.reloadData()
-                                    DispatchQueue.main.async {
-                                        self.chattingView.scrollToBottom(force: true)
-                                    }
-                                    
-                                    let alert = UIAlertController(title: "error".localized, message: error?.domain, preferredStyle: UIAlertControllerStyle.alert)
-                                    let closeAction = UIAlertAction(title: "close".localized, style: UIAlertActionStyle.cancel, handler: nil)
-                                    alert.addAction(closeAction)
-                                    DispatchQueue.main.async {
-                                        self.present(alert, animated: true, completion: nil)
-                                    }
-                                    
-                                    return
-                                }
-                                
-                                if preSendMessage != nil {
-                                    self.chattingView.messages.remove(at: self.chattingView.messages.index(of: (preSendMessage! as SBDBaseMessage))!)
-                                    self.chattingView.messages.append(userMessage!)
-                                }
-                                
-                                self.chattingView.chattingTableView.reloadData()
-                                DispatchQueue.main.async {
-                                    self.chattingView.scrollToBottom(force: true)
-                                }
-                            }
-                        })
-                    })
-                    self.chattingView.messages[self.chattingView.messages.index(of: resendableUserMessage)!] = preSendMessage
-                    self.chattingView.preSendMessages[preSendMessage.requestId!] = preSendMessage
-                    self.chattingView.resendableMessages.removeValue(forKey: resendableUserMessage.requestId!)
-                    self.chattingView.chattingTableView.reloadData()
-                    DispatchQueue.main.async {
-                        self.chattingView.scrollToBottom(force: true)
+                        // Send preview
+                        self.sendUrlPreview(url: url!, message: resendableUserMessage.message!, aTempModel: tempModel)
                     }
                 }
-                else if message is SBDFileMessage {
-                    let resendableFileMessage = message as! SBDFileMessage
+                catch {
                     
-                    var thumbnailSizes: [SBDThumbnailSize] = []
-                    for thumbnail in resendableFileMessage.thumbnails! as [SBDThumbnail] {
-                        thumbnailSizes.append(SBDThumbnailSize.make(withMaxCGSize: thumbnail.maxSize)!)
-                    }
-                    let preSendMessage = self.groupChannel.sendFileMessage(withBinaryData: self.chattingView.preSendFileData[resendableFileMessage.requestId!]?["data"] as! Data, filename: resendableFileMessage.name, type: resendableFileMessage.type, size: resendableFileMessage.size, thumbnailSizes: thumbnailSizes, data: resendableFileMessage.data, customType: resendableFileMessage.customType, progressHandler: nil, completionHandler: { (fileMessage, error) in
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(150), execute: {
-                            let preSendMessage = self.chattingView.preSendMessages[(fileMessage?.requestId)!]
-                            self.chattingView.preSendMessages.removeValue(forKey: (fileMessage?.requestId)!)
+                }
+                
+                let preSendMessage = self.groupChannel.sendUserMessage(resendableUserMessage.message, data: resendableUserMessage.data, customType: resendableUserMessage.customType, targetLanguages: targetLanguages, completionHandler: { (userMessage, error) in
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(150), execute: {
+                        DispatchQueue.main.async {
+                            let preSendMessage = self.chattingView.preSendMessages[(userMessage?.requestId)!]
+                            self.chattingView.preSendMessages.removeValue(forKey: (userMessage?.requestId)!)
                             
                             if error != nil {
-                                self.chattingView.resendableMessages[(fileMessage?.requestId)!] = fileMessage
-                                self.chattingView.resendableFileData[(fileMessage?.requestId)!] = self.chattingView.resendableFileData[resendableFileMessage.requestId!]
-                                self.chattingView.resendableFileData.removeValue(forKey: resendableFileMessage.requestId!)
+                                self.chattingView.resendableMessages[(userMessage?.requestId)!] = userMessage
                                 self.chattingView.chattingTableView.reloadData()
                                 DispatchQueue.main.async {
                                     self.chattingView.scrollToBottom(force: true)
@@ -1336,238 +1277,258 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                             
                             if preSendMessage != nil {
                                 self.chattingView.messages.remove(at: self.chattingView.messages.index(of: (preSendMessage! as SBDBaseMessage))!)
-                                self.chattingView.messages.append(fileMessage!)
+                                self.chattingView.messages.append(userMessage!)
                             }
                             
                             self.chattingView.chattingTableView.reloadData()
                             DispatchQueue.main.async {
                                 self.chattingView.scrollToBottom(force: true)
                             }
-                        })
+                        }
                     })
-                    
-                    self.chattingView.messages[self.chattingView.messages.index(of: resendableFileMessage)!] = preSendMessage
-                    self.chattingView.preSendMessages[preSendMessage.requestId!] = preSendMessage
-                    self.chattingView.preSendFileData[preSendMessage.requestId!] = self.chattingView.resendableFileData[resendableFileMessage.requestId!]
-                    self.chattingView.resendableMessages.removeValue(forKey: resendableFileMessage.requestId!)
-                    self.chattingView.resendableFileData.removeValue(forKey: resendableFileMessage.requestId!)
-                    self.chattingView.chattingTableView.reloadData()
-                    DispatchQueue.main.async {
-                        self.chattingView.scrollToBottom(force: true)
-                    }
-                }
-            }
-            
-            vc.addAction(closeAction)
-            vc.addAction(resendAction)
-            DispatchQueue.main.async {
-                self.present(vc, animated: true, completion: nil)
-            }
-        }
-        
-        func clickDelete(view: UIView, message: SBDBaseMessage) {
-            let vc = UIAlertController(title: "delete_message".localized, message: "Do you want to delete the message?", preferredStyle: UIAlertControllerStyle.alert)
-            let closeAction = UIAlertAction(title: "close".localized, style: UIAlertActionStyle.cancel, handler: nil)
-            let deleteAction = UIAlertAction(title: "delete_message".localized, style: UIAlertActionStyle.destructive) { (action) in
-                var requestId: String?
-                if message is SBDUserMessage {
-                    requestId = (message as! SBDUserMessage).requestId
-                }
-                else if message is SBDFileMessage {
-                    requestId = (message as! SBDFileMessage).requestId
-                }
-                self.chattingView.resendableFileData.removeValue(forKey: requestId!)
-                self.chattingView.resendableMessages.removeValue(forKey: requestId!)
-                self.chattingView.messages.remove(at: self.chattingView.messages.index(of: message)!)
-                DispatchQueue.main.async {
-                    self.chattingView.chattingTableView.reloadData()
-                }
-            }
-            
-            vc.addAction(closeAction)
-            vc.addAction(deleteAction)
-            DispatchQueue.main.async {
-                self.present(vc, animated: true, completion: nil)
-            }
-        }
-        
-        func showImageViewerLoading() {
-            DispatchQueue.main.async {
-                self.imageViewerLoadingView.isHidden = false
-                self.imageViewerLoadingIndicator.isHidden = false
-                self.imageViewerLoadingIndicator.startAnimating()
-            }
-        }
-        
-        func hideImageViewerLoading() {
-            DispatchQueue.main.async {
-                self.imageViewerLoadingView.isHidden = true
-                self.imageViewerLoadingIndicator.isHidden = true
-                self.imageViewerLoadingIndicator.stopAnimating()
-            }
-        }
-        
-        @objc func closeImageViewer() {
-            if self.photosViewController != nil {
-                self.photosViewController.dismiss(animated: true, completion: nil)
-            }
-        }
-    }
-    
-    // MARK: - UIImagePickerController Methods
-    
-    extension GroupChannelChattingViewController: UIImagePickerControllerDelegate {
-        
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-            let mediaType = info[UIImagePickerControllerMediaType] as! String
-            
-            picker.dismiss(animated: true) {
-                if CFStringCompare(mediaType as CFString, kUTTypeImage, []) == CFComparisonResult.compareEqualTo {
-                    self.mediaInfo = info
-                    let imagePath: URL = self.mediaInfo![UIImagePickerControllerReferenceURL] as! URL
-                    let imageName: NSString = (imagePath.lastPathComponent as NSString?)!
-                    let ext = imageName.pathExtension
-                    let UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, ext as CFString, nil)?.takeRetainedValue()
-                    let mimeType = UTTypeCopyPreferredTagWithClass(UTI!, kUTTagClassMIMEType)?.takeRetainedValue();
-                    let asset = PHAsset.fetchAssets(withALAssetURLs: [imagePath], options: nil).lastObject
-                    let options = PHImageRequestOptions()
-                    options.isSynchronous = true
-                    options.isNetworkAccessAllowed = false
-                    options.deliveryMode = PHImageRequestOptionsDeliveryMode.highQualityFormat
-                    if asset != nil {
-                        PHImageManager.default().requestImage(for: asset!, targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.default, options: nil, resultHandler: { (result, info) in
-                            if (result != nil) {
-                                
-                                // Call the Caption ViewController
-                                let imageCaptionVC = ImagePreviewViewController(nibName: "ImagePreviewViewController", bundle: self.podBundle)
-                                imageCaptionVC.imageToUpload = result
-                                // If user has typed any text, use it as caption
-                                if self.chattingView.messageTextView.textView.text != nil {
-                                    imageCaptionVC.strCaption = self.chattingView.messageTextView.textView.text
-                                }
-                                
-                                imageCaptionVC.delegate = self
-                                self.navigationController?.pushViewController(imageCaptionVC, animated: true)                                                            }
-                        })
-                    }
-                }
-            }
-        }
-        
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            picker.dismiss(animated: true, completion: nil)
-        }
-    }
-    
-    // MARK: - Observer Methods
-    
-    fileprivate extension GroupChannelChattingViewController {
-        
-        @objc private func keyboardWillShow(notification: Notification) {
-            self.keyboardShown = true
-            
-            let keyboardInfo = notification.userInfo
-            let keyboardFrameBegin = keyboardInfo?[UIKeyboardFrameEndUserInfoKey]
-            let keyboardFrameBeginRect = (keyboardFrameBegin as! NSValue).cgRectValue
-            
-            DispatchQueue.main.async {
-                self.bottomMargin.constant = keyboardFrameBeginRect.size.height
-                UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveLinear
-                    , animations: {
-                        self.view.layoutIfNeeded()
-                }, completion: { (status) in
-                    self.chattingView.stopMeasuringVelocity = true
-                    self.chattingView.scrollToBottom(force: false)
                 })
+                self.chattingView.messages[self.chattingView.messages.index(of: resendableUserMessage)!] = preSendMessage
+                self.chattingView.preSendMessages[preSendMessage.requestId!] = preSendMessage
+                self.chattingView.resendableMessages.removeValue(forKey: resendableUserMessage.requestId!)
+                self.chattingView.chattingTableView.reloadData()
+                DispatchQueue.main.async {
+                    self.chattingView.scrollToBottom(force: true)
+                }
             }
-        }
-        
-        @objc private func keyboardWillHide(notification: Notification) {
-            self.keyboardShown = false
-            
-            DispatchQueue.main.async {
-                self.bottomMargin.constant = 0
-                UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveLinear
-                    , animations: {
-                        self.view.layoutIfNeeded()
-                }, completion: { (status) in
-                    self.chattingView.scrollToBottom(force: false)
+            else if message is SBDFileMessage {
+                let resendableFileMessage = message as! SBDFileMessage
+                
+                var thumbnailSizes: [SBDThumbnailSize] = []
+                for thumbnail in resendableFileMessage.thumbnails! as [SBDThumbnail] {
+                    thumbnailSizes.append(SBDThumbnailSize.make(withMaxCGSize: thumbnail.maxSize)!)
+                }
+                let preSendMessage = self.groupChannel.sendFileMessage(withBinaryData: self.chattingView.preSendFileData[resendableFileMessage.requestId!]?["data"] as! Data, filename: resendableFileMessage.name, type: resendableFileMessage.type, size: resendableFileMessage.size, thumbnailSizes: thumbnailSizes, data: resendableFileMessage.data, customType: resendableFileMessage.customType, progressHandler: nil, completionHandler: { (fileMessage, error) in
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(150), execute: {
+                        let preSendMessage = self.chattingView.preSendMessages[(fileMessage?.requestId)!]
+                        self.chattingView.preSendMessages.removeValue(forKey: (fileMessage?.requestId)!)
+                        
+                        if error != nil {
+                            self.chattingView.resendableMessages[(fileMessage?.requestId)!] = fileMessage
+                            self.chattingView.resendableFileData[(fileMessage?.requestId)!] = self.chattingView.resendableFileData[resendableFileMessage.requestId!]
+                            self.chattingView.resendableFileData.removeValue(forKey: resendableFileMessage.requestId!)
+                            self.chattingView.chattingTableView.reloadData()
+                            DispatchQueue.main.async {
+                                self.chattingView.scrollToBottom(force: true)
+                            }
+                            
+                            let alert = UIAlertController(title: "error".localized, message: error?.domain, preferredStyle: UIAlertControllerStyle.alert)
+                            let closeAction = UIAlertAction(title: "close".localized, style: UIAlertActionStyle.cancel, handler: nil)
+                            alert.addAction(closeAction)
+                            DispatchQueue.main.async {
+                                self.present(alert, animated: true, completion: nil)
+                            }
+                            
+                            return
+                        }
+                        
+                        if preSendMessage != nil {
+                            self.chattingView.messages.remove(at: self.chattingView.messages.index(of: (preSendMessage! as SBDBaseMessage))!)
+                            self.chattingView.messages.append(fileMessage!)
+                        }
+                        
+                        self.chattingView.chattingTableView.reloadData()
+                        DispatchQueue.main.async {
+                            self.chattingView.scrollToBottom(force: true)
+                        }
+                    })
                 })
                 
+                self.chattingView.messages[self.chattingView.messages.index(of: resendableFileMessage)!] = preSendMessage
+                self.chattingView.preSendMessages[preSendMessage.requestId!] = preSendMessage
+                self.chattingView.preSendFileData[preSendMessage.requestId!] = self.chattingView.resendableFileData[resendableFileMessage.requestId!]
+                self.chattingView.resendableMessages.removeValue(forKey: resendableFileMessage.requestId!)
+                self.chattingView.resendableFileData.removeValue(forKey: resendableFileMessage.requestId!)
+                self.chattingView.chattingTableView.reloadData()
+                DispatchQueue.main.async {
+                    self.chattingView.scrollToBottom(force: true)
+                }
             }
         }
         
-        @objc private func applicationWillTerminate(notification: Notification) {
-            Utils.dumpMessages(
-                messages: self.chattingView.messages,
-                resendableMessages: self.chattingView.resendableMessages,
-                resendableFileData: self.chattingView.resendableFileData,
-                preSendMessages: self.chattingView.preSendMessages,
-                channelUrl: self.groupChannel.channelUrl
-            )
+        vc.addAction(closeAction)
+        vc.addAction(resendAction)
+        DispatchQueue.main.async {
+            self.present(vc, animated: true, completion: nil)
         }
-        
     }
     
-    
-    // MARK: - Private Utility Methods
-    
-    fileprivate extension GroupChannelChattingViewController {
-        
-        func createTitle(title: String, subTitle: String) {
-
-//            let titleView: UILabel = UILabel(frame: CGRect(x: 0, y: 32.0, width: self.view.frame.size.width - 100.0, height: 95))
-//            titleView.numberOfLines = 2
-//            let stringValue = Utils.generateNavigationTitle(mainTitle: title,
-//                                                                     subTitle: subTitle,
-//                                                                     titleColor: themeObject?.primaryAccentColor,
-//                                                                     subTitleColor: themeObject?.primaryActionIconsColor)
-//            
-//            
-//            let attrString = NSMutableAttributedString(attributedString: stringValue!)
-//            let style = NSMutableParagraphStyle()
-//            style.lineSpacing = 4 // change line spacing between paragraph like 36 or 48
-//            style.minimumLineHeight = 0 // change line spacing between each line like 30 or 40
-//        
-//            // Line spacing attribute
-//            attrString.addAttribute(NSAttributedStringKey.paragraphStyle, value: style, range: NSRange(location: 0, length: (stringValue?.length)!))
-//            
-//            // Character spacing attribute
-////            attrString.addAttribute(NSAttributedStringKey.kern, value: 2, range: NSMakeRange(0, attrString.length))
-//
-//            titleView.attributedText = attrString
-//            
-////            titleView.setLineSpacing(lineSpacing: 1.0, lineHeightMultiple: 1.0)
-//            titleView.textAlignment = .center
-//            titleView.sizeToFit()
-//            let titleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickReconnect))
-//            titleView.isUserInteractionEnabled = true
-//            titleView.addGestureRecognizer(titleTapRecognizer)
-//            self.navItem.titleView = titleView
+    func clickDelete(view: UIView, message: SBDBaseMessage) {
+        let vc = UIAlertController(title: "delete_message".localized, message: "Do you want to delete the message?", preferredStyle: UIAlertControllerStyle.alert)
+        let closeAction = UIAlertAction(title: "close".localized, style: UIAlertActionStyle.cancel, handler: nil)
+        let deleteAction = UIAlertAction(title: "delete_message".localized, style: UIAlertActionStyle.destructive) { (action) in
+            var requestId: String?
+            if message is SBDUserMessage {
+                requestId = (message as! SBDUserMessage).requestId
+            }
+            else if message is SBDFileMessage {
+                requestId = (message as! SBDFileMessage).requestId
+            }
+            self.chattingView.resendableFileData.removeValue(forKey: requestId!)
+            self.chattingView.resendableMessages.removeValue(forKey: requestId!)
+            self.chattingView.messages.remove(at: self.chattingView.messages.index(of: message)!)
+            DispatchQueue.main.async {
+                self.chattingView.chattingTableView.reloadData()
+            }
         }
         
-        func setNavigationItems() {
-////            let negativeLeftSpacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
-////            negativeLeftSpacer.width = -2
-//            let leftCloseItem = UIBarButtonItem(image: UIImage(named: "back", in: podBundle, compatibleWith: nil), style: UIBarButtonItemStyle.done, target: self, action: #selector(close))
-//            if self.themeObject != nil {
-//                leftCloseItem.tintColor = self.themeObject?.primaryButtonColor
-//            }
-//
-//            if self.themeObject != nil {
-//                leftCloseItem.tintColor = self.themeObject?.primaryAccentColor
-//            }
-//            self.navItem.leftBarButtonItems = [leftCloseItem]
-            
-            self.lblTitle.text = self.themeObject != nil ? self.themeObject?.title : ""
-            self.lblSubTitle.text = self.themeObject != nil ? self.themeObject?.subtitle : ""
+        vc.addAction(closeAction)
+        vc.addAction(deleteAction)
+        DispatchQueue.main.async {
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
+    
+    func showImageViewerLoading() {
+        DispatchQueue.main.async {
+            self.imageViewerLoadingView.isHidden = false
+            self.imageViewerLoadingIndicator.isHidden = false
+            self.imageViewerLoadingIndicator.startAnimating()
+        }
+    }
+    
+    func hideImageViewerLoading() {
+        DispatchQueue.main.async {
+            self.imageViewerLoadingView.isHidden = true
+            self.imageViewerLoadingIndicator.isHidden = true
+            self.imageViewerLoadingIndicator.stopAnimating()
+        }
+    }
+    
+    @objc func closeImageViewer() {
+        if self.photosViewController != nil {
+            self.photosViewController.dismiss(animated: true, completion: nil)
+        }
+    }
+}
 
-            if self.themeObject != nil {
-                self.lblTitle.textColor = self.themeObject?.primaryAccentColor
-                self.lblSubTitle.textColor = self.themeObject?.primaryActionIconsColor
-                self.btnBack.tintColor = self.themeObject?.primaryNavigationButtonColor
+// MARK: - UIImagePickerController Methods
+
+extension GroupChannelChattingViewController: UIImagePickerControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let mediaType = info[UIImagePickerControllerMediaType] as! String
+        
+        picker.dismiss(animated: true) {
+            if CFStringCompare(mediaType as CFString, kUTTypeImage, []) == CFComparisonResult.compareEqualTo {
+                self.mediaInfo = info
+                let imagePath: URL = self.mediaInfo![UIImagePickerControllerReferenceURL] as! URL
+                let imageName: NSString = (imagePath.lastPathComponent as NSString?)!
+                let ext = imageName.pathExtension
+                let UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, ext as CFString, nil)?.takeRetainedValue()
+                _ = UTTypeCopyPreferredTagWithClass(UTI!, kUTTagClassMIMEType)?.takeRetainedValue();
+                let asset = PHAsset.fetchAssets(withALAssetURLs: [imagePath], options: nil).lastObject
+                let options = PHImageRequestOptions()
+                options.isSynchronous = true
+                options.isNetworkAccessAllowed = false
+                options.deliveryMode = PHImageRequestOptionsDeliveryMode.highQualityFormat
+                if asset != nil {
+                    PHImageManager.default().requestImage(for: asset!, targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.default, options: nil, resultHandler: { (result, info) in
+                        if (result != nil) {
+                            
+                            // Call the Caption ViewController
+                            let imageCaptionVC = ImagePreviewViewController(nibName: "ImagePreviewViewController", bundle: self.podBundle)
+                            imageCaptionVC.imageToUpload = result
+                            // If user has typed any text, use it as caption
+                            if self.chattingView.messageTextView.textView.text != nil {
+                                imageCaptionVC.strCaption = self.chattingView.messageTextView.textView.text
+                            }
+                            
+                            imageCaptionVC.delegate = self
+                            self.navigationController?.pushViewController(imageCaptionVC, animated: true)                                                            }
+                    })
+                }
             }
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - Observer Methods
+
+fileprivate extension GroupChannelChattingViewController {
+    
+    @objc private func keyboardWillShow(notification: Notification) {
+        self.keyboardShown = true
+        
+        let keyboardInfo = notification.userInfo
+        let keyboardFrameBegin = keyboardInfo?[UIKeyboardFrameEndUserInfoKey]
+        let keyboardFrameBeginRect = (keyboardFrameBegin as! NSValue).cgRectValue
+        
+        DispatchQueue.main.async {
+            self.bottomMargin.constant = keyboardFrameBeginRect.size.height
+            UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveLinear
+                , animations: {
+                    self.view.layoutIfNeeded()
+            }, completion: { (status) in
+                self.chattingView.stopMeasuringVelocity = true
+                self.chattingView.scrollToBottom(force: false)
+            })
+        }
+    }
+    
+    @objc private func keyboardWillHide(notification: Notification) {
+        self.keyboardShown = false
+        
+        DispatchQueue.main.async {
+            self.bottomMargin.constant = 0
+            UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveLinear
+                , animations: {
+                    self.view.layoutIfNeeded()
+            }, completion: { (status) in
+                self.chattingView.scrollToBottom(force: false)
+            })
             
+        }
+    }
+    
+    @objc private func applicationWillTerminate(notification: Notification) {
+        Utils.dumpMessages(
+            messages: self.chattingView.messages,
+            resendableMessages: self.chattingView.resendableMessages,
+            resendableFileData: self.chattingView.resendableFileData,
+            preSendMessages: self.chattingView.preSendMessages,
+            channelUrl: self.groupChannel.channelUrl
+        )
+    }
+    
+}
+
+
+// MARK: - Private Utility Methods
+
+fileprivate extension GroupChannelChattingViewController {
+    
+    func createTitle(title: String, subTitle: String) {
+    }
+    
+    func setNavigationItems() {
+        
+        self.lblTitle.text = self.themeObject != nil ? self.themeObject?.title : ""
+        self.lblSubTitle.text = self.themeObject != nil ? self.themeObject?.subtitle : ""
+        
+        if self.themeObject != nil {
+            self.lblTitle.textColor = self.themeObject?.primaryAccentColor
+            self.lblSubTitle.textColor = self.themeObject?.primaryActionIconsColor
+            self.btnBack.tintColor = self.themeObject?.primaryNavigationButtonColor
+        }
+        
+        if #available(iOS 9.0, *) {
+            if UIView.userInterfaceLayoutDirection(
+                for: self.view.semanticContentAttribute) == .rightToLeft {
+                self.btnBack.transform = CGAffineTransform(scaleX: -1,y: 1)
+            }
+        } else {
+            if UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft {
+                self.btnBack.transform = CGAffineTransform(scaleX: -1,y: 1)
+            }
             if UIView.userInterfaceLayoutDirection(for: UIView.appearance().semanticContentAttribute) == .rightToLeft {
                 btnBack.transform = btnBack.transform.rotated(by: CGFloat(Double.pi))
             }
@@ -1576,105 +1537,109 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             
         }
         
-        func addObservers() {
-            
-            NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-            NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-            
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-            
-            NotificationCenter.default.addObserver(self, selector: #selector(applicationWillTerminate(notification:)), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
-        }
+        self.btnBack.addTarget(self, action: #selector(close), for: .touchUpInside)
+        
     }
     
+    func addObservers() {
+        
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillTerminate(notification:)), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
+    }
+}
+
+
+extension GroupChannelChattingViewController : SelectLocationDelegate {
     
-    extension GroupChannelChattingViewController : SelectLocationDelegate {
+    
+    func userDidSelect(location uri: String?) {
+        // Check if we have lat, longs returned. Else dismiss the view and return.
+        if uri == nil || uri == "" {
+            self.userDidDismiss()
+            return
+        }
+        // uri ===> Lat,Long
+        //let hexValue = String(format:"0x%02X", Int(rgbRedValue)) + String(format:"%02X", Int(rgbGreenValue)) + String(format:"%02X", Int(rgbBlueValue))
+        // The pin should be in the primary color chosen by user. covert RGB to HEX
+        //            let hexColor = "0xFF0000"
+        //
+        //            let strBaseURL = "https://maps.googleapis.com/maps/api/staticmap?"
+        //            let strMapCenter = "center=\(uri!)"
+        //            // zoom is set to 12.
+        //            let strZoom = "&zoom=12"
+        //            // image size
+        //            let strSize = "&size=400x400"
+        //            // marker will be at the location user chose
+        //            let strMarkers = "&markers=color:\(hexColor)%7C\(uri!)"
+        //            //  temporary Google Maps API key. Should force develper to use his/her own key here. Else crash the code.
+        //            let strAPIKey = "&key=AIzaSyC8c5njP9WGIGeLGLYeBMY8aKRTW_NgkZ8"
+        //            let strURL = strBaseURL + strMapCenter + strZoom + strSize + strMarkers + strAPIKey
+        //            let url = URL(string: strURL)
         
-        
-        func userDidSelect(location uri: String?) {
-            // Check if we have lat, longs returned. Else dismiss the view and return.
-            if uri == nil || uri == "" {
-                self.userDidDismiss()
-                return
-            }
-            // uri ===> Lat,Long
-            //let hexValue = String(format:"0x%02X", Int(rgbRedValue)) + String(format:"%02X", Int(rgbGreenValue)) + String(format:"%02X", Int(rgbBlueValue))
-            // The pin should be in the primary color chosen by user. covert RGB to HEX
-//            let hexColor = "0xFF0000"
-//
-//            let strBaseURL = "https://maps.googleapis.com/maps/api/staticmap?"
-//            let strMapCenter = "center=\(uri!)"
-//            // zoom is set to 12.
-//            let strZoom = "&zoom=12"
-//            // image size
-//            let strSize = "&size=400x400"
-//            // marker will be at the location user chose
-//            let strMarkers = "&markers=color:\(hexColor)%7C\(uri!)"
-//            //  temporary Google Maps API key. Should force develper to use his/her own key here. Else crash the code.
-//            let strAPIKey = "&key=AIzaSyC8c5njP9WGIGeLGLYeBMY8aKRTW_NgkZ8"
-//            let strURL = strBaseURL + strMapCenter + strZoom + strSize + strMarkers + strAPIKey
-//            let url = URL(string: strURL)
-            
-            let imgLocation = UIImage(named: "map_place_holder", in: self.podBundle, compatibleWith: nil)
-            if imgLocation == nil {
-                return
-            }
-            let data = (UIImagePNGRepresentation(imgLocation!))!
-            let thumbnailSize = SBDThumbnailSize.make(withMaxWidth: 320.0, maxHeight: 320.0)
-            DispatchQueue.global().async {
-                DispatchQueue.main.async {
-                    if data.count > 0 {
-                        let preSendMessage = self.groupChannel.sendFileMessage(withBinaryData: data, filename: uri! , type: "image/png", size: UInt(data.count), thumbnailSizes: [thumbnailSize!], data: "", customType: "", progressHandler: nil, completionHandler: { (fileMessage, error) in
-                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(150), execute: {
-                                if let preSendMessage = self.chattingView.preSendMessages[(fileMessage?.requestId)!] as? SBDFileMessage {
-                                    self.chattingView.preSendMessages.removeValue(forKey: (fileMessage?.requestId)!)
-                                    
-                                    if error != nil {
-                                        self.chattingView.resendableMessages[(fileMessage?.requestId)!] = preSendMessage
-                                        self.chattingView.resendableFileData[preSendMessage.requestId!]?["data"] = data as AnyObject?
-                                        self.chattingView.resendableFileData[preSendMessage.requestId!]?["type"] = "image/png" as AnyObject?
-                                        self.chattingView.chattingTableView.reloadData()
-                                        DispatchQueue.main.async {
-                                            self.chattingView.scrollToBottom(force: true)
-                                        }
-                                        return
+        let imgLocation = UIImage(named: "map_place_holder.png", in: self.podBundle, compatibleWith: nil)
+        if imgLocation == nil {
+            return
+        }
+        let data = (UIImagePNGRepresentation(imgLocation!))!
+        let thumbnailSize = SBDThumbnailSize.make(withMaxWidth: 320.0, maxHeight: 320.0)
+        DispatchQueue.global().async {
+            DispatchQueue.main.async {
+                if data.count > 0 {
+                    let preSendMessage = self.groupChannel.sendFileMessage(withBinaryData: data, filename: uri! , type: "image/png", size: UInt(data.count), thumbnailSizes: [thumbnailSize!], data: "", customType: "", progressHandler: nil, completionHandler: { (fileMessage, error) in
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(150), execute: {
+                            if let preSendMessage = self.chattingView.preSendMessages[(fileMessage?.requestId)!] as? SBDFileMessage {
+                                self.chattingView.preSendMessages.removeValue(forKey: (fileMessage?.requestId)!)
+                                
+                                if error != nil {
+                                    self.chattingView.resendableMessages[(fileMessage?.requestId)!] = preSendMessage
+                                    self.chattingView.resendableFileData[preSendMessage.requestId!]?["data"] = data as AnyObject?
+                                    self.chattingView.resendableFileData[preSendMessage.requestId!]?["type"] = "image/png" as AnyObject?
+                                    self.chattingView.chattingTableView.reloadData()
+                                    DispatchQueue.main.async {
+                                        self.chattingView.scrollToBottom(force: true)
                                     }
-                                    if fileMessage != nil {
-                                        self.chattingView.resendableMessages.removeValue(forKey: (fileMessage?.requestId)!)
-                                        self.chattingView.resendableFileData.removeValue(forKey: (fileMessage?.requestId)!)
-                                        self.chattingView.preSendMessages.removeValue(forKey: (fileMessage?.requestId)!)
-                                        self.chattingView.messages[self.chattingView.messages.index(of: preSendMessage)!] = fileMessage!
-                                        
-                                        DispatchQueue.main.async {
-                                            self.chattingView.chattingTableView.reloadData()
-                                            self.chattingView.scrollToBottom(force: true)
-                                        }
+                                    return
+                                }
+                                if fileMessage != nil {
+                                    self.chattingView.resendableMessages.removeValue(forKey: (fileMessage?.requestId)!)
+                                    self.chattingView.resendableFileData.removeValue(forKey: (fileMessage?.requestId)!)
+                                    self.chattingView.preSendMessages.removeValue(forKey: (fileMessage?.requestId)!)
+                                    self.chattingView.messages[self.chattingView.messages.index(of: preSendMessage)!] = fileMessage!
+                                    
+                                    DispatchQueue.main.async {
+                                        self.chattingView.chattingTableView.reloadData()
+                                        self.chattingView.scrollToBottom(force: true)
                                     }
                                 }
-                            })
-                        })
-                        
-                            self.chattingView.preSendFileData[preSendMessage.requestId!] = [
-                                "data": data as AnyObject,
-                                "type": "image/png" as AnyObject,
-                            ]
-                            self.chattingView.preSendMessages[preSendMessage.requestId!] = preSendMessage
-                            self.chattingView.messages.append(preSendMessage)
-                            self.chattingView.chattingTableView.reloadData()
-                            DispatchQueue.main.async {
-                                self.chattingView.scrollToBottom(force: true)
-                                self.chattingView.chattingTableView.reloadData()
                             }
+                        })
+                    })
+                    
+                    self.chattingView.preSendFileData[preSendMessage.requestId!] = [
+                        "data": data as AnyObject,
+                        "type": "image/png" as AnyObject,
+                    ]
+                    self.chattingView.preSendMessages[preSendMessage.requestId!] = preSendMessage
+                    self.chattingView.messages.append(preSendMessage)
+                    self.chattingView.chattingTableView.reloadData()
+                    DispatchQueue.main.async {
+                        self.chattingView.scrollToBottom(force: true)
+                        self.chattingView.chattingTableView.reloadData()
                     }
                 }
             }
-            
-            self.dismiss(animated: true, completion: nil)
         }
-        func userDidDismiss() {
-            self.dismiss(animated: true, completion: nil)
-        }
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    func userDidDismiss() {
+        self.dismiss(animated: true, completion: nil)
+    }
 }
 
 extension GroupChannelChattingViewController : ImagePreviewProtocol {
@@ -1700,49 +1665,49 @@ extension GroupChannelChattingViewController : ImagePreviewProtocol {
                 let preSendMessage = self.groupChannel.sendFileMessage(withBinaryData: imageData!, filename: imageName as String, type: mimeType! as String, size: UInt((imageData?.count)!), thumbnailSizes: [thumbnailSize!], data: "", customType: "", progressHandler: nil, completionHandler: { (fileMessage, error) in
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(150), execute: {
                         let preSendMessage = self.chattingView.preSendMessages[(fileMessage?.requestId)!] as! SBDFileMessage
+                        self.chattingView.preSendMessages.removeValue(forKey: (fileMessage?.requestId)!)
+                        self.mediaInfo = nil
+                        if error != nil {
+                            self.chattingView.resendableMessages[(fileMessage?.requestId)!] = preSendMessage
+                            self.chattingView.resendableFileData[preSendMessage.requestId!]?["data"] = imageData as AnyObject?
+                            self.chattingView.resendableFileData[preSendMessage.requestId!]?["type"] = mimeType as AnyObject?
+                            self.chattingView.chattingTableView.reloadData()
+                            DispatchQueue.main.async {
+                                self.chattingView.scrollToBottom(force: true)
+                            }
+                            
+                            return
+                        }
+                        
+                        if fileMessage != nil {
+                            if self.imageCaption.count > 0 {
+                                self.sendMessage()
+                            }
+                            self.chattingView.resendableMessages.removeValue(forKey: (fileMessage?.requestId)!)
+                            self.chattingView.resendableFileData.removeValue(forKey: (fileMessage?.requestId)!)
                             self.chattingView.preSendMessages.removeValue(forKey: (fileMessage?.requestId)!)
-                            self.mediaInfo = nil
-                            if error != nil {
-                                self.chattingView.resendableMessages[(fileMessage?.requestId)!] = preSendMessage
-                                self.chattingView.resendableFileData[preSendMessage.requestId!]?["data"] = imageData as AnyObject?
-                                self.chattingView.resendableFileData[preSendMessage.requestId!]?["type"] = mimeType as AnyObject?
+                            self.chattingView.messages[self.chattingView.messages.index(of: preSendMessage)!] = fileMessage!
+                            
+                            DispatchQueue.main.async {
                                 self.chattingView.chattingTableView.reloadData()
                                 DispatchQueue.main.async {
                                     self.chattingView.scrollToBottom(force: true)
                                 }
-                                
-                                return
                             }
-                            
-                            if fileMessage != nil {
-                                if self.imageCaption.count > 0 {
-                                    self.sendMessage()
-                                }
-                                self.chattingView.resendableMessages.removeValue(forKey: (fileMessage?.requestId)!)
-                                self.chattingView.resendableFileData.removeValue(forKey: (fileMessage?.requestId)!)
-                                self.chattingView.preSendMessages.removeValue(forKey: (fileMessage?.requestId)!)
-                                self.chattingView.messages[self.chattingView.messages.index(of: preSendMessage)!] = fileMessage!
-                                
-                                DispatchQueue.main.async {
-                                    self.chattingView.chattingTableView.reloadData()
-                                    DispatchQueue.main.async {
-                                        self.chattingView.scrollToBottom(force: true)
-                                    }
-                                }
-                            }
+                        }
                     })
                 })
                 
-                    self.chattingView.preSendFileData[preSendMessage.requestId!] = [
-                        "data": imageData as AnyObject,
-                        "type": mimeType as AnyObject,
-                    ]
-                    self.chattingView.preSendMessages[preSendMessage.requestId!] = preSendMessage
-                    self.chattingView.messages.append(preSendMessage)
-                    self.chattingView.chattingTableView.reloadData()
-                    DispatchQueue.main.async {
-                        self.chattingView.scrollToBottom(force: true)
-                    }
+                self.chattingView.preSendFileData[preSendMessage.requestId!] = [
+                    "data": imageData as AnyObject,
+                    "type": mimeType as AnyObject,
+                ]
+                self.chattingView.preSendMessages[preSendMessage.requestId!] = preSendMessage
+                self.chattingView.messages.append(preSendMessage)
+                self.chattingView.chattingTableView.reloadData()
+                DispatchQueue.main.async {
+                    self.chattingView.scrollToBottom(force: true)
+                }
             }
         }
     }

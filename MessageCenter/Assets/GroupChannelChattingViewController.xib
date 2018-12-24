@@ -51,7 +51,7 @@
                                 <constraint firstAttribute="height" constant="30" id="mym-Eu-ZQu"/>
                             </constraints>
                             <color key="tintColor" red="1" green="0.78431372549019607" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" image="back"/>
+                            <state key="normal" image="back.png"/>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -148,7 +148,6 @@
         </view>
     </objects>
     <resources>
-        <image name="BgChat" width="375" height="667"/>
-        <image name="back" width="24" height="24"/>
+        <image name="back.png" width="24" height="24"/>
     </resources>
 </document>

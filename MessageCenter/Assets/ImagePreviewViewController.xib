@@ -50,7 +50,7 @@
                                 <constraint firstAttribute="width" constant="44" id="sP6-Xn-E07"/>
                             </constraints>
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <state key="normal" image="icSend"/>
+                            <state key="normal" image="icSend.png"/>
                             <connections>
                                 <action selector="btnSendTapped:" destination="-1" eventType="touchUpInside" id="k6T-FZ-dyc"/>
                             </connections>
@@ -107,7 +107,7 @@
                         <constraint firstAttribute="height" constant="25" id="u5u-0a-UEy"/>
                     </constraints>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <state key="normal" image="btn_close"/>
+                    <state key="normal" image="btn_close.png"/>
                     <connections>
                         <action selector="btnDismissTapped:" destination="-1" eventType="touchUpInside" id="SlM-ou-HIz"/>
                     </connections>
@@ -139,7 +139,7 @@
         </tapGestureRecognizer>
     </objects>
     <resources>
-        <image name="btn_close" width="44" height="44"/>
-        <image name="icSend" width="24" height="24"/>
+        <image name="btn_close.png" width="22" height="22"/>
+        <image name="icSend.png" width="24" height="24"/>
     </resources>
 </document>

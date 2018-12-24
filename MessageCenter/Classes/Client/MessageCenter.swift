@@ -119,10 +119,10 @@ public class MessageCenter {
             }
             
             self.completionHandler = completion
-            let podBundle = Bundle(for: MessageCenter.self)
             
+            let resourceBundle = Bundle.bundleForXib(GroupChannelChattingViewController.self)
             
-            let groupChannelVC = GroupChannelChattingViewController(nibName: "GroupChannelChattingViewController", bundle: podBundle)
+            let groupChannelVC = GroupChannelChattingViewController(nibName: "GroupChannelChattingViewController", bundle: resourceBundle)
             groupChannelVC.groupChannel = groupChannel
             
             if theme != nil {
