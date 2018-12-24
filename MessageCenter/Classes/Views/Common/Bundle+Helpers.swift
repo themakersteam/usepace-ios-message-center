@@ -13,10 +13,13 @@ extension Bundle {
     class func bundleForXib(_ viewController: AnyClass) -> Bundle? {
         let frameworkBundle = Bundle(for: viewController )
         let bundleURL = frameworkBundle.resourceURL?.appendingPathComponent("MessageCenter.bundle")
-        var resourceBundle = Bundle(url: bundleURL!)
-        if resourceBundle?.path(forResource: String(describing: viewController), ofType: "xib") == nil {
-            resourceBundle = Bundle(for: MessageCenter.self)
-        }
+        let resourceBundle = Bundle(url: bundleURL!)
+
+        // Uncomment these lines if you are using example project.
+        
+//        if resourceBundle?.path(forResource: String(describing: viewController), ofType: "xib") == nil {
+//            resourceBundle = Bundle(for: MessageCenter.self)
+//        }
         return resourceBundle
     }
 }

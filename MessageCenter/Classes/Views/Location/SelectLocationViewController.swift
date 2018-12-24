@@ -199,8 +199,8 @@ public class SelectLocationViewController: UIViewController {
             return
         }
         
-//        let locationUri = "location://?lat=\(finalCoordinates.latitude)&long=\(finalCoordinates.longitude)"
-        let locationUri = "\(finalCoordinates.latitude),\(finalCoordinates.longitude)"
+        let locationUri = "location://?lat=\(finalCoordinates.latitude)&long=\(finalCoordinates.longitude)"
+//        let locationUri = "\(finalCoordinates.latitude),\(finalCoordinates.longitude)"
         self.delegate?.userDidSelect(location: locationUri)
     }
     @IBAction func cencel(_ sender: Any) {
