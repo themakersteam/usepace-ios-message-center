@@ -56,7 +56,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         self.podBundle = Bundle.bundleForXib(GroupChannelChattingViewController.self)
         setNavigationItems()
         
-        addObservers()
+        
         
         let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
         negativeLeftSpacerForImageViewerLoading.width = -2
@@ -120,6 +120,11 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         //        ConnectionManager.remove(connectionObserver: self as ConnectionManagerDelegate)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        addObservers()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         Utils.dumpMessages(
@@ -129,6 +134,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             preSendMessages: self.chattingView.preSendMessages,
             channelUrl: self.groupChannel.channelUrl
         )
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         // SBDMain.disconnect {}
     }
     
@@ -516,7 +523,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         if sender.state == .ended {
             view.endEditing(true)
         }
-        sender.cancelsTouchesInView = false
+        //sender.cancelsTouchesInView = false
     }
     
     @objc private func sendMessage() {
@@ -592,7 +599,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                         return
                     }
                     
-                    let index = IndexPath(row: self.chattingView.messages.index(of: preSendMessage)!, section: 0)
+                    let index = IndexPath(row: self.chattingView.messages.index(of: preSendMessage)! + 1, section: 0)
                     self.chattingView.chattingTableView.beginUpdates()
                     self.chattingView.messages[self.chattingView.messages.index(of: preSendMessage)!] = userMessage!
                     
@@ -618,7 +625,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 
                 UIView.setAnimationsEnabled(false)
                 
-                self.chattingView.chattingTableView.insertRows(at: [IndexPath(row: self.chattingView.messages.index(of: preSendMessage)!, section: 0)], with: UITableViewRowAnimation.none)
+                self.chattingView.chattingTableView.insertRows(at: [IndexPath(row: self.chattingView.messages.index(of: preSendMessage)! + 1, section: 0)], with: UITableViewRowAnimation.none)
                 UIView.setAnimationsEnabled(true)
                 self.chattingView.chattingTableView.endUpdates()
                 
@@ -662,7 +669,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 alertController.view.tintColor = UIColor(red: 82.0/255.0, green: 67.0/255.0, blue: 62.0/255.0, alpha: 1.0)
             }
         }
-        self.vwActionSheet.isHidden = false
+        //self.vwActionSheet.isHidden = false
+        setVwActionSheet(hidden: false)
     }
     
     private func cameraAction() -> UIAlertAction {
@@ -670,10 +678,11 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             title: "ms_camera".localized,
             style: .default,
             handler: { action in
-                self.vwActionSheet.isHidden = true
+                //self.vwActionSheet.isHidden = true
+                self.setVwActionSheet(hidden: true)
                 self.launchCamera()
         })
-        action.setValue(UIImage(named: "camera-icon.png", in: Bundle(for: MessageCenter.self), compatibleWith: nil), forKey: "image")
+        action.setValue(UIImage(named: "camera-icon.png", in: Bundle.bundleForXib(GroupChannelChattingViewController.self), compatibleWith: nil), forKey: "image")
         return action
     }
     
@@ -697,7 +706,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             title: "ms_photos".localized,
             style: .default,
             handler: { action in
-                self.vwActionSheet.isHidden = true
+                //self.vwActionSheet.isHidden = true
+                self.setVwActionSheet(hidden: true)
                 UIImagePickerController.checkPermissionStatus(sourceType: UIImagePickerControllerSourceType.photoLibrary, completionBlockSuccess: { (status) in
                     let imagePicker = UIImagePickerController()                    
                     imagePicker.sourceType = .photoLibrary
@@ -710,7 +720,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 
                 
         })
-        action.setValue(UIImage(named: "photos-icon.png", in: Bundle(for: MessageCenter.self), compatibleWith: nil), forKey: "image")
+        action.setValue(UIImage(named: "photos-icon.png", in: Bundle.bundleForXib(GroupChannelChattingViewController.self), compatibleWith: nil), forKey: "image")
         return action
     }
     
@@ -719,13 +729,14 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             title: "ms_location".localized,
             style: .default,
             handler: { action in
-                self.vwActionSheet.isHidden = true
+                //self.vwActionSheet.isHidden = true
+                self.setVwActionSheet(hidden: true)
                 let podBundle = Bundle.bundleForXib(GroupChannelChattingViewController.self)
                 let locationPickerVC = SelectLocationViewController(nibName: "SelectLocationView", bundle: podBundle)
                 locationPickerVC.delegate = self as SelectLocationDelegate
                 self.present(locationPickerVC, animated: true, completion: nil)
         })
-        action.setValue(UIImage(named: "location-icon.png", in: Bundle(for: MessageCenter.self), compatibleWith: nil), forKey: "image")
+        action.setValue(UIImage(named: "location-icon.png", in: Bundle.bundleForXib(GroupChannelChattingViewController.self), compatibleWith: nil), forKey: "image")
         return action
     }
     
@@ -734,7 +745,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             title: "cancel".localized,
             style: .cancel,
             handler : {action in
-                self.vwActionSheet.isHidden = true
+                //self.vwActionSheet.isHidden = true
+                self.setVwActionSheet(hidden: true)
         })
     }
     
@@ -1386,7 +1398,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             self.present(vc, animated: true, completion: nil)
         }
     }
-    
+       
     func showImageViewerLoading() {
         DispatchQueue.main.async {
             self.imageViewerLoadingView.isHidden = false
@@ -1408,46 +1420,117 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             self.photosViewController.dismiss(animated: true, completion: nil)
         }
     }
+
+    // Disclaimer: I have no idea what vw stands for, but for the sake of convention, I'm naming my method accordingly.
+    private func setVwActionSheet(hidden: Bool) {
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.vwActionSheet.alpha = hidden ? 0.0 : 0.75
+            })
+        }
+    }
 }
 
 // MARK: - UIImagePickerController Methods
-
 extension GroupChannelChattingViewController: UIImagePickerControllerDelegate {
+   @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            print(error)
+        } else {
+            fetchLastImage()
+        }
+    }
     
+    func fetchLastImage()
+    {
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        fetchOptions.fetchLimit = 1
+        let fetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
+        if (fetchResult.firstObject != nil){
+            let lastImageAsset: PHAsset = fetchResult.firstObject as! PHAsset
+            sendImageProcess(assest: lastImageAsset)
+        }
+    }
+    func sendImageProcess (assest: PHAsset){
+        let asset = assest
+        let options = PHImageRequestOptions()
+        options.isSynchronous = true
+        options.isNetworkAccessAllowed = false
+        options.deliveryMode = PHImageRequestOptionsDeliveryMode.highQualityFormat
+        if asset != nil {
+            PHImageManager.default().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.default, options: nil, resultHandler: { (result, info) in
+                if (result != nil) {
+                    // Call the Caption ViewController
+                    let imageCaptionVC = ImagePreviewViewController(nibName: "ImagePreviewViewController", bundle: self.podBundle)
+                    imageCaptionVC.imageToUpload = result
+                    // If user has typed any text, use it as caption
+                    if self.chattingView.messageTextView.textView.text != nil {
+                        imageCaptionVC.strCaption = self.chattingView.messageTextView.textView.text
+                    }
+                    imageCaptionVC.delegate = self
+                    self.navigationController?.pushViewController(imageCaptionVC, animated: true)                                                            }
+            })
+        }
+    }
+  
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let mediaType = info[UIImagePickerControllerMediaType] as! String
         
         picker.dismiss(animated: true) {
             if CFStringCompare(mediaType as CFString, kUTTypeImage, []) == CFComparisonResult.compareEqualTo {
+                self.mediaInfo = [String : Any] ()
                 self.mediaInfo = info
-                let imagePath: URL = self.mediaInfo![UIImagePickerControllerReferenceURL] as! URL
-                let imageName: NSString = (imagePath.lastPathComponent as NSString?)!
-                let ext = imageName.pathExtension
-                let UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, ext as CFString, nil)?.takeRetainedValue()
-                _ = UTTypeCopyPreferredTagWithClass(UTI!, kUTTagClassMIMEType)?.takeRetainedValue();
-                let asset = PHAsset.fetchAssets(withALAssetURLs: [imagePath], options: nil).lastObject
-                let options = PHImageRequestOptions()
-                options.isSynchronous = true
-                options.isNetworkAccessAllowed = false
-                options.deliveryMode = PHImageRequestOptionsDeliveryMode.highQualityFormat
-                if asset != nil {
-                    PHImageManager.default().requestImage(for: asset!, targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.default, options: nil, resultHandler: { (result, info) in
-                        if (result != nil) {
-                            
-                            // Call the Caption ViewController
-                            let imageCaptionVC = ImagePreviewViewController(nibName: "ImagePreviewViewController", bundle: self.podBundle)
-                            imageCaptionVC.imageToUpload = result
-                            // If user has typed any text, use it as caption
-                            if self.chattingView.messageTextView.textView.text != nil {
-                                imageCaptionVC.strCaption = self.chattingView.messageTextView.textView.text
-                            }
-                            
-                            imageCaptionVC.delegate = self
-                            self.navigationController?.pushViewController(imageCaptionVC, animated: true)                                                            }
-                    })
+                
+                // Delegate didFinishPickingMediaWithInfo gets called after a pic is taken using the camera.
+                // UIImagePickerControllerReferenceURL object will be nil as the image has not been saved to the camera roll yet.
+                guard let path =  self.mediaInfo![UIImagePickerControllerReferenceURL]  else {
+                    // image from camera
+                    if (picker.sourceType == UIImagePickerControllerSourceType.camera) {
+                        var selectedImage: UIImage!
+                        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
+                            selectedImage = image
+                        } else if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+                            selectedImage = image
+                        }
+                        // save image
+                        UIImageWriteToSavedPhotosAlbum(selectedImage, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
+                    }
+                    return
                 }
+                
+                // image from photo library
+                if  let imagePath: URL = self.mediaInfo![UIImagePickerControllerReferenceURL] as! URL {
+                    let imageName: NSString = (imagePath.lastPathComponent as NSString?)!
+                    let ext = imageName.pathExtension
+                    let UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, ext as CFString, nil)?.takeRetainedValue()
+                    let mimeType = UTTypeCopyPreferredTagWithClass(UTI!, kUTTagClassMIMEType)?.takeRetainedValue();
+                    let asset = PHAsset.fetchAssets(withALAssetURLs: [imagePath], options: nil).lastObject
+                    let options = PHImageRequestOptions()
+                    options.isSynchronous = true
+                    options.isNetworkAccessAllowed = false
+                    options.deliveryMode = PHImageRequestOptionsDeliveryMode.highQualityFormat
+                    if asset != nil {
+                        PHImageManager.default().requestImage(for: asset!, targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.default, options: nil, resultHandler: { (result, info) in
+                            if (result != nil) {
+                                
+                                // Call the Caption ViewController
+                                let imageCaptionVC = ImagePreviewViewController(nibName: "ImagePreviewViewController", bundle: self.podBundle)
+                                imageCaptionVC.imageToUpload = result
+                                // If user has typed any text, use it as caption
+                                if self.chattingView.messageTextView.textView.text != nil {
+                                    imageCaptionVC.strCaption = self.chattingView.messageTextView.textView.text
+                                }
+                                
+                                imageCaptionVC.delegate = self
+                                self.navigationController?.pushViewController(imageCaptionVC, animated: true)                                                            }
+                        })
+                    }
+                }
+                
             }
         }
+        
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -1465,14 +1548,16 @@ fileprivate extension GroupChannelChattingViewController {
         let keyboardInfo = notification.userInfo
         let keyboardFrameBegin = keyboardInfo?[UIKeyboardFrameEndUserInfoKey]
         let keyboardFrameBeginRect = (keyboardFrameBegin as! NSValue).cgRectValue
-        
+        let duration = keyboardInfo?[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber
+        let curve = keyboardInfo?[UIKeyboardAnimationCurveUserInfoKey] as! UInt
         DispatchQueue.main.async {
             self.bottomMargin.constant = keyboardFrameBeginRect.size.height
-            UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveLinear
+            UIView.animate(withDuration: duration.doubleValue, delay: 0.0, options: [UIViewAnimationOptions(rawValue: UInt(curve))]
                 , animations: {
                     self.view.layoutIfNeeded()
             }, completion: { (status) in
                 self.chattingView.stopMeasuringVelocity = true
+//                self.chattingView.chattingTableView.setContentOffset(CGPoint(x: 0.0, y: 0.0 ), animated: true)
                 self.chattingView.scrollToBottom(force: false)
             })
         }
@@ -1480,14 +1565,17 @@ fileprivate extension GroupChannelChattingViewController {
     
     @objc private func keyboardWillHide(notification: Notification) {
         self.keyboardShown = false
-        
+        let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber
+        let curve = notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as! UInt
         DispatchQueue.main.async {
             self.bottomMargin.constant = 0
-            UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveLinear
+            UIView.animate(withDuration: duration.doubleValue, delay: 0.0, options: [UIViewAnimationOptions(rawValue: UInt(curve))]
                 , animations: {
                     self.view.layoutIfNeeded()
             }, completion: { (status) in
-                self.chattingView.scrollToBottom(force: false)
+                self.chattingView.scrollToBottom(force: false)                
+                self.chattingView.chattingTableView.contentInset = UIEdgeInsetsMake(0, 0, 0.0, 0)
+//                self.chattingView.chattingTableView.setContentOffset(CGPoint(x: 0.0,y: 0.0), animated: true)
             })
             
         }
@@ -1525,20 +1613,16 @@ fileprivate extension GroupChannelChattingViewController {
         }
         
         if #available(iOS 9.0, *) {
-            if UIView.userInterfaceLayoutDirection(
-                for: self.view.semanticContentAttribute) == .rightToLeft {
+            if UIView.userInterfaceLayoutDirection(for: self.view.semanticContentAttribute) == .rightToLeft {
                 self.btnBack.transform = CGAffineTransform(scaleX: -1,y: 1)
             }
         } else {
             if UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft {
                 self.btnBack.transform = CGAffineTransform(scaleX: -1,y: 1)
             }
-            if UIView.userInterfaceLayoutDirection(for: UIView.appearance().semanticContentAttribute) == .rightToLeft {
-                btnBack.transform = btnBack.transform.rotated(by: CGFloat(Double.pi))
-            }
-            
-            self.btnBack.addTarget(self, action: #selector(close), for: .touchUpInside)
-            
+//            if UIView.userInterfaceLayoutDirection(for: UIView.appearance().semanticContentAttribute) == .rightToLeft {
+//                btnBack.transform = btnBack.transform.rotated(by: CGFloat(Double.pi))
+//            }
         }
         
         self.btnBack.addTarget(self, action: #selector(close), for: .touchUpInside)
@@ -1649,13 +1733,20 @@ extension GroupChannelChattingViewController : SelectLocationDelegate {
 }
 
 extension GroupChannelChattingViewController : ImagePreviewProtocol {
-    
+
     func imagePreviewDidDismiss(_ image: UIImage?, caption: String) {
         if self.mediaInfo != nil && image != nil {
-            
             self.imageCaption = caption
-            let imagePath: URL = self.mediaInfo![UIImagePickerControllerReferenceURL] as! URL
-            let imageName: NSString = (imagePath.lastPathComponent as NSString?)!
+            // Delegate didFinishPickingMediaWithInfo gets called after a pic is taken using the camera.
+            // UIImagePickerControllerReferenceURL object will be nil as the image has not been saved to the camera roll yet.
+            var imageName: NSString = ""
+            if  self.mediaInfo![UIImagePickerControllerReferenceURL]  == nil {
+                imageName = "camera.JPEG"
+            }else{
+                let imagePath: URL = self.mediaInfo![UIImagePickerControllerReferenceURL] as! URL
+                 imageName = (imagePath.lastPathComponent as NSString?)!
+            }
+
             let ext = imageName.pathExtension
             let UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, ext as CFString, nil)?.takeRetainedValue()
             let mimeType = UTTypeCopyPreferredTagWithClass(UTI!, kUTTagClassMIMEType)?.takeRetainedValue();

@@ -65,8 +65,8 @@
                         <constraint firstItem="zCi-UH-VIJ" firstAttribute="centerX" secondItem="nxZ-VX-cuY" secondAttribute="centerX" id="qjH-3k-IJm"/>
                     </constraints>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BgChat" translatesAutoresizingMaskIntoConstraints="NO" id="QWO-03-UeJ">
-                    <rect key="frame" x="0.0" y="85" width="375" height="582"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mainpattern.png" translatesAutoresizingMaskIntoConstraints="NO" id="QWO-03-UeJ">
+                    <rect key="frame" x="0.0" y="95" width="375" height="572"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AAA-Vq-7hk" customClass="ChattingView" customModule="MessageCenter" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="85" width="375" height="582"/>
@@ -139,7 +139,7 @@
                 <constraint firstItem="mOk-Vz-mXb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="jrb-XI-ccp"/>
                 <constraint firstAttribute="trailing" secondItem="Kgd-6s-sEz" secondAttribute="trailing" id="poM-97-6RZ"/>
                 <constraint firstItem="Kgd-6s-sEz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="rcY-nS-x5K"/>
-                <constraint firstItem="mOk-Vz-mXb" firstAttribute="bottom" secondItem="8zt-xK-G6h" secondAttribute="bottom" id="sqE-EN-eNq"/>
+                <constraint firstItem="mOk-Vz-mXb" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="sqE-EN-eNq"/>
                 <constraint firstAttribute="trailing" secondItem="AAA-Vq-7hk" secondAttribute="trailing" id="vXg-FO-oE6"/>
                 <constraint firstItem="8zt-xK-G6h" firstAttribute="bottom" secondItem="QWO-03-UeJ" secondAttribute="bottom" id="vYC-7U-Kit"/>
             </constraints>
@@ -150,5 +150,6 @@
     <resources>
         <image name="BgChat" width="16" height="16"/>
         <image name="back.png" width="24" height="24"/>
+        <image name="mainpattern.png" width="375" height="667"/>
     </resources>
 </document>

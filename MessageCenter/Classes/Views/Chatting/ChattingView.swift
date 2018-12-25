@@ -253,14 +253,13 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         if self.scrollLock == true && force == false {
             return
         }
-
-        
         if self.messages.count > 0 {
             self.chattingTableView.scrollToRow(at: IndexPath.init(row: self.messages.count - 1, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
         }
         else {
             self.chattingTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
         }
+//        self.chattingTableView.setContentOffset(CGPoint(x: 0.0, y: CGFloat.greatestFiniteMagnitude), animated: true)
     }
     
     func scrollToPosition(position: Int) {
@@ -1147,6 +1146,7 @@ extension ChattingView: SBMessageInputViewDelegate {
         return true
     }
     func inputView(textView: UITextView, shouldChangeTextInRange: NSRange, replacementText: String) -> Bool {
+        
         return true
     }
     
@@ -1163,6 +1163,7 @@ extension ChattingView: SBMessageInputViewDelegate {
                         
                     }
                 }
+                textView.contentInset = UIEdgeInsets(top: textView.contentInset.top, left: 0.0, bottom: 0.0, right: 0.0)
             }
             else {
                 self.messageTextView.backgroundColor = .white
@@ -1172,6 +1173,15 @@ extension ChattingView: SBMessageInputViewDelegate {
             }
         }
         else {
+            if #available(iOS 9.0, *) {
+                if UIView.userInterfaceLayoutDirection(for: self.semanticContentAttribute) == .rightToLeft {
+                    textView.contentInset = UIEdgeInsets(top: textView.contentInset.top, left: 35.0, bottom: 0.0, right: 0.0)
+                }
+            } else {
+                if UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft {
+                    textView.contentInset = UIEdgeInsets(top: textView.contentInset.top, left: 35.0, bottom: 0.0, right: 0.0)
+                }
+            }
             self.placeholderLabel.isHidden = false
             self.messageTextView.backgroundColor = .clear
             if self.cnTextViewTrailing.constant != 12.0 {
