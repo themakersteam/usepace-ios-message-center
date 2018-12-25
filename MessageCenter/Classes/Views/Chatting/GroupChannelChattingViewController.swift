@@ -682,7 +682,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 self.setVwActionSheet(hidden: true)
                 self.launchCamera()
         })
-        action.setValue(UIImage(named: "camera-icon.png", in: Bundle(for: MessageCenter.self), compatibleWith: nil), forKey: "image")
+        action.setValue(UIImage(named: "camera-icon.png", in: Bundle.bundleForXib(GroupChannelChattingViewController.self), compatibleWith: nil), forKey: "image")
         return action
     }
     
@@ -720,7 +720,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 
                 
         })
-        action.setValue(UIImage(named: "photos-icon.png", in: Bundle(for: MessageCenter.self), compatibleWith: nil), forKey: "image")
+        action.setValue(UIImage(named: "photos-icon.png", in: Bundle.bundleForXib(GroupChannelChattingViewController.self), compatibleWith: nil), forKey: "image")
         return action
     }
     
@@ -736,7 +736,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 locationPickerVC.delegate = self as SelectLocationDelegate
                 self.present(locationPickerVC, animated: true, completion: nil)
         })
-        action.setValue(UIImage(named: "location-icon.png", in: Bundle(for: MessageCenter.self), compatibleWith: nil), forKey: "image")
+        action.setValue(UIImage(named: "location-icon.png", in: Bundle.bundleForXib(GroupChannelChattingViewController.self), compatibleWith: nil), forKey: "image")
         return action
     }
     
