@@ -31,10 +31,14 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var typingIndicatorLabel: UILabel!
     @IBOutlet weak var typingIndicatorContainerView: UIView!    
     @IBOutlet weak var inputContainerView: UIView!
+    @IBOutlet weak var inputContainerViewBackground: UIView!
     @IBOutlet weak var fileAttachButton: UIButton!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var placeholderLabel: UILabel!
     @IBOutlet weak var btnCamera: UIButton!
+    
+    @IBOutlet weak var chattingTableViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var chattingTableViewBottomToSafeAreConstraint: NSLayoutConstraint!
     
     // MARK: - Vars
     var stopMeasuringVelocity: Bool = true
@@ -123,22 +127,18 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         
         if self.channel != nil {
             if (self.channel?.isFrozen)! {
-                self.inputContainerView.isUserInteractionEnabled = false
-                self.inputContainerView.alpha = 0.75
-                self.btnCamera.isUserInteractionEnabled = false
-                self.btnCamera.alpha = 0.75
-                self.fileAttachButton.isUserInteractionEnabled = false
-                self.fileAttachButton.alpha = 0.75
-//                self.placeholderLabel.text = "Chat is disabled."
+                self.inputContainerView.isHidden = true
+                self.inputContainerViewBackground.isHidden = true
+                self.chattingTableViewBottomConstraint.priority = UILayoutPriority(900)
+                self.chattingTableViewBottomToSafeAreConstraint.priority = UILayoutPriority(990)
+                
             }
             else {
-                self.inputContainerView.isUserInteractionEnabled = true
-                self.inputContainerView.alpha = 1.0
-                self.btnCamera.isUserInteractionEnabled = true
-                self.btnCamera.alpha = 1.0
-                self.fileAttachButton.isUserInteractionEnabled = true
-                self.fileAttachButton.alpha = 1.0
-                self.placeholderLabel.text = "type_message_hint".localized
+                self.inputContainerView.isHidden = false
+                self.inputContainerViewBackground.isHidden = false
+                self.chattingTableViewBottomConstraint.priority = UILayoutPriority(990)
+                self.chattingTableViewBottomToSafeAreConstraint.priority = UILayoutPriority(900)
+
             }
         }
         
@@ -254,7 +254,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
             return
         }
         if self.messages.count > 0 {
-            self.chattingTableView.scrollToRow(at: IndexPath.init(row: self.messages.count - 1, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
+            self.chattingTableView.scrollToRow(at: IndexPath.init(row: self.messages.count, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
         }
         else {
             self.chattingTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: UITableViewScrollPosition.bottom, animated: false)

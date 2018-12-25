@@ -50,13 +50,14 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     @IBOutlet weak var lblSubTitle: UILabel!
     @IBOutlet weak var btnBack: UIButton!
     
+    @IBOutlet weak var patternView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.podBundle = Bundle.bundleForXib(GroupChannelChattingViewController.self)
         setNavigationItems()
         
-        
+        self.patternView.backgroundColor = UIColor(patternImage: UIImage(named: "mainpattern.png", in: podBundle, compatibleWith: nil)!)
         
         let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
         negativeLeftSpacerForImageViewerLoading.width = -2
@@ -1609,22 +1610,19 @@ fileprivate extension GroupChannelChattingViewController {
         if self.themeObject != nil {
             self.lblTitle.textColor = self.themeObject?.primaryAccentColor
             self.lblSubTitle.textColor = self.themeObject?.primaryActionIconsColor
+            let backImg = UIImage(named: "back.png", in: self.podBundle, compatibleWith: nil)
+            self.btnBack.setImage(backImg?.withRenderingMode(UIImageRenderingMode.alwaysTemplate), for: .normal)
             self.btnBack.tintColor = self.themeObject?.primaryNavigationButtonColor
+            
         }
         
-        if #available(iOS 9.0, *) {
-            if UIView.userInterfaceLayoutDirection(for: self.view.semanticContentAttribute) == .rightToLeft {
-                self.btnBack.transform = CGAffineTransform(scaleX: -1,y: 1)
+        if UIView.userInterfaceLayoutDirection(for: self.view.semanticContentAttribute) == .rightToLeft {
+            btnBack.transform = btnBack.transform.rotated(by: CGFloat(Double.pi))
+            if let sendBtnImage = self.chattingView.sendButton.imageView {
+                sendBtnImage.transform = sendBtnImage.transform.rotated(by: CGFloat(Double.pi))
             }
-        } else {
-            if UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft {
-                self.btnBack.transform = CGAffineTransform(scaleX: -1,y: 1)
-            }
-//            if UIView.userInterfaceLayoutDirection(for: UIView.appearance().semanticContentAttribute) == .rightToLeft {
-//                btnBack.transform = btnBack.transform.rotated(by: CGFloat(Double.pi))
-//            }
+            
         }
-        
         self.btnBack.addTarget(self, action: #selector(close), for: .touchUpInside)
         
     }
