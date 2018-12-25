@@ -67,7 +67,11 @@ class OutgoingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
     @objc private func clickPreview() {
         let url: String = self.previewData["url"] as! String
         if url.count > 0 {
-            UIApplication.shared.openURL(URL(string: url)!)
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(URL(string: url)!, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(URL(string: url)!)
+            }
         }
     }
     

@@ -13,8 +13,9 @@ extension Bundle {
     class func bundleForXib(_ viewController: AnyClass) -> Bundle? {
         let frameworkBundle = Bundle(for: viewController )
         let bundleURL = frameworkBundle.resourceURL?.appendingPathComponent("MessageCenter.bundle")
-        var resourceBundle = Bundle(url: bundleURL!)
+        let resourceBundle = Bundle(url: bundleURL!)
 
+        // Uncomment these lines if you are using example project.
         // Only for development pod. Not to be used otherwise. Should be commented
 //        if resourceBundle?.path(forResource: String(describing: viewController), ofType: "xib") == nil {
 //            resourceBundle = Bundle(for: MessageCenter.self)
