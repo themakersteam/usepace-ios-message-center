@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="232" id="ooA-Ow-dsa" customClass="OutgoingLocationMessageTableViewCell" customModule="MessageCenter" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="240"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ooA-Ow-dsa" id="IiU-r9-GW8">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="239.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="49N-Pk-Tz1" userLabel="Message Container View">
+                        <rect key="frame" x="90" y="10" width="275" height="229.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="COl-a8-Ldy" userLabel="Message Label">
+                                <rect key="frame" x="10" y="10" width="255" height="56"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3lJ-tV-FxJ" userLabel="Divider View">
+                                <rect key="frame" x="10" y="76" width="265" height="1"/>
+                                <color key="backgroundColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="q4c-mx-PyC"/>
+                                </constraints>
+                            </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Zvy-k3-NfN" userLabel="Preview Thumbnail Image Loading Indicator">
+                                <rect key="frame" x="127.5" y="141" width="20" height="20"/>
+                                <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="map_place_holder.png" translatesAutoresizingMaskIntoConstraints="NO" id="500-kp-LL5" userLabel="Preview Thumbnail Image View">
+                                <rect key="frame" x="10" y="87" width="255" height="127.5"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zTJ-Ju-ZdX">
+                                <rect key="frame" x="140" y="214.5" width="135" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="135" id="Gzr-kN-kdF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
+                                <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Not sent! Tap to retry" image="icSendfail.png">
+                                    <color key="titleColor" red="0.98431372549999996" green="0.16862745100000001" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5bG-MW-6iM">
+                                <rect key="frame" x="215" y="214.5" width="60" height="15"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13:02" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dkC-k2-mUX">
+                                        <rect key="frame" x="10" y="1.5" width="27" height="12"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                        <color key="textColor" red="0.60784313729999995" green="0.60784313729999995" blue="0.60784313729999995" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icMsgread.png" translatesAutoresizingMaskIntoConstraints="NO" id="CPj-re-ydi">
+                                        <rect key="frame" x="42" y="4.5" width="12" height="6"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="CPj-re-ydi" firstAttribute="leading" secondItem="dkC-k2-mUX" secondAttribute="trailing" constant="5" id="KZk-hy-05l"/>
+                                    <constraint firstAttribute="height" constant="15" id="UVg-EI-f2c"/>
+                                    <constraint firstAttribute="width" constant="60" id="ZoK-n4-2xs"/>
+                                    <constraint firstItem="CPj-re-ydi" firstAttribute="centerY" secondItem="5bG-MW-6iM" secondAttribute="centerY" id="j0e-4P-0Fq"/>
+                                    <constraint firstAttribute="trailing" secondItem="CPj-re-ydi" secondAttribute="trailing" constant="6" id="kTm-Kj-tb7"/>
+                                    <constraint firstItem="dkC-k2-mUX" firstAttribute="centerY" secondItem="5bG-MW-6iM" secondAttribute="centerY" id="ygX-YN-k5W"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.96862745100000003" blue="0.83921568629999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Zvy-k3-NfN" firstAttribute="centerY" secondItem="500-kp-LL5" secondAttribute="centerY" id="2lL-Gf-1VZ"/>
+                            <constraint firstItem="5bG-MW-6iM" firstAttribute="bottom" secondItem="zTJ-Ju-ZdX" secondAttribute="bottom" id="7Fp-pG-RKV"/>
+                            <constraint firstItem="5bG-MW-6iM" firstAttribute="trailing" secondItem="zTJ-Ju-ZdX" secondAttribute="trailing" id="8AE-qy-j47"/>
+                            <constraint firstAttribute="trailing" secondItem="COl-a8-Ldy" secondAttribute="trailing" constant="10" id="9In-Wz-f5W"/>
+                            <constraint firstAttribute="bottom" secondItem="5bG-MW-6iM" secondAttribute="bottom" id="AnN-7N-XIl"/>
+                            <constraint firstItem="5bG-MW-6iM" firstAttribute="top" secondItem="500-kp-LL5" secondAttribute="bottom" id="CQJ-jz-3vp"/>
+                            <constraint firstItem="3lJ-tV-FxJ" firstAttribute="top" secondItem="COl-a8-Ldy" secondAttribute="bottom" constant="10" id="DIr-aO-XC1"/>
+                            <constraint firstItem="500-kp-LL5" firstAttribute="leading" secondItem="49N-Pk-Tz1" secondAttribute="leading" constant="10" id="Dej-J6-0Di"/>
+                            <constraint firstItem="COl-a8-Ldy" firstAttribute="top" secondItem="49N-Pk-Tz1" secondAttribute="top" constant="10" id="GXL-0b-Dch"/>
+                            <constraint firstItem="COl-a8-Ldy" firstAttribute="leading" secondItem="49N-Pk-Tz1" secondAttribute="leading" constant="10" id="Mc8-Eh-eVi"/>
+                            <constraint firstItem="3lJ-tV-FxJ" firstAttribute="leading" secondItem="49N-Pk-Tz1" secondAttribute="leading" constant="10" id="Pvd-r2-M61"/>
+                            <constraint firstAttribute="trailing" secondItem="5bG-MW-6iM" secondAttribute="trailing" id="TLx-Kx-5aJ"/>
+                            <constraint firstAttribute="bottom" secondItem="500-kp-LL5" secondAttribute="bottom" constant="15" id="UZm-A7-Gjb"/>
+                            <constraint firstItem="5bG-MW-6iM" firstAttribute="top" secondItem="zTJ-Ju-ZdX" secondAttribute="top" id="W3O-tB-McH"/>
+                            <constraint firstAttribute="trailing" secondItem="500-kp-LL5" secondAttribute="trailing" constant="10" id="YfD-xe-lbZ"/>
+                            <constraint firstAttribute="trailing" secondItem="3lJ-tV-FxJ" secondAttribute="trailing" id="bCV-nb-fU2"/>
+                            <constraint firstItem="500-kp-LL5" firstAttribute="top" secondItem="3lJ-tV-FxJ" secondAttribute="bottom" constant="10" id="tTy-Sb-mve"/>
+                            <constraint firstItem="Zvy-k3-NfN" firstAttribute="centerX" secondItem="500-kp-LL5" secondAttribute="centerX" id="xbq-xO-u7T"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="49N-Pk-Tz1" firstAttribute="top" secondItem="IiU-r9-GW8" secondAttribute="top" constant="10" id="0T6-bE-q6h"/>
+                    <constraint firstItem="49N-Pk-Tz1" firstAttribute="leading" secondItem="IiU-r9-GW8" secondAttribute="leading" constant="90" id="Bpa-BO-Tgh"/>
+                    <constraint firstAttribute="trailing" secondItem="49N-Pk-Tz1" secondAttribute="trailing" constant="10" id="hOS-2n-vcj"/>
+                    <constraint firstAttribute="bottom" secondItem="49N-Pk-Tz1" secondAttribute="bottom" id="kFc-ih-JYk"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="imgLocation" destination="500-kp-LL5" id="8Or-xH-tyH"/>
+                <outlet property="imgMessageStatus" destination="CPj-re-ydi" id="fWQ-ud-Cdx"/>
+                <outlet property="messageContainerView" destination="49N-Pk-Tz1" id="bUm-Tz-3Uj"/>
+                <outlet property="messageDateLabel" destination="dkC-k2-mUX" id="lFM-E3-OOK"/>
+                <outlet property="messageLabel" destination="COl-a8-Ldy" id="ZxR-VR-XFj"/>
+                <outlet property="resendMessageButton" destination="zTJ-Ju-ZdX" id="FWI-Cb-EfC"/>
+                <outlet property="vwTimestampStatus" destination="5bG-MW-6iM" id="1UC-kq-Dv0"/>
+            </connections>
+            <point key="canvasLocation" x="96.799999999999997" y="61.169415292353825"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icMsgread.png" width="12" height="6"/>
+        <image name="icSendfail.png" width="12" height="12"/>
+        <image name="map_place_holder.png" width="344" height="210"/>
+    </resources>
+</document>

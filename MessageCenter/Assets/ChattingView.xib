@@ -33,7 +33,6 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mainpattern.png" translatesAutoresizingMaskIntoConstraints="NO" id="c8I-kf-ap0">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="601"/>
                 </imageView>
@@ -170,10 +169,14 @@
                 <constraint firstAttribute="trailing" secondItem="955-1q-9ID" secondAttribute="trailing" id="7ON-Db-5rf"/>
                 <constraint firstItem="gmQ-VZ-eb9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="9N6-Vp-Axi"/>
                 <constraint firstItem="955-1q-9ID" firstAttribute="top" secondItem="wXW-j4-hDA" secondAttribute="bottom" id="DfI-5k-0PL"/>
+                <constraint firstItem="c8I-kf-ap0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="GqE-gs-AB2"/>
                 <constraint firstAttribute="trailing" secondItem="gmQ-VZ-eb9" secondAttribute="trailing" id="SBC-V0-1b4"/>
                 <constraint firstItem="D8H-Tp-aPd" firstAttribute="bottom" secondItem="gmQ-VZ-eb9" secondAttribute="bottom" id="fiA-Lf-fal"/>
                 <constraint firstItem="955-1q-9ID" firstAttribute="bottom" secondItem="gmQ-VZ-eb9" secondAttribute="top" id="j9A-bF-Lvu"/>
+                <constraint firstItem="955-1q-9ID" firstAttribute="top" secondItem="c8I-kf-ap0" secondAttribute="bottom" id="m6h-PE-FTf"/>
+                <constraint firstItem="c8I-kf-ap0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="qPX-zT-mpI"/>
                 <constraint firstItem="955-1q-9ID" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="veA-lk-LUV"/>
+                <constraint firstAttribute="trailing" secondItem="c8I-kf-ap0" secondAttribute="trailing" id="ywX-WW-SbB"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="D8H-Tp-aPd"/>
             <point key="canvasLocation" x="53.600000000000001" y="48.125937031484263"/>

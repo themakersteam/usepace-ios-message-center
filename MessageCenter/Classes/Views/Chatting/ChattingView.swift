@@ -69,6 +69,8 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     // when sending URL
     var outgoingGeneralUrlPreviewTempMessageTableViewCell: OutgoingGeneralUrlPreviewTempMessageTableViewCell?
     
+    var incomingUserLocationTableViewCell : IncomingLocationMessageTableViewCell?
+    var outgoingUserLocationTableViewCell : OutgoingLocationMessageTableViewCell?
     //Cell to be shown at top with a welcome message
     var welcomeMessageTableViewCell : WelcomeMessageTableViewCell?
     
@@ -178,6 +180,10 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         
         self.chattingTableView.register(WelcomeMessageTableViewCell.nib(), forCellReuseIdentifier: WelcomeMessageTableViewCell.cellReuseIdentifier())
         
+        self.chattingTableView.register(IncomingLocationMessageTableViewCell.nib(), forCellReuseIdentifier: IncomingLocationMessageTableViewCell.cellReuseIdentifier())
+        
+        self.chattingTableView.register(OutgoingLocationMessageTableViewCell.nib(), forCellReuseIdentifier: OutgoingLocationMessageTableViewCell.cellReuseIdentifier())
+        
         self.chattingTableView.delegate = self
         self.chattingTableView.dataSource = self
         
@@ -219,8 +225,22 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         self.addSubview(self.outgoingGeneralUrlPreviewMessageTableViewCell!)
 
         self.outgoingGeneralUrlPreviewTempMessageTableViewCell = OutgoingGeneralUrlPreviewTempMessageTableViewCell.nib().instantiate(withOwner: self, options: nil)[0] as? OutgoingGeneralUrlPreviewTempMessageTableViewCell
+        
         self.outgoingGeneralUrlPreviewTempMessageTableViewCell?.isHidden = true
         self.addSubview(self.outgoingGeneralUrlPreviewTempMessageTableViewCell!)
+        
+        self.incomingUserLocationTableViewCell =
+            IncomingLocationMessageTableViewCell.nib().instantiate(withOwner: self, options: nil)[0] as? IncomingLocationMessageTableViewCell
+        self.incomingUserLocationTableViewCell?.isHidden = true
+        self.addSubview(self.incomingUserLocationTableViewCell!)
+        
+        self.outgoingUserLocationTableViewCell =
+            OutgoingLocationMessageTableViewCell.nib().instantiate(withOwner: self, options: nil)[0] as? OutgoingLocationMessageTableViewCell
+        self.outgoingUserLocationTableViewCell?.isHidden = true
+        self.addSubview(self.outgoingUserLocationTableViewCell!)
+        
+        
+        
     }
     
     // MARK: - scrollHandler
@@ -234,7 +254,13 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
             return
         }
 
-        self.chattingTableView.scrollToRow(at: IndexPath.init(row: self.messages.count, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
+        
+        if self.messages.count > 0 {
+            self.chattingTableView.scrollToRow(at: IndexPath.init(row: self.messages.count - 1, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
+        }
+        else {
+            self.chattingTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
+        }
     }
     
     func scrollToPosition(position: Int) {
@@ -459,6 +485,18 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                     self.outgoingGeneralUrlPreviewMessageTableViewCell?.setModel(aMessage: userMessage, channel: self.channel)
                     height = (self.outgoingGeneralUrlPreviewMessageTableViewCell?.getHeightOfViewCell())!
                 }
+                    // Location Message
+                else if (userMessage.message?.contains("location://"))! {
+                    if indexPath.row > 0 {
+                        self.outgoingUserLocationTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
+                    }
+                    else {
+                        self.outgoingUserLocationTableViewCell?.setPreviousMessage(aPrevMessage: nil)
+                    }
+                    self.outgoingUserLocationTableViewCell?.setModel(aMessage: userMessage, channel: self.channel)
+                    self.outgoingUserLocationTableViewCell?.layoutSubviews()
+                    height = (self.outgoingUserLocationTableViewCell?.getHeightOfViewCell())!
+                }
                 else {
                     if indexPath.row > 0 {
                         self.outgoingUserMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
@@ -482,6 +520,17 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                     }
                     self.incomingGeneralUrlPreviewMessageTableViewCell?.setModel(aMessage: userMessage)
                     height = CGFloat((self.incomingGeneralUrlPreviewMessageTableViewCell?.getHeightOfViewCell())!)
+                }
+                else if (userMessage.message?.contains("location://"))! {
+                    if indexPath.row > 0 {
+                        self.incomingUserLocationTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
+                    }
+                    else {
+                        self.incomingUserLocationTableViewCell?.setPreviousMessage(aPrevMessage: nil)
+                    }
+                    self.incomingUserLocationTableViewCell?.setModel(aMessage: userMessage)
+                    self.incomingUserLocationTableViewCell?.layoutSubviews()
+                    height = (self.incomingUserLocationTableViewCell?.getHeightOfViewCell())!
                 }
                 else {
                     if indexPath.row > 0 {
@@ -691,6 +740,40 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                         }
                     }
                 }
+                else if (userMessage.message?.contains("location://"))! {
+                    cell = tableView.dequeueReusableCell(withIdentifier: OutgoingLocationMessageTableViewCell.cellReuseIdentifier())
+                    
+                    cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
+                    if indexPath.row > 0 {
+                        (cell as! OutgoingLocationMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
+                    }
+                    else {
+                        (cell as! OutgoingLocationMessageTableViewCell).setPreviousMessage(aPrevMessage: nil)
+                    }
+                    (cell as! OutgoingLocationMessageTableViewCell).setModel(aMessage: userMessage, channel: self.channel)
+                    (cell as! OutgoingLocationMessageTableViewCell).delegate = self.delegate
+                    
+                    if themeObject != nil {
+                        if themeObject?.primaryColor != nil {
+                            (cell as! OutgoingLocationMessageTableViewCell).containerBackgroundColour = (themeObject?.primaryColor)!
+                        }
+                    }
+                    (cell as! OutgoingLocationMessageTableViewCell).updateBackgroundColour()
+                    
+                    if self.preSendMessages[userMessage.requestId!] != nil {
+                        (cell as! OutgoingLocationMessageTableViewCell).showSendingStatus()
+                    }
+                    else {
+                        if self.resendableMessages[userMessage.requestId!] != nil {
+                            (cell as! OutgoingLocationMessageTableViewCell).showMessageControlButton()
+                            (cell as! OutgoingLocationMessageTableViewCell).showFailedStatus()
+                        }
+                        else {
+                            (cell as! OutgoingLocationMessageTableViewCell).showMessageDate()
+                            (cell as! OutgoingLocationMessageTableViewCell).showUnreadCount()
+                        }
+                    }
+                }
                 else {
                     cell = tableView.dequeueReusableCell(withIdentifier: OutgoingUserMessageTableViewCell.cellReuseIdentifier())
                     
@@ -792,6 +875,19 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                             (cell as! IncomingGeneralUrlPreviewMessageTableViewCell).previewThumbnailLoadingIndicator.stopAnimating()
                         }
                     }
+                }
+                else if (userMessage.message?.contains("location://"))! {
+                    cell = tableView.dequeueReusableCell(withIdentifier: IncomingLocationMessageTableViewCell.cellReuseIdentifier())
+                    
+                    cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
+                    if indexPath.row > 0 {
+                        (cell as! IncomingLocationMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
+                    }
+                    else {
+                        (cell as! IncomingLocationMessageTableViewCell).setPreviousMessage(aPrevMessage: nil)
+                    }
+                    (cell as! IncomingLocationMessageTableViewCell).setModel(aMessage: userMessage)
+                    (cell as! IncomingLocationMessageTableViewCell).delegate = self.delegate
                 }
                 else {
                     cell = tableView.dequeueReusableCell(withIdentifier: IncomingUserMessageTableViewCell.cellReuseIdentifier())

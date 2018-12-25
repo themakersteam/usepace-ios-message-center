@@ -37,6 +37,7 @@
 		161301436F5B1B770CD6914A7E194A8F /* Array+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F295A349BF9DD910C42463789DD9D00 /* Array+Foundation.swift */; };
 		163DEFC11FEC2A8F71990079093EB790 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F60E170D9688BED2E518A9B7725CE37C /* Foundation.framework */; };
 		16BF15378C934EAE558A776C57264C75 /* RandomBytesSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC196EDF6970D213CABB6EF720686833 /* RandomBytesSequence.swift */; };
+		1A380F5021D2359A00342CDB /* OutgoingLocationMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A380F4F21D2359A00342CDB /* OutgoingLocationMessageTableViewCell.xib */; };
 		1A483FB621CF575300CA9C4D /* IncomingGeneralUrlPreviewMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F9D21CF574D00CA9C4D /* IncomingGeneralUrlPreviewMessageTableViewCell.xib */; };
 		1A483FB721CF575300CA9C4D /* ImagePreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483F9E21CF574D00CA9C4D /* ImagePreviewViewController.xib */; };
 		1A483FB921CF575300CA9C4D /* OutgoingGeneralUrlPreviewMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A483FA021CF574D00CA9C4D /* OutgoingGeneralUrlPreviewMessageTableViewCell.xib */; };
@@ -873,6 +874,7 @@
 		189BC5BBE93F5759199609C8FB2C99B3 /* CSSTypeSelector.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CSSTypeSelector.h; path = Sources/include/CSSTypeSelector.h; sourceTree = "<group>"; };
 		193CD5B356C436C58C11AC517FC0D5E6 /* MessageCenter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MessageCenter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A206F9538A8F2273640B3E29E287A2B /* ChaCha20.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChaCha20.swift; path = Sources/CryptoSwift/ChaCha20.swift; sourceTree = "<group>"; };
+		1A380F4F21D2359A00342CDB /* OutgoingLocationMessageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OutgoingLocationMessageTableViewCell.xib; sourceTree = "<group>"; };
 		1A483F9D21CF574D00CA9C4D /* IncomingGeneralUrlPreviewMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IncomingGeneralUrlPreviewMessageTableViewCell.xib; sourceTree = "<group>"; };
 		1A483F9E21CF574D00CA9C4D /* ImagePreviewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImagePreviewViewController.xib; sourceTree = "<group>"; };
 		1A483FA021CF574D00CA9C4D /* OutgoingGeneralUrlPreviewMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutgoingGeneralUrlPreviewMessageTableViewCell.xib; sourceTree = "<group>"; };
@@ -2030,6 +2032,7 @@
 				1A483FB521CF575200CA9C4D /* SelectLocationView.xib */,
 				1A483FA121CF574D00CA9C4D /* WelcomeMessageTableViewCell.xib */,
 				1A8F626E21D1233D00C57CFA /* IncomingLocationMessageTableViewCell.xib */,
+				1A380F4F21D2359A00342CDB /* OutgoingLocationMessageTableViewCell.xib */,
 			);
 			name = Assets;
 			path = MessageCenter/Assets;
@@ -3291,6 +3294,7 @@
 				1A48410F21CFF30700CA9C4D /* btn_check_on@2x.png in Resources */,
 				1A48412A21CFF30700CA9C4D /* 28@3x.png in Resources */,
 				1A48413121CFF30700CA9C4D /* 30@2x.png in Resources */,
+				1A380F5021D2359A00342CDB /* OutgoingLocationMessageTableViewCell.xib in Resources */,
 				1A48416A21CFF30700CA9C4D /* btn_sidebar@3x.png in Resources */,
 				1A48416821CFF30700CA9C4D /* 25@2x.png in Resources */,
 				1A4841ED21CFF30800CA9C4D /* 12@3x.png in Resources */,

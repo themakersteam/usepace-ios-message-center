@@ -21,6 +21,31 @@ public extension String {
             return NSLocalizedString(self, tableName: "MessageCenter", bundle: podBundle!, value: "", comment: "")
         }
     }
+    
+    public static func locationURL(strLocation: String) -> URL? {
+        let locationURL = strLocation
+        let strCoordinates = locationURL.replacingOccurrences(of: "location://?", with: "")
+        let arrCordinates = strCoordinates.components(separatedBy: "&")
+        if arrCordinates.count == 2 {
+            let strLat = arrCordinates[0]
+            let strLong = arrCordinates[1]
+            
+            let strLatValue = strLat.replacingOccurrences(of: "lat=", with: "")
+            let strLongValue = strLong.replacingOccurrences(of: "long=", with: "")
+            
+            let query = "?ll=\(strLatValue),\(strLongValue)"
+            let path = "http://maps.apple.com/" + query
+            if let url = URL(string: path) {
+//                UIApplication.sharedApplication().openURL(url)
+                return url
+            }
+            else {
+                return nil
+            }
+        }
+        return nil
+    }
+    
 }
 
 extension NSAttributedString {
