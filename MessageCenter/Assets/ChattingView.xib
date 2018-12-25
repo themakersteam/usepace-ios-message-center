@@ -14,9 +14,12 @@
             <connections>
                 <outlet property="btnCamera" destination="J1k-xL-kl0" id="XIK-ot-yZv"/>
                 <outlet property="chattingTableView" destination="wXW-j4-hDA" id="vaO-Yb-3Qc"/>
+                <outlet property="chattingTableViewBottomConstraint" destination="DfI-5k-0PL" id="ZwT-gF-fLE"/>
+                <outlet property="chattingTableViewBottomToSafeAreConstraint" destination="Z67-Ct-y7N" id="yC5-Ti-sdo"/>
                 <outlet property="cnTextViewTrailing" destination="R6H-IU-ne7" id="HMd-FM-G69"/>
                 <outlet property="fileAttachButton" destination="739-8j-LpV" id="ZwI-s1-LY6"/>
                 <outlet property="inputContainerView" destination="gmQ-VZ-eb9" id="zTp-eq-gEU"/>
+                <outlet property="inputContainerViewBackground" destination="YIw-vW-MMd" id="mwp-BT-u5r"/>
                 <outlet property="inputContainerViewHeight" destination="ibd-2q-fw8" id="Xxp-eI-0bb"/>
                 <outlet property="messageTextView" destination="JIc-Xg-CIo" id="kFd-Yv-f1O"/>
                 <outlet property="placeholderLabel" destination="KKN-hB-YYf" id="cTy-Pk-M7F"/>
@@ -33,9 +36,6 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mainpattern.png" translatesAutoresizingMaskIntoConstraints="NO" id="c8I-kf-ap0">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="601"/>
-                </imageView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wXW-j4-hDA" userLabel="Chatting Table View">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="601"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -67,6 +67,10 @@
                         <constraint firstItem="3eZ-2g-Kxz" firstAttribute="leading" secondItem="Zfr-CO-RUQ" secondAttribute="trailing" constant="8" id="hYH-3F-bca"/>
                         <constraint firstItem="Zfr-CO-RUQ" firstAttribute="centerY" secondItem="955-1q-9ID" secondAttribute="centerY" id="xos-SW-aac"/>
                     </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YIw-vW-MMd" userLabel="Input View Background">
+                    <rect key="frame" x="0.0" y="601" width="375" height="66"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gmQ-VZ-eb9" userLabel="Input Container View">
                     <rect key="frame" x="0.0" y="601" width="375" height="66"/>
@@ -139,7 +143,7 @@
                             </state>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="KKN-hB-YYf" firstAttribute="top" secondItem="JIc-Xg-CIo" secondAttribute="top" id="1jI-6M-TsD"/>
                         <constraint firstItem="739-8j-LpV" firstAttribute="centerY" secondItem="gmQ-VZ-eb9" secondAttribute="centerY" id="3j0-Wl-8Vf"/>
@@ -163,19 +167,20 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="D8H-Tp-aPd" firstAttribute="trailing" secondItem="YIw-vW-MMd" secondAttribute="trailing" id="1oM-55-H8S"/>
                 <constraint firstItem="wXW-j4-hDA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="2a3-0K-PxG"/>
                 <constraint firstItem="wXW-j4-hDA" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="37q-Xx-xua"/>
                 <constraint firstAttribute="trailing" secondItem="wXW-j4-hDA" secondAttribute="trailing" id="3c7-mu-oKj"/>
-                <constraint firstItem="c8I-kf-ap0" firstAttribute="leading" secondItem="D8H-Tp-aPd" secondAttribute="leading" id="4Id-aP-AzR"/>
                 <constraint firstAttribute="trailing" secondItem="955-1q-9ID" secondAttribute="trailing" id="7ON-Db-5rf"/>
-                <constraint firstItem="c8I-kf-ap0" firstAttribute="trailing" secondItem="D8H-Tp-aPd" secondAttribute="trailing" id="9En-GF-1NB"/>
                 <constraint firstItem="gmQ-VZ-eb9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="9N6-Vp-Axi"/>
-                <constraint firstItem="955-1q-9ID" firstAttribute="top" secondItem="wXW-j4-hDA" secondAttribute="bottom" id="DfI-5k-0PL"/>
+                <constraint firstItem="955-1q-9ID" firstAttribute="top" secondItem="wXW-j4-hDA" secondAttribute="bottom" priority="990" id="DfI-5k-0PL"/>
+                <constraint firstItem="YIw-vW-MMd" firstAttribute="top" secondItem="955-1q-9ID" secondAttribute="bottom" id="KkT-nK-j73"/>
+                <constraint firstAttribute="bottom" secondItem="YIw-vW-MMd" secondAttribute="bottom" id="O6p-SM-uCn"/>
                 <constraint firstAttribute="trailing" secondItem="gmQ-VZ-eb9" secondAttribute="trailing" id="SBC-V0-1b4"/>
-                <constraint firstItem="c8I-kf-ap0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Wcm-Vf-a2W"/>
-                <constraint firstItem="955-1q-9ID" firstAttribute="top" secondItem="c8I-kf-ap0" secondAttribute="bottom" id="YsZ-KY-Q9c"/>
-                <constraint firstItem="D8H-Tp-aPd" firstAttribute="bottom" secondItem="gmQ-VZ-eb9" secondAttribute="bottom" id="fiA-Lf-fal"/>
+                <constraint firstItem="wXW-j4-hDA" firstAttribute="bottom" secondItem="D8H-Tp-aPd" secondAttribute="bottom" priority="900" id="Z67-Ct-y7N"/>
+                <constraint firstItem="gmQ-VZ-eb9" firstAttribute="bottom" secondItem="D8H-Tp-aPd" secondAttribute="bottom" id="fiA-Lf-fal"/>
                 <constraint firstItem="955-1q-9ID" firstAttribute="bottom" secondItem="gmQ-VZ-eb9" secondAttribute="top" id="j9A-bF-Lvu"/>
+                <constraint firstItem="YIw-vW-MMd" firstAttribute="leading" secondItem="D8H-Tp-aPd" secondAttribute="leading" id="pw8-UQ-o1d"/>
                 <constraint firstItem="955-1q-9ID" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="veA-lk-LUV"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="D8H-Tp-aPd"/>
@@ -187,6 +192,5 @@
         <image name="icAdd.png" width="24" height="24"/>
         <image name="icCamera.png" width="24" height="24"/>
         <image name="icSend.png" width="24" height="24"/>
-        <image name="mainpattern.png" width="375" height="667"/>
     </resources>
 </document>
