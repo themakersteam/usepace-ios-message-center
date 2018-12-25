@@ -217,11 +217,11 @@ public class SelectLocationViewController: UIViewController {
         
         if hasDroppedPin {
             sendLocationBtn.setTitle("send_location.send_button.case_pin_location.title".localized, for: .normal)
-            sendLocationIcon.image = UIImage(named: "icredpin.png", in: Bundle(for: MessageCenter.self), compatibleWith: nil)
+            sendLocationIcon.image = UIImage(named: "icredpin.png", in: Bundle.bundleForXib(SelectLocationViewController.self), compatibleWith: nil)
         }
         else  {
             sendLocationBtn.setTitle("send_location.send_button.case_my_location.title".localized, for: .normal)
-            sendLocationIcon.image = UIImage(named: "sendlocation.png", in: Bundle(for: MessageCenter.self), compatibleWith: nil)
+            sendLocationIcon.image = UIImage(named: "sendlocation.png", in: Bundle.bundleForXib(SelectLocationViewController.self), compatibleWith: nil)
         } 
     }
     private func setRegionToMyLocation(){
