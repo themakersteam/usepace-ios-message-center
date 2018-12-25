@@ -176,14 +176,12 @@
                 <constraint firstItem="955-1q-9ID" firstAttribute="top" secondItem="wXW-j4-hDA" secondAttribute="bottom" priority="990" id="DfI-5k-0PL"/>
                 <constraint firstItem="YIw-vW-MMd" firstAttribute="top" secondItem="955-1q-9ID" secondAttribute="bottom" id="KkT-nK-j73"/>
                 <constraint firstAttribute="bottom" secondItem="YIw-vW-MMd" secondAttribute="bottom" id="O6p-SM-uCn"/>
-
                 <constraint firstAttribute="trailing" secondItem="gmQ-VZ-eb9" secondAttribute="trailing" id="SBC-V0-1b4"/>
                 <constraint firstItem="wXW-j4-hDA" firstAttribute="bottom" secondItem="D8H-Tp-aPd" secondAttribute="bottom" priority="900" id="Z67-Ct-y7N"/>
                 <constraint firstItem="gmQ-VZ-eb9" firstAttribute="bottom" secondItem="D8H-Tp-aPd" secondAttribute="bottom" id="fiA-Lf-fal"/>
                 <constraint firstItem="955-1q-9ID" firstAttribute="bottom" secondItem="gmQ-VZ-eb9" secondAttribute="top" id="j9A-bF-Lvu"/>
                 <constraint firstItem="YIw-vW-MMd" firstAttribute="leading" secondItem="D8H-Tp-aPd" secondAttribute="leading" id="pw8-UQ-o1d"/>
                 <constraint firstItem="955-1q-9ID" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="veA-lk-LUV"/>
-                <constraint firstAttribute="trailing" secondItem="c8I-kf-ap0" secondAttribute="trailing" id="ywX-WW-SbB"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="D8H-Tp-aPd"/>
             <point key="canvasLocation" x="53.600000000000001" y="48.125937031484263"/>
