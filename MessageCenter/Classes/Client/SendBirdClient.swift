@@ -148,10 +148,16 @@ public class SendBirdClient: ClientProtocol {
     private func excuteGetUnreadMessageCount(forChannel channel: String?, success: @escaping UnReadMessagesSuccessCompletion, failure: @escaping MessageCenterFailureCompletion) {
         if let channel = channel {
             SBDGroupChannel.getWithUrl(channel) { (chanelObj, error) in
-                guard error == nil, let chanelObj = chanelObj else {
+                guard error == nil else {
                     failure(error!.code, error!.localizedDescription)
                     return
                 }
+                                                 
+                guard let chanelObj = chanelObj else {
+                    failure(0, "")
+                    return
+                }
+                                                 
                 success(Int(chanelObj.unreadMessageCount))
                 SBDMain.disconnect(completionHandler: {})
             }
