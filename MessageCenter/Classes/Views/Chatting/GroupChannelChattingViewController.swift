@@ -19,6 +19,7 @@ import Toast
 
 class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegate, SBDChannelDelegate, ChattingViewDelegate, MessageDelegate, UINavigationControllerDelegate {
     
+    static var instance: GroupChannelChattingViewController?
     // MARK: - Variables
     
     var groupChannel: SBDGroupChannel!
@@ -53,7 +54,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     @IBOutlet weak var patternView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        GroupChannelChattingViewController.instance = self
         self.podBundle = Bundle.bundleForXib(GroupChannelChattingViewController.self)
         setNavigationItems()
         

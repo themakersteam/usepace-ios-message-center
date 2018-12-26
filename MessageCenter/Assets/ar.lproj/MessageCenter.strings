@@ -50,3 +50,7 @@
 "need_gps_permission" = "الرجاء اعطاء صلاحية GPS للاستمرار";
 "reconnection_failed" = "فشل اعادة الاتصال";
 "reconnect" = "إعادة الاتصال";
+"navigation_apps.apple.action_title" = "فتح في الخرائط";
+"navigation_apps.google.action_title" = "فتح في خرائط Google";
+"navigation_apps.waze.action_title" = "فتح في Waze";
+"navigation_apps.sygic.action_title" = "فتح في Sygic";

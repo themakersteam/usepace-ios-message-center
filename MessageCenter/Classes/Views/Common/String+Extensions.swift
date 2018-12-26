@@ -46,6 +46,26 @@ public extension String {
         return nil
     }
     
+    
+    /// Parse string to latitude and longitude.. returns nil if failed.
+    /// - Used Convention: location://?lat={lat}&long={long}
+    func asCoordinates() -> (lat: Double, long: Double)? {
+        
+        guard self.hasPrefix("location"), let queryItems = URLComponents(string: self)?.queryItems else {
+            return nil
+        }
+        
+        var result = (lat: 0.0,long: 0.0)
+        result.lat = queryItems.first(where: { $0.name == "lat" })?.value?.doubleVal ?? 0.0
+        result.long = queryItems.first(where: { $0.name == "long" })?.value?.doubleVal ?? 0.0
+ 
+        return result
+     }
+    
+    /// Converts the string instance to Double, if possible; nil otherwise.
+    var doubleVal: Double? {
+        return Double(self)
+    }
 }
 
 extension NSAttributedString {

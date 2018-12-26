@@ -51,3 +51,7 @@
 "message_center_channel_is_frozen" = "Chat is frozen !";
 "reconnection_failed" = "Reconnetion Failed";
 "reconnect" = "Reconnect";
+"navigation_apps.apple.action_title" = "Open in Apple Maps";
+"navigation_apps.google.action_title" = "Open in Google Maps";
+"navigation_apps.waze.action_title" = "Open in Waze";
+"navigation_apps.sygic.action_title" = "Open in Sygic";
