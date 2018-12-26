@@ -25,6 +25,7 @@ class IncomingLocationMessageTableViewCell: UITableViewCell {
     private var podBundle: Bundle!
     public var containerBackgroundColour: UIColor = UIColor(red: 237.0/255.0, green: 237.0/255.0, blue: 237.0/255.0, alpha: 1.0)
     
+    private var senderName: String = ""
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -47,18 +48,17 @@ class IncomingLocationMessageTableViewCell: UITableViewCell {
     
     @objc private func clickUserMessage() {
         if self.delegate != nil {
-            let url = String.locationURL(strLocation: self.message.message!)!
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            } else {
-                UIApplication.shared.openURL(url)
+            guard let coordinates = self.message.message?.asCoordinates() else {
+                return
             }
+            PreviewLocationViewController.present(on: GroupChannelChattingViewController.instance!, lat: coordinates.lat, long: coordinates.long, title: self.senderName)
+
         }
     }
  
     func setModel(aMessage: SBDUserMessage) {
         self.message = aMessage
-        
+        self.senderName = aMessage.sender?.nickname ?? ""
         // location://?lat=24.816260999461292&long=46.640610342375126
         
         self.lblTitle.text = String.locationURL(strLocation: self.message.message!)?.absoluteString

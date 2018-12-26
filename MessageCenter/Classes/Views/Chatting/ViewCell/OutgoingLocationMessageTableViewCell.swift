@@ -23,7 +23,8 @@ class OutgoingLocationMessageTableViewCell: UITableViewCell {
     
     private var message: SBDUserMessage!
     private var prevMessage: SBDBaseMessage!
-    
+    private var senderName: String = ""
+
     public var containerBackgroundColour: UIColor = UIColor(red: 122.0/255.0, green: 188.0/255.0, blue: 65.0/255.0, alpha: 1.0)
     
     static func nib() -> UINib {
@@ -45,12 +46,10 @@ class OutgoingLocationMessageTableViewCell: UITableViewCell {
     
     @objc private func clickUserMessage() {
         if self.delegate != nil {
-            let url = String.locationURL(strLocation: self.message.message!)!
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            } else {
-                UIApplication.shared.openURL(url)
+            guard let coordinates = self.message.message?.asCoordinates() else {
+                return
             }
+            PreviewLocationViewController.present(on: GroupChannelChattingViewController.instance!, lat: coordinates.lat, long: coordinates.long, title: self.senderName)
         }
     }
     
@@ -68,7 +67,8 @@ class OutgoingLocationMessageTableViewCell: UITableViewCell {
     
     func setModel(aMessage: SBDUserMessage, channel: SBDBaseChannel?) {
         self.message = aMessage
-
+        self.senderName = aMessage.sender?.nickname ?? ""
+        
         self.messageLabel.text = String.locationURL(strLocation: self.message.message!)?.absoluteString
         
         let messageContainerTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickUserMessage))
