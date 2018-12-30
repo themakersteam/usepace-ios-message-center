@@ -614,30 +614,31 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             self.chattingView.sendButton.isEnabled = false
             let preSendMessage = self.groupChannel.sendUserMessage(message, data: "", customType: "", targetLanguages: ["ar", "de", "fr", "nl", "ja", "ko", "pt", "es", "zh-CHS"], completionHandler: { (userMessage, error) in
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(150), execute: {
-                    let preSendMessage = self.chattingView.preSendMessages[(userMessage?.requestId)!] as! SBDUserMessage
-                    self.chattingView.preSendMessages.removeValue(forKey: (userMessage?.requestId)!)
-                    
-                    if error != nil {
-                        self.chattingView.resendableMessages[(userMessage?.requestId)!] = userMessage
-                        self.chattingView.chattingTableView.reloadData()
+                    if let preSendMessage = self.chattingView.preSendMessages[(userMessage?.requestId)!] as? SBDUserMessage {
+                        self.chattingView.preSendMessages.removeValue(forKey: (userMessage?.requestId)!)
+                        
+                        if error != nil {
+                            self.chattingView.resendableMessages[(userMessage?.requestId)!] = userMessage
+                            self.chattingView.chattingTableView.reloadData()
+                            DispatchQueue.main.async {
+                                self.chattingView.scrollToBottom(force: true)
+                            }
+                            
+                            return
+                        }
+                        
+                        let index = IndexPath(row: self.chattingView.messages.index(of: preSendMessage)!, section: 0)
+                        self.chattingView.chattingTableView.beginUpdates()
+                        self.chattingView.messages[self.chattingView.messages.index(of: preSendMessage)!] = userMessage!
+                        
+                        UIView.setAnimationsEnabled(false)
+                        self.chattingView.chattingTableView.reloadRows(at: [index] , with: UITableViewRowAnimation.none)
+                        UIView.setAnimationsEnabled(true)
+                        self.chattingView.chattingTableView.endUpdates()
+                        
                         DispatchQueue.main.async {
                             self.chattingView.scrollToBottom(force: true)
                         }
-                        
-                        return
-                    }
-                    
-                    let index = IndexPath(row: self.chattingView.messages.index(of: preSendMessage)!, section: 0)
-                    self.chattingView.chattingTableView.beginUpdates()
-                    self.chattingView.messages[self.chattingView.messages.index(of: preSendMessage)!] = userMessage!
-                    
-                    UIView.setAnimationsEnabled(false)
-                    self.chattingView.chattingTableView.reloadRows(at: [index] , with: UITableViewRowAnimation.none)
-                    UIView.setAnimationsEnabled(true)
-                    self.chattingView.chattingTableView.endUpdates()
-                    
-                    DispatchQueue.main.async {
-                        self.chattingView.scrollToBottom(force: true)
                     }
                 })
             })
