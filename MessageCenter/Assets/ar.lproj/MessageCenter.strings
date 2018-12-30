@@ -33,7 +33,7 @@
 "storage_access_permission_needed" = "لتتمكن من ارسال/تحميل الملفات الرجاء اعطاء الصلاحية";
 "camera_access_permission_needed" = "لتتمكن من ارسال الصور الرجاء اعطاء الصلاحية";
 "select_media" = "اختيار الملف";
-"is_typing" = " يكتب...";
+"is_typing" = "يكتب ...";
 "multiple_users_are_typing" = "اكثر من شخص يكتب...";
 "retry" = "اعادة المحاولة؟";
 "edit_message" = "تعديل الرسالة";
@@ -54,3 +54,6 @@
 "navigation_apps.google.action_title" = "فتح في خرائط Google";
 "navigation_apps.waze.action_title" = "فتح في Waze";
 "navigation_apps.sygic.action_title" = "فتح في Sygic";
+"image_uploading_in_progress_message" = "لم يتم إرسال الصور الخاصة بك، الاستمرار دون إرسال الصورة؟";
+"yes" = "استمرار";
+"no" = "الغاء";

@@ -162,10 +162,6 @@ class OutgoingLocationMessageTableViewCell: UITableViewCell {
     }
     
     func showMessageDate() {
-        //        self.unreadCountLabel.isHidden = true
-        //        self.resendMessageButton.isHidden = true
-        //        self.sendingStatusLabel.isHidden = true
-        //
-        //        self.messageDateLabel.isHidden = false
+        self.messageDateLabel.isHidden = false
     }
 }

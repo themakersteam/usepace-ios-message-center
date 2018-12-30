@@ -81,9 +81,13 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.        
         buttonJoin.isEnabled = false
         MessageCenter.parentVC = self
-        connectRequest = ConnectionRequest(appId: "FE3AD311-7F0F-4E7E-9E22-25FF141A37C0", userId: "rider_sony", accessToken: "4a8f3c197450b4762cd2dcf02a130816a503f4f2", client: ClientType.sendBird)
-//
-//        connectRequest = ConnectionRequest(appId: "FE3AD311-7F0F-4E7E-9E22-25FF141A37C0", userId: "customer_hs_184890", accessToken: "8b21b79c6a07d74e95cf6c91837ec2a64e9cbc54", client: ClientType.sendBird)
+        if TARGET_OS_SIMULATOR != 0 {
+            connectRequest = ConnectionRequest(appId: "FE3AD311-7F0F-4E7E-9E22-25FF141A37C0", userId: "rider_sony", accessToken: "4a8f3c197450b4762cd2dcf02a130816a503f4f2", client: ClientType.sendBird)
+        }
+        else {
+            connectRequest = ConnectionRequest(appId: "FE3AD311-7F0F-4E7E-9E22-25FF141A37C0", userId: "customer_hs_184890", accessToken: "8b21b79c6a07d74e95cf6c91837ec2a64e9cbc54", client: ClientType.sendBird)
+        }
+        
         MessageCenter.connect(connectRequest, pushToken: "2121212324rdfdcef".data(using: .utf8), success: { (userId) in
             print("Connected user: %@", userId);
             self.labelUserId.text = userId
