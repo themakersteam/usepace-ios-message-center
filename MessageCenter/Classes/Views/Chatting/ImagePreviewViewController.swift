@@ -66,10 +66,15 @@ class ImagePreviewViewController: UIViewController {
         gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
         gradientLayer.locations = [0.0, 0.15]
         self.imgPicture.layer.addSublayer(gradientLayer)
+        self.imgPicture.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:))))
     }
     
-    @IBAction func tapHandler(_ sender: Any) {
-        self.view.endEditing(true)
+    
+    @objc func handleTap(sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            view.endEditing(true)
+        }
+        //sender.cancelsTouchesInView = false
     }
     func addObservers() {
         
@@ -88,9 +93,9 @@ class ImagePreviewViewController: UIViewController {
         let keyboardInfo = notification.userInfo
         let keyboardFrameBegin = keyboardInfo?[UIKeyboardFrameEndUserInfoKey]
         let keyboardFrameBeginRect = (keyboardFrameBegin as! NSValue).cgRectValue
-        
+        let duration = keyboardInfo?[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber
+        let curve = keyboardInfo?[UIKeyboardAnimationCurveUserInfoKey] as! UInt
         DispatchQueue.main.async {
-            
             self.bottomMargin.constant = keyboardFrameBeginRect.size.height
             
             UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveLinear, animations: {
@@ -112,9 +117,6 @@ class ImagePreviewViewController: UIViewController {
             }, completion: { (status) in
                 
             })
-            
-            
-//            self.chattingView.scrollToBottom(force: false)
         }
     }
     

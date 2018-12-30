@@ -115,7 +115,7 @@
                     </constraints>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kgd-6s-sEz" userLabel="Image Viewer Loading View">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                     <subviews>
                         <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2JN-2a-q7v">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -128,7 +128,7 @@
                             </items>
                         </navigationBar>
                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="sqK-uF-ZNw" userLabel="Image Viewer Loading Activity Indicator">
-                            <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
+                            <rect key="frame" x="177.5" y="313.5" width="20" height="20"/>
                         </activityIndicatorView>
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -155,7 +155,7 @@
                 <constraint firstItem="mOk-Vz-mXb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Nnf-hU-vfv"/>
                 <constraint firstAttribute="trailing" secondItem="88M-yo-TWR" secondAttribute="trailing" id="QKC-Yo-566"/>
                 <constraint firstItem="Ykx-aa-bI9" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Sv2-Id-24w"/>
-                <constraint firstItem="Kgd-6s-sEz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="YCq-AK-MYQ"/>
+                <constraint firstItem="Kgd-6s-sEz" firstAttribute="top" secondItem="UvG-x8-VLe" secondAttribute="top" id="YCq-AK-MYQ"/>
                 <constraint firstItem="UvG-x8-VLe" firstAttribute="bottom" secondItem="88M-yo-TWR" secondAttribute="bottom" id="bY7-wW-a8a"/>
                 <constraint firstItem="nxZ-VX-cuY" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="cQB-um-Clg"/>
                 <constraint firstItem="mOk-Vz-mXb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="jrb-XI-ccp"/>

@@ -105,6 +105,9 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         else {
             self.loadMessages()
         }
+        
+        // Delete all the pre-saved images in directory as we really don't need those
+        self.deleteDirectory()
     }
     
     deinit {
@@ -670,6 +673,27 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     
     // MARK: - UserActions
     //MARK: -
+    
+    func previewMessage(_ photo: ChatImage) {
+        self.photosViewController = NYTPhotosViewController(photos: [photo])
+        DispatchQueue.main.async {
+            self.photosViewController.rightBarButtonItems = nil
+            self.photosViewController.rightBarButtonItem = nil
+            
+            let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
+            negativeLeftSpacerForImageViewerLoading.width = -2
+            let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close.png",in: self.podBundle, compatibleWith: nil),
+                                                                     style: UIBarButtonItemStyle.done,
+                                                                     target: self,
+                                                                     action: #selector(self.closeImageViewer))
+            
+            self.imageViewerLoadingViewNavItem.leftBarButtonItems = [negativeLeftSpacerForImageViewerLoading, leftCloseItemForImageViewerLoading]
+            self.present(self.photosViewController, animated: true, completion: {
+                self.hideImageViewerLoading()
+            })
+        }
+    }
+    
     @objc func handleTap(sender: UITapGestureRecognizer) {
         if sender.state == .ended {
             view.endEditing(true)
@@ -1177,67 +1201,44 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 return
             }
             else if type.hasPrefix("image") {
-                self.showImageViewerLoading()
                 let photo = ChatImage()
-                if  let cachedData = FLAnimatedImageView.cachedImageForURL(url: URL(string: url)!) {
-                    photo.imageData = cachedData
-                    self.photosViewController = NYTPhotosViewController(photos: [photo])
-                    DispatchQueue.main.async {
-                        self.photosViewController.rightBarButtonItems = nil
-                        self.photosViewController.rightBarButtonItem = nil
+                if url.count > 0 {
+                    self.showImageViewerLoading()
+                    if  let cachedData = FLAnimatedImageView.cachedImageForURL(url: URL(string: url)!) {
+                        photo.imageData = cachedData
+                        self.previewMessage(photo)
+                    }
                         
-                        let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
-                        negativeLeftSpacerForImageViewerLoading.width = -2
-                        let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close.png",in: self.podBundle, compatibleWith: nil),
-                                                                                 style: UIBarButtonItemStyle.done,
-                                                                                 target: self,
-                                                                                 action: #selector(self.closeImageViewer))
-                        
-                        self.imageViewerLoadingViewNavItem.leftBarButtonItems = [negativeLeftSpacerForImageViewerLoading, leftCloseItemForImageViewerLoading]
-                        self.present(self.photosViewController, animated: true, completion: {
-                            self.hideImageViewerLoading()
-                        })
+                    else {
+                        let session = URLSession.shared
+                        let request = URLRequest(url: URL(string: url)!)
+                        session.dataTask(with: request, completionHandler: { (data, response, error) in
+                            if error != nil {
+                                self.hideImageViewerLoading()
+                                
+                                return;
+                            }
+                            
+                            let resp = response as! HTTPURLResponse
+                            if resp.statusCode >= 200 && resp.statusCode < 300 {
+                                //                            AppDelegate.imageCache().setObject(data as AnyObject, forKey: url as AnyObject)
+                                let photo = ChatImage()
+                                photo.imageData = data
+                                self.previewMessage(photo)
+                            }
+                            else {
+                                self.hideImageViewerLoading()
+                            }
+                        }).resume()
+                        return
                     }
                 }
-                
                 else {
-                    let session = URLSession.shared
-                    let request = URLRequest(url: URL(string: url)!)
-                    session.dataTask(with: request, completionHandler: { (data, response, error) in
-                        if error != nil {
-                            self.hideImageViewerLoading()
-                            
-                            return;
-                        }
-                        
-                        let resp = response as! HTTPURLResponse
-                        if resp.statusCode >= 200 && resp.statusCode < 300 {
-                            //                            AppDelegate.imageCache().setObject(data as AnyObject, forKey: url as AnyObject)
-                            let photo = ChatImage()
-                            photo.imageData = data
-                            
-                            self.photosViewController = NYTPhotosViewController(photos: [photo])
-                            DispatchQueue.main.async {
-                                self.photosViewController.rightBarButtonItems = nil
-                                self.photosViewController.rightBarButtonItem = nil
-                                
-                                let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
-                                negativeLeftSpacerForImageViewerLoading.width = -2
-                                
-                                let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close.png", in: self.podBundle, compatibleWith: nil), style: UIBarButtonItemStyle.done, target: self, action: #selector(self.closeImageViewer))
-                                
-                                self.imageViewerLoadingViewNavItem.leftBarButtonItems = [negativeLeftSpacerForImageViewerLoading, leftCloseItemForImageViewerLoading]
-                                
-                                self.present(self.photosViewController, animated: true, completion: {
-                                    self.hideImageViewerLoading()
-                                })
-                            }
-                        }
-                        else {
-                            self.hideImageViewerLoading()
-                        }
-                    }).resume()
-                    
+                    if let image = self.getImageFromDocumentDirectory(fileMessage.requestId!) {
+                        photo.image = image
+                        photo.imageData = UIImageJPEGRepresentation(image, 1.0)
+                        self.previewMessage(photo)
+                    }
                     return
                 }
             }
@@ -1727,6 +1728,7 @@ extension GroupChannelChattingViewController : ImagePreviewProtocol {
                 let preSendMessage = self.groupChannel.sendFileMessage(withBinaryData: imageData!, filename: imageName as String, type: mimeType! as String, size: UInt((imageData?.count)!), thumbnailSizes: [thumbnailSize!], data: "", customType: "", progressHandler: nil, completionHandler: { (fileMessage, error) in
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(150), execute: {
                         let preSendMessage = self.chattingView.preSendMessages[(fileMessage?.requestId)!] as! SBDFileMessage
+                        
                         self.chattingView.preSendMessages.removeValue(forKey: (fileMessage?.requestId)!)
                         self.mediaInfo = nil
                         if error != nil {
@@ -1760,6 +1762,9 @@ extension GroupChannelChattingViewController : ImagePreviewProtocol {
                     })
                 })
                 
+                
+                self.saveImageDocumentDirectory(image: image!, imageName: preSendMessage.requestId!)
+                
                 self.chattingView.preSendFileData[preSendMessage.requestId!] = [
                     "data": imageData as AnyObject,
                     "type": mimeType as AnyObject,
@@ -1774,4 +1779,50 @@ extension GroupChannelChattingViewController : ImagePreviewProtocol {
         }
     }
     
+}
+
+// To preview the image that is uploading, save it to Documents directory. Unless image is uploaded, URL is not generated and we can't download the image
+
+private extension GroupChannelChattingViewController {
+    
+    func getDirectoryPath() -> NSURL {
+        let path = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("MessageCenter")
+        let url = NSURL(string: path)
+        return url!
+    }
+    
+    func saveImageDocumentDirectory(image: UIImage, imageName: String) {
+        let fileManager = FileManager.default
+        let path = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("MessageCenter")
+        if !fileManager.fileExists(atPath: path) {
+            try! fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+        }
+        let url = NSURL(string: path)
+        let imagePath = url!.appendingPathComponent(imageName)
+        let urlString: String = imagePath!.absoluteString
+        let imageData = UIImageJPEGRepresentation(image, 1.0)
+        //let imageData = UIImagePNGRepresentation(image)
+        fileManager.createFile(atPath: urlString as String, contents: imageData, attributes: nil)
+    }
+    
+    func getImageFromDocumentDirectory(_ name: String) -> UIImage? {
+        let fileManager = FileManager.default
+        let imagePath = (self.getDirectoryPath() as NSURL).appendingPathComponent(name)
+        let urlString: String = imagePath!.absoluteString
+        if fileManager.fileExists(atPath: urlString) {
+            let image = UIImage(contentsOfFile: urlString)
+            return image
+        } else {
+            return nil
+        }
+    }
+
+    
+    func deleteDirectory() {
+        let fileManager = FileManager.default
+        let directoryPath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("MessageCenter")
+        if fileManager.fileExists(atPath: directoryPath) {
+            try! fileManager.removeItem(atPath: directoryPath)
+        }
+    }
 }
