@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PreviewLocationViewController" customModule="MessageCenter" customModuleProvider="target">
+            <connections>
+                <outlet property="backBtn" destination="it0-ka-Xwc" id="w0s-Pf-fmX"/>
+                <outlet property="mapView" destination="m1i-YU-F7Q" id="3Mx-dD-Ssk"/>
+                <outlet property="navItem" destination="9Ak-di-HtW" id="s1A-sx-1yv"/>
+                <outlet property="segmentedControl" destination="D8t-5o-bgL" id="sO8-Zp-FpQ"/>
+                <outlet property="view" destination="iN0-l3-epB" id="6Eb-3K-UcO"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sEs-dY-auX">
+                    <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <color key="barTintColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                    <items>
+                        <navigationItem title="GeoCoding Result" id="9Ak-di-HtW">
+                            <barButtonItem key="leftBarButtonItem" style="plain" id="FY6-Ac-Jud">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="it0-ka-Xwc">
+                                    <rect key="frame" x="16" y="7" width="83" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Back"/>
+                                    <connections>
+                                        <action selector="back:" destination="-1" eventType="touchUpInside" id="NuD-Mp-tfX"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                        </navigationItem>
+                    </items>
+                </navigationBar>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v0S-ec-OIe" userLabel="Map Container View">
+                    <rect key="frame" x="0.0" y="64" width="375" height="559"/>
+                    <subviews>
+                        <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" showsCompass="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m1i-YU-F7Q">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="559"/>
+                        </mapView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="m1i-YU-F7Q" firstAttribute="top" secondItem="v0S-ec-OIe" secondAttribute="top" id="8dA-GQ-9Nt"/>
+                        <constraint firstItem="m1i-YU-F7Q" firstAttribute="leading" secondItem="v0S-ec-OIe" secondAttribute="leading" id="IVE-RS-mC2"/>
+                        <constraint firstAttribute="bottom" secondItem="m1i-YU-F7Q" secondAttribute="bottom" id="YL9-sC-5Cq"/>
+                        <constraint firstAttribute="trailing" secondItem="m1i-YU-F7Q" secondAttribute="trailing" id="rE8-nB-dVD"/>
+                    </constraints>
+                </view>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oe5-Tf-Jq3">
+                    <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                    <items>
+                        <barButtonItem systemItem="action" id="GEt-yn-AxE">
+                            <connections>
+                                <action selector="showNavigation:" destination="-1" id="6tb-Fu-IKW"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="VgY-xG-gNr"/>
+                        <barButtonItem style="plain" id="WQj-VP-gP8">
+                            <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="D8t-5o-bgL">
+                                <rect key="frame" x="165.5" y="7.5" width="44" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title=""/>
+                                    <segment title=""/>
+                                    <segment title=""/>
+                                </segments>
+                                <connections>
+                                    <action selector="mapTypeSelected:" destination="-1" eventType="valueChanged" id="jdl-gX-xvi"/>
+                                </connections>
+                            </segmentedControl>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="ZcQ-HT-TKo"/>
+                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="BeR-Gk-kp4"/>
+                    </items>
+                </toolbar>
+            </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="Oe5-Tf-Jq3" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="4mI-JC-9vu"/>
+                <constraint firstItem="v0S-ec-OIe" firstAttribute="top" secondItem="sEs-dY-auX" secondAttribute="bottom" id="6lB-JL-8wJ"/>
+                <constraint firstItem="v0S-ec-OIe" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="8rB-Gx-zGS"/>
+                <constraint firstItem="Oe5-Tf-Jq3" firstAttribute="top" secondItem="v0S-ec-OIe" secondAttribute="bottom" id="AG0-dB-sIf"/>
+                <constraint firstItem="sEs-dY-auX" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="JSJ-xf-900"/>
+                <constraint firstItem="sEs-dY-auX" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Y0x-g5-zCB"/>
+                <constraint firstItem="Oe5-Tf-Jq3" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="bAs-dV-hgk"/>
+                <constraint firstItem="Oe5-Tf-Jq3" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="c7H-19-AgJ"/>
+                <constraint firstItem="v0S-ec-OIe" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="ilq-Ut-3KZ"/>
+                <constraint firstItem="sEs-dY-auX" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="wTq-GG-PdF"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="55.200000000000003" y="48.125937031484263"/>
+        </view>
+    </objects>
+</document>
