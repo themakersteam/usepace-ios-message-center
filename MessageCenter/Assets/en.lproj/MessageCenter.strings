@@ -36,7 +36,7 @@
 "storage_access_permission_needed" = "Storage access permissions are required to upload/download files.";
 "camera_access_permission_needed" = "Camera access permissions are required to take pictures.";
 "select_media" = "Select Media";
-"is_typing" = " is typing...";
+"is_typing" = "is typing ...";
 "multiple_users_are_typing" = "Multiple users are typing";
 "retry" = "Retry?";
 "edit_message" = "Edit message";
@@ -55,3 +55,6 @@
 "navigation_apps.google.action_title" = "Open in Google Maps";
 "navigation_apps.waze.action_title" = "Open in Waze";
 "navigation_apps.sygic.action_title" = "Open in Sygic";
+"image_uploading_in_progress_message" = "Your image message is not sent, continue without sending?";
+"yes" = "Yes";
+"no" = "No";

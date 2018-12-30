@@ -130,14 +130,14 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                 self.inputContainerView.isHidden = true
                 self.inputContainerViewBackground.isHidden = true
                 self.chattingTableViewBottomConstraint.priority = UILayoutPriority(900)
-                self.chattingTableViewBottomToSafeAreConstraint.priority = UILayoutPriority(990)
+             //   self.chattingTableViewBottomToSafeAreConstraint.priority = UILayoutPriority(990)
                 
             }
             else {
                 self.inputContainerView.isHidden = false
                 self.inputContainerViewBackground.isHidden = false
                 self.chattingTableViewBottomConstraint.priority = UILayoutPriority(990)
-                self.chattingTableViewBottomToSafeAreConstraint.priority = UILayoutPriority(900)
+              //  self.chattingTableViewBottomToSafeAreConstraint.priority = UILayoutPriority(900)
 
             }
         }
@@ -254,7 +254,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
             return
         }
         if self.messages.count > 0 {
-            self.chattingTableView.scrollToRow(at: IndexPath.init(row: self.messages.count, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
+            self.chattingTableView.scrollToRow(at: IndexPath.init(row: self.messages.count - 1, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
         }
         else {
             self.chattingTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
