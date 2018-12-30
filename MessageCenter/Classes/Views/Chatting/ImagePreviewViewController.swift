@@ -42,7 +42,7 @@ class ImagePreviewViewController: UIViewController {
         self.messageInputView.layer.borderWidth = 1.0
         self.messageInputView.delegate = self
         self.lblCaption.isHidden = strCaption.count > 0
-        self.lblCaption.text = "caption".localized
+        self.lblCaption.text = "ms_caption".localized
         
         self.addObservers()
     }
