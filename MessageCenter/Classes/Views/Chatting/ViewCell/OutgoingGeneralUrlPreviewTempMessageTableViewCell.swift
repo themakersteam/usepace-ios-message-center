@@ -40,12 +40,6 @@ class OutgoingGeneralUrlPreviewTempMessageTableViewCell: UITableViewCell {
         self.messageLabel.attributedText = fullMessage
         
         self.previewLoadingIndicator.startAnimating()
-
-        // Message Date
-//        let messageTimestamp = Double((self.message?.createdAt)!) / 1000.0
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.timeStyle = DateFormatter.Style.short
-//        _ = NSDate(timeIntervalSince1970: messageTimestamp)
         
         self.layoutIfNeeded()
     }
