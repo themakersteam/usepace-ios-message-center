@@ -1175,11 +1175,11 @@ extension ChattingView: SBMessageInputViewDelegate {
         else {
             if #available(iOS 9.0, *) {
                 if UIView.userInterfaceLayoutDirection(for: self.semanticContentAttribute) == .rightToLeft {
-                    textView.contentInset = UIEdgeInsets(top: textView.contentInset.top, left: 35.0, bottom: 0.0, right: 0.0)
+                    textView.contentInset = UIEdgeInsets(top: textView.contentInset.top, left: 12.0, bottom: 0.0, right: 0.0)
                 }
             } else {
                 if UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft {
-                    textView.contentInset = UIEdgeInsets(top: textView.contentInset.top, left: 35.0, bottom: 0.0, right: 0.0)
+                    textView.contentInset = UIEdgeInsets(top: textView.contentInset.top, left: 12.0, bottom: 0.0, right: 0.0)
                 }
             }
             self.placeholderLabel.isHidden = false
