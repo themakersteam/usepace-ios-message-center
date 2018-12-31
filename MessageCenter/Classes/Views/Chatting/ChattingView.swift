@@ -46,7 +46,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     var resendableFileData: [String:[String:AnyObject]] = [:]
     var preSendFileData: [String:[String:AnyObject]] = [:]
     var messages: [SBDBaseMessage] = []
-    var hasLoadedAllMessages: Bool = false
+    //var hasLoadedAllMessages: Bool = false
     var channel: SBDBaseChannel?
     var themeObject: ThemeObject?
     private var podBundle: Bundle!
@@ -460,13 +460,13 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     // MARK: - TableViewDelegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        if indexPath.row == 0 && self.hasLoadedAllMessages == true {
+        if indexPath.row == 0 { //&& self.hasLoadedAllMessages == true {
             return 50.0
         }
         
         var height: CGFloat = 0
         
-        let msg = self.messages[indexPath.row - (self.hasLoadedAllMessages == true ? 1 : 0)]
+        let msg = self.messages[indexPath.row - 1] // (self.hasLoadedAllMessages == true ? 1 : 0)]
         
         if msg is SBDUserMessage {
             let userMessage = msg as! SBDUserMessage
@@ -620,16 +620,16 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     
     // MARK: -  UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.messages.count == 0 {
-            self.hasLoadedAllMessages = true
-        }
-        return self.hasLoadedAllMessages == true ? self.messages.count + 1 : self.messages.count
+//        if self.messages.count == 0 {
+//            self.hasLoadedAllMessages = true
+//        }
+        return self.messages.count + 1 //self.hasLoadedAllMessages == true ? self.messages.count + 1 : self.messages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell?
         
-        if indexPath.row == 0 && self.hasLoadedAllMessages == true {
+        if indexPath.row == 0 { //&& self.hasLoadedAllMessages == true {
             cell = tableView.dequeueReusableCell(withIdentifier: WelcomeMessageTableViewCell.cellReuseIdentifier())
             if self.themeObject != nil {
                 (cell as! WelcomeMessageTableViewCell).lblMessage.text = self.themeObject?.welcomeMessage
@@ -648,7 +648,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
             return cell!
         }
         
-        let msg = self.messages[indexPath.row - (self.hasLoadedAllMessages == true ? 1 : 0)]
+        let msg = self.messages[indexPath.row - 1] //(self.hasLoadedAllMessages == true ? 1 : 0)]
         
         if msg is SBDUserMessage {
             let userMessage = msg as! SBDUserMessage
@@ -1171,11 +1171,11 @@ extension ChattingView: SBMessageInputViewDelegate {
         else {
             if #available(iOS 9.0, *) {
                 if UIView.userInterfaceLayoutDirection(for: self.semanticContentAttribute) == .rightToLeft {
-                    textView.contentInset = UIEdgeInsets(top: textView.contentInset.top, left: 35.0, bottom: 0.0, right: 0.0)
+                    textView.contentInset = UIEdgeInsets(top: textView.contentInset.top, left: 12.0, bottom: 0.0, right: 0.0)
                 }
             } else {
                 if UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft {
-                    textView.contentInset = UIEdgeInsets(top: textView.contentInset.top, left: 35.0, bottom: 0.0, right: 0.0)
+                    textView.contentInset = UIEdgeInsets(top: textView.contentInset.top, left: 12.0, bottom: 0.0, right: 0.0)
                 }
             }
             self.placeholderLabel.isHidden = false
