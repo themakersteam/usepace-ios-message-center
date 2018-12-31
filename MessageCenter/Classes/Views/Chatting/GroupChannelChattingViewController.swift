@@ -116,6 +116,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.chattingView.chattingTableView.reloadData()
         addObservers()
     }
     
@@ -254,8 +255,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             
             if messages?.count == 0 {
                 self.hasNext = false
-                self.chattingView.hasLoadedAllMessages = true
-                self.chattingView.welcomeMessage = self.welcomeMessage
+               // self.chattingView.hasLoadedAllMessages = true
                 self.chattingView.chattingTableView.reloadData()
                 self.chattingView.scrollToBottom(force: true)
             }
