@@ -130,6 +130,11 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     
     @objc private func close() {
         
+        if self.imageViewerLoadingView.isHidden == false {
+            self.hideImageViewerLoading()
+            return
+        }
+        
         if self.chattingView.preSendMessages.count > 0 {
             let alertController = UIAlertController(title: "", message: "image_uploading_in_progress_message".localized, preferredStyle: .alert)
             let okAction = UIAlertAction(title: "yes".localized, style: .cancel) { (action) in
@@ -675,24 +680,36 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     //MARK: -
     
     func previewMessage(_ photo: ChatImage) {
-        self.photosViewController = NYTPhotosViewController(photos: [photo])
-        DispatchQueue.main.async {
-            self.photosViewController.rightBarButtonItems = nil
-            self.photosViewController.rightBarButtonItem = nil
-            
-            let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
-            negativeLeftSpacerForImageViewerLoading.width = -2
-            let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close.png",in: self.podBundle, compatibleWith: nil),
-                                                                     style: UIBarButtonItemStyle.done,
-                                                                     target: self,
-                                                                     action: #selector(self.closeImageViewer))
-            
-            self.imageViewerLoadingViewNavItem.leftBarButtonItems = [negativeLeftSpacerForImageViewerLoading, leftCloseItemForImageViewerLoading]
-            self.present(self.photosViewController, animated: true, completion: {
-                self.hideImageViewerLoading()
-            })
-        }
+       
+        let imageCaptionVC = ImagePreviewViewController(nibName: "ImagePreviewViewController", bundle: self.podBundle)
+        imageCaptionVC.imageToUpload = UIImage(data: photo.imageData!)
+        imageCaptionVC.shouldShowCaption = false
+        imageCaptionVC.delegate = self
+        self.navigationController?.pushViewController(imageCaptionVC, animated: true)
+        
     }
+//        self.photosViewController = NYTPhotosViewController(photos: [photo])
+//        DispatchQueue.main.async {
+//            self.photosViewController.rightBarButtonItems = nil
+//            self.photosViewController.rightBarButtonItem = nil
+//
+//            self.photosViewController.leftBarButtonItems = nil
+//            self.photosViewController.leftBarButtonItem = nil
+//
+//            let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
+//            negativeLeftSpacerForImageViewerLoading.width = -2
+//            let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close.png",in: self.podBundle, compatibleWith: nil),
+//                                                                     style: UIBarButtonItemStyle.done,
+//                                                                     target: self,
+//                                                                     action: #selector(self.closeImageViewer))
+//
+//            self.imageViewerLoadingViewNavItem.leftBarButtonItems = [negativeLeftSpacerForImageViewerLoading, leftCloseItemForImageViewerLoading]
+//            self.navigationController?.pushViewController(self.photosViewController, animated: true)
+////            self.present(self.photosViewController, animated: true, completion: {
+////                self.hideImageViewerLoading()
+////            })
+//        }
+//    }
     
     @objc func handleTap(sender: UITapGestureRecognizer) {
         if sender.state == .ended {
@@ -1203,31 +1220,32 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             else if type.hasPrefix("image") {
                 let photo = ChatImage()
                 if url.count > 0 {
-                    self.showImageViewerLoading()
+//
                     if  let cachedData = FLAnimatedImageView.cachedImageForURL(url: URL(string: url)!) {
-                        photo.imageData = cachedData
-                        self.previewMessage(photo)
+                        DispatchQueue.main.async {
+                            photo.imageData = cachedData
+                            self.previewMessage(photo)
+                        }                        
+                        return
                     }
-                        
                     else {
                         let session = URLSession.shared
                         let request = URLRequest(url: URL(string: url)!)
+                        self.showImageViewerLoading()
                         session.dataTask(with: request, completionHandler: { (data, response, error) in
+                            self.hideImageViewerLoading()
                             if error != nil {
-                                self.hideImageViewerLoading()
-                                
                                 return;
-                            }
-                            
+                            }                            
                             let resp = response as! HTTPURLResponse
                             if resp.statusCode >= 200 && resp.statusCode < 300 {
-                                //                            AppDelegate.imageCache().setObject(data as AnyObject, forKey: url as AnyObject)
-                                let photo = ChatImage()
-                                photo.imageData = data
-                                self.previewMessage(photo)
-                            }
-                            else {
-                                self.hideImageViewerLoading()
+                                DispatchQueue.main.async {
+                                    let photo = ChatImage()
+                                    photo.imageData = data
+                                    self.previewMessage(photo)
+                                }
+                                
+                                return
                             }
                         }).resume()
                         return
@@ -1238,6 +1256,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                         photo.image = image
                         photo.imageData = UIImageJPEGRepresentation(image, 1.0)
                         self.previewMessage(photo)
+                        return
                     }
                     return
                 }
@@ -1461,8 +1480,10 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     }
     
     @objc func closeImageViewer() {
+        
         if self.photosViewController != nil {
-            self.photosViewController.dismiss(animated: true, completion: nil)
+            //dismiss(animated: true, completion: nil)
+            self.photosViewController.navigationController?.popViewController(animated: true)
         }
     }
 
@@ -1487,8 +1508,7 @@ extension GroupChannelChattingViewController: UIImagePickerControllerDelegate {
         }
     }
     
-    func fetchLastImage()
-    {
+    func fetchLastImage() {
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         fetchOptions.fetchLimit = 1

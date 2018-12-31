@@ -18,7 +18,9 @@ class ImagePreviewViewController: UIViewController {
     @IBOutlet weak var btnSend: UIButton!
     @IBOutlet weak var btnDismiss: UIButton!
     @IBOutlet weak var lblCaption: UILabel!
+    @IBOutlet weak var bottomView: UIView!
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var vwGradient: UIView!
     @IBOutlet weak var inputViewContainerHeight: NSLayoutConstraint!
     @IBOutlet weak var bottomMargin: NSLayoutConstraint!
@@ -27,7 +29,7 @@ class ImagePreviewViewController: UIViewController {
     
     var strCaption: String = ""
     var imageToUpload : UIImage?
-    
+    var shouldShowCaption: Bool = true
     var delegate: ImagePreviewProtocol?
     
     override func viewDidLoad() {
@@ -43,14 +45,27 @@ class ImagePreviewViewController: UIViewController {
         self.messageInputView.delegate = self
         self.lblCaption.isHidden = strCaption.count > 0
         self.lblCaption.text = "caption".localized
+        scrollView.delegate = self
+        scrollView.minimumZoomScale = 1.0
+        scrollView.maximumZoomScale = 6.0
         
-        self.addObservers()
+        if self.shouldShowCaption == false {
+            self.bottomView.removeFromSuperview()
+            let backImage = UIImage(named: "back.png", in: Bundle.bundleForXib(ImagePreviewViewController.self), compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+            self.btnDismiss.setImage(backImage, for: .normal)
+        }
+        else {
+            let closeImage = UIImage(named: "btn_close.png", in: Bundle.bundleForXib(ImagePreviewViewController.self), compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+            self.btnDismiss.setImage(closeImage, for: .normal)
+        }
+        self.btnDismiss.tintColor = .white
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.addObservers()
         self.createGradientLayer()
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
@@ -61,12 +76,14 @@ class ImagePreviewViewController: UIViewController {
         let startColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.52)
         let endColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
         
-        gradientLayer.frame = self.vwGradient.bounds
+        gradientLayer.frame = self.imgPicture.bounds
         
         gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
-        gradientLayer.locations = [0.0, 0.15]
+        gradientLayer.locations = [0.0, 0.20]
         self.imgPicture.layer.addSublayer(gradientLayer)
-        self.imgPicture.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:))))
+        if self.shouldShowCaption == true {
+            self.imgPicture.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:))))
+        }
     }
     
     
@@ -89,14 +106,15 @@ class ImagePreviewViewController: UIViewController {
     
     @objc private func keyboardDidShow(notification: Notification) {
         self.keyboardShown = true
-        
+        var offset = 0.0
+        if #available(iOS 11.0, *) {
+            offset =  Double(view.safeAreaInsets.bottom)
+        }
         let keyboardInfo = notification.userInfo
         let keyboardFrameBegin = keyboardInfo?[UIKeyboardFrameEndUserInfoKey]
         let keyboardFrameBeginRect = (keyboardFrameBegin as! NSValue).cgRectValue
-        let duration = keyboardInfo?[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber
-        let curve = keyboardInfo?[UIKeyboardAnimationCurveUserInfoKey] as! UInt
         DispatchQueue.main.async {
-            self.bottomMargin.constant = keyboardFrameBeginRect.size.height
+            self.bottomMargin.constant = keyboardFrameBeginRect.size.height - CGFloat(offset)
             
             UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveLinear, animations: {
                 self.view.layoutIfNeeded()
@@ -181,4 +199,12 @@ extension ImagePreviewViewController: SBMessageInputViewDelegate {
             self.lblCaption.isHidden = false
         }
     }
+}
+
+extension ImagePreviewViewController : UIScrollViewDelegate {
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {        
+        return self.imgPicture
+    }
+    
 }
