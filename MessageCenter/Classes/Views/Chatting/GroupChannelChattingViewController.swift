@@ -628,25 +628,20 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                         if error != nil {
                             self.chattingView.resendableMessages[(userMessage?.requestId)!] = userMessage
                             self.chattingView.chattingTableView.reloadData()
-                            DispatchQueue.main.async {
-                                self.chattingView.scrollToBottom(force: true)
-                            }
-                            
+                            self.chattingView.scrollToBottom(force: true)
                             return
                         }
                         
-                        let index = IndexPath(row: self.chattingView.messages.index(of: preSendMessage)!, section: 0)
-                        self.chattingView.chattingTableView.beginUpdates()
+//                        let index = IndexPath(row: self.chattingView.messages.index(of: preSendMessage)!, section: 0)
+//                        self.chattingView.chattingTableView.beginUpdates()
                         self.chattingView.messages[self.chattingView.messages.index(of: preSendMessage)!] = userMessage!
                         
-                        UIView.setAnimationsEnabled(false)
-                        self.chattingView.chattingTableView.reloadRows(at: [index] , with: UITableViewRowAnimation.none)
-                        UIView.setAnimationsEnabled(true)
-                        self.chattingView.chattingTableView.endUpdates()
-                        
-                        DispatchQueue.main.async {
-                            self.chattingView.scrollToBottom(force: true)
-                        }
+//                        UIView.setAnimationsEnabled(false)
+//                        self.chattingView.chattingTableView.insertRows(at:[index], with: .bottom)
+//                        UIView.setAnimationsEnabled(true)
+//                        self.chattingView.chattingTableView.endUpdates()
+                            self.chattingView.chattingTableView.reloadData()
+                        self.chattingView.scrollToBottom(force: true)
                     }
                 })
             })
@@ -662,16 +657,14 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 
                 UIView.setAnimationsEnabled(false)
 
-                self.chattingView.chattingTableView.insertRows(at: [IndexPath(row: self.chattingView.messages.index(of: preSendMessage)!, section: 0)], with: UITableViewRowAnimation.none)
+                self.chattingView.chattingTableView.insertRows(at: [IndexPath(row: self.chattingView.messages.index(of: preSendMessage)!, section: 0)], with: UITableViewRowAnimation.bottom)
                 UIView.setAnimationsEnabled(true)
                 self.chattingView.chattingTableView.endUpdates()
 
-                self.chattingView.chattingTableView.reloadData()
+//                self.chattingView.chattingTableView.reloadData()
                 
-                DispatchQueue.main.async {
-                    self.chattingView.scrollToBottom(force: true)
-                    self.chattingView.sendButton.isEnabled = true
-                }
+                self.chattingView.scrollToBottom(force: true)
+                self.chattingView.sendButton.isEnabled = true
             }
         }
     }
@@ -1225,7 +1218,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                         DispatchQueue.main.async {
                             photo.imageData = cachedData
                             self.previewMessage(photo)
-                        }                        
+                        }
                         return
                     }
                     else {
