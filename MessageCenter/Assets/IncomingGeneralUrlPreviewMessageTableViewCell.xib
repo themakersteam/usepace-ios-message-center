@@ -19,37 +19,37 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3ep-ur-grr" userLabel="Message Container View">
-                        <rect key="frame" x="0.0" y="10" width="285" height="297.5"/>
+                        <rect key="frame" x="10" y="10" width="275" height="297.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSZ-CD-sXf" userLabel="Message Label" customClass="TTTAttributedLabel">
-                                <rect key="frame" x="10" y="10" width="265" height="56"/>
+                                <rect key="frame" x="10" y="10" width="255" height="56"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ftt-NG-h4f" userLabel="Divider View">
-                                <rect key="frame" x="10" y="76" width="265" height="1"/>
+                                <rect key="frame" x="10" y="76" width="255" height="1"/>
                                 <color key="backgroundColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="b0Y-2r-0tX"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Site Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lmc-TC-rFh" userLabel="Preview Site Name Label">
-                                <rect key="frame" x="10" y="87" width="265" height="12"/>
+                                <rect key="frame" x="10" y="87" width="255" height="12"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="10"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ncN-dM-35f" userLabel="Preview Title Label">
-                                <rect key="frame" x="10" y="109" width="265" height="17"/>
+                                <rect key="frame" x="10" y="109" width="255" height="17"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit," textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v9O-MN-eqz" userLabel="Preview Description Label">
-                                <rect key="frame" x="10" y="136" width="265" height="28.5"/>
+                                <rect key="frame" x="10" y="136" width="255" height="28.5"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rPp-wk-hF1" userLabel="Preview Thumbnail Image View" customClass="FLAnimatedImageView">
-                                <rect key="frame" x="10" y="174.5" width="265" height="85"/>
+                                <rect key="frame" x="10" y="174.5" width="255" height="85"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="85" id="4Ye-gq-AHR"/>
                                 </constraints>
@@ -58,11 +58,11 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="JSg-NI-He7" userLabel="Preview Thumbnail Image Loading Indicator">
-                                <rect key="frame" x="132.5" y="207" width="20" height="20"/>
+                                <rect key="frame" x="127.5" y="207" width="20" height="20"/>
                                 <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1O-aU-6ch">
-                                <rect key="frame" x="215" y="275.5" width="60" height="15"/>
+                                <rect key="frame" x="205" y="275.5" width="60" height="15"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13:02" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p9h-xN-TK1">
                                         <rect key="frame" x="33" y="1.5" width="27" height="12"/>
@@ -117,7 +117,7 @@
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="3ep-ur-grr" secondAttribute="trailing" constant="90" id="ACm-Sd-Ga8"/>
                     <constraint firstAttribute="bottom" secondItem="3ep-ur-grr" secondAttribute="bottom" id="eY8-l6-Yew"/>
-                    <constraint firstItem="3ep-ur-grr" firstAttribute="leading" secondItem="5ai-Lf-3Ty" secondAttribute="leading" id="jdF-SG-ufS"/>
+                    <constraint firstItem="3ep-ur-grr" firstAttribute="leading" secondItem="5ai-Lf-3Ty" secondAttribute="leading" constant="10" id="jdF-SG-ufS"/>
                     <constraint firstItem="3ep-ur-grr" firstAttribute="top" secondItem="5ai-Lf-3Ty" secondAttribute="top" constant="10" id="qJG-8G-2DS"/>
                 </constraints>
             </tableViewCellContentView>
