@@ -15,6 +15,7 @@
                 <outlet property="btnCamera" destination="J1k-xL-kl0" id="XIK-ot-yZv"/>
                 <outlet property="chattingTableView" destination="wXW-j4-hDA" id="vaO-Yb-3Qc"/>
                 <outlet property="chattingTableViewBottomConstraint" destination="DfI-5k-0PL" id="ZwT-gF-fLE"/>
+                <outlet property="chattingTableViewBottomToSafeAreConstraint" destination="1GS-Nk-DUu" id="Vq1-f1-aGR"/>
                 <outlet property="cnTextViewTrailing" destination="R6H-IU-ne7" id="HMd-FM-G69"/>
                 <outlet property="fileAttachButton" destination="739-8j-LpV" id="ZwI-s1-LY6"/>
                 <outlet property="inputContainerView" destination="gmQ-VZ-eb9" id="zTp-eq-gEU"/>
@@ -166,6 +167,7 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="G6B-N0-3dq" firstAttribute="bottom" secondItem="wXW-j4-hDA" secondAttribute="bottom" priority="900" constant="66" id="1GS-Nk-DUu"/>
                 <constraint firstItem="wXW-j4-hDA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="2a3-0K-PxG"/>
                 <constraint firstItem="wXW-j4-hDA" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="37q-Xx-xua"/>
                 <constraint firstAttribute="trailing" secondItem="wXW-j4-hDA" secondAttribute="trailing" id="3c7-mu-oKj"/>
