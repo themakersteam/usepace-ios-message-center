@@ -34,6 +34,7 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.messageDateLabel.font = UIFont.systemFont(ofSize: 10)
         self.messageContainerView.layer.cornerRadius = 8.0
     }
     
@@ -102,8 +103,8 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
         dateFormatter.timeStyle = DateFormatter.Style.short
         let messageCreatedDate = NSDate(timeIntervalSince1970: messageTimestamp)
         let messageDateString = dateFormatter.string(from: messageCreatedDate as Date)
-        let messageDateAttributedString = NSMutableAttributedString(string: messageDateString, attributes: messageDateAttribute)
-        self.messageDateLabel.attributedText = messageDateAttributedString
+        //let messageDateAttributedString = NSMutableAttributedString(string: messageDateString, attributes: messageDateAttribute)
+        self.messageDateLabel.text = messageDateString //attributedText = messageDateAttributedString
         
         self.layoutIfNeeded()
     }

@@ -1,84 +1,121 @@
-# Message Center for iOS
+# IOS-Message-Center
+###ios messaging library 
 
-# 1. Setup
-- Add the follwing in the Podfile:
-`pod 'MessageCenter'`
+### 1. Structure
 
-- Install pods using `pod install`
+![Screenshot](screenshot.png)
 
-# 2. Usage
+### 2. Setup
+* Install MessageCenter Pod Library
 
-`MessageCenter` Class provides access to main functions in the package to use.. by default, SendBird will be used as a client, but all clients conforms to `ClientProtocol` Protocol, which consists of the following functions and properties:
+    ```bash
+        pod 'MessageCenter' , '~> pod_latest_version'
+     ```
+     
+### 3. Sample App
 
-### 2.0 Start a new connection:
-`func connect(with connectionRequest: ConnectionRequest, success:  @escaping ConnectionSucceeded, failure:  @escaping MessageCenterFailureCompletion)`
+  * For Debugging/Testing the library (to be able to run the library as an application) do the following
+    
+  * After cloning the library, cd Example and run  ```pod install ```
 
-This function should be called at the startup of the app if the user exists, and has an `accessToken`.
+  * Sample code will be ready to run in /ios-message-center/Example with class ViewController.swift
+  
+### 4. Usage
 
-A `ConnectionRequest` object must be passed to initialize the connection, the follwoing paramters are required:
+#### 4.1 connect()
 
-- `appId: String` In case of the client needs an AppId (aka ClientId).
-- `userId: String` App User Id.
-- `accessToken: String` App User Access Token.
-- `client: ClientType` Client type.
+ * First Step for integrating the app is to connect on the start of the application  
+ 
+     ```bash
+    MessageCenter.connect(with connectionRequest: ConnectionRequest, pushToken: Data?, success:  @escaping ConnectionSucceeded, failure:  @escaping MessageCenterFailureCompletion)
+     ```
+ 
+ * Connection Request Object Has the following items 
 
-Along with the ConnectionRequest, you also need to pass a success and a failure completion handlers:
+    *    var app_id; //The Application ID (provided from back-end)
+    *    var user_id; // User id (provided from back-end)
+    *    var access_token; //Access Token for Security (provided from back-end)
+    *    var client: ClientType; //Message Center is a Client Base Service, The only Client for now is   `MessageCenter.CLIENT_SENDBIRD`
+    
+ * Connection Request Constructors 
+    - public init(appId: String, userId: String, accessToken: String, client: ClientType)
+    
+ * Sample Code for connecting to Message Center    
+   
+   ```bash
+       MessageCenter.connect(connectRequest, pushToken:"xxxxxxxxxxx".data(using: .utf8), success: { (userId) in
+                   //Connection Success Handlers
+               }) { (errorCode, message) in
+                   //Connection Failure Handlers
+               }
+   ```
 
-`public typealias MessageCenterFailureCompletion = (_ errorCode: Int, _ errorMessage: String) -> Void`
+#### 4.2 getUnReadMessagesCount()
+ * Getting Total of Unread Messages 
+ 
+      ```bash
+     MessageCenter.getUnReadMessagesCount(forChannel channel: String?, success: @escaping UnReadMessagesSuccessCompletion, failure: @escaping MessageCenterFailureCompletion)
+      ```
+ * if chat_id is not provided, the sdk will retrieve the total unread messages for all channels 
+ * if chat_id is provided, the sdk will retrieve the total unread messages for the provided channel
+ * Sample code for retrieving the count 
+    ```bash
+    MessageCenter.getUnReadMessagesCount(forChannel: "test_channel", success: { (count) in
+            //Handle Success
+        }) { (code, message) in
+            // Handle Failure
+        }
+    ```
+ 
+#### 4.3 openChatView()
+ * Joining the chat by url(id) provided
+ * Sample code for joining a conversation
+    ```bash
+     MessageCenter.openChatView("sendbird_group_channel_2456028_1ef918c0149a1f8b0993ae21cb26fa9c16540a91", theme: theme) { (success) in
+          if success == true {
+                
+          }
+          else {
+                
+          }
+     } 
+   ```
+ * if Theme object is not provided, the app will take the defaults 
+ * Theme Object for IOS have (```toolbar```, ```toolbar_subtitle```, ```welcome_message```) ..
+ * Executing this call will open the chatting window 
+ * an error callback will be triggered in case of error where success will be false
+ 
+ #### 4.4 closeChatView()
+  * Closing the chat view from the app side
+  * Sample code for closing the chat view
+     ```bash
+     MessageCenter.closeChatView(completion: @escaping () -> Void)
+     ```
+  * Executing this interface will close the chatting window in the sdk
 
-`public typealias ConnectionSucceeded = (_ userId: String) -> Void`
+#### 4.5 appHandleNotification()
 
+ * checks payload if its related to MessageCenter Notifications 
+ 
+ * Sample code for Handling App MessageCenter Notification 
+    ```bash
+        MessageCenter.handleMessageNotification([AnyHashable : Any]) -> Bool //Indecating if notification Matched with SDK
+    ```
+    
+#### 4.6 isConnected()
 
-### 2.1 Check connectivity:
-At any point of time, you can check the connectivity using the get-only var `isConnected: Bool`.
+ * returns true if Message Center is connected 
+ 
+ * Sample code for checking connection
+    ```bash
+    MessageCenter.isConnected -> Bool 
+    ```
 
-### 2.2 Get Un Read Messages Count:
-To get the number of the missed messages -Un Read Messages-, call the function:
-`func getUnReadMessagesCount(forChannel channel: String?, success: @escaping UnReadMessagesSuccessCompletion, failure: @escaping MessageCenterFailureCompletion)`
+#### 4.7 disconnect()
 
-Provide `channel: String` to get the count for that channel, leave nil to get the total un read messages across all channels.
-
-Along with that, you also need to pass a success and a failure completion handlers:
-
-`public typealias UnReadMessagesSuccessCompletion = (_ unReadMessagesCount: Int) -> Void`
-
-### 2.3 Start Chatting:
-You can open the chatting view by calling the following function:
-`func openChatView(forChannel channelId: String, withTheme theme: ChatViewTheme?, completion: @escaping (Any?) -> Void)` with the follwoing args:
-
-- `channelId: String` to open chat view for specific channel.
-- `theme: ChatViewTheme` to customize the theming of the chatting view.
-
-`ChatViewTheme` consists of the following properties:
-
-- `title: String`: Page Title.
-- `primaryColor: UIColor` and `secondaryColor: UIColor`.
-
-### 2.4 End Chatting:
-After you started the chat by calling `openChatView()` you can close the view by calling: `closeChatView()` and pass an optional completion handler.
-
-
-### 2.5 Notifications:
-App should register app delegate and push device token by calling the following function:
-
-`func application(application: application, didFinishLaunchingWithOptions: launchOptions)`
-
-`func registerForRemoteNotificationsWithDeviceToken(deviceToken: Data)`
-
-App should relay APNs notifications to the SDK to handle by calling the following function:
-
-`func handleNotification(_ userInfo: Dictionary<String, String>, completion: @escaping HandleNotificationCompletion)`
-
-The completion will be called once the SDK recognized a Chat-related notification:
-
-`public typealias HandleNotificationCompletion = (_ didMatch: Bool, _ message: [AnyHashable : Any]) -> Void`
-
-*A typed object for the message will be provided later instead of using a dictionary with keys!*
-
-### 2.6 Disconnect:
-The SDK provides the following function to use to disconnect the user:
-`func disconnect(completion: @escaping () -> Void)`
-
-**Note: This function should be called only upon a successful signout,**
-**Connection will be managed by the SDK.**
-
+ * Disconnects the chat services and stop receiving notifications for chat, best case to use if with user logout 
+ 
+ * Sample code for disconnecting
+    ```bash
+    MessageCenter.disconnect(completion: @escaping () -> Void)
+    ```

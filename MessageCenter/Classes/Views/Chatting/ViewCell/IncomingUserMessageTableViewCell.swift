@@ -32,6 +32,8 @@ class IncomingUserMessageTableViewCell: UITableViewCell, TTTAttributedLabelDeleg
     }
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.messageDateLabel.font = UIFont.systemFont(ofSize: 10)
+
         messageContainerView.layer.cornerRadius = 8.0
     }
     
@@ -60,18 +62,18 @@ class IncomingUserMessageTableViewCell: UITableViewCell, TTTAttributedLabelDeleg
         self.message = aMessage
         
         // Message Date
-        let messageDateAttribute = [
-            NSAttributedStringKey.font: Constants.messageDateFont(),
-            NSAttributedStringKey.foregroundColor: Constants.messageDateColor()
-        ]
+//        let messageDateAttribute = [
+//            NSAttributedStringKey.font: Constants.messageDateFont(),
+//            NSAttributedStringKey.foregroundColor: Constants.messageDateColor()
+//        ]
         
         let messageTimestamp = Double(self.message.createdAt) / 1000.0
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = DateFormatter.Style.short
         let messageCreatedDate = NSDate(timeIntervalSince1970: messageTimestamp)
         let messageDateString = dateFormatter.string(from: messageCreatedDate as Date)
-        let messageDateAttributedString = NSMutableAttributedString(string: messageDateString, attributes: messageDateAttribute)
-        self.messageDateLabel.attributedText = messageDateAttributedString
+       // let messageDateAttributedString = NSMutableAttributedString(string: messageDateString, attributes: messageDateAttribute)
+        self.messageDateLabel.text = messageDateString//attributedText = messageDateAttributedString
         
         let fullMessage = self.buildMessage()
         self.messageLabel.attributedText = fullMessage
