@@ -13,7 +13,7 @@
 "send_location.send_button.case_my_location.title" = "إرسل موقعي الحالي";
 "send_location.send_button.case_pin_location.title" = "إرسل هذا الموقع";
 "send_location.location_disabled_notice.message" = "هنقرستيشن لايستطيع الوصول إلى موقعك. لتفعيل خاصية المواقع. الرجاء تفعيل خدمات الموقع من الاعدادات";
-"caption" = "شرح";
+"caption" = "إضافة وصف";
 "camera_permission_disable" = "الرجاء اعطاء صلاحية للكاميرا";
 "photos_permission_disable" = "الرجاء اعطاء صلاحية لقراءة الصور";
 "download" = "تحميل";
