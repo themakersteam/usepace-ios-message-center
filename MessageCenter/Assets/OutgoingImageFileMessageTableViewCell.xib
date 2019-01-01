@@ -105,7 +105,7 @@
                 <outlet property="messageDateLabel" destination="CxE-j9-mpf" id="vDY-Z5-jWA"/>
                 <outlet property="resendMessageButton" destination="i2T-iv-nif" id="vff-CL-Vmh"/>
             </connections>
-            <point key="canvasLocation" x="-250" y="5"/>
+            <point key="canvasLocation" x="-468" y="-57"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -98,7 +98,7 @@ class OutgoingLocationMessageTableViewCell: UITableViewCell {
             }
         }
         else {
-            self.hideUnreadCount()
+            self.hideMessageStatus()
         }
         
         
@@ -128,22 +128,13 @@ class OutgoingLocationMessageTableViewCell: UITableViewCell {
     func getHeightOfViewCell() -> CGFloat {
         return 240.0
     }
-    
-    func hideUnreadCount() {
-        self.imgMessageStatus.isHidden = false
-    }
-    func showUnreadCount() {
-        if self.message.channelType == CHANNEL_TYPE_GROUP {
-            self.imgMessageStatus.isHidden = false
-            self.vwTimestampStatus.isHidden = false
-        }
-    }
-    
-    func hideMessageControlButton() {
+    //if self.message.channelType == CHANNEL_TYPE_GROUP {
+
+    func hideMessageResendButton() {
         self.resendMessageButton.isHidden = true
     }
     
-    func showMessageControlButton() {
+    func showMessageResendButton() {
         self.messageDateLabel.isHidden = true
         self.imgMessageStatus.isHidden = true
         self.resendMessageButton.isHidden = false
@@ -160,8 +151,13 @@ class OutgoingLocationMessageTableViewCell: UITableViewCell {
         self.imgMessageStatus.isHidden = true
         self.resendMessageButton.isHidden = false
     }
-    
-    func showMessageDate() {
+    func hideMessageStatus () {
+        self.messageDateLabel.isHidden = true
+        self.imgMessageStatus.isHidden = true
+    }
+    func showMessageStatus() {
+        self.imgMessageStatus.isHidden = false
         self.messageDateLabel.isHidden = false
+        self.resendMessageButton.isHidden = true
     }
 }

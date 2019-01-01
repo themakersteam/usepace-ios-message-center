@@ -274,7 +274,7 @@ class OutgoingFileMessageTableViewCell: UITableViewCell {
         self.unreadCountLabel.isHidden = true
         self.resendMessageButton.isHidden = true
         self.sendStatusLabel.isHidden = true
-        
+
         self.messageDateLabel.isHidden = false
     }
 }

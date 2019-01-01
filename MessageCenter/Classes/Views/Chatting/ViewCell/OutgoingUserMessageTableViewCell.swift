@@ -65,27 +65,16 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
     
     func setModel(aMessage: SBDUserMessage, channel: SBDBaseChannel?) {
         self.message = aMessage
-        
         let fullMessage = self.buildMessage()
-        
         self.messageLabel.attributedText = fullMessage
-        
         self.resendMessageButton.isHidden = true
-        
-        
-//        let messageContainerTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickUserMessage))
-//        self.messageContainerView.isUserInteractionEnabled = true
-//        self.messageContainerView.addGestureRecognizer(messageContainerTapRecognizer)
-
         self.resendMessageButton.addTarget(self, action: #selector(clickResendUserMessage), for: UIControlEvents.touchUpInside)
-        //self.deleteMessageButton.addTarget(self, action: #selector(clickDeleteUserMessage), for: UIControlEvents.touchUpInside)
-        
-        
-        
+
         // Message Status
         if self.message.channelType == CHANNEL_TYPE_GROUP {
             if self.message.requestId == "0" {
-                self.imgMessageStatus.image = UIImage(named: "icMsgsent.png", in: Bundle.bundleForXib(OutgoingUserMessageTableViewCell.self), compatibleWith: nil)
+                self.imgMessageStatus.image = UIImage(named: "icMsgsent.png",
+                                                      in: Bundle.bundleForXib(OutgoingUserMessageTableViewCell.self), compatibleWith: nil)
             }
             else {
                 if let channelOfMessage = channel as? SBDGroupChannel? {
@@ -102,22 +91,13 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
             }
         }
         else {
-            self.hideUnreadCount()
+            self.hideMessageStatus()
         }
         
-        
-//        let messageCreatedAtSeconds = message.createdAt
-//        let messageDate = Date(timeIntervalSince1970: TimeInterval(messageCreatedAtSeconds))
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "HH:mm"
-//        let strTime = formatter.string(from: messageDate)
-//        self.messageDateLabel.text = strTime
-        // Message Date
-        
-//        let messageDateAttribute = [
-//            NSAttributedStringKey.font: Constants.messageDateFont(),
-//            NSAttributedStringKey.foregroundColor: Constants.messageDateColor()
-//        ]
+        let messageDateAttribute = [
+            NSAttributedStringKey.font: Constants.messageDateFont(),
+            NSAttributedStringKey.foregroundColor: Constants.messageDateColor()
+        ]
         let messageTimestamp = Double(self.message.createdAt) / 1000.0
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = DateFormatter.Style.short
@@ -156,24 +136,13 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
         let heightOfString = fullMessage.height(withConstrainedWidth: UIScreen.main.bounds.size.width - 120.0)
         return heightOfString + 45.0
     }
-    
-    func hideUnreadCount() {
-        self.imgMessageStatus.isHidden = false
         
-    }
     
-    func showUnreadCount() {
-        if self.message.channelType == CHANNEL_TYPE_GROUP {
-            self.imgMessageStatus.isHidden = false
-            self.vwTimestampStatus.isHidden = false
-        }
-    }
-    
-    func hideMessageControlButton() {
+    func hideMessageResendButton() {
         self.resendMessageButton.isHidden = true
     }
     
-    func showMessageControlButton() {
+    func showMessageResendButton() {
         self.messageDateLabel.isHidden = true
         self.imgMessageStatus.isHidden = true
         self.resendMessageButton.isHidden = false
@@ -191,8 +160,14 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
         self.resendMessageButton.isHidden = false
     }
     
-    func showMessageDate() {
-        self.imgMessageStatus.isHidden = false//        
+    func hideMessageStatus () {
+        self.imgMessageStatus.isHidden = true
+        self.messageDateLabel.isHidden = true
+    }
+    
+    func showMessageStatus() {
+        self.imgMessageStatus.isHidden = false
         self.messageDateLabel.isHidden = false
+        self.resendMessageButton.isHidden = true
     }
 }

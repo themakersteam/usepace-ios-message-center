@@ -212,7 +212,7 @@ class OutgoingImageFileMessageTableViewCell: UITableViewCell {
             }
         }
         else {
-            self.hideUnreadCount()
+            self.hideMessageStatus()
         }
         
         // Message Date
@@ -243,33 +243,15 @@ class OutgoingImageFileMessageTableViewCell: UITableViewCell {
     }
     
     func getHeightOfViewCell() -> CGFloat {
-
         return 210.0
-        
-        //        let height = self.dateSeperatorViewTopMargin.constant + self.dateSeperatorViewHeight.constant + self.dateSeperatorViewBottomMargin.constant + self.fileImageViewHeight.constant
-//
-//        return height
-//        self.fileImageViewHeight.constant = 120.0
-//        self.layoutSubviews()
-//        return 170.0
     }
     
     
-    func hideUnreadCount() {
-        self.imgMessageStatus.isHidden = true
-    }
-    
-    func showUnreadCount() {
-        if self.message.channelType == CHANNEL_TYPE_GROUP {
-            self.imgMessageStatus.isHidden = false
-        }
-    }
-    
-    func hideMessageControlButton() {
+    func hideMessageResendButton() {
         self.resendMessageButton.isHidden = true
     }
     
-    func showMessageControlButton() {
+    func showMessageResendButton() {
         
         self.messageDateLabel.isHidden = true
         self.imgMessageStatus.isHidden = true
@@ -280,18 +262,29 @@ class OutgoingImageFileMessageTableViewCell: UITableViewCell {
         self.messageDateLabel.isHidden = true
         self.imgMessageStatus.isHidden = true
         self.resendMessageButton.isHidden = true
+        self.imageLoadingIndicator.startAnimating()
+        self.imageLoadingIndicator.isHidden = false
     }
     
     func showFailedStatus() {
         self.messageDateLabel.isHidden = true
         self.imgMessageStatus.isHidden = true
-        self.resendMessageButton.isHidden = true
+        self.resendMessageButton.isHidden = false
+        self.imageLoadingIndicator.stopAnimating()
+        self.imageLoadingIndicator.isHidden = true
     }
     
-    func showMessageDate() {
+    func hideMessageStatus () {
+        self.messageDateLabel.isHidden = true
         self.imgMessageStatus.isHidden = true
-        self.resendMessageButton.isHidden = true
+    }
+    
+    func showMessageStatus() {
+        self.imgMessageStatus.isHidden = false
         self.messageDateLabel.isHidden = false
+        self.resendMessageButton.isHidden = true
+        self.imageLoadingIndicator.stopAnimating()
+        self.imageLoadingIndicator.isHidden = true
     }
     
     func setImageData(data: Data, type: String) {

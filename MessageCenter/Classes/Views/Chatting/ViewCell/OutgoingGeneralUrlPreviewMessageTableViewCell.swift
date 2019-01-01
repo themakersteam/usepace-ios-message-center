@@ -25,7 +25,7 @@ class OutgoingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
     @IBOutlet weak var previewThumbnailImageView: FLAnimatedImageView!
     @IBOutlet weak var previewThumbnailLoadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var messageDateLabel: UILabel!
-    @IBOutlet weak var deleteMessageButton: UIButton!
+    @IBOutlet weak var resendMessageButton: UIButton!
     @IBOutlet weak var messageContainerView: UIView!
     @IBOutlet weak var imgMessageStatus: UIImageView!
 
@@ -106,9 +106,9 @@ class OutgoingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
         self.previewDescriptionLabel.isUserInteractionEnabled = true
         self.previewDescriptionLabel.addGestureRecognizer(previewDescriptionLabelTapRecognizer)
 
-        self.deleteMessageButton.isHidden = true
+        self.resendMessageButton.isHidden = true
         
-        self.deleteMessageButton.addTarget(self, action: #selector(clickDeleteUserMessage), for: UIControlEvents.touchUpInside)
+        self.resendMessageButton.addTarget(self, action: #selector(clickDeleteUserMessage), for: UIControlEvents.touchUpInside)
         
         // Message Status
         if self.message.channelType == CHANNEL_TYPE_GROUP {
@@ -129,7 +129,7 @@ class OutgoingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
             }
         }
         else {
-            self.hideUnreadCount()
+            self.hideMessageStatus()
         }
         
         self.previewSiteNameLabel.text = siteName
@@ -189,40 +189,34 @@ class OutgoingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
         return 225.0 + cnImageHeight.constant
     }
     
-    func hideUnreadCount() {
-        self.imgMessageStatus.isHidden = true
+    func hideMessageResendButton() {
+        self.resendMessageButton.isHidden = true
     }
     
-    func showUnreadCount() {
-        if self.message.channelType == CHANNEL_TYPE_GROUP {
-            self.imgMessageStatus.isHidden = false
-            self.deleteMessageButton.isHidden = true
-        }
-    }
-    
-    func hideMessageControlButton() {
-        self.deleteMessageButton.isHidden = true
-    }
-    
-    func showMessageControlButton() {
+    func showMessageResendButton() {
         
         self.imgMessageStatus.isHidden = true
-        self.deleteMessageButton.isHidden = false
+        self.resendMessageButton.isHidden = false
     }
     
     func showSendingStatus() {
-        
         self.imgMessageStatus.isHidden = true
-        self.deleteMessageButton.isHidden = true
+        self.resendMessageButton.isHidden = true
     }
     
     func showFailedStatus() {
         self.imgMessageStatus.isHidden = true
-        self.deleteMessageButton.isHidden = true
+        self.messageDateLabel.isHidden = true
+        self.resendMessageButton.isHidden = false
     }
-    
-    func showMessageDate() {
+    func hideMessageStatus () {
+        self.messageDateLabel.isHidden = true
         self.imgMessageStatus.isHidden = true
+    }
+    func showMessageStatus() {
+        self.imgMessageStatus.isHidden = false
+        self.messageDateLabel.isHidden = false
+        self.resendMessageButton.isHidden = true
     }
     
     // MARK: TTTAttributedLabelDelegate

@@ -142,7 +142,6 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="cnImageHeight" destination="atw-zP-7Ht" id="TAo-2O-Ivh"/>
-                <outlet property="deleteMessageButton" destination="ZYh-6I-d5r" id="AjY-Ha-g7Y"/>
                 <outlet property="imgMessageStatus" destination="hrr-V3-mlH" id="gzN-hE-WLX"/>
                 <outlet property="messageContainerView" destination="e7h-lg-J8u" id="HzL-v8-NX8"/>
                 <outlet property="messageDateLabel" destination="bXs-Qn-uTh" id="S5I-lc-xJO"/>
@@ -152,6 +151,7 @@
                 <outlet property="previewThumbnailImageView" destination="UY7-2C-vcF" id="fcm-zS-Yz8"/>
                 <outlet property="previewThumbnailLoadingIndicator" destination="20J-Hh-gQ4" id="asC-Of-a7g"/>
                 <outlet property="previewTitleLabel" destination="o8v-bf-Ji3" id="ZPz-o7-cV2"/>
+                <outlet property="resendMessageButton" destination="ZYh-6I-d5r" id="AjY-Ha-g7Y"/>
             </connections>
             <point key="canvasLocation" x="-98.400000000000006" y="-36.881559220389811"/>
         </tableViewCell>

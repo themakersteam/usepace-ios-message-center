@@ -130,14 +130,14 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                 self.inputContainerView.isHidden = true
                 self.inputContainerViewBackground.isHidden = true
                 self.chattingTableViewBottomConstraint.priority = UILayoutPriority(900)
-             //   self.chattingTableViewBottomToSafeAreConstraint.priority = UILayoutPriority(990)
+                self.chattingTableViewBottomToSafeAreConstraint.priority = UILayoutPriority(990)
                 
             }
             else {
                 self.inputContainerView.isHidden = false
                 self.inputContainerViewBackground.isHidden = false
                 self.chattingTableViewBottomConstraint.priority = UILayoutPriority(990)
-              //  self.chattingTableViewBottomToSafeAreConstraint.priority = UILayoutPriority(900)
+                self.chattingTableViewBottomToSafeAreConstraint.priority = UILayoutPriority(900)
 
             }
         }
@@ -723,12 +723,11 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                         }
                         else {
                             if self.resendableMessages[userMessage.requestId!] != nil {
-                                (cell as! OutgoingGeneralUrlPreviewMessageTableViewCell).showMessageControlButton()
+                                (cell as! OutgoingGeneralUrlPreviewMessageTableViewCell).showMessageResendButton()
                                 //                            (cell as! OutgoingGeneralUrlPreviewMessageTableViewCell).showFailedStatus()
                             }
                             else {
-                                (cell as! OutgoingGeneralUrlPreviewMessageTableViewCell).showMessageDate()
-                                (cell as! OutgoingGeneralUrlPreviewMessageTableViewCell).showUnreadCount()
+                                (cell as! OutgoingGeneralUrlPreviewMessageTableViewCell).showMessageStatus()
                             }
                         }
                     }
@@ -764,12 +763,11 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                     }
                     else {
                         if self.resendableMessages[userMessage.requestId!] != nil {
-                            (cell as! OutgoingLocationMessageTableViewCell).showMessageControlButton()
+                            (cell as! OutgoingLocationMessageTableViewCell).showMessageResendButton()
                             (cell as! OutgoingLocationMessageTableViewCell).showFailedStatus()
                         }
                         else {
-                            (cell as! OutgoingLocationMessageTableViewCell).showMessageDate()
-                            (cell as! OutgoingLocationMessageTableViewCell).showUnreadCount()
+                            (cell as! OutgoingLocationMessageTableViewCell).showMessageStatus()
                         }
                     }
                 }
@@ -798,12 +796,11 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                     }
                     else {
                         if self.resendableMessages[userMessage.requestId!] != nil {
-                            (cell as! OutgoingUserMessageTableViewCell).showMessageControlButton()
+                            (cell as! OutgoingUserMessageTableViewCell).showMessageResendButton()
                             (cell as! OutgoingUserMessageTableViewCell).showFailedStatus()
                         }
                         else {
-                            (cell as! OutgoingUserMessageTableViewCell).showMessageDate()
-                            (cell as! OutgoingUserMessageTableViewCell).showUnreadCount()
+                            (cell as! OutgoingUserMessageTableViewCell).showMessageStatus()
                         }
                     }
                 }
@@ -938,7 +935,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                     }
                     else {
                         if self.resendableMessages[fileMessage.requestId!] != nil {
-                            (cell as! OutgoingImageFileMessageTableViewCell).showMessageControlButton()
+                            (cell as! OutgoingImageFileMessageTableViewCell).showMessageResendButton()
 //                            (cell as! OutgoingImageFileMessageTableViewCell).showFailedStatus()
                             (cell as! OutgoingImageFileMessageTableViewCell).setImageData(data: self.resendableFileData[fileMessage.requestId!]?["data"] as! Data, type: self.resendableFileData[fileMessage.requestId!]?["type"] as! String)
                             (cell as! OutgoingImageFileMessageTableViewCell).hasImageCacheData = true
@@ -1013,8 +1010,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                                     })
                                 }
                             }
-                            (cell as! OutgoingImageFileMessageTableViewCell).showMessageDate()
-                            (cell as! OutgoingImageFileMessageTableViewCell).showUnreadCount()
+                            (cell as! OutgoingImageFileMessageTableViewCell).showMessageStatus()
                         }
                     }
                 }
