@@ -254,7 +254,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
             return
         }
         if self.messages.count > 0 {
-            self.chattingTableView.scrollToRow(at: IndexPath.init(row: self.messages.count - 1, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
+            self.chattingTableView.scrollToRow(at: IndexPath.init(row: self.messages.count, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
         }
         else {
             self.chattingTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
@@ -604,14 +604,6 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         }
         
         return height
-    }
-
-    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-        return 0
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
-        return 0
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

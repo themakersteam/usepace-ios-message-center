@@ -145,7 +145,7 @@
             <constraints>
                 <constraint firstItem="mOk-Vz-mXb" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="0MF-Yo-H4p"/>
                 <constraint firstItem="nxZ-VX-cuY" firstAttribute="top" secondItem="UvG-x8-VLe" secondAttribute="top" id="2Yf-r1-SUO"/>
-                <constraint firstAttribute="bottom" secondItem="AAA-Vq-7hk" secondAttribute="bottom" id="5Ab-UI-o7I"/>
+                <constraint firstItem="UvG-x8-VLe" firstAttribute="bottom" secondItem="AAA-Vq-7hk" secondAttribute="bottom" id="5Ab-UI-o7I"/>
                 <constraint firstItem="AAA-Vq-7hk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="6TI-Ys-n4Z"/>
                 <constraint firstItem="88M-yo-TWR" firstAttribute="top" secondItem="nxZ-VX-cuY" secondAttribute="bottom" id="7pB-eL-PBn"/>
                 <constraint firstItem="nxZ-VX-cuY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="95g-cX-IYL"/>
