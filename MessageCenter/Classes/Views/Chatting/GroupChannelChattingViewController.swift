@@ -60,6 +60,12 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     override func viewDidLoad() {
     
         super.viewDidLoad()
+        
+        let alert = UIAlertController(title: "test", message: "0.1.34", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "test", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+        
+        
         GroupChannelChattingViewController.instance = self
         self.podBundle = Bundle.bundleForXib(GroupChannelChattingViewController.self)
         setNavigationItems()
