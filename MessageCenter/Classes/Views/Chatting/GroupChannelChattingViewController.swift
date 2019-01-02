@@ -207,15 +207,15 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             self.chattingView.messages.append(contentsOf: self.dumpedMessages)
             
             self.chattingView.chattingTableView.reloadData()
-            self.chattingView.chattingTableView.layoutIfNeeded()
+//            self.chattingView.chattingTableView.layoutIfNeeded()
             
-            let viewHeight = UIScreen.main.bounds.size.height - 95.0 - self.chattingView.inputContainerViewHeight.constant - 10
-            let contentSize = self.chattingView.chattingTableView.contentSize
+//            let viewHeight = UIScreen.main.bounds.size.height - 95.0 - self.chattingView.inputContainerViewHeight.constant - 10
+//            let contentSize = self.chattingView.chattingTableView.contentSize
             self.chattingView.scrollToBottom(force: true)
-            if contentSize.height > viewHeight {
-                let newContentOffset = CGPoint(x: 0, y: contentSize.height - viewHeight)
-                // self.chattingView.chattingTableView.setContentOffset(newContentOffset, animated: false)
-            }
+//            if contentSize.height > viewHeight {
+//                let newContentOffset = CGPoint(x: 0, y: contentSize.height - viewHeight)
+//                // self.chattingView.chattingTableView.setContentOffset(newContentOffset, animated: false)
+//            }
             
             self.cachedMessage = true
         }
@@ -292,13 +292,13 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                         self.chattingView.chattingTableView.reloadData()
                         self.chattingView.chattingTableView.layoutIfNeeded()
                         
-                        var viewHeight: CGFloat
-                        if self.keyboardShown {
-                            viewHeight = self.chattingView.chattingTableView.frame.size.height - 10
-                        }
-                        else {
-                            viewHeight = UIScreen.main.bounds.size.height - 95.0 - self.chattingView.inputContainerViewHeight.constant - 10
-                        }
+//                        var viewHeight: CGFloat
+//                        if self.keyboardShown {
+//                            viewHeight = self.chattingView.chattingTableView.frame.size.height - 10
+//                        }
+//                        else {
+//                            viewHeight = UIScreen.main.bounds.size.height - 95.0 - self.chattingView.inputContainerViewHeight.constant - 10
+//                        }
                         
 //                        let contentSize = self.chattingView.chattingTableView.contentSize
                         self.chattingView.scrollToBottom(force: true)
@@ -1601,14 +1601,17 @@ fileprivate extension GroupChannelChattingViewController {
     
     @objc private func keyboardWillShow(notification: Notification) {
         self.keyboardShown = true
-        
+        var offset = 0.0
+        if #available(iOS 11.0, *) {
+            offset =  Double(view.safeAreaInsets.bottom)
+        }
         let keyboardInfo = notification.userInfo
         let keyboardFrameBegin = keyboardInfo?[UIKeyboardFrameEndUserInfoKey]
         let keyboardFrameBeginRect = (keyboardFrameBegin as! NSValue).cgRectValue
         let duration = keyboardInfo?[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber
         let curve = keyboardInfo?[UIKeyboardAnimationCurveUserInfoKey] as! UInt
         DispatchQueue.main.async {
-            self.bottomMargin.constant = keyboardFrameBeginRect.size.height
+            self.bottomMargin.constant = keyboardFrameBeginRect.size.height - CGFloat(offset)
             UIView.animate(withDuration: duration.doubleValue, delay: 0.0, options: [UIViewAnimationOptions(rawValue: UInt(curve))]
                 , animations: {
                     self.view.layoutIfNeeded()
