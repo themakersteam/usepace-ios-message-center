@@ -72,9 +72,6 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
 
         // Message Status
         if self.message.channelType == CHANNEL_TYPE_GROUP {
-            if self.message.message == "###" {
-                print(self.message.messageId == 0)
-            }
             if self.message.messageId == 0 {
                 self.imgMessageStatus.image = UIImage(named: "icMsgsent.png",
                                                       in: Bundle.bundleForXib(OutgoingUserMessageTableViewCell.self), compatibleWith: nil)
