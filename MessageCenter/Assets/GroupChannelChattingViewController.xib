@@ -21,6 +21,8 @@
                 <outlet property="lblSubTitle" destination="zCi-UH-VIJ" id="XQj-ef-d6F"/>
                 <outlet property="lblTitle" destination="CpO-UK-WRT" id="CHa-SO-3vk"/>
                 <outlet property="patternView" destination="88M-yo-TWR" id="IA7-5g-e5N"/>
+                <outlet property="topView" destination="nxZ-VX-cuY" id="HiY-Xk-6PZ"/>
+                <outlet property="topViewHeightConstraint" destination="8rL-4c-ZBF" id="Vfg-Bg-uG8"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="vwActionSheet" destination="mOk-Vz-mXb" id="szn-Rw-srd"/>
             </connections>
@@ -64,14 +66,18 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstAttribute="height" constant="75" id="8rL-4c-ZBF"/>
                         <constraint firstItem="CpO-UK-WRT" firstAttribute="top" secondItem="nxZ-VX-cuY" secondAttribute="top" constant="10" id="ZwP-rg-gBc"/>
                         <constraint firstItem="zCi-UH-VIJ" firstAttribute="top" secondItem="CpO-UK-WRT" secondAttribute="bottom" constant="7" id="bs3-T8-PJI"/>
                         <constraint firstItem="0tl-JU-cyo" firstAttribute="leading" secondItem="nxZ-VX-cuY" secondAttribute="leading" constant="9" id="dfJ-ds-CtQ"/>
-                        <constraint firstAttribute="height" constant="75" id="dh8-Iq-4aQ"/>
                         <constraint firstItem="0tl-JU-cyo" firstAttribute="centerY" secondItem="zCi-UH-VIJ" secondAttribute="centerY" id="ig7-35-WWG"/>
                         <constraint firstItem="CpO-UK-WRT" firstAttribute="centerX" secondItem="nxZ-VX-cuY" secondAttribute="centerX" id="jAJ-dN-kRK"/>
                         <constraint firstItem="zCi-UH-VIJ" firstAttribute="centerX" secondItem="nxZ-VX-cuY" secondAttribute="centerX" id="qjH-3k-IJm"/>
                     </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aGv-gC-XX0" userLabel="Pattern View BG">
+                    <rect key="frame" x="0.0" y="95" width="375" height="572"/>
+                    <color key="backgroundColor" red="0.95686274510000002" green="0.94901960780000005" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="88M-yo-TWR" userLabel="PatternView">
                     <rect key="frame" x="35" y="95" width="305" height="572"/>
@@ -129,9 +135,10 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="0.95686274510000002" green="0.94901960780000005" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="mOk-Vz-mXb" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="0MF-Yo-H4p"/>
+                <constraint firstItem="aGv-gC-XX0" firstAttribute="bottom" secondItem="AAA-Vq-7hk" secondAttribute="bottom" id="1lD-1Y-TM9"/>
                 <constraint firstItem="nxZ-VX-cuY" firstAttribute="top" secondItem="UvG-x8-VLe" secondAttribute="top" id="2Yf-r1-SUO"/>
                 <constraint firstAttribute="bottom" secondItem="AAA-Vq-7hk" secondAttribute="bottom" id="5Ab-UI-o7I"/>
                 <constraint firstItem="AAA-Vq-7hk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="6TI-Ys-n4Z"/>
@@ -146,16 +153,19 @@
                 <constraint firstItem="Kgd-6s-sEz" firstAttribute="top" secondItem="UvG-x8-VLe" secondAttribute="top" id="YCq-AK-MYQ"/>
                 <constraint firstItem="UvG-x8-VLe" firstAttribute="bottom" secondItem="88M-yo-TWR" secondAttribute="bottom" id="bY7-wW-a8a"/>
                 <constraint firstItem="nxZ-VX-cuY" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="cQB-um-Clg"/>
+                <constraint firstItem="UvG-x8-VLe" firstAttribute="trailing" secondItem="aGv-gC-XX0" secondAttribute="trailing" id="dRF-JJ-hB7"/>
+                <constraint firstItem="aGv-gC-XX0" firstAttribute="top" secondItem="nxZ-VX-cuY" secondAttribute="bottom" id="jZ6-Kn-rgX"/>
                 <constraint firstItem="mOk-Vz-mXb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="jrb-XI-ccp"/>
                 <constraint firstItem="Ykx-aa-bI9" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="kW2-jN-psY"/>
                 <constraint firstItem="88M-yo-TWR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="35" id="n6k-QK-sQY"/>
                 <constraint firstAttribute="trailing" secondItem="Kgd-6s-sEz" secondAttribute="trailing" id="poM-97-6RZ"/>
                 <constraint firstItem="Kgd-6s-sEz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="rcY-nS-x5K"/>
                 <constraint firstItem="mOk-Vz-mXb" firstAttribute="bottom" secondItem="UvG-x8-VLe" secondAttribute="bottom" id="sqE-EN-eNq"/>
+                <constraint firstItem="aGv-gC-XX0" firstAttribute="leading" secondItem="UvG-x8-VLe" secondAttribute="leading" id="uD6-UJ-WEN"/>
                 <constraint firstAttribute="trailing" secondItem="AAA-Vq-7hk" secondAttribute="trailing" id="vXg-FO-oE6"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="UvG-x8-VLe"/>
-            <point key="canvasLocation" x="-650" y="-70"/>
+            <point key="canvasLocation" x="-650.39999999999998" y="-70.614692653673174"/>
         </view>
     </objects>
     <resources>
