@@ -38,7 +38,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     private var cachedMessage: Bool = true
     private var mediaInfo : [String: Any]?
     private var imageCaption: String = ""
-    
+    private var imageCaptionDic = [String: String]()
+
     // MARK: - IBOutlets
     //MARK: -
     @IBOutlet weak var vwActionSheet: UIView!
@@ -590,6 +591,93 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         }
     }
     
+    
+    @objc private func sendCaption(Caption: String) {
+        var message = ""
+
+        if Caption.count > 0 &&  Caption.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false {
+            message = Caption
+        }else  {
+            return
+        }
+            
+       //  self.imageCaption = ""
+
+        do {
+            let detector: NSDataDetector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+            let matches: [NSTextCheckingResult] = detector.matches(in: message, options: NSRegularExpression.MatchingOptions.init(rawValue: 0), range: NSMakeRange(0, (message.count)))
+            var url: URL?
+            for item in matches {
+                let match = item as NSTextCheckingResult
+                url = match.url
+                break
+            }
+            
+            if url != nil {
+                let tempModel: OutgoingGeneralUrlPreviewTempModel = OutgoingGeneralUrlPreviewTempModel()
+                tempModel.createdAt = Int64(NSDate().timeIntervalSince1970 * 1000)
+                tempModel.message = message
+                
+                self.chattingView.messages.append(tempModel)
+                DispatchQueue.main.async {
+                    self.chattingView.chattingTableView.reloadData()
+                    DispatchQueue.main.async {
+                        self.chattingView.scrollToBottom(force: true)
+                    }
+                }
+                
+                // Send preview
+                self.sendUrlPreview(url: url!, message: message, aTempModel: tempModel)
+                
+                return
+            }
+        }
+        catch {
+            
+        }
+        
+        self.chattingView.sendButton.isEnabled = false
+        let preSendMessage = self.groupChannel.sendUserMessage(message, data: "", customType: "", targetLanguages: ["ar", "de", "fr", "nl", "ja", "ko", "pt", "es", "zh-CHS"], completionHandler: { (userMessage, error) in
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(150), execute: {
+                if let preSendMessage = self.chattingView.preSendMessages[(userMessage?.requestId)!] as? SBDUserMessage {
+                    self.chattingView.preSendMessages.removeValue(forKey: (userMessage?.requestId)!)
+                    
+                    if error != nil {
+                        self.chattingView.resendableMessages[(userMessage?.requestId)!] = userMessage
+                        self.chattingView.chattingTableView.reloadData()
+                        self.chattingView.scrollToBottom(force: true)
+                        return
+                    }
+                    self.chattingView.messages[self.chattingView.messages.index(of: preSendMessage)!] = userMessage!
+                    self.chattingView.chattingTableView.reloadData()
+                    self.chattingView.scrollToBottom(force: true)
+                }
+            })
+        })
+        
+        self.chattingView.preSendMessages[preSendMessage.requestId!] = preSendMessage
+        DispatchQueue.main.async {
+            if self.chattingView.preSendMessages[preSendMessage.requestId!] == nil {
+                return
+            }
+            
+            self.chattingView.chattingTableView.beginUpdates()
+            self.chattingView.messages.append(preSendMessage)
+            
+            UIView.setAnimationsEnabled(false)
+            
+            self.chattingView.chattingTableView.insertRows(at: [IndexPath(row: self.chattingView.messages.index(of: preSendMessage)!, section: 1)], with: UITableViewRowAnimation.bottom)
+            UIView.setAnimationsEnabled(true)
+            self.chattingView.chattingTableView.endUpdates()
+            
+            self.chattingView.chattingTableView.reloadData()
+            
+            self.chattingView.scrollToBottom(force: true)
+            self.chattingView.sendButton.isEnabled = true
+        }
+    }
+    
+   
     @objc private func sendMessage() {
         
         if (self.chattingView.messageTextView.textView.text.count > 0 || imageCaption.count > 0) {
@@ -1755,6 +1843,16 @@ extension GroupChannelChattingViewController : ImagePreviewProtocol {
                 imageName = (imagePath.lastPathComponent as NSString?)!
             }
             
+            let timestamp = Date().currentTimeMillis()
+
+            
+          //  let myTimeInterval = TimeInterval(timestamp)
+         //   let time = NSDate(timeIntervalSince1970: TimeInterval(timestamp))
+            imageName = "\(timestamp ?? 0)\(imageName)" as NSString
+            if caption.count > 0 {
+                imageCaptionDic[imageName as String] = imageCaption
+            }
+            
             let ext = imageName.pathExtension
             let UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, ext as CFString, nil)?.takeRetainedValue()
             let mimeType = UTTypeCopyPreferredTagWithClass(UTI!, kUTTagClassMIMEType)?.takeRetainedValue();
@@ -1786,9 +1884,16 @@ extension GroupChannelChattingViewController : ImagePreviewProtocol {
                         }
                         
                         if fileMessage != nil {
-                            if self.imageCaption.count > 0 {
-                                self.sendMessage()
+                            
+                            for (key, value) in self.imageCaptionDic {
+                                if key == fileMessage?.name {
+                                    self.sendCaption(Caption: value)
+                                    self.imageCaptionDic.removeValue(forKey: key)
+                                }
                             }
+//                            if self.imageCaption.count > 0 {
+//                                self.sendMessage()
+//                            }
                             self.chattingView.resendableMessages.removeValue(forKey: (fileMessage?.requestId)!)
                             self.chattingView.resendableFileData.removeValue(forKey: (fileMessage?.requestId)!)
                             self.chattingView.preSendMessages.removeValue(forKey: (fileMessage?.requestId)!)
@@ -1866,5 +1971,11 @@ private extension GroupChannelChattingViewController {
         if fileManager.fileExists(atPath: directoryPath) {
             try! fileManager.removeItem(atPath: directoryPath)
         }
+    }
+}
+
+extension Date {
+    func currentTimeMillis() -> Int64! {
+        return Int64(self.timeIntervalSince1970 * 1000)
     }
 }
