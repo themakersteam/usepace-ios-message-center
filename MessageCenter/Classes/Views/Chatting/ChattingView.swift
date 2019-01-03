@@ -29,7 +29,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var typingIndicatorContainerViewHeight: NSLayoutConstraint!
     @IBOutlet weak var typingIndicatorImageView: UIImageView!
     @IBOutlet weak var typingIndicatorLabel: UILabel!
-    @IBOutlet weak var typingIndicatorContainerView: UIView!    
+    @IBOutlet weak var typingIndicatorContainerView: UIView!
     @IBOutlet weak var inputContainerView: UIView!
     @IBOutlet weak var inputContainerViewBackground: UIView!
     @IBOutlet weak var fileAttachButton: UIButton!
@@ -57,7 +57,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     var preSendMessages: [String:SBDBaseMessage] = [:]
     
     var delegate: (ChattingViewDelegate & MessageDelegate)?
-
+    
     // MARK: - Cells
     
     var neutralMessageSizingTableViewCell: NeutralMessageTableViewCell?
@@ -112,7 +112,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         fileAttachButton.tintColor = themeObject.primaryActionIconsColor
         btnCamera.tintColor = themeObject.primaryActionIconsColor
         sendButton.backgroundColor = themeObject.primaryAccentColor
-//        self.sendButton.imageView?.tintColor = self.themeObject?.primaryColor!
+        //        self.sendButton.imageView?.tintColor = self.themeObject?.primaryColor!
         sendButton.imageView?.tintColor = themeObject.primaryActionIconsColor
         sendButton.layer.cornerRadius = 22.0
         self.sendButton.imageView?.tintColor = self.themeObject?.primaryColor!
@@ -138,7 +138,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                 self.inputContainerViewBackground.isHidden = false
                 self.chattingTableViewBottomConstraint.priority = UILayoutPriority(990)
                 self.chattingTableViewBottomToSafeAreConstraint.priority = UILayoutPriority(900)
-
+                
             }
         }
         
@@ -157,9 +157,9 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         self.typingIndicatorContainerViewHeight.constant = 0
         self.typingIndicatorImageHeight.constant = 0
         
-//        self.typingIndicatorContainerView.layoutIfNeeded()
+        //        self.typingIndicatorContainerView.layoutIfNeeded()
         
-//        messageTextView.textContainerInset = UIEdgeInsetsMake(15, 1, 0, 0);
+        //        messageTextView.textContainerInset = UIEdgeInsetsMake(15, 1, 0, 0);
         messageTextView.layer.borderColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.12).cgColor
         self.messageTextView.layer.cornerRadius = 8.0
         self.messageTextView.layer.masksToBounds = true
@@ -169,7 +169,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         self.chattingTableView.register(IncomingUserMessageTableViewCell.nib(), forCellReuseIdentifier: IncomingUserMessageTableViewCell.cellReuseIdentifier())
         self.chattingTableView.register(OutgoingUserMessageTableViewCell.nib(), forCellReuseIdentifier: OutgoingUserMessageTableViewCell.cellReuseIdentifier())
         self.chattingTableView.register(NeutralMessageTableViewCell.nib(), forCellReuseIdentifier: NeutralMessageTableViewCell.cellReuseIdentifier())
-
+        
         self.chattingTableView.register(OutgoingImageFileMessageTableViewCell.nib(), forCellReuseIdentifier: OutgoingImageFileMessageTableViewCell.cellReuseIdentifier())
         
         self.chattingTableView.register(IncomingImageFileMessageTableViewCell.nib(), forCellReuseIdentifier: IncomingImageFileMessageTableViewCell.cellReuseIdentifier())
@@ -219,11 +219,11 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         self.incomingGeneralUrlPreviewMessageTableViewCell = IncomingGeneralUrlPreviewMessageTableViewCell.nib().instantiate(withOwner: self, options: nil)[0] as? IncomingGeneralUrlPreviewMessageTableViewCell
         self.incomingGeneralUrlPreviewMessageTableViewCell?.isHidden = true
         self.addSubview(self.incomingGeneralUrlPreviewMessageTableViewCell!)
-
+        
         self.outgoingGeneralUrlPreviewMessageTableViewCell = OutgoingGeneralUrlPreviewMessageTableViewCell.nib().instantiate(withOwner: self, options: nil)[0] as? OutgoingGeneralUrlPreviewMessageTableViewCell
         self.outgoingGeneralUrlPreviewMessageTableViewCell?.isHidden = true
         self.addSubview(self.outgoingGeneralUrlPreviewMessageTableViewCell!)
-
+        
         self.outgoingGeneralUrlPreviewTempMessageTableViewCell = OutgoingGeneralUrlPreviewTempMessageTableViewCell.nib().instantiate(withOwner: self, options: nil)[0] as? OutgoingGeneralUrlPreviewTempMessageTableViewCell
         
         self.outgoingGeneralUrlPreviewTempMessageTableViewCell?.isHidden = true
@@ -259,7 +259,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         else {
             self.chattingTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
         }
-//        self.chattingTableView.setContentOffset(CGPoint(x: 0.0, y: CGFloat.greatestFiniteMagnitude), animated: true)
+        //        self.chattingTableView.setContentOffset(CGPoint(x: 0.0, y: CGFloat.greatestFiniteMagnitude), animated: true)
     }
     
     func scrollToPosition(position: Int) {
@@ -280,7 +280,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         self.typingIndicatorContainerViewHeight.constant = 26.0
         self.typingIndicatorImageHeight.constant = 26.0
         self.typingIndicatorContainerView.layoutIfNeeded()
-
+        
         if self.typingIndicatorImageView.isAnimating == false {
             var typingImages: [UIImage] = []
             for i in 1...50 {
@@ -300,7 +300,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         DispatchQueue.main.async {
             self.typingIndicatorImageView.stopAnimating()
         }
-
+        
         self.typingIndicatorContainerView.isHidden = true
         self.typingIndicatorContainerViewHeight.constant = 0
         self.typingIndicatorImageHeight.constant = 0
@@ -351,7 +351,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
             }
             //textView.font!.lineHeight
             var currentLine = Int(cursorPosition.y / 16.0 )
-
+            
             print(cursorPosition)
             print(textView.frame.size)
             print(currentLine)
@@ -605,16 +605,16 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         
         return height
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
     }
     
     // MARK: -  UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if self.messages.count == 0 {
-//            self.hasLoadedAllMessages = true
-//        }
+        //        if self.messages.count == 0 {
+        //            self.hasLoadedAllMessages = true
+        //        }
         return self.messages.count + 1 //self.hasLoadedAllMessages == true ? self.messages.count + 1 : self.messages.count
     }
     
@@ -907,7 +907,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                             (cell as! OutgoingImageFileMessageTableViewCell).containerBackgroundColour = (themeObject?.primaryColor)!
                         }
                     }
-
+                    
                     (cell as! OutgoingImageFileMessageTableViewCell).updateBackgroundColour()
                     
                     cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
@@ -928,7 +928,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                     else {
                         if self.resendableMessages[fileMessage.requestId!] != nil {
                             (cell as! OutgoingImageFileMessageTableViewCell).showMessageResendButton()
-//                            (cell as! OutgoingImageFileMessageTableViewCell).showFailedStatus()
+                            //                            (cell as! OutgoingImageFileMessageTableViewCell).showFailedStatus()
                             (cell as! OutgoingImageFileMessageTableViewCell).setImageData(data: self.resendableFileData[fileMessage.requestId!]?["data"] as! Data, type: self.resendableFileData[fileMessage.requestId!]?["type"] as! String)
                             (cell as! OutgoingImageFileMessageTableViewCell).hasImageCacheData = true
                         }
@@ -1188,3 +1188,4 @@ extension ChattingView: SBMessageInputViewDelegate {
         }
     }
 }
+
