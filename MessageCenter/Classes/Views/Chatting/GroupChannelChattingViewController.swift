@@ -55,6 +55,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     
     @IBOutlet weak var patternView: UIView!
     
+    @IBOutlet weak var topViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topView: UIView!
     //MARK: - viewLifeCycle
     //MARK: -
     override func viewDidLoad() {
@@ -1663,6 +1665,12 @@ fileprivate extension GroupChannelChattingViewController {
             self.btnBack.setImage(backImg?.withRenderingMode(UIImageRenderingMode.alwaysTemplate), for: .normal)
             self.btnBack.tintColor = self.themeObject?.primaryNavigationButtonColor
             
+        }
+        
+        if self.lblTitle.text?.count == 0  {
+            // No Driver name!
+            self.topViewHeightConstraint.constant = 55
+            self.topView.layoutIfNeeded()
         }
         
         if UIView.userInterfaceLayoutDirection(for: self.view.semanticContentAttribute) == .rightToLeft {
