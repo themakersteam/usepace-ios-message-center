@@ -17,9 +17,9 @@ extension Bundle {
 
         // Uncomment these lines if you are using example project.
         // Only for development pod. Not to be used otherwise. Should be commented
-        //        if resourceBundle?.path(forResource: String(describing: viewController), ofType: "xib") == nil {
-        //            resourceBundle = Bundle(for: MessageCenter.self)
-        //        }
+//                if resourceBundle?.path(forResource: String(describing: viewController), ofType: "xib") == nil {
+//                    resourceBundle = Bundle(for: MessageCenter.self)
+//                }
         return resourceBundle
     }
 }

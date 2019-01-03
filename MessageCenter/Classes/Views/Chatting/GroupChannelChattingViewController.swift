@@ -58,18 +58,18 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     //MARK: - viewLifeCycle
     //MARK: -
     override func viewDidLoad() {
-    
+        
         super.viewDidLoad()
         GroupChannelChattingViewController.instance = self
         self.podBundle = Bundle.bundleForXib(GroupChannelChattingViewController.self)
         setNavigationItems()
-
+        
         if themeObject != nil {
             self.patternView.backgroundColor = self.themeObject?.primaryBackgroundColor
         }
         
-//        self.patternView.backgroundColor = UIColor(patternImage: UIImage(named: "mainpattern.png", in: podBundle, compatibleWith: nil)!)
-//        
+        //        self.patternView.backgroundColor = UIColor(patternImage: UIImage(named: "mainpattern.png", in: podBundle, compatibleWith: nil)!)
+        //
         let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
         negativeLeftSpacerForImageViewerLoading.width = -2
         
@@ -144,7 +144,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             let cancelAction = UIAlertAction(title: "no".localized, style: .default) { (action) in
                 if self.chattingView.preSendMessages.count > 0 {
                     print(self.chattingView.preSendMessages)
-//                    self.deleteMesage(self.chattingView.preSendMessages)
+                    //                    self.deleteMesage(self.chattingView.preSendMessages)
                 }
             }
             
@@ -172,7 +172,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
-
+    
     
     //MARK: - DeleteMessages
     //MARK: -
@@ -207,15 +207,15 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             self.chattingView.messages.append(contentsOf: self.dumpedMessages)
             
             self.chattingView.chattingTableView.reloadData()
-//            self.chattingView.chattingTableView.layoutIfNeeded()
+            //            self.chattingView.chattingTableView.layoutIfNeeded()
             
-//            let viewHeight = UIScreen.main.bounds.size.height - 95.0 - self.chattingView.inputContainerViewHeight.constant - 10
-//            let contentSize = self.chattingView.chattingTableView.contentSize
+            //            let viewHeight = UIScreen.main.bounds.size.height - 95.0 - self.chattingView.inputContainerViewHeight.constant - 10
+            //            let contentSize = self.chattingView.chattingTableView.contentSize
             self.chattingView.scrollToBottom(force: true)
-//            if contentSize.height > viewHeight {
-//                let newContentOffset = CGPoint(x: 0, y: contentSize.height - viewHeight)
-//                // self.chattingView.chattingTableView.setContentOffset(newContentOffset, animated: false)
-//            }
+            //            if contentSize.height > viewHeight {
+            //                let newContentOffset = CGPoint(x: 0, y: contentSize.height - viewHeight)
+            //                // self.chattingView.chattingTableView.setContentOffset(newContentOffset, animated: false)
+            //            }
             
             self.cachedMessage = true
         }
@@ -223,7 +223,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         self.loadPreviousMessage(initial: true)
         self.chattingView.scrollToBottom(force: true)
     }
-
+    
     private func loadPreviousMessage(initial: Bool) {
         var timestamp: Int64 = 0
         if initial {
@@ -255,7 +255,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             
             if messages?.count == 0 {
                 self.hasNext = false
-               // self.chattingView.hasLoadedAllMessages = true
+                // self.chattingView.hasLoadedAllMessages = true
                 self.chattingView.chattingTableView.reloadData()
                 self.chattingView.scrollToBottom(force: true)
             }
@@ -292,19 +292,19 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                         self.chattingView.chattingTableView.reloadData()
                         self.chattingView.chattingTableView.layoutIfNeeded()
                         
-//                        var viewHeight: CGFloat
-//                        if self.keyboardShown {
-//                            viewHeight = self.chattingView.chattingTableView.frame.size.height - 10
-//                        }
-//                        else {
-//                            viewHeight = UIScreen.main.bounds.size.height - 95.0 - self.chattingView.inputContainerViewHeight.constant - 10
-//                        }
+                        //                        var viewHeight: CGFloat
+                        //                        if self.keyboardShown {
+                        //                            viewHeight = self.chattingView.chattingTableView.frame.size.height - 10
+                        //                        }
+                        //                        else {
+                        //                            viewHeight = UIScreen.main.bounds.size.height - 95.0 - self.chattingView.inputContainerViewHeight.constant - 10
+                        //                        }
                         
-//                        let contentSize = self.chattingView.chattingTableView.contentSize
+                        //                        let contentSize = self.chattingView.chattingTableView.contentSize
                         self.chattingView.scrollToBottom(force: true)
-  //                      if contentSize.height > viewHeight {
-//                            let newContentOffset = CGPoint(x: 0, y: contentSize.height - viewHeight)
-                            // self.chattingView.chattingTableView.setContentOffset(newContentOffset, animated: false)
+                        //                      if contentSize.height > viewHeight {
+                        //                            let newContentOffset = CGPoint(x: 0, y: contentSize.height - viewHeight)
+                        // self.chattingView.chattingTableView.setContentOffset(newContentOffset, animated: false)
                         //}
                     }
                 }
@@ -324,17 +324,17 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                     }
                     
                     DispatchQueue.main.async {
-//                        let contentSizeBefore = self.chattingView.chattingTableView.contentSize
+                        //                        let contentSizeBefore = self.chattingView.chattingTableView.contentSize
                         
                         self.chattingView.chattingTableView.reloadData()
-  //                      self.chattingView.chattingTableView.layoutIfNeeded()
+                        //                      self.chattingView.chattingTableView.layoutIfNeeded()
                         if initial == true {
                             self.chattingView.scrollToBottom(force: true)
                         }
                         
                         //let contentSizeAfter = self.chattingView.chattingTableView.contentSize
                         
-                       // let newContentOffset = CGPoint(x: 0, y: contentSizeAfter.height - contentSizeBefore.height)
+                        // let newContentOffset = CGPoint(x: 0, y: contentSizeAfter.height - contentSizeBefore.height)
                         // self.chattingView.chattingTableView.setContentOffset(newContentOffset, animated: false)
                     }
                 }
@@ -342,7 +342,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 self.isLoading = false
             }
         }
-//        self.chattingView.scrollToBottom(force: true)
+        //        self.chattingView.scrollToBottom(force: true)
     }
     
     //MARK: - Send Messages
@@ -632,15 +632,15 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                             return
                         }
                         
-//                        let index = IndexPath(row: self.chattingView.messages.index(of: preSendMessage)!, section: 0)
-//                        self.chattingView.chattingTableView.beginUpdates()
+                        //                        let index = IndexPath(row: self.chattingView.messages.index(of: preSendMessage)!, section: 0)
+                        //                        self.chattingView.chattingTableView.beginUpdates()
                         self.chattingView.messages[self.chattingView.messages.index(of: preSendMessage)!] = userMessage!
                         
-//                        UIView.setAnimationsEnabled(false)
-//                        self.chattingView.chattingTableView.insertRows(at:[index], with: .bottom)
-//                        UIView.setAnimationsEnabled(true)
-//                        self.chattingView.chattingTableView.endUpdates()
-                            self.chattingView.chattingTableView.reloadData()
+                        //                        UIView.setAnimationsEnabled(false)
+                        //                        self.chattingView.chattingTableView.insertRows(at:[index], with: .bottom)
+                        //                        UIView.setAnimationsEnabled(true)
+                        //                        self.chattingView.chattingTableView.endUpdates()
+                        self.chattingView.chattingTableView.reloadData()
                         self.chattingView.scrollToBottom(force: true)
                     }
                 })
@@ -656,12 +656,12 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 self.chattingView.messages.append(preSendMessage)
                 
                 UIView.setAnimationsEnabled(false)
-
+                
                 self.chattingView.chattingTableView.insertRows(at: [IndexPath(row: self.chattingView.messages.index(of: preSendMessage)!, section: 0)], with: UITableViewRowAnimation.bottom)
                 UIView.setAnimationsEnabled(true)
                 self.chattingView.chattingTableView.endUpdates()
-
-//                self.chattingView.chattingTableView.reloadData()
+                
+                self.chattingView.chattingTableView.reloadData()
                 
                 self.chattingView.scrollToBottom(force: true)
                 self.chattingView.sendButton.isEnabled = true
@@ -669,11 +669,118 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         }
     }
     
+    //    @objc private func sendMessage() {
+    //
+    //        if (self.chattingView.messageTextView.textView.text.count > 0 || imageCaption.count > 0) {
+    //            self.groupChannel.endTyping()
+    //            var message = ""
+    //            if self.chattingView.messageTextView.textView.text.count > 0 &&
+    //                self.chattingView.messageTextView.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false {
+    //
+    //                message = self.chattingView.messageTextView.textView.text
+    //            }
+    //
+    //            else if imageCaption.count > 0 &&
+    //                imageCaption.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false {
+    //
+    //                message = self.imageCaption
+    //            }
+    //            else  {
+    //                return
+    //            }
+    //
+    //            self.chattingView.messageTextView.textView.text = ""
+    //            self.imageCaption = ""
+    //            self.chattingView.inputViewDidChange(textView: self.chattingView.messageTextView.textView)
+    //
+    //            do {
+    //                let detector: NSDataDetector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+    //                let matches: [NSTextCheckingResult] = detector.matches(in: message, options: NSRegularExpression.MatchingOptions.init(rawValue: 0), range: NSMakeRange(0, (message.count)))
+    //                var url: URL?
+    //                for item in matches {
+    //                    let match = item as NSTextCheckingResult
+    //                    url = match.url
+    //                    break
+    //                }
+    //
+    //                if url != nil {
+    //                    let tempModel: OutgoingGeneralUrlPreviewTempModel = OutgoingGeneralUrlPreviewTempModel()
+    //                    tempModel.createdAt = Int64(NSDate().timeIntervalSince1970 * 1000)
+    //                    tempModel.message = message
+    //
+    //                    self.chattingView.messages.append(tempModel)
+    //                    DispatchQueue.main.async {
+    //                        self.chattingView.chattingTableView.reloadData()
+    //                        DispatchQueue.main.async {
+    //                            self.chattingView.scrollToBottom(force: true)
+    //                        }
+    //                    }
+    //
+    //                    // Send preview
+    //                    self.sendUrlPreview(url: url!, message: message, aTempModel: tempModel)
+    //
+    //                    return
+    //                }
+    //            }
+    //            catch {
+    //
+    //            }
+    //
+    //            self.chattingView.sendButton.isEnabled = false
+    //            let preSendMessage = self.groupChannel.sendUserMessage(message, data: "", customType: "", targetLanguages: ["ar", "de", "fr", "nl", "ja", "ko", "pt", "es", "zh-CHS"], completionHandler: { (userMessage, error) in
+    //                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(150), execute: {
+    //                    if let preSendMessage = self.chattingView.preSendMessages[(userMessage?.requestId)!] as? SBDUserMessage {
+    //                        self.chattingView.preSendMessages.removeValue(forKey: (userMessage?.requestId)!)
+    //
+    //                        if error != nil {
+    //                            self.chattingView.resendableMessages[(userMessage?.requestId)!] = userMessage
+    //                            self.chattingView.chattingTableView.reloadData()
+    //                            self.chattingView.scrollToBottom(force: true)
+    //                            return
+    //                        }
+    //
+    ////                        let index = IndexPath(row: self.chattingView.messages.index(of: preSendMessage)!, section: 0)
+    ////                        self.chattingView.chattingTableView.beginUpdates()
+    //                        self.chattingView.messages[self.chattingView.messages.index(of: preSendMessage)!] = userMessage!
+    //
+    ////                        UIView.setAnimationsEnabled(false)
+    ////                        self.chattingView.chattingTableView.insertRows(at:[index], with: .bottom)
+    ////                        UIView.setAnimationsEnabled(true)
+    ////                        self.chattingView.chattingTableView.endUpdates()
+    //                            self.chattingView.chattingTableView.reloadData()
+    //                        self.chattingView.scrollToBottom(force: true)
+    //                    }
+    //                })
+    //            })
+    //
+    //            self.chattingView.preSendMessages[preSendMessage.requestId!] = preSendMessage
+    //            DispatchQueue.main.async {
+    //                if self.chattingView.preSendMessages[preSendMessage.requestId!] == nil {
+    //                    return
+    //                }
+    //
+    //                self.chattingView.chattingTableView.beginUpdates()
+    //                self.chattingView.messages.append(preSendMessage)
+    //
+    //                UIView.setAnimationsEnabled(false)
+    //
+    //                self.chattingView.chattingTableView.insertRows(at: [IndexPath(row: self.chattingView.messages.index(of: preSendMessage)!, section: 0)], with: UITableViewRowAnimation.bottom)
+    //                UIView.setAnimationsEnabled(true)
+    //                self.chattingView.chattingTableView.endUpdates()
+    //
+    ////                self.chattingView.chattingTableView.reloadData()
+    //
+    //                self.chattingView.scrollToBottom(force: true)
+    //                self.chattingView.sendButton.isEnabled = true
+    //            }
+    //        }
+    //    }
+    
     // MARK: - UserActions
     //MARK: -
     
     func previewMessage(_ photo: ChatImage) {
-       
+        
         let imageCaptionVC = ImagePreviewViewController(nibName: "ImagePreviewViewController", bundle: self.podBundle)
         imageCaptionVC.imageToUpload = UIImage(data: photo.imageData!)
         imageCaptionVC.shouldShowCaption = false
@@ -681,28 +788,28 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         self.navigationController?.pushViewController(imageCaptionVC, animated: true)
         
     }
-//        self.photosViewController = NYTPhotosViewController(photos: [photo])
-//        DispatchQueue.main.async {
-//            self.photosViewController.rightBarButtonItems = nil
-//            self.photosViewController.rightBarButtonItem = nil
-//
-//            self.photosViewController.leftBarButtonItems = nil
-//            self.photosViewController.leftBarButtonItem = nil
-//
-//            let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
-//            negativeLeftSpacerForImageViewerLoading.width = -2
-//            let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close.png",in: self.podBundle, compatibleWith: nil),
-//                                                                     style: UIBarButtonItemStyle.done,
-//                                                                     target: self,
-//                                                                     action: #selector(self.closeImageViewer))
-//
-//            self.imageViewerLoadingViewNavItem.leftBarButtonItems = [negativeLeftSpacerForImageViewerLoading, leftCloseItemForImageViewerLoading]
-//            self.navigationController?.pushViewController(self.photosViewController, animated: true)
-////            self.present(self.photosViewController, animated: true, completion: {
-////                self.hideImageViewerLoading()
-////            })
-//        }
-//    }
+    //        self.photosViewController = NYTPhotosViewController(photos: [photo])
+    //        DispatchQueue.main.async {
+    //            self.photosViewController.rightBarButtonItems = nil
+    //            self.photosViewController.rightBarButtonItem = nil
+    //
+    //            self.photosViewController.leftBarButtonItems = nil
+    //            self.photosViewController.leftBarButtonItem = nil
+    //
+    //            let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
+    //            negativeLeftSpacerForImageViewerLoading.width = -2
+    //            let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close.png",in: self.podBundle, compatibleWith: nil),
+    //                                                                     style: UIBarButtonItemStyle.done,
+    //                                                                     target: self,
+    //                                                                     action: #selector(self.closeImageViewer))
+    //
+    //            self.imageViewerLoadingViewNavItem.leftBarButtonItems = [negativeLeftSpacerForImageViewerLoading, leftCloseItemForImageViewerLoading]
+    //            self.navigationController?.pushViewController(self.photosViewController, animated: true)
+    ////            self.present(self.photosViewController, animated: true, completion: {
+    ////                self.hideImageViewerLoading()
+    ////            })
+    //        }
+    //    }
     
     @objc func handleTap(sender: UITapGestureRecognizer) {
         if sender.state == .ended {
@@ -782,7 +889,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 //self.vwActionSheet.isHidden = true
                 self.setVwActionSheet(hidden: true)
                 UIImagePickerController.checkPermissionStatus(sourceType: UIImagePickerControllerSourceType.photoLibrary, completionBlockSuccess: { (status) in
-                    let imagePicker = UIImagePickerController()                    
+                    let imagePicker = UIImagePickerController()
                     imagePicker.sourceType = .photoLibrary
                     imagePicker.mediaTypes = [String(kUTTypeImage)]
                     imagePicker.delegate = self
@@ -897,7 +1004,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     // MARK: - SBDChannelDelegate
     //MARK: -
     func channel(_ sender: SBDBaseChannel, didReceive message: SBDBaseMessage) {
-        if sender == self.groupChannel {
+        if sender.channelUrl == self.groupChannel.channelUrl {
             self.groupChannel.markAsRead()
             DispatchQueue.main.async {
                 UIView.setAnimationsEnabled(false)
@@ -930,7 +1037,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     }
     
     func channelDidUpdateReadReceipt(_ sender: SBDGroupChannel) {
-        if sender == self.groupChannel {
+        if sender.channelUrl == self.groupChannel.channelUrl {
             DispatchQueue.main.async {
                 self.chattingView.chattingTableView.reloadData()
             }
@@ -938,7 +1045,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     }
     
     func channelDidUpdateTypingStatus(_ sender: SBDGroupChannel) {
-        if sender == self.groupChannel {
+        if sender.channelUrl == self.groupChannel.channelUrl {
             if sender.getTypingMembers()?.count == 0 {
                 self.chattingView.endTypingIndicator()
             }
@@ -1002,7 +1109,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     }
     
     func channelWasChanged(_ sender: SBDBaseChannel) {
-        //            if sender == self.groupChannel {
+        //            if sender.channelUrl == self.groupChannel.channelUrl {
         //                DispatchQueue.main.async {
         //                    self.navItem.title = String(format: "Group Channel (%ld)", self.groupChannel.memberCount)
         //                }
@@ -1021,7 +1128,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     }
     
     func channel(_ sender: SBDBaseChannel, messageWasDeleted messageId: Int64) {
-        if sender == self.groupChannel {
+        if sender.channelUrl == self.groupChannel.channelUrl {
             for message in self.chattingView.messages {
                 if message.messageId == messageId {
                     self.chattingView.messages.remove(at: self.chattingView.messages.index(of: message)!)
@@ -1213,7 +1320,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             else if type.hasPrefix("image") {
                 let photo = ChatImage()
                 if url.count > 0 {
-//
+                    //
                     if  let cachedData = FLAnimatedImageView.cachedImageForURL(url: URL(string: url)!) {
                         DispatchQueue.main.async {
                             photo.imageData = cachedData
@@ -1229,7 +1336,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                             self.hideImageViewerLoading()
                             if error != nil {
                                 return;
-                            }                            
+                            }
                             let resp = response as! HTTPURLResponse
                             if resp.statusCode >= 200 && resp.statusCode < 300 {
                                 DispatchQueue.main.async {
@@ -1455,7 +1562,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             self.present(vc, animated: true, completion: nil)
         }
     }
-       
+    
     func showImageViewerLoading() {
         DispatchQueue.main.async {
             self.imageViewerLoadingView.isHidden = false
@@ -1479,7 +1586,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             self.photosViewController.navigationController?.popViewController(animated: true)
         }
     }
-
+    
     // Disclaimer: I have no idea what vw stands for, but for the sake of convention, I'm naming my method accordingly.
     private func setVwActionSheet(hidden: Bool) {
         DispatchQueue.main.async {
@@ -1493,7 +1600,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
 // MARK: - UIImagePickerController Methods
 //MARK: -
 extension GroupChannelChattingViewController: UIImagePickerControllerDelegate {
-   @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
             print(error)
         } else {
@@ -1532,7 +1639,7 @@ extension GroupChannelChattingViewController: UIImagePickerControllerDelegate {
             })
         }
     }
-  
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let mediaType = info[UIImagePickerControllerMediaType] as! String
         
@@ -1603,7 +1710,7 @@ fileprivate extension GroupChannelChattingViewController {
         self.keyboardShown = true
         var offset = 0.0
         if #available(iOS 11.0, *) {
-            offset =  Double(view.safeAreaInsets.bottom)
+            //            offset =  Double(view.safeAreaInsets.bottom)
         }
         let keyboardInfo = notification.userInfo
         let keyboardFrameBegin = keyboardInfo?[UIKeyboardFrameEndUserInfoKey]
@@ -1611,7 +1718,7 @@ fileprivate extension GroupChannelChattingViewController {
         let duration = keyboardInfo?[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber
         let curve = keyboardInfo?[UIKeyboardAnimationCurveUserInfoKey] as! UInt
         DispatchQueue.main.async {
-            self.bottomMargin.constant = keyboardFrameBeginRect.size.height - CGFloat(offset)
+            self.bottomMargin.constant = keyboardFrameBeginRect.size.height
             UIView.animate(withDuration: duration.doubleValue, delay: 0.0, options: [UIViewAnimationOptions(rawValue: UInt(curve))]
                 , animations: {
                     self.view.layoutIfNeeded()
@@ -1633,7 +1740,7 @@ fileprivate extension GroupChannelChattingViewController {
                     self.view.layoutIfNeeded()
             }, completion: { (status) in
                 self.chattingView.scrollToBottom(force: true)
-//                self.chattingView.chattingTableView.contentInset = UIEdgeInsetsMake(0, 0, 0.0, 0)
+                //                self.chattingView.chattingTableView.contentInset = UIEdgeInsetsMake(0, 0, 0.0, 0)
             })
             
         }
@@ -1708,14 +1815,14 @@ extension GroupChannelChattingViewController : SelectLocationDelegate {
         self.sendMessage()
         self.dismiss(animated: true, completion: nil)
     }
-
+    
     func userDidDismiss() {
         self.dismiss(animated: true, completion: nil)
     }
 }
 
 extension GroupChannelChattingViewController : ImagePreviewProtocol {
-
+    
     func imagePreviewDidDismiss(_ image: UIImage?, caption: String) {
         if self.mediaInfo != nil && image != nil {
             self.imageCaption = caption
@@ -1726,9 +1833,9 @@ extension GroupChannelChattingViewController : ImagePreviewProtocol {
                 imageName = "camera.JPEG"
             }else{
                 let imagePath: URL = self.mediaInfo![UIImagePickerControllerReferenceURL] as! URL
-                 imageName = (imagePath.lastPathComponent as NSString?)!
+                imageName = (imagePath.lastPathComponent as NSString?)!
             }
-
+            
             let ext = imageName.pathExtension
             let UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, ext as CFString, nil)?.takeRetainedValue()
             let mimeType = UTTypeCopyPreferredTagWithClass(UTI!, kUTTagClassMIMEType)?.takeRetainedValue();
@@ -1832,7 +1939,7 @@ private extension GroupChannelChattingViewController {
             return nil
         }
     }
-
+    
     
     func deleteDirectory() {
         let fileManager = FileManager.default
