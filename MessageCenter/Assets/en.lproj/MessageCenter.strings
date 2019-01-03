@@ -58,3 +58,6 @@
 "image_uploading_in_progress_message" = "Your image message is not sent, continue without sending?";
 "yes" = "Yes";
 "no" = "No";
+"push_notification_alert_title" = "Turn on the notification to allow send the chat notification";
+"settings" = "Settings" ;
+"cancel" = "Cancel" ;

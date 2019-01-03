@@ -110,7 +110,33 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         
         // Delete all the pre-saved images in directory as we really don't need those
         self.deleteDirectory()
+        self.checkNotifications()
     }
+    
+    func checkNotifications () {
+        let isRegisteredForRemoteNotifications = UIApplication.shared.isRegisteredForRemoteNotifications
+        if isRegisteredForRemoteNotifications {
+            // User is registered for notification
+        } else {
+            // Show alert user is not registered for notification
+            let alert = UIAlertController(title: "push_notification_alert_title".localized, message: "", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "settings".localized, style: .default, handler: { action in
+                guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
+                    return
+                }
+                if UIApplication.shared.canOpenURL(settingsUrl) {
+                    UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                        print("Settings opened: \(success)") // Prints true
+                    })
+                }
+            }))
+            alert.addAction(UIAlertAction(title: "cancel".localized, style: .default, handler: { action in
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+
+    
     
     deinit {
         //        ConnectionManager.remove(connectionObserver: self as ConnectionManagerDelegate)
