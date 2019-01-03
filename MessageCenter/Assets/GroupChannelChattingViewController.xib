@@ -80,7 +80,7 @@
                     <color key="backgroundColor" red="0.95686274510000002" green="0.94901960780000005" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="88M-yo-TWR" userLabel="PatternView">
-                    <rect key="frame" x="35" y="95" width="305" height="572"/>
+                    <rect key="frame" x="15" y="95" width="325" height="572"/>
                     <color key="backgroundColor" red="0.95686274510000002" green="0.94901960780000005" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AAA-Vq-7hk" customClass="ChattingView" customModule="MessageCenter" customModuleProvider="target">
@@ -157,7 +157,7 @@
                 <constraint firstItem="aGv-gC-XX0" firstAttribute="top" secondItem="nxZ-VX-cuY" secondAttribute="bottom" id="jZ6-Kn-rgX"/>
                 <constraint firstItem="mOk-Vz-mXb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="jrb-XI-ccp"/>
                 <constraint firstItem="Ykx-aa-bI9" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="kW2-jN-psY"/>
-                <constraint firstItem="88M-yo-TWR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="35" id="n6k-QK-sQY"/>
+                <constraint firstItem="88M-yo-TWR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="n6k-QK-sQY"/>
                 <constraint firstAttribute="trailing" secondItem="Kgd-6s-sEz" secondAttribute="trailing" id="poM-97-6RZ"/>
                 <constraint firstItem="Kgd-6s-sEz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="rcY-nS-x5K"/>
                 <constraint firstItem="mOk-Vz-mXb" firstAttribute="bottom" secondItem="UvG-x8-VLe" secondAttribute="bottom" id="sqE-EN-eNq"/>

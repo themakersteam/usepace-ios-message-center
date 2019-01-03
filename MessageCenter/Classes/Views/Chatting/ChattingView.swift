@@ -1129,8 +1129,15 @@ extension ChattingView: SBMessageInputViewDelegate {
         
     }
     func inputViewDidBeginEditing(textView: UITextView) {
-        
+        if UIView.userInterfaceLayoutDirection(for: self.semanticContentAttribute) == .rightToLeft {
+            textView.contentInset = UIEdgeInsets(top: textView.contentInset.top, left: 35.0, bottom: 0.0, right: 0.0)
+        }
+        else {
+            textView.contentInset = UIEdgeInsets(top: textView.contentInset.top, left: 0.0, bottom: 0.0, right: 35.0)
+        }
+        textView.layoutIfNeeded()
     }
+    
     func inputViewShouldBeginEditing(textView: UITextView) -> Bool {
         return true
     }
@@ -1144,6 +1151,7 @@ extension ChattingView: SBMessageInputViewDelegate {
             self.placeholderLabel.isHidden = true
             if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false {
                 self.btnCamera.isHidden = true
+                textView.contentInset = UIEdgeInsets(top: textView.contentInset.top, left: 0.0, bottom: 0.0, right: 0.0)
                 if self.cnTextViewTrailing.constant != 65.0 {
                     self.cnTextViewTrailing.constant = 65.0
                     UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveLinear, animations: {
@@ -1152,7 +1160,6 @@ extension ChattingView: SBMessageInputViewDelegate {
                         
                     }
                 }
-                textView.contentInset = UIEdgeInsets(top: textView.contentInset.top, left: 0.0, bottom: 0.0, right: 0.0)
             }
             else {
                 self.messageTextView.backgroundColor = .white
@@ -1162,15 +1169,13 @@ extension ChattingView: SBMessageInputViewDelegate {
             }
         }
         else {
-            if #available(iOS 9.0, *) {
-                if UIView.userInterfaceLayoutDirection(for: self.semanticContentAttribute) == .rightToLeft {
-                    textView.contentInset = UIEdgeInsets(top: textView.contentInset.top, left: 12.0, bottom: 0.0, right: 0.0)
-                }
-            } else {
-                if UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft {
-                    textView.contentInset = UIEdgeInsets(top: textView.contentInset.top, left: 12.0, bottom: 0.0, right: 0.0)
-                }
+            if UIView.userInterfaceLayoutDirection(for: self.semanticContentAttribute) == .rightToLeft {
+                textView.contentInset = UIEdgeInsets(top: textView.contentInset.top, left: 35.0, bottom: 0.0, right: 0.0)
             }
+            else {
+                textView.contentInset = UIEdgeInsets(top: textView.contentInset.top, left: 0.0, bottom: 0.0, right: 35.0)
+            }
+            
             self.placeholderLabel.isHidden = false
             self.messageTextView.backgroundColor = .clear
             if self.cnTextViewTrailing.constant != 12.0 {
