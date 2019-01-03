@@ -631,15 +631,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                             self.chattingView.scrollToBottom(force: true)
                             return
                         }
-                        
-                        //                        let index = IndexPath(row: self.chattingView.messages.index(of: preSendMessage)!, section: 0)
-                        //                        self.chattingView.chattingTableView.beginUpdates()
                         self.chattingView.messages[self.chattingView.messages.index(of: preSendMessage)!] = userMessage!
-                        
-                        //                        UIView.setAnimationsEnabled(false)
-                        //                        self.chattingView.chattingTableView.insertRows(at:[index], with: .bottom)
-                        //                        UIView.setAnimationsEnabled(true)
-                        //                        self.chattingView.chattingTableView.endUpdates()
                         self.chattingView.chattingTableView.reloadData()
                         self.chattingView.scrollToBottom(force: true)
                     }
@@ -656,7 +648,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 self.chattingView.messages.append(preSendMessage)
                 
                 UIView.setAnimationsEnabled(false)
-                
+
                 self.chattingView.chattingTableView.insertRows(at: [IndexPath(row: self.chattingView.messages.index(of: preSendMessage)!, section: 0)], with: UITableViewRowAnimation.bottom)
                 UIView.setAnimationsEnabled(true)
                 self.chattingView.chattingTableView.endUpdates()
@@ -668,113 +660,6 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             }
         }
     }
-    
-    //    @objc private func sendMessage() {
-    //
-    //        if (self.chattingView.messageTextView.textView.text.count > 0 || imageCaption.count > 0) {
-    //            self.groupChannel.endTyping()
-    //            var message = ""
-    //            if self.chattingView.messageTextView.textView.text.count > 0 &&
-    //                self.chattingView.messageTextView.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false {
-    //
-    //                message = self.chattingView.messageTextView.textView.text
-    //            }
-    //
-    //            else if imageCaption.count > 0 &&
-    //                imageCaption.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false {
-    //
-    //                message = self.imageCaption
-    //            }
-    //            else  {
-    //                return
-    //            }
-    //
-    //            self.chattingView.messageTextView.textView.text = ""
-    //            self.imageCaption = ""
-    //            self.chattingView.inputViewDidChange(textView: self.chattingView.messageTextView.textView)
-    //
-    //            do {
-    //                let detector: NSDataDetector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-    //                let matches: [NSTextCheckingResult] = detector.matches(in: message, options: NSRegularExpression.MatchingOptions.init(rawValue: 0), range: NSMakeRange(0, (message.count)))
-    //                var url: URL?
-    //                for item in matches {
-    //                    let match = item as NSTextCheckingResult
-    //                    url = match.url
-    //                    break
-    //                }
-    //
-    //                if url != nil {
-    //                    let tempModel: OutgoingGeneralUrlPreviewTempModel = OutgoingGeneralUrlPreviewTempModel()
-    //                    tempModel.createdAt = Int64(NSDate().timeIntervalSince1970 * 1000)
-    //                    tempModel.message = message
-    //
-    //                    self.chattingView.messages.append(tempModel)
-    //                    DispatchQueue.main.async {
-    //                        self.chattingView.chattingTableView.reloadData()
-    //                        DispatchQueue.main.async {
-    //                            self.chattingView.scrollToBottom(force: true)
-    //                        }
-    //                    }
-    //
-    //                    // Send preview
-    //                    self.sendUrlPreview(url: url!, message: message, aTempModel: tempModel)
-    //
-    //                    return
-    //                }
-    //            }
-    //            catch {
-    //
-    //            }
-    //
-    //            self.chattingView.sendButton.isEnabled = false
-    //            let preSendMessage = self.groupChannel.sendUserMessage(message, data: "", customType: "", targetLanguages: ["ar", "de", "fr", "nl", "ja", "ko", "pt", "es", "zh-CHS"], completionHandler: { (userMessage, error) in
-    //                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(150), execute: {
-    //                    if let preSendMessage = self.chattingView.preSendMessages[(userMessage?.requestId)!] as? SBDUserMessage {
-    //                        self.chattingView.preSendMessages.removeValue(forKey: (userMessage?.requestId)!)
-    //
-    //                        if error != nil {
-    //                            self.chattingView.resendableMessages[(userMessage?.requestId)!] = userMessage
-    //                            self.chattingView.chattingTableView.reloadData()
-    //                            self.chattingView.scrollToBottom(force: true)
-    //                            return
-    //                        }
-    //
-    ////                        let index = IndexPath(row: self.chattingView.messages.index(of: preSendMessage)!, section: 0)
-    ////                        self.chattingView.chattingTableView.beginUpdates()
-    //                        self.chattingView.messages[self.chattingView.messages.index(of: preSendMessage)!] = userMessage!
-    //
-    ////                        UIView.setAnimationsEnabled(false)
-    ////                        self.chattingView.chattingTableView.insertRows(at:[index], with: .bottom)
-    ////                        UIView.setAnimationsEnabled(true)
-    ////                        self.chattingView.chattingTableView.endUpdates()
-    //                            self.chattingView.chattingTableView.reloadData()
-    //                        self.chattingView.scrollToBottom(force: true)
-    //                    }
-    //                })
-    //            })
-    //
-    //            self.chattingView.preSendMessages[preSendMessage.requestId!] = preSendMessage
-    //            DispatchQueue.main.async {
-    //                if self.chattingView.preSendMessages[preSendMessage.requestId!] == nil {
-    //                    return
-    //                }
-    //
-    //                self.chattingView.chattingTableView.beginUpdates()
-    //                self.chattingView.messages.append(preSendMessage)
-    //
-    //                UIView.setAnimationsEnabled(false)
-    //
-    //                self.chattingView.chattingTableView.insertRows(at: [IndexPath(row: self.chattingView.messages.index(of: preSendMessage)!, section: 0)], with: UITableViewRowAnimation.bottom)
-    //                UIView.setAnimationsEnabled(true)
-    //                self.chattingView.chattingTableView.endUpdates()
-    //
-    ////                self.chattingView.chattingTableView.reloadData()
-    //
-    //                self.chattingView.scrollToBottom(force: true)
-    //                self.chattingView.sendButton.isEnabled = true
-    //            }
-    //        }
-    //    }
     
     // MARK: - UserActions
     //MARK: -
