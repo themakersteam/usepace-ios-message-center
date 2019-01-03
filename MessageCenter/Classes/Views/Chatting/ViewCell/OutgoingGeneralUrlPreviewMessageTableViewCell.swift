@@ -112,7 +112,7 @@ class OutgoingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
         
         // Message Status
         if self.message.channelType == CHANNEL_TYPE_GROUP {
-            if self.message.requestId == "0" {
+            if self.message.messageId == 0 {
                 self.imgMessageStatus.image = UIImage(named: "icMsgsent.png", in: Bundle.bundleForXib(OutgoingGeneralUrlPreviewMessageTableViewCell.self), compatibleWith: nil)
             }
             else {
