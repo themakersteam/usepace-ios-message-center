@@ -80,7 +80,7 @@ class OutgoingLocationMessageTableViewCell: UITableViewCell {
         
         // Message Status
         if self.message.channelType == CHANNEL_TYPE_GROUP {
-            if self.message.requestId == "0" {
+            if self.message.messageId == 0 {
                 self.imgMessageStatus.image = UIImage(named: "icMsgsent.png", in: Bundle(for: MessageCenter.self), compatibleWith: nil)
             }
             else {

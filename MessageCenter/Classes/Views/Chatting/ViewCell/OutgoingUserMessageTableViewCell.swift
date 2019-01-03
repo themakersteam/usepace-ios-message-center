@@ -72,7 +72,10 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
 
         // Message Status
         if self.message.channelType == CHANNEL_TYPE_GROUP {
-            if self.message.requestId == "0" {
+            if self.message.message == "###" {
+                print(self.message.messageId == 0)
+            }
+            if self.message.messageId == 0 {
                 self.imgMessageStatus.image = UIImage(named: "icMsgsent.png",
                                                       in: Bundle.bundleForXib(OutgoingUserMessageTableViewCell.self), compatibleWith: nil)
             }
@@ -94,18 +97,12 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
             self.hideMessageStatus()
         }
         
-        let messageDateAttribute = [
-            NSAttributedStringKey.font: Constants.messageDateFont(),
-            NSAttributedStringKey.foregroundColor: Constants.messageDateColor()
-        ]
         let messageTimestamp = Double(self.message.createdAt) / 1000.0
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = DateFormatter.Style.short
         let messageCreatedDate = NSDate(timeIntervalSince1970: messageTimestamp)
         let messageDateString = dateFormatter.string(from: messageCreatedDate as Date)
-        //let messageDateAttributedString = NSMutableAttributedString(string: messageDateString, attributes: messageDateAttribute)
-        self.messageDateLabel.text = messageDateString //attributedText = messageDateAttributedString
-        
+        self.messageDateLabel.text = messageDateString
         self.layoutIfNeeded()
     }
 
