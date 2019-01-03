@@ -64,11 +64,11 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         self.podBundle = Bundle.bundleForXib(GroupChannelChattingViewController.self)
         setNavigationItems()
         
-        if themeObject != nil {
-            self.patternView.backgroundColor = self.themeObject?.primaryBackgroundColor
-        }
+//        if themeObject != nil {
+//            self.patternView.backgroundColor = self.themeObject?.primaryBackgroundColor
+//        }
         
-        //        self.patternView.backgroundColor = UIColor(patternImage: UIImage(named: "mainpattern.png", in: podBundle, compatibleWith: nil)!)
+        self.patternView.backgroundColor = UIColor(patternImage: UIImage(named: "mainpattern.png", in: podBundle, compatibleWith: nil)!)
         //
         let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
         negativeLeftSpacerForImageViewerLoading.width = -2
