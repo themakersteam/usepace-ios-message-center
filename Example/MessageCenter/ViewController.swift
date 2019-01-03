@@ -38,9 +38,9 @@ class ViewController: UIViewController {
         // Action sheet icons, subtitles, and send button color
         let primaryActionIconsColor = UIColor(red: 82.0/255.0, green: 67.0/255.0, blue: 62.0/255.0, alpha: 1.0)
         
-//        let secondaryColor = UIColor(red: 237.0/255.0, green: 237.0/255.0, blue: 237.0/255.0, alpha: 1.0)
+        //        let secondaryColor = UIColor(red: 237.0/255.0, green: 237.0/255.0, blue: 237.0/255.0, alpha: 1.0)
         
-
+        
         let theme = MessageCenter.createThemeObject(title: title,
                                                     subtitle: subtitle,
                                                     welcomeMessage: welcomeMessage,
@@ -50,17 +50,18 @@ class ViewController: UIViewController {
                                                     primaryBackgroundColor: primaryBackgroundColor,
                                                     primaryActionIconsColor: primaryActionIconsColor)
         
-//        sendbird_group_channel_2456028_1ef918c0149a1f8b0993ae21cb26fa9c16540a91
-//        sendbird_group_channel_2456028_72db325775728aa550b52e11990d891167ed5f1f
-        MessageCenter.openChatView("sendbird_group_channel_2456028_1ef918c0149a1f8b0993ae21cb26fa9c16540a91", theme: theme) { (success) in
-//
+        //        sendbird_group_channel_2456028_1ef918c0149a1f8b0993ae21cb26fa9c16540a91
+        //        sendbird_group_channel_2456028_72db325775728aa550b52e11990d891167ed5f1f
+        //sendbird_group_channel_2456030_277d4489f790e546da458d5e175967670e65cc23
+        MessageCenter.openChatView("sendbird_group_channel_2456030_c635beec1f988bca3e2bca1c64282b99045f1a12", theme: theme) { (success) in
+            //
             if success == true {
                 
             }
             else {
                 
             }
-       }
+        }
     }
     
     @IBAction func onTouchConnect(_ sender: Any) {
@@ -75,14 +76,20 @@ class ViewController: UIViewController {
         }
         self.labelConnected.text = "Connecting..."
     }
-  
+    
+    
+    //    app_id = "FE3AD311-7F0F-4E7E-9E22-25FF141A37C0", user_id = "customer_swyft_11", access_token = "99d61c5f0eac5c58c1ea0cc97bf4a99d2a653551
+    //    sendbird_group_channel_2456030_277d4489f790e546da458d5e175967670e65cc23
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.        
+        // Do any additional setup after loading the view, typically from a nib.
         buttonJoin.isEnabled = false
         MessageCenter.parentVC = self
         if TARGET_OS_SIMULATOR != 0 {
-            connectRequest = ConnectionRequest(appId: "FE3AD311-7F0F-4E7E-9E22-25FF141A37C0", userId: "rider_sony", accessToken: "4a8f3c197450b4762cd2dcf02a130816a503f4f2", client: ClientType.sendBird)
+            //            connectRequest = ConnectionRequest(appId: "FE3AD311-7F0F-4E7E-9E22-25FF141A37C0", userId: "rider_sony", accessToken: "4a8f3c197450b4762cd2dcf02a130816a503f4f2", client: ClientType.sendBird)
+            
+            connectRequest = ConnectionRequest(appId: "FE3AD311-7F0F-4E7E-9E22-25FF141A37C0", userId: "customer_swyft_11", accessToken: "99d61c5f0eac5c58c1ea0cc97bf4a99d2a653551", client: .sendBird)
         }
         else {
             connectRequest = ConnectionRequest(appId: "FE3AD311-7F0F-4E7E-9E22-25FF141A37C0", userId: "customer_hs_184890", accessToken: "8b21b79c6a07d74e95cf6c91837ec2a64e9cbc54", client: ClientType.sendBird)
@@ -99,11 +106,12 @@ class ViewController: UIViewController {
         }
         self.labelConnected.text = "Connecting..."
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
 }
+
 
