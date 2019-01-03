@@ -254,10 +254,10 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
             return
         }
         if self.messages.count > 0 {
-            self.chattingTableView.scrollToRow(at: IndexPath.init(row: self.messages.count, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
+            self.chattingTableView.scrollToRow(at: IndexPath.init(row: self.messages.count - 1, section: 1), at: UITableViewScrollPosition.bottom, animated: false)
         }
         else {
-            self.chattingTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
+            self.chattingTableView.scrollToRow(at: IndexPath.init(row: 0, section: 1), at: UITableViewScrollPosition.bottom, animated: false)
         }
         //        self.chattingTableView.setContentOffset(CGPoint(x: 0.0, y: CGFloat.greatestFiniteMagnitude), animated: true)
     }
@@ -267,7 +267,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
             return
         }
         
-        self.chattingTableView.scrollToRow(at: IndexPath.init(row: position, section: 0), at: UITableViewScrollPosition.top, animated: false)
+        self.chattingTableView.scrollToRow(at: IndexPath.init(row: position, section: 1), at: UITableViewScrollPosition.top, animated: false)
     }
     
     // MARK: - typingIndicatorHandlers
@@ -458,15 +458,18 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         }
     }
     // MARK: - TableViewDelegate
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        if indexPath.row == 0 { //&& self.hasLoadedAllMessages == true {
+        if indexPath.section == 0 { //&& self.hasLoadedAllMessages == true {
             return 50.0
         }
         
         var height: CGFloat = 0
         
-        let msg = self.messages[indexPath.row - 1] // (self.hasLoadedAllMessages == true ? 1 : 0)]
+        let msg = self.messages[indexPath.row] // (self.hasLoadedAllMessages == true ? 1 : 0)]
         
         if msg is SBDUserMessage {
             let userMessage = msg as! SBDUserMessage
@@ -476,7 +479,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                 // Outgoing
                 if userMessage.customType == "url_preview" {
                     if indexPath.row > 0 {
-                        self.outgoingGeneralUrlPreviewMessageTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
+                        self.outgoingGeneralUrlPreviewMessageTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row])
                     }
                     else {
                         self.outgoingGeneralUrlPreviewMessageTableViewCell?.setPreviousMessage(aPrevMessage: nil)
@@ -487,7 +490,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                     // Location Message
                 else if (userMessage.message?.contains("location://"))! {
                     if indexPath.row > 0 {
-                        self.outgoingUserLocationTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
+                        self.outgoingUserLocationTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row])
                     }
                     else {
                         self.outgoingUserLocationTableViewCell?.setPreviousMessage(aPrevMessage: nil)
@@ -498,7 +501,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                 }
                 else {
                     if indexPath.row > 0 {
-                        self.outgoingUserMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
+                        self.outgoingUserMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row])
                     }
                     else {
                         self.outgoingUserMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: nil)
@@ -512,7 +515,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                 // Incoming
                 if userMessage.customType == "url_preview" {
                     if indexPath.row > 0 {
-                        self.incomingGeneralUrlPreviewMessageTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
+                        self.incomingGeneralUrlPreviewMessageTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row])
                     }
                     else {
                         self.incomingGeneralUrlPreviewMessageTableViewCell?.setPreviousMessage(aPrevMessage: nil)
@@ -522,7 +525,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                 }
                 else if (userMessage.message?.contains("location://"))! {
                     if indexPath.row > 0 {
-                        self.incomingUserLocationTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
+                        self.incomingUserLocationTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row])
                     }
                     else {
                         self.incomingUserLocationTableViewCell?.setPreviousMessage(aPrevMessage: nil)
@@ -533,7 +536,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                 }
                 else {
                     if indexPath.row > 0 {
-                        self.incomingUserMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
+                        self.incomingUserMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row])
                     }
                     else {
                         self.incomingUserMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: nil)
@@ -552,7 +555,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                 // Outgoing
                 if fileMessage.type.hasPrefix("image") {
                     if indexPath.row > 0 {
-                        self.outgoingImageFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
+                        self.outgoingImageFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row])
                     }
                     else {
                         self.outgoingImageFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: nil)
@@ -565,7 +568,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                 // Incoming
                 if fileMessage.type.hasPrefix("image") {
                     if indexPath.row > 0 {
-                        self.incomingImageFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
+                        self.incomingImageFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row])
                     }
                     else {
                         self.incomingImageFileMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: nil)
@@ -578,7 +581,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         else if msg is SBDAdminMessage {
             let adminMessage = msg as! SBDAdminMessage
             if indexPath.row > 0 {
-                self.neutralMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
+                self.neutralMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row])
             }
             else {
                 self.neutralMessageSizingTableViewCell?.setPreviousMessage(aPrevMessage: nil)
@@ -590,7 +593,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         else if msg is OutgoingGeneralUrlPreviewTempModel {
             let tempModel: OutgoingGeneralUrlPreviewTempModel = msg as! OutgoingGeneralUrlPreviewTempModel
             if indexPath.row > 0 {
-                self.outgoingGeneralUrlPreviewTempMessageTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
+                self.outgoingGeneralUrlPreviewTempMessageTableViewCell?.setPreviousMessage(aPrevMessage: self.messages[indexPath.row])
             }
             else {
                 self.outgoingGeneralUrlPreviewTempMessageTableViewCell?.setPreviousMessage(aPrevMessage: nil)
@@ -612,16 +615,14 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     
     // MARK: -  UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //        if self.messages.count == 0 {
-        //            self.hasLoadedAllMessages = true
-        //        }
-        return self.messages.count + 1 //self.hasLoadedAllMessages == true ? self.messages.count + 1 : self.messages.count
+
+        return section == 0 ? 1 : self.messages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell?
         
-        if indexPath.row == 0 { //&& self.hasLoadedAllMessages == true {
+        if indexPath.section == 0 {
             cell = tableView.dequeueReusableCell(withIdentifier: WelcomeMessageTableViewCell.cellReuseIdentifier())
             if self.themeObject != nil {
                 (cell as! WelcomeMessageTableViewCell).lblMessage.text = self.themeObject?.welcomeMessage
@@ -640,7 +641,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
             return cell!
         }
         
-        let msg = self.messages[indexPath.row - 1] //(self.hasLoadedAllMessages == true ? 1 : 0)]
+        let msg = self.messages[indexPath.row] //(self.hasLoadedAllMessages == true ? 1 : 0)]
         
         if msg is SBDUserMessage {
             let userMessage = msg as! SBDUserMessage
@@ -660,7 +661,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                     
                     cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
                     if indexPath.row > 0 {
-                        (cell as! OutgoingGeneralUrlPreviewMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
+                        (cell as! OutgoingGeneralUrlPreviewMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row])
                     }
                     else {
                         (cell as! OutgoingGeneralUrlPreviewMessageTableViewCell).setPreviousMessage(aPrevMessage: nil)
@@ -735,7 +736,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                     
                     cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
                     if indexPath.row > 0 {
-                        (cell as! OutgoingLocationMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
+                        (cell as! OutgoingLocationMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row])
                     }
                     else {
                         (cell as! OutgoingLocationMessageTableViewCell).setPreviousMessage(aPrevMessage: nil)
@@ -768,7 +769,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                     
                     cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
                     if indexPath.row > 0 {
-                        (cell as! OutgoingUserMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
+                        (cell as! OutgoingUserMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row])
                     }
                     else {
                         (cell as! OutgoingUserMessageTableViewCell).setPreviousMessage(aPrevMessage: nil)
@@ -803,7 +804,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                     cell = tableView.dequeueReusableCell(withIdentifier: IncomingGeneralUrlPreviewMessageTableViewCell.cellReuseIdentifier())
                     cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
                     if indexPath.row > 0 {
-                        (cell as! IncomingGeneralUrlPreviewMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
+                        (cell as! IncomingGeneralUrlPreviewMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row])
                     }
                     else {
                         (cell as! IncomingGeneralUrlPreviewMessageTableViewCell).setPreviousMessage(aPrevMessage: nil)
@@ -869,7 +870,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                     
                     cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
                     if indexPath.row > 0 {
-                        (cell as! IncomingLocationMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
+                        (cell as! IncomingLocationMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row])
                     }
                     else {
                         (cell as! IncomingLocationMessageTableViewCell).setPreviousMessage(aPrevMessage: nil)
@@ -882,7 +883,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                     
                     cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
                     if indexPath.row > 0 {
-                        (cell as! IncomingUserMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
+                        (cell as! IncomingUserMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row])
                     }
                     else {
                         (cell as! IncomingUserMessageTableViewCell).setPreviousMessage(aPrevMessage: nil)
@@ -912,7 +913,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                     
                     cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
                     if indexPath.row > 0 {
-                        (cell as! OutgoingImageFileMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
+                        (cell as! OutgoingImageFileMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row])
                     }
                     else {
                         (cell as! OutgoingImageFileMessageTableViewCell).setPreviousMessage(aPrevMessage: nil)
@@ -1015,7 +1016,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                     
                     cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
                     if indexPath.row > 0 {
-                        (cell as! IncomingImageFileMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
+                        (cell as! IncomingImageFileMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row])
                     }
                     else {
                         (cell as! IncomingImageFileMessageTableViewCell).setPreviousMessage(aPrevMessage: nil)
@@ -1095,7 +1096,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
             cell = tableView.dequeueReusableCell(withIdentifier: NeutralMessageTableViewCell.cellReuseIdentifier())
             cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
             if indexPath.row > 0 {
-                (cell as! NeutralMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
+                (cell as! NeutralMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row])
             }
             else {
                 (cell as! NeutralMessageTableViewCell).setPreviousMessage(aPrevMessage: nil)
@@ -1109,7 +1110,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
             cell = tableView.dequeueReusableCell(withIdentifier: OutgoingGeneralUrlPreviewTempMessageTableViewCell.cellReuseIdentifier())
             cell?.frame = CGRect(x: (cell?.frame.origin.x)!, y: (cell?.frame.origin.y)!, width: (cell?.frame.size.width)!, height: (cell?.frame.size.height)!)
             if indexPath.row > 0 {
-                (cell as! OutgoingGeneralUrlPreviewTempMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row - 1])
+                (cell as! OutgoingGeneralUrlPreviewTempMessageTableViewCell).setPreviousMessage(aPrevMessage: self.messages[indexPath.row])
             }
             else {
                 (cell as! OutgoingGeneralUrlPreviewTempMessageTableViewCell).setPreviousMessage(aPrevMessage: nil)

@@ -649,7 +649,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 
                 UIView.setAnimationsEnabled(false)
 
-                self.chattingView.chattingTableView.insertRows(at: [IndexPath(row: self.chattingView.messages.index(of: preSendMessage)!, section: 0)], with: UITableViewRowAnimation.bottom)
+                self.chattingView.chattingTableView.insertRows(at: [IndexPath(row: self.chattingView.messages.index(of: preSendMessage)!, section: 1)], with: UITableViewRowAnimation.bottom)
                 UIView.setAnimationsEnabled(true)
                 self.chattingView.chattingTableView.endUpdates()
                 
