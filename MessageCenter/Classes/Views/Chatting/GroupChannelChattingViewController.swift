@@ -39,7 +39,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     private var mediaInfo : [String: Any]?
     private var imageCaption: String = ""
     private var imageCaptionDic = [String: String]()
-
+    private let notification = UINotificationFeedbackGenerator()
     // MARK: - IBOutlets
     //MARK: -
     @IBOutlet weak var vwActionSheet: UIView!
@@ -1035,6 +1035,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 self.view.makeToast("message_center_new_message_from".localized + "")
             }
         }
+        
+        self.notification.notificationOccurred(.success)
     }
     
     func channelDidUpdateReadReceipt(_ sender: SBDGroupChannel) {
