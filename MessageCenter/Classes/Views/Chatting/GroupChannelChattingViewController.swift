@@ -1006,6 +1006,9 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     //MARK: -
     func channel(_ sender: SBDBaseChannel, didReceive message: SBDBaseMessage) {
         if sender.channelUrl == self.groupChannel.channelUrl {
+            // user received message when chat is open. Vibrate the device.
+            self.notification.notificationOccurred(.success)
+            // Mark all messager as read.
             self.groupChannel.markAsRead()
             DispatchQueue.main.async {
                 UIView.setAnimationsEnabled(false)
@@ -1036,7 +1039,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             }
         }
         
-        self.notification.notificationOccurred(.success)
+        
     }
     
     func channelDidUpdateReadReceipt(_ sender: SBDGroupChannel) {
