@@ -251,7 +251,7 @@ class OutgoingFileMessageTableViewCell: UITableViewCell {
     }
     
     func showSendingStatus() {
-        self.messageDateLabel.isHidden = true
+        self.messageDateLabel.isHidden = false
         self.unreadCountLabel.isHidden = true
         self.resendMessageButton.isHidden = true
         self.deleteMessageButton.isHidden = true
