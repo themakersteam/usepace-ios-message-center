@@ -141,8 +141,8 @@ class OutgoingLocationMessageTableViewCell: UITableViewCell {
     }
     
     func showSendingStatus() {
-        self.messageDateLabel.isHidden = true
-        self.imgMessageStatus.isHidden = true
+        self.messageDateLabel.isHidden = false
+        self.imgMessageStatus.isHidden = false
         self.resendMessageButton.isHidden = true
     }
     
