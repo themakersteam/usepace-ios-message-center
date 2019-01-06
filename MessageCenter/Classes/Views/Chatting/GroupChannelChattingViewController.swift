@@ -58,6 +58,9 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     
     @IBOutlet weak var topViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var topView: UIView!
+    
+    var currentImagePreviewTask: URLSessionDataTask?
+    
     //MARK: - viewLifeCycle
     //MARK: -
     override func viewDidLoad() {
@@ -754,6 +757,10 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 })
             })
             
+            guard preSendMessage.requestId != nil else {
+                // Fix a crash, but check the behavior -- hard to reproduce.
+                return
+            }
             self.chattingView.preSendMessages[preSendMessage.requestId!] = preSendMessage
             DispatchQueue.main.async {
                 if self.chattingView.preSendMessages[preSendMessage.requestId!] == nil {
@@ -1338,7 +1345,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                         let session = URLSession.shared
                         let request = URLRequest(url: URL(string: url)!)
                         self.showImageViewerLoading()
-                        session.dataTask(with: request, completionHandler: { (data, response, error) in
+                        self.currentImagePreviewTask = session.dataTask(with: request, completionHandler: { (data, response, error) in
                             self.hideImageViewerLoading()
                             if error != nil {
                                 return;
@@ -1348,12 +1355,16 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                                 DispatchQueue.main.async {
                                     let photo = ChatImage()
                                     photo.imageData = data
-                                    self.previewMessage(photo)
+                                    
+                                    if self.currentImagePreviewTask?.state == URLSessionTask.State.completed {
+                                        self.previewMessage(photo)
+                                    }
                                 }
                                 
                                 return
                             }
-                        }).resume()
+                        })
+                        self.currentImagePreviewTask?.resume()
                         return
                     }
                 }
@@ -1579,6 +1590,10 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     
     func hideImageViewerLoading() {
         DispatchQueue.main.async {
+            if self.currentImagePreviewTask != nil {
+                self.currentImagePreviewTask?.cancel()
+            }
+            
             self.imageViewerLoadingView.isHidden = true
             self.imageViewerLoadingIndicator.isHidden = true
             self.imageViewerLoadingIndicator.stopAnimating()

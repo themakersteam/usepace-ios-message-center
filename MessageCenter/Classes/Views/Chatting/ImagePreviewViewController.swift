@@ -37,6 +37,13 @@ class ImagePreviewViewController: UIViewController {
         self.btnSend.layer.cornerRadius = 22.0
         self.imgPicture.image = imageToUpload!
         
+        if UIView.userInterfaceLayoutDirection(for: self.view.semanticContentAttribute) == .rightToLeft {
+            if let sendBtnImage = self.btnSend.imageView {
+                sendBtnImage.transform = sendBtnImage.transform.rotated(by: CGFloat(Double.pi))
+            }
+            
+        }
+        
         self.messageInputView.textView.text = strCaption
         messageInputView.layer.borderColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.12).cgColor
         self.messageInputView.layer.cornerRadius = 8.0
@@ -53,6 +60,12 @@ class ImagePreviewViewController: UIViewController {
             self.bottomView.removeFromSuperview()
             let backImage = UIImage(named: "back.png", in: Bundle.bundleForXib(ImagePreviewViewController.self), compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
             self.btnDismiss.setImage(backImage, for: .normal)
+            
+            if UIView.userInterfaceLayoutDirection(for: self.view.semanticContentAttribute) == .rightToLeft {
+                if let backImage = self.btnDismiss.imageView {
+                    backImage.transform = backImage.transform.rotated(by: CGFloat(Double.pi))
+                }
+            }
         }
         else {
             let closeImage = UIImage(named: "btn_close.png", in: Bundle.bundleForXib(ImagePreviewViewController.self), compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
@@ -72,15 +85,15 @@ class ImagePreviewViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     func createGradientLayer() {
-        let gradientLayer = CAGradientLayer()
-        let startColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.52)
-        let endColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
-        
-        gradientLayer.frame = self.imgPicture.bounds
-        
-        gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
-        gradientLayer.locations = [0.0, 0.20]
-        self.imgPicture.layer.addSublayer(gradientLayer)
+//        let gradientLayer = CAGradientLayer()
+//        let startColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.52)
+//        let endColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
+//        
+//        gradientLayer.frame = self.imgPicture.bounds
+//        
+//        gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
+//        gradientLayer.locations = [0.0, 0.20]
+//        self.imgPicture.layer.addSublayer(gradientLayer)
         if self.shouldShowCaption == true {
             self.imgPicture.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:))))
         }
@@ -181,7 +194,13 @@ extension ImagePreviewViewController: SBMessageInputViewDelegate {
         
     }
     func inputViewDidBeginEditing(textView: UITextView) {
-        
+        if UIView.userInterfaceLayoutDirection(for: self.view.semanticContentAttribute) == .rightToLeft {
+            textView.contentInset = UIEdgeInsets(top: textView.contentInset.top, left: 0.0, bottom: 0.0, right: 0.0)
+        }
+        else {
+            textView.contentInset = UIEdgeInsets(top: textView.contentInset.top, left: 0.0, bottom: 0.0, right: 0.0)
+        }
+        textView.layoutIfNeeded()
     }
     func inputViewShouldBeginEditing(textView: UITextView) -> Bool {
         return true
