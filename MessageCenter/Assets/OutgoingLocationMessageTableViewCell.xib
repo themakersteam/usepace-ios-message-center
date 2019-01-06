@@ -69,6 +69,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="10" id="DvA-Fs-6gD"/>
+                                            <constraint firstAttribute="height" constant="9" id="IBg-IK-MuZ"/>
                                         </constraints>
                                     </imageView>
                                 </subviews>

@@ -229,7 +229,8 @@ class OutgoingImageFileMessageTableViewCell: UITableViewCell {
         
         let messageDateAttributedString = NSMutableAttributedString(string: messageDateString, attributes: messageDateAttribute)
         self.messageDateLabel.attributedText = messageDateAttributedString
-        
+        self.imgMessageStatus.contentMode = .scaleAspectFit
+
         
         self.layoutIfNeeded()
     }
@@ -259,8 +260,8 @@ class OutgoingImageFileMessageTableViewCell: UITableViewCell {
     }
     
     func showSendingStatus() {
-        self.messageDateLabel.isHidden = true
-        self.imgMessageStatus.isHidden = true
+        self.messageDateLabel.isHidden = false
+        self.imgMessageStatus.isHidden = false
         self.resendMessageButton.isHidden = true
         self.imageLoadingIndicator.startAnimating()
         self.imageLoadingIndicator.isHidden = false

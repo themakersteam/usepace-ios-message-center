@@ -64,6 +64,7 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
     }
     
     func setModel(aMessage: SBDUserMessage, channel: SBDBaseChannel?) {
+        
         self.message = aMessage
         let fullMessage = self.buildMessage()
         self.messageLabel.attributedText = fullMessage
@@ -100,6 +101,7 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
         let messageCreatedDate = NSDate(timeIntervalSince1970: messageTimestamp)
         let messageDateString = dateFormatter.string(from: messageCreatedDate as Date)
         self.messageDateLabel.text = messageDateString
+        self.imgMessageStatus.contentMode = .scaleAspectFit
         self.layoutIfNeeded()
     }
 
@@ -143,8 +145,8 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
     }
     
     func showSendingStatus() {
-        self.messageDateLabel.isHidden = true
-        self.imgMessageStatus.isHidden = true
+        self.messageDateLabel.isHidden = false
+        self.imgMessageStatus.isHidden = false
         self.resendMessageButton.isHidden = true
     }
     
