@@ -16,6 +16,7 @@ import NYTPhotoViewer
 import HTMLKit
 import FLAnimatedImage
 import Toast
+import UserNotifications
 
 class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegate, SBDChannelDelegate, ChattingViewDelegate, MessageDelegate, UINavigationControllerDelegate {
     
@@ -117,28 +118,58 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         self.checkNotifications()
     }
     
+    
     func checkNotifications () {
-        let isRegisteredForRemoteNotifications = UIApplication.shared.isRegisteredForRemoteNotifications
-        if isRegisteredForRemoteNotifications {
-            // User is registered for notification
+        if #available(iOS 10.0, *) {
+            let current = UNUserNotificationCenter.current()
+            current.getNotificationSettings(completionHandler: { settings in
+                switch settings.authorizationStatus {
+                    
+                case .notDetermined:
+                    self.showNotificationAlert()
+                    
+                    break
+                // Authorization request has not been made yet
+                case .denied:
+                    self.showNotificationAlert()
+                    
+                    break
+                    // User has denied authorization.
+                // You could tell them to change this in Settings
+                case .authorized: break
+                    // User has given authorization.
+                    
+                default :
+                    break
+                }
+            })
         } else {
-            // Show alert user is not registered for notification
-            let alert = UIAlertController(title: "push_notification_alert_title".localized, message: "", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "settings".localized, style: .default, handler: { action in
-                guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
-                    return
-                }
-                if UIApplication.shared.canOpenURL(settingsUrl) {
-                    UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
-                        print("Settings opened: \(success)") // Prints true
-                    })
-                }
-            }))
-            alert.addAction(UIAlertAction(title: "cancel".localized, style: .default, handler: { action in
-            }))
-            self.present(alert, animated: true, completion: nil)
+            // Fallback on earlier versions
+            if UIApplication.shared.isRegisteredForRemoteNotifications {
+                print("APNS-YES")
+            } else {
+                showNotificationAlert()
+            }
         }
     }
+    
+    func showNotificationAlert() {
+        let alert = UIAlertController(title: "push_notification_alert_title".localized, message: "", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "settings".localized, style: .default, handler: { action in
+            guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
+                return
+            }
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                    print("Settings opened: \(success)") // Prints true
+                })
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "cancel".localized, style: .default, handler: { action in
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
 
     
     
