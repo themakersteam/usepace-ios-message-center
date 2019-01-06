@@ -1130,10 +1130,10 @@ extension ChattingView: SBMessageInputViewDelegate {
     }
     func inputViewDidBeginEditing(textView: UITextView) {
         if UIView.userInterfaceLayoutDirection(for: self.semanticContentAttribute) == .rightToLeft {
-            textView.contentInset = UIEdgeInsets(top: textView.contentInset.top, left: 35.0, bottom: 0.0, right: 0.0)
+            textView.contentInset = UIEdgeInsets(top: textView.contentInset.top, left: textView.text.count > 0 ? 0.0 : 35.0, bottom: 0.0, right: 0.0)
         }
         else {
-            textView.contentInset = UIEdgeInsets(top: textView.contentInset.top, left: 0.0, bottom: 0.0, right: 35.0)
+            textView.contentInset = UIEdgeInsets(top: textView.contentInset.top, left: 0.0, bottom: 0.0, right: textView.text.count > 0 ? 0.0 : 35.0)
         }
         textView.layoutIfNeeded()
     }
