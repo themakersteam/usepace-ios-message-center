@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ifq-nD-J3U">
-                        <rect key="frame" x="220" y="10" width="145" height="139.5"/>
+                        <rect key="frame" x="220" y="5" width="145" height="139.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qSc-70-ZKk" customClass="TTTAttributedLabel">
                                 <rect key="frame" x="10" y="10" width="125" height="114.5"/>
@@ -80,11 +80,25 @@
                             <constraint firstItem="ZcZ-m8-MQv" firstAttribute="trailing" secondItem="DC5-77-oMg" secondAttribute="trailing" id="u8p-aV-93f"/>
                             <constraint firstItem="ZcZ-m8-MQv" firstAttribute="top" secondItem="DC5-77-oMg" secondAttribute="top" id="vW0-fZ-CDG"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                <size key="value" width="1" height="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="0.10000000000000001"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="Ifq-nD-J3U" secondAttribute="bottom" id="DDP-ct-Bd9"/>
-                    <constraint firstItem="Ifq-nD-J3U" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="ZIv-Z7-FEe"/>
+                    <constraint firstAttribute="bottom" secondItem="Ifq-nD-J3U" secondAttribute="bottom" constant="5" id="DDP-ct-Bd9"/>
+                    <constraint firstItem="Ifq-nD-J3U" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="ZIv-Z7-FEe"/>
                     <constraint firstAttribute="trailing" secondItem="Ifq-nD-J3U" secondAttribute="trailing" constant="10" id="mv7-bK-5Bj"/>
                     <constraint firstItem="Ifq-nD-J3U" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="90" id="vKK-xR-pho"/>
                 </constraints>
