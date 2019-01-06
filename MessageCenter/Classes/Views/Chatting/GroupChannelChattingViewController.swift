@@ -39,7 +39,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     private var mediaInfo : [String: Any]?
     private var imageCaption: String = ""
     private var imageCaptionDic = [String: String]()
-
+    private let notification = UINotificationFeedbackGenerator()
     // MARK: - IBOutlets
     //MARK: -
     @IBOutlet weak var vwActionSheet: UIView!
@@ -1006,6 +1006,9 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     //MARK: -
     func channel(_ sender: SBDBaseChannel, didReceive message: SBDBaseMessage) {
         if sender.channelUrl == self.groupChannel.channelUrl {
+            // user received message when chat is open. Vibrate the device.
+            self.notification.notificationOccurred(.success)
+            // Mark all messager as read.
             self.groupChannel.markAsRead()
             DispatchQueue.main.async {
                 UIView.setAnimationsEnabled(false)
@@ -1035,6 +1038,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 self.view.makeToast("message_center_new_message_from".localized + "")
             }
         }
+        
+        
     }
     
     func channelDidUpdateReadReceipt(_ sender: SBDGroupChannel) {
