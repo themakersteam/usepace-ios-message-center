@@ -37,6 +37,7 @@ class IncomingImageFileMessageTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         messageContainer.layer.cornerRadius = 8.0
+        self.messageDateLabel.font = UIFont.systemFont(ofSize: 10)
         fileImageView.layer.cornerRadius = 8.0
     }
     

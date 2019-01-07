@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e7h-lg-J8u" userLabel="Message Container View">
-                        <rect key="frame" x="90" y="10" width="275" height="297.5"/>
+                        <rect key="frame" x="90" y="10" width="275" height="287.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YTM-9G-ybG" userLabel="Message Label" customClass="TTTAttributedLabel">
                                 <rect key="frame" x="10" y="10" width="255" height="56"/>
@@ -62,7 +62,7 @@
                                 <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZYh-6I-d5r">
-                                <rect key="frame" x="130" y="276.5" width="135" height="12"/>
+                                <rect key="frame" x="130" y="266.5" width="135" height="12"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="135" id="5YK-OW-ca7"/>
                                 </constraints>
@@ -73,7 +73,7 @@
                                 </state>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yIu-F9-5dX">
-                                <rect key="frame" x="205" y="275.5" width="60" height="15"/>
+                                <rect key="frame" x="205" y="265.5" width="60" height="15"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13:02" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bXs-Qn-uTh">
                                         <rect key="frame" x="10" y="1.5" width="27" height="12"/>
@@ -126,16 +126,24 @@
                             <constraint firstAttribute="bottom" secondItem="ZYh-6I-d5r" secondAttribute="bottom" constant="9" id="w3o-EE-SHg"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="8"/>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                            <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                <size key="value" width="1" height="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="0.10000000000000001"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="e7h-lg-J8u" secondAttribute="trailing" constant="10" id="4nK-pr-fAC"/>
-                    <constraint firstAttribute="bottom" secondItem="e7h-lg-J8u" secondAttribute="bottom" id="6au-ao-Kpr"/>
+                    <constraint firstAttribute="bottom" secondItem="e7h-lg-J8u" secondAttribute="bottom" constant="10" id="6au-ao-Kpr"/>
                     <constraint firstItem="e7h-lg-J8u" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="OaG-xg-SAd"/>
                     <constraint firstItem="e7h-lg-J8u" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="90" id="VJg-Gz-56q"/>
                 </constraints>

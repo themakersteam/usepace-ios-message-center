@@ -43,7 +43,7 @@
 "ms_camera" = "الكاميرا";
 "ms_photos" = "الصور";
 "ms_location" = "الموقع";
-"ms_chat_failed_to_send" = "لم تصل! إضغط لإعادة المحاولة";
+"ms_chat_failed_to_send" = "إضغط لإعادة المحاولة";
 "message_center_toolbar_title" = "مركز الرسائل";
 "message_center_channel_is_frozen" = "تم تجميد المحادثة";
 "message_center_new_message_from" = "لديك رسالة جديدة من ";
