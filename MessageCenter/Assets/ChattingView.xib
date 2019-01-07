@@ -12,6 +12,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChattingView" customModule="MessageCenter" customModuleProvider="target">
             <connections>
+                <outlet property="attachButtonLeadingConstraint" destination="VlI-0o-4Cu" id="tfE-YX-oF5"/>
+                <outlet property="attachButtonTrailingConstraint" destination="LUl-Fm-4zL" id="PcG-KL-elo"/>
                 <outlet property="btnCamera" destination="J1k-xL-kl0" id="XIK-ot-yZv"/>
                 <outlet property="chattingTableView" destination="wXW-j4-hDA" id="vaO-Yb-3Qc"/>
                 <outlet property="chattingTableViewBottomConstraint" destination="DfI-5k-0PL" id="ZwT-gF-fLE"/>
@@ -90,7 +92,7 @@
                             <state key="normal" image="icAdd.png"/>
                         </button>
                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aUi-Lc-77V">
-                            <rect key="frame" x="317" y="11" width="44" height="44"/>
+                            <rect key="frame" x="319" y="11" width="44" height="44"/>
                             <color key="backgroundColor" red="0.98039215690000003" green="0.76470588240000004" blue="0.039215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="u1m-N6-n8O"/>
@@ -101,14 +103,14 @@
                             </state>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KKN-hB-YYf" userLabel="Placeholder Label">
-                            <rect key="frame" x="75" y="11" width="288" height="44"/>
+                            <rect key="frame" x="71" y="11" width="292" height="44"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                             <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JIc-Xg-CIo" customClass="SBMessageInputView" customModule="MessageCenter" customModuleProvider="target">
-                            <rect key="frame" x="60" y="11" width="303" height="44"/>
+                            <rect key="frame" x="56" y="11" width="307" height="44"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="ibd-2q-fw8"/>
@@ -132,7 +134,7 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J1k-xL-kl0">
-                            <rect key="frame" x="307" y="11" width="44" height="44"/>
+                            <rect key="frame" x="315" y="11" width="44" height="44"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="44" id="SHy-d0-ENw"/>
@@ -147,14 +149,14 @@
                     <constraints>
                         <constraint firstItem="KKN-hB-YYf" firstAttribute="top" secondItem="JIc-Xg-CIo" secondAttribute="top" id="1jI-6M-TsD"/>
                         <constraint firstItem="739-8j-LpV" firstAttribute="centerY" secondItem="gmQ-VZ-eb9" secondAttribute="centerY" id="3j0-Wl-8Vf"/>
-                        <constraint firstItem="JIc-Xg-CIo" firstAttribute="leading" secondItem="739-8j-LpV" secondAttribute="trailing" constant="20" id="5kW-s6-ZTx"/>
                         <constraint firstItem="Qpw-eT-cuW" firstAttribute="top" secondItem="gmQ-VZ-eb9" secondAttribute="top" id="77j-K5-5sH"/>
                         <constraint firstAttribute="trailing" secondItem="Qpw-eT-cuW" secondAttribute="trailing" id="8bY-SP-Oql"/>
-                        <constraint firstItem="739-8j-LpV" firstAttribute="leading" secondItem="gmQ-VZ-eb9" secondAttribute="leading" constant="16" id="8tv-nm-3V5"/>
-                        <constraint firstAttribute="trailing" secondItem="aUi-Lc-77V" secondAttribute="trailing" constant="14" id="EZT-xs-16M"/>
+                        <constraint firstAttribute="trailing" secondItem="aUi-Lc-77V" secondAttribute="trailing" constant="12" id="EZT-xs-16M"/>
+                        <constraint firstAttribute="trailing" secondItem="J1k-xL-kl0" secondAttribute="trailing" constant="16" id="JN6-gn-8bm"/>
                         <constraint firstItem="J1k-xL-kl0" firstAttribute="centerY" secondItem="gmQ-VZ-eb9" secondAttribute="centerY" id="LEE-nw-Izd"/>
-                        <constraint firstItem="J1k-xL-kl0" firstAttribute="leading" secondItem="JIc-Xg-CIo" secondAttribute="trailing" constant="-56" id="Lnu-go-GtN"/>
+                        <constraint firstItem="JIc-Xg-CIo" firstAttribute="leading" secondItem="739-8j-LpV" secondAttribute="trailing" constant="16" id="LUl-Fm-4zL"/>
                         <constraint firstAttribute="trailing" secondItem="JIc-Xg-CIo" secondAttribute="trailing" constant="12" id="R6H-IU-ne7"/>
+                        <constraint firstItem="739-8j-LpV" firstAttribute="leading" secondItem="gmQ-VZ-eb9" secondAttribute="leading" constant="16" id="VlI-0o-4Cu"/>
                         <constraint firstItem="aUi-Lc-77V" firstAttribute="centerY" secondItem="gmQ-VZ-eb9" secondAttribute="centerY" id="XYM-L5-LnY"/>
                         <constraint firstItem="Qpw-eT-cuW" firstAttribute="leading" secondItem="gmQ-VZ-eb9" secondAttribute="leading" id="at8-zB-CBy"/>
                         <constraint firstItem="KKN-hB-YYf" firstAttribute="leading" secondItem="JIc-Xg-CIo" secondAttribute="leading" constant="15" id="bIj-e4-LiW"/>
@@ -185,7 +187,7 @@
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <viewLayoutGuide key="safeArea" id="G6B-N0-3dq"/>
-            <point key="canvasLocation" x="-654" y="-246"/>
+            <point key="canvasLocation" x="-1751" y="-287"/>
         </view>
     </objects>
     <resources>

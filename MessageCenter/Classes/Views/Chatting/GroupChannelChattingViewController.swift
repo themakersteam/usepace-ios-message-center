@@ -135,9 +135,25 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         // Delete all the pre-saved images in directory as we really don't need those
         self.deleteDirectory()
         self.checkNotifications()
-        
+
+        self.lblTitle.text = self.themeObject != nil ? self.themeObject?.title : ""
+        self.lblSubTitle.text = self.themeObject != nil ? self.themeObject?.subtitle : ""
+
         self.chattingView.chattingTableView.reloadData()
         self.chattingView.endTypingIndicator()
+        
+        
+        if self.lblTitle.text?.count == 0  {
+            // No Driver name!
+            self.topViewHeightConstraint.constant = 55
+            self.topView.layoutIfNeeded()
+        }else{
+            self.topViewHeightConstraint.constant = 75
+            self.topView.layoutIfNeeded()
+
+        }
+        
+        
         
     }
     

@@ -71,6 +71,7 @@ public class SendBirdClient: ClientProtocol {
             self.openChat(channelId, theme: theme, completion: completion)
         }
         else {
+            SBDMain.initWithApplicationId(lastConnectionRequest?.appId ?? "")
             SBDMain.connect(withUserId: (lastConnectionRequest?.userId)!, accessToken: lastConnectionRequest?.accessToken, completionHandler: { (user, error) in
                 guard error == nil else {
                     return;
