@@ -80,7 +80,7 @@ class IncomingLocationMessageTableViewCell: UITableViewCell {
         let messageDateString = dateFormatter.string(from: messageCreatedDate as Date)
         let messageDateAttributedString = NSMutableAttributedString(string: messageDateString, attributes: messageDateAttribute)
         self.messageDateLabel.attributedText = messageDateAttributedString
-        
+        self.messageContainerView.addShadow()
         self.layoutIfNeeded()
     }
     

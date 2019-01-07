@@ -1120,9 +1120,15 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         }
         
         cell?.backgroundColor = .clear
+        
+        
+        
         return cell!
     }
+    
 }
+
+
 
 extension ChattingView: SBMessageInputViewDelegate {
     func inputViewDidTapButton(button: UIButton) {

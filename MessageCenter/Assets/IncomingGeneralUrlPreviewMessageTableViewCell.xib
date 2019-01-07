@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3ep-ur-grr" userLabel="Message Container View">
-                        <rect key="frame" x="10" y="10" width="275" height="297.5"/>
+                        <rect key="frame" x="10" y="5" width="275" height="297.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSZ-CD-sXf" userLabel="Message Label" customClass="TTTAttributedLabel">
                                 <rect key="frame" x="10" y="10" width="255" height="56"/>
@@ -116,9 +116,9 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="3ep-ur-grr" secondAttribute="trailing" constant="90" id="ACm-Sd-Ga8"/>
-                    <constraint firstAttribute="bottom" secondItem="3ep-ur-grr" secondAttribute="bottom" id="eY8-l6-Yew"/>
+                    <constraint firstAttribute="bottom" secondItem="3ep-ur-grr" secondAttribute="bottom" constant="5" id="eY8-l6-Yew"/>
                     <constraint firstItem="3ep-ur-grr" firstAttribute="leading" secondItem="5ai-Lf-3Ty" secondAttribute="leading" constant="10" id="jdF-SG-ufS"/>
-                    <constraint firstItem="3ep-ur-grr" firstAttribute="top" secondItem="5ai-Lf-3Ty" secondAttribute="top" constant="10" id="qJG-8G-2DS"/>
+                    <constraint firstItem="3ep-ur-grr" firstAttribute="top" secondItem="5ai-Lf-3Ty" secondAttribute="top" constant="5" id="qJG-8G-2DS"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

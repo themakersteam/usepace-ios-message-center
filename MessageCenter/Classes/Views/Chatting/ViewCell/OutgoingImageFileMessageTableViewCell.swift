@@ -230,7 +230,7 @@ class OutgoingImageFileMessageTableViewCell: UITableViewCell {
         let messageDateAttributedString = NSMutableAttributedString(string: messageDateString, attributes: messageDateAttribute)
         self.messageDateLabel.attributedText = messageDateAttributedString
         
-        
+        self.messageContainerView.addShadow()
         self.layoutIfNeeded()
     }
     

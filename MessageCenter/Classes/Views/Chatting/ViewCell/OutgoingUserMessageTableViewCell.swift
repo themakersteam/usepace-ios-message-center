@@ -100,6 +100,7 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
         let messageCreatedDate = NSDate(timeIntervalSince1970: messageTimestamp)
         let messageDateString = dateFormatter.string(from: messageCreatedDate as Date)
         self.messageDateLabel.text = messageDateString
+        self.messageContainerView.addShadow()
         self.layoutIfNeeded()
     }
 

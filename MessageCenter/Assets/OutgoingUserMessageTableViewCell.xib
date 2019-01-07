@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ifq-nD-J3U">
-                        <rect key="frame" x="220" y="10" width="145" height="139.5"/>
+                        <rect key="frame" x="220" y="5" width="145" height="139.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qSc-70-ZKk" customClass="TTTAttributedLabel">
                                 <rect key="frame" x="10" y="10" width="125" height="114.5"/>
@@ -41,7 +41,7 @@
                                 <rect key="frame" x="85" y="119.5" width="60" height="15"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13:02" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Am-Co-pmb">
-                                        <rect key="frame" x="10" y="1.5" width="27" height="12"/>
+                                        <rect key="frame" x="24" y="4.5" width="13" height="6"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="5"/>
                                         <color key="textColor" red="0.74901960784313726" green="0.74901960784313726" blue="0.74901960784313726" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
@@ -79,8 +79,8 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="Ifq-nD-J3U" secondAttribute="bottom" id="DDP-ct-Bd9"/>
-                    <constraint firstItem="Ifq-nD-J3U" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="ZIv-Z7-FEe"/>
+                    <constraint firstAttribute="bottom" secondItem="Ifq-nD-J3U" secondAttribute="bottom" constant="5" id="DDP-ct-Bd9"/>
+                    <constraint firstItem="Ifq-nD-J3U" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="ZIv-Z7-FEe"/>
                     <constraint firstAttribute="trailing" secondItem="Ifq-nD-J3U" secondAttribute="trailing" constant="10" id="mv7-bK-5Bj"/>
                     <constraint firstItem="Ifq-nD-J3U" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="90" id="vKK-xR-pho"/>
                 </constraints>

@@ -146,6 +146,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.chattingView.chattingTableView.reloadData()
+        self.topView.addBottomShadow()
         addObservers()
     }
     
@@ -737,6 +738,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             
             self.chattingView.sendButton.isEnabled = false
             let preSendMessage = self.groupChannel.sendUserMessage(message, data: "", customType: "", targetLanguages: ["ar", "de", "fr", "nl", "ja", "ko", "pt", "es", "zh-CHS"], completionHandler: { (userMessage, error) in
+                
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(150), execute: {
                     if let preSendMessage = self.chattingView.preSendMessages[(userMessage?.requestId)!] as? SBDUserMessage {
                         self.chattingView.preSendMessages.removeValue(forKey: (userMessage?.requestId)!)

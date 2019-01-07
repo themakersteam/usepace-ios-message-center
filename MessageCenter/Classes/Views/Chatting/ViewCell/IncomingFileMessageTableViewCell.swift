@@ -220,7 +220,7 @@ class IncomingFileMessageTableViewCell: UITableViewCell {
             self.dateSeperatorViewTopMargin.constant = 10.0
             self.dateSeperatorViewBottomMargin.constant = 10.0
         }
-        
+        self.messageContainerView.addShadow()
         self.layoutIfNeeded()
     }
     

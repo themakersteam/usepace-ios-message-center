@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yY-bp-pWb">
-                        <rect key="frame" x="10" y="10" width="145" height="139.5"/>
+                        <rect key="frame" x="10" y="5" width="145" height="139.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="puC-Tz-zNM" customClass="TTTAttributedLabel">
                                 <rect key="frame" x="10" y="10" width="125" height="114.5"/>
@@ -30,7 +30,7 @@
                                 <rect key="frame" x="85" y="119.5" width="60" height="15"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13:02" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="snu-n7-6e7">
-                                        <rect key="frame" x="23" y="1.5" width="27" height="12"/>
+                                        <rect key="frame" x="30" y="3.5" width="20" height="8.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="7"/>
                                         <color key="textColor" red="0.74901960784313726" green="0.74901960784313726" blue="0.74901960784313726" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
@@ -60,8 +60,8 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2yY-bp-pWb" secondAttribute="trailing" constant="90" id="TVs-ax-oEh"/>
-                    <constraint firstItem="2yY-bp-pWb" firstAttribute="top" secondItem="Ep9-vO-MIL" secondAttribute="top" constant="10" id="l9N-Ot-DtQ"/>
-                    <constraint firstAttribute="bottom" secondItem="2yY-bp-pWb" secondAttribute="bottom" id="nDp-d9-NoD"/>
+                    <constraint firstItem="2yY-bp-pWb" firstAttribute="top" secondItem="Ep9-vO-MIL" secondAttribute="top" constant="5" id="l9N-Ot-DtQ"/>
+                    <constraint firstAttribute="bottom" secondItem="2yY-bp-pWb" secondAttribute="bottom" constant="5" id="nDp-d9-NoD"/>
                     <constraint firstItem="2yY-bp-pWb" firstAttribute="leading" secondItem="Ep9-vO-MIL" secondAttribute="leading" constant="10" id="obc-k7-qGi"/>
                 </constraints>
             </tableViewCellContentView>

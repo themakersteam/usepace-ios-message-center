@@ -18,8 +18,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="209.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="vVE-It-kJl" userLabel="Message Container View">
-                        <rect key="frame" x="90" y="10" width="275" height="199.5"/>
+                    <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="vVE-It-kJl" userLabel="Message Container View">
+                        <rect key="frame" x="90" y="5" width="275" height="199.5"/>
                         <subviews>
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="o0m-EL-wBg" userLabel="File Image View" customClass="FLAnimatedImageView">
                                 <rect key="frame" x="10" y="10" width="255" height="161"/>
@@ -90,8 +90,8 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="vVE-It-kJl" secondAttribute="trailing" constant="10" id="EjM-UU-tfY"/>
-                    <constraint firstItem="vVE-It-kJl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="VLa-9Z-0cZ"/>
-                    <constraint firstAttribute="bottom" secondItem="vVE-It-kJl" secondAttribute="bottom" id="gOl-bJ-M4M"/>
+                    <constraint firstItem="vVE-It-kJl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="VLa-9Z-0cZ"/>
+                    <constraint firstAttribute="bottom" secondItem="vVE-It-kJl" secondAttribute="bottom" constant="5" id="gOl-bJ-M4M"/>
                     <constraint firstItem="vVE-It-kJl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="90" id="o32-Hl-nXZ"/>
                 </constraints>
             </tableViewCellContentView>

@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5lS-Ko-9EX" userLabel="Message Container View">
-                        <rect key="frame" x="10" y="10" width="275" height="197.5"/>
+                        <rect key="frame" x="10" y="5" width="275" height="197.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xQE-zN-FTU" userLabel="Message Label">
                                 <rect key="frame" x="10" y="10" width="255" height="56"/>
@@ -104,9 +104,9 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="5lS-Ko-9EX" firstAttribute="top" secondItem="7rW-Kx-aP8" secondAttribute="top" constant="10" id="2nB-2G-fc0"/>
+                    <constraint firstItem="5lS-Ko-9EX" firstAttribute="top" secondItem="7rW-Kx-aP8" secondAttribute="top" constant="5" id="2nB-2G-fc0"/>
                     <constraint firstAttribute="trailing" secondItem="5lS-Ko-9EX" secondAttribute="trailing" constant="90" id="K0q-oi-dMZ"/>
-                    <constraint firstAttribute="bottom" secondItem="5lS-Ko-9EX" secondAttribute="bottom" id="cdX-pz-kyC"/>
+                    <constraint firstAttribute="bottom" secondItem="5lS-Ko-9EX" secondAttribute="bottom" constant="5" id="cdX-pz-kyC"/>
                     <constraint firstItem="5lS-Ko-9EX" firstAttribute="leading" secondItem="7rW-Kx-aP8" secondAttribute="leading" constant="10" id="qj4-Lg-C4W"/>
                 </constraints>
             </tableViewCellContentView>

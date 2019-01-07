@@ -151,7 +151,7 @@ class IncomingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
                 self.messageLabel.addLink(to: match.url, with: range)
             }
         }
-        
+        self.messageContainerView.addShadow()
         self.layoutIfNeeded()
     }
     

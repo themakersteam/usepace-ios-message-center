@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="49N-Pk-Tz1" userLabel="Message Container View">
-                        <rect key="frame" x="90" y="10" width="275" height="229.5"/>
+                        <rect key="frame" x="90" y="5" width="275" height="229.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="COl-a8-Ldy" userLabel="Message Label">
                                 <rect key="frame" x="10" y="10" width="255" height="56"/>
@@ -113,10 +113,10 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="49N-Pk-Tz1" firstAttribute="top" secondItem="IiU-r9-GW8" secondAttribute="top" constant="10" id="0T6-bE-q6h"/>
+                    <constraint firstItem="49N-Pk-Tz1" firstAttribute="top" secondItem="IiU-r9-GW8" secondAttribute="top" constant="5" id="0T6-bE-q6h"/>
                     <constraint firstItem="49N-Pk-Tz1" firstAttribute="leading" secondItem="IiU-r9-GW8" secondAttribute="leading" constant="90" id="Bpa-BO-Tgh"/>
                     <constraint firstAttribute="trailing" secondItem="49N-Pk-Tz1" secondAttribute="trailing" constant="10" id="hOS-2n-vcj"/>
-                    <constraint firstAttribute="bottom" secondItem="49N-Pk-Tz1" secondAttribute="bottom" id="kFc-ih-JYk"/>
+                    <constraint firstAttribute="bottom" secondItem="49N-Pk-Tz1" secondAttribute="bottom" constant="5" id="kFc-ih-JYk"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
