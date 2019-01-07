@@ -906,6 +906,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     }
     
     @objc private func launchCamera() {
+        self.chattingView.endEditing(true)
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             UIImagePickerController.checkPermissionStatus(sourceType: UIImagePickerControllerSourceType.camera, completionBlockSuccess: { (status) in
                 let imagePicker = UIImagePickerController()
