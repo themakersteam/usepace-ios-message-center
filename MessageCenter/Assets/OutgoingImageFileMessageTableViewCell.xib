@@ -43,6 +43,10 @@
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icMsgread.png" translatesAutoresizingMaskIntoConstraints="NO" id="oyr-T6-tPV">
                                         <rect key="frame" x="42" y="4.5" width="12" height="6"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="12" id="OQY-sm-tKP"/>
+                                            <constraint firstAttribute="height" constant="6" id="vm1-S6-bg2"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

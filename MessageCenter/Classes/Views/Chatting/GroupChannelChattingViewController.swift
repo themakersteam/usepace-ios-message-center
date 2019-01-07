@@ -16,6 +16,7 @@ import NYTPhotoViewer
 import HTMLKit
 import FLAnimatedImage
 import Toast
+import UserNotifications
 
 class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegate, SBDChannelDelegate, ChattingViewDelegate, MessageDelegate, UINavigationControllerDelegate {
     
@@ -39,7 +40,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     private var mediaInfo : [String: Any]?
     private var imageCaption: String = ""
     private var imageCaptionDic = [String: String]()
-
+    private let notification = UINotificationFeedbackGenerator()
     // MARK: - IBOutlets
     //MARK: -
     @IBOutlet weak var vwActionSheet: UIView!
@@ -58,6 +59,9 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     
     @IBOutlet weak var topViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var topView: UIView!
+    
+    var currentImagePreviewTask: URLSessionDataTask?
+    
     //MARK: - viewLifeCycle
     //MARK: -
     override func viewDidLoad() {
@@ -114,28 +118,58 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         self.checkNotifications()
     }
     
+    
     func checkNotifications () {
-        let isRegisteredForRemoteNotifications = UIApplication.shared.isRegisteredForRemoteNotifications
-        if isRegisteredForRemoteNotifications {
-            // User is registered for notification
+        if #available(iOS 10.0, *) {
+            let current = UNUserNotificationCenter.current()
+            current.getNotificationSettings(completionHandler: { settings in
+                switch settings.authorizationStatus {
+                    
+                case .notDetermined:
+                    self.showNotificationAlert()
+                    
+                    break
+                // Authorization request has not been made yet
+                case .denied:
+                    self.showNotificationAlert()
+                    
+                    break
+                    // User has denied authorization.
+                // You could tell them to change this in Settings
+                case .authorized: break
+                    // User has given authorization.
+                    
+                default :
+                    break
+                }
+            })
         } else {
-            // Show alert user is not registered for notification
-            let alert = UIAlertController(title: "push_notification_alert_title".localized, message: "", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "settings".localized, style: .default, handler: { action in
-                guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
-                    return
-                }
-                if UIApplication.shared.canOpenURL(settingsUrl) {
-                    UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
-                        print("Settings opened: \(success)") // Prints true
-                    })
-                }
-            }))
-            alert.addAction(UIAlertAction(title: "cancel".localized, style: .default, handler: { action in
-            }))
-            self.present(alert, animated: true, completion: nil)
+            // Fallback on earlier versions
+            if UIApplication.shared.isRegisteredForRemoteNotifications {
+                print("APNS-YES")
+            } else {
+                showNotificationAlert()
+            }
         }
     }
+    
+    func showNotificationAlert() {
+        let alert = UIAlertController(title: "push_notification_alert_title".localized, message: "", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "settings".localized, style: .default, handler: { action in
+            guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
+                return
+            }
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                    print("Settings opened: \(success)") // Prints true
+                })
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "cancel".localized, style: .default, handler: { action in
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
 
     
     
@@ -756,6 +790,10 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 })
             })
             
+            guard preSendMessage.requestId != nil else {
+                // Fix a crash, but check the behavior -- hard to reproduce.
+                return
+            }
             self.chattingView.preSendMessages[preSendMessage.requestId!] = preSendMessage
             DispatchQueue.main.async {
                 if self.chattingView.preSendMessages[preSendMessage.requestId!] == nil {
@@ -1008,6 +1046,9 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     //MARK: -
     func channel(_ sender: SBDBaseChannel, didReceive message: SBDBaseMessage) {
         if sender.channelUrl == self.groupChannel.channelUrl {
+            // user received message when chat is open. Vibrate the device.
+            self.notification.notificationOccurred(.success)
+            // Mark all messager as read.
             self.groupChannel.markAsRead()
             DispatchQueue.main.async {
                 UIView.setAnimationsEnabled(false)
@@ -1037,6 +1078,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 self.view.makeToast("message_center_new_message_from".localized + "")
             }
         }
+        
+        
     }
     
     func channelDidUpdateReadReceipt(_ sender: SBDGroupChannel) {
@@ -1335,7 +1378,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                         let session = URLSession.shared
                         let request = URLRequest(url: URL(string: url)!)
                         self.showImageViewerLoading()
-                        session.dataTask(with: request, completionHandler: { (data, response, error) in
+                        self.currentImagePreviewTask = session.dataTask(with: request, completionHandler: { (data, response, error) in
                             self.hideImageViewerLoading()
                             if error != nil {
                                 return;
@@ -1345,12 +1388,16 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                                 DispatchQueue.main.async {
                                     let photo = ChatImage()
                                     photo.imageData = data
-                                    self.previewMessage(photo)
+                                    
+                                    if self.currentImagePreviewTask?.state == URLSessionTask.State.completed {
+                                        self.previewMessage(photo)
+                                    }
                                 }
                                 
                                 return
                             }
-                        }).resume()
+                        })
+                        self.currentImagePreviewTask?.resume()
                         return
                     }
                 }
@@ -1576,6 +1623,10 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     
     func hideImageViewerLoading() {
         DispatchQueue.main.async {
+            if self.currentImagePreviewTask != nil {
+                self.currentImagePreviewTask?.cancel()
+            }
+            
             self.imageViewerLoadingView.isHidden = true
             self.imageViewerLoadingIndicator.isHidden = true
             self.imageViewerLoadingIndicator.stopAnimating()

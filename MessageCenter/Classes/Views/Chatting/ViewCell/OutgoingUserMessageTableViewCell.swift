@@ -36,6 +36,13 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
         super.awakeFromNib()
         self.messageDateLabel.font = UIFont.systemFont(ofSize: 10)
         self.messageContainerView.layer.cornerRadius = 8.0
+        self.resendMessageButton.setTitle("ms_chat_failed_to_send".localized, for: .normal)
+        if UIApplication.shared.userInterfaceLayoutDirection == .leftToRight {
+            self.resendMessageButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)
+        }
+        else {
+            self.resendMessageButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
+        }
     }
     
     static func cellReuseIdentifier() -> String {
@@ -64,6 +71,7 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
     }
     
     func setModel(aMessage: SBDUserMessage, channel: SBDBaseChannel?) {
+        
         self.message = aMessage
         let fullMessage = self.buildMessage()
         self.messageLabel.attributedText = fullMessage
@@ -101,6 +109,7 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
         let messageDateString = dateFormatter.string(from: messageCreatedDate as Date)
         self.messageDateLabel.text = messageDateString
         self.messageContainerView.addShadow()
+        self.imgMessageStatus.contentMode = .scaleAspectFit
         self.layoutIfNeeded()
     }
 
@@ -144,8 +153,8 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
     }
     
     func showSendingStatus() {
-        self.messageDateLabel.isHidden = true
-        self.imgMessageStatus.isHidden = true
+        self.messageDateLabel.isHidden = false
+        self.imgMessageStatus.isHidden = false
         self.resendMessageButton.isHidden = true
     }
     

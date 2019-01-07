@@ -37,7 +37,6 @@ public class SendBirdClient: ClientProtocol {
         SBDMain.initWithApplicationId(connectionRequest.appId)
         SBDMain.connect(withUserId: connectionRequest.userId, accessToken: connectionRequest.accessToken, completionHandler: { (user, error) in
             lastConnectionRequest = connectionRequest
-//            self.connected = false
             guard error == nil else {
                 failure(error!.code, error!.localizedDescription)
                 //connection.onMessageCenterConnectionError(code: error!.code, message: error!.localizedDescription)
@@ -117,6 +116,7 @@ public class SendBirdClient: ClientProtocol {
     }
   
     public func disconnect(completion: @escaping () -> Void) {
+        lastConnectionRequest = nil
         SBDMain.unregisterAllPushToken { (a, error) in
             guard error == nil else {
                 print("Failed to Disconnect")

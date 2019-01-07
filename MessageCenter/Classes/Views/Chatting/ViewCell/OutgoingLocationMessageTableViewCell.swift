@@ -35,6 +35,13 @@ class OutgoingLocationMessageTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.messageContainerView.layer.cornerRadius = 8.0
+        self.resendMessageButton.setTitle("ms_chat_failed_to_send".localized, for: .normal)
+        if UIApplication.shared.userInterfaceLayoutDirection == .leftToRight {
+            self.resendMessageButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)
+        }
+        else {
+            self.resendMessageButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
+        }
     }
     
     static func cellReuseIdentifier() -> String {
@@ -114,6 +121,7 @@ class OutgoingLocationMessageTableViewCell: UITableViewCell {
         let messageDateAttributedString = NSMutableAttributedString(string: messageDateString, attributes: messageDateAttribute)
         self.messageDateLabel.attributedText = messageDateAttributedString
         self.messageContainerView.addShadow()
+        self.imgMessageStatus.contentMode = .scaleAspectFit
         self.layoutIfNeeded()
     }
     
@@ -141,8 +149,8 @@ class OutgoingLocationMessageTableViewCell: UITableViewCell {
     }
     
     func showSendingStatus() {
-        self.messageDateLabel.isHidden = true
-        self.imgMessageStatus.isHidden = true
+        self.messageDateLabel.isHidden = false
+        self.imgMessageStatus.isHidden = false
         self.resendMessageButton.isHidden = true
     }
     

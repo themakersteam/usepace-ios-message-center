@@ -52,6 +52,13 @@ class OutgoingFileMessageTableViewCell: UITableViewCell {
         self.messageContainerView.selectedCornerRadius()
 //        self.messageContainerView.round(corners: [ .topLeft, .topRight, .bottomLeft ], radius: 15.0)
         self.messageContainerView.layer.masksToBounds = true
+        self.resendMessageButton.setTitle("ms_chat_failed_to_send".localized, for: .normal)
+        if UIApplication.shared.userInterfaceLayoutDirection == .leftToRight {
+            self.resendMessageButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)
+        }
+        else {
+            self.resendMessageButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
+        }
         
     }
     
@@ -251,7 +258,7 @@ class OutgoingFileMessageTableViewCell: UITableViewCell {
     }
     
     func showSendingStatus() {
-        self.messageDateLabel.isHidden = true
+        self.messageDateLabel.isHidden = false
         self.unreadCountLabel.isHidden = true
         self.resendMessageButton.isHidden = true
         self.deleteMessageButton.isHidden = true

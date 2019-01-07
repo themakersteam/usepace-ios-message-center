@@ -45,6 +45,13 @@ class OutgoingImageFileMessageTableViewCell: UITableViewCell {
 //        self.messageContainerView.round(corners: [ .topLeft, .topRight, .bottomLeft ], radius: 15.0)
         self.messageContainerView.layer.cornerRadius = 8.0
         self.fileImageView.layer.cornerRadius = 8.0
+        self.resendMessageButton.setTitle("ms_chat_failed_to_send".localized, for: .normal)
+        if UIApplication.shared.userInterfaceLayoutDirection == .leftToRight {
+            self.resendMessageButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)
+        }
+        else {
+            self.resendMessageButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
+        }
         
     }
     
@@ -229,8 +236,8 @@ class OutgoingImageFileMessageTableViewCell: UITableViewCell {
         
         let messageDateAttributedString = NSMutableAttributedString(string: messageDateString, attributes: messageDateAttribute)
         self.messageDateLabel.attributedText = messageDateAttributedString
-        
         self.messageContainerView.addShadow()
+        self.imgMessageStatus.contentMode = .scaleAspectFit
         self.layoutIfNeeded()
     }
     
@@ -259,8 +266,8 @@ class OutgoingImageFileMessageTableViewCell: UITableViewCell {
     }
     
     func showSendingStatus() {
-        self.messageDateLabel.isHidden = true
-        self.imgMessageStatus.isHidden = true
+        self.messageDateLabel.isHidden = false
+        self.imgMessageStatus.isHidden = false
         self.resendMessageButton.isHidden = true
         self.imageLoadingIndicator.startAnimating()
         self.imageLoadingIndicator.isHidden = false
