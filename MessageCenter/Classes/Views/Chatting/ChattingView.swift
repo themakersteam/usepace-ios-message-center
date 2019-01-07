@@ -927,7 +927,8 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
                         (cell as! OutgoingImageFileMessageTableViewCell).setImageData(data: self.preSendFileData[fileMessage.requestId!]!["data"] as! Data, type: self.preSendFileData[fileMessage.requestId!]!["type"] as! String)
                     }
                     else {
-                        if self.resendableMessages[fileMessage.requestId!] != nil {
+                        if self.resendableMessages[fileMessage.requestId!] != nil && self.resendableFileData[fileMessage.requestId!]?["data"] != nil  && self.resendableFileData[fileMessage.requestId!]?["type"] != nil  {
+                            
                             (cell as! OutgoingImageFileMessageTableViewCell).showMessageResendButton()
                             //                            (cell as! OutgoingImageFileMessageTableViewCell).showFailedStatus()
                             (cell as! OutgoingImageFileMessageTableViewCell).setImageData(data: self.resendableFileData[fileMessage.requestId!]?["data"] as! Data, type: self.resendableFileData[fileMessage.requestId!]?["type"] as! String)
