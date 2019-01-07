@@ -39,6 +39,7 @@ public class NotificationModel: NSObject {
 }
 
 public class MessageCenter {
+  public static var  isOpen = false
     private static var client: Client {
         let client = Client()
         return client
@@ -49,7 +50,10 @@ public class MessageCenter {
         set { _parentVC = newValue}
         get { return _parentVC! }
     }
-    
+
+    public static var oldVC =  UIViewController()
+    static var groupChannelVC = GroupChannelChattingViewController()
+
     public static var completionHandler : ((Bool) -> Void)? = nil
     
     private static var LAST_CLIENT: ClientType = ClientType.sendBird
@@ -122,7 +126,9 @@ public class MessageCenter {
             
             let resourceBundle = Bundle.bundleForXib(GroupChannelChattingViewController.self)
             
-            let groupChannelVC = GroupChannelChattingViewController(nibName: "GroupChannelChattingViewController", bundle: resourceBundle)
+            if !isOpen {
+             groupChannelVC = GroupChannelChattingViewController(nibName: "GroupChannelChattingViewController", bundle: resourceBundle)
+            }
             groupChannelVC.groupChannel = groupChannel
             
             if theme != nil {
@@ -154,9 +160,31 @@ public class MessageCenter {
                                                             primaryActionIconsColor: primaryActionIconsColor)
                 groupChannelVC.themeObject = theme
             }
+            
+            if isOpen {
+//                oldVC.dismiss(animated: false, completion: {
+////                UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: false, completion: {
+//
+//                let navController = UINavigationController(rootViewController: groupChannelVC)
+//                    navController.isNavigationBarHidden = true
+//                    oldVC.present(navController, animated: true, completion: nil)
+//
+////                    UIApplication.shared.keyWindow?.rootViewController?.present(navController, animated: true, completion: nil)
+//
+//
+//                })
+                
+                groupChannelVC.relaodChatView()
+                
+            }else{
+            self.isOpen = true
+            self.oldVC = parentVC
             let navController = UINavigationController(rootViewController: groupChannelVC)
             navController.isNavigationBarHidden = true
             parentVC.present(navController, animated: true, completion: nil)
+
+                
+            }
         })
         
     }

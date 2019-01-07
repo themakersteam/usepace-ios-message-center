@@ -118,6 +118,28 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         self.checkNotifications()
     }
     
+    func relaodChatView(){
+        GroupChannelChattingViewController.instance = self
+        self.podBundle = Bundle.bundleForXib(GroupChannelChattingViewController.self)
+        if SBDMain.getConnectState() == .closed {
+            SBDMain.connect(withUserId: (lastConnectionRequest?.userId)!, accessToken: lastConnectionRequest?.accessToken) { (user, error) in
+                if error == nil {
+                    self.loadMessages()
+                }
+            }
+        }
+        else {
+            self.loadMessages()
+        }
+        
+        // Delete all the pre-saved images in directory as we really don't need those
+        self.deleteDirectory()
+        self.checkNotifications()
+        
+        self.chattingView.chattingTableView.reloadData()
+        self.chattingView.endTypingIndicator()
+        
+    }
     
     func checkNotifications () {
         if #available(iOS 10.0, *) {
@@ -202,6 +224,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         if self.chattingView.preSendMessages.count > 0 {
             let alertController = UIAlertController(title: "", message: "image_uploading_in_progress_message".localized, preferredStyle: .alert)
             let okAction = UIAlertAction(title: "yes".localized, style: .cancel) { (action) in
+                MessageCenter.isOpen = false
                 self.closeTheChannelAndDimiss()
             }
             let cancelAction = UIAlertAction(title: "no".localized, style: .default) { (action) in
@@ -217,6 +240,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             self.present(alertController, animated: true, completion: nil)
         }
         else {
+            MessageCenter.isOpen = false
             self.closeTheChannelAndDimiss()
         }
         
