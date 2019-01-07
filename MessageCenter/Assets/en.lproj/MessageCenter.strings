@@ -46,7 +46,7 @@
 "ms_camera" = "Camera";
 "ms_photos" = "Photos";
 "ms_location" = "Location";
-"ms_chat_failed_to_send" = "Not sent! Tap to retry";
+"ms_chat_failed_to_send" = "Tap to retry";
 "message_center_toolbar_title" = "Message Center";
 "message_center_channel_is_frozen" = "Chat is frozen !";
 "reconnection_failed" = "Reconnetion Failed";

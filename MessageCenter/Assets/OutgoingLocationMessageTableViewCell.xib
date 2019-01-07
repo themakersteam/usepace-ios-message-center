@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="49N-Pk-Tz1" userLabel="Message Container View">
-                        <rect key="frame" x="90" y="10" width="275" height="229.5"/>
+                        <rect key="frame" x="90" y="10" width="275" height="219.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="COl-a8-Ldy" userLabel="Message Label">
                                 <rect key="frame" x="10" y="10" width="255" height="56"/>
@@ -34,17 +34,17 @@
                                 </constraints>
                             </view>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Zvy-k3-NfN" userLabel="Preview Thumbnail Image Loading Indicator">
-                                <rect key="frame" x="127.5" y="141" width="20" height="20"/>
+                                <rect key="frame" x="127.5" y="136" width="20" height="20"/>
                                 <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="map_place_holder.png" translatesAutoresizingMaskIntoConstraints="NO" id="500-kp-LL5" userLabel="Preview Thumbnail Image View">
-                                <rect key="frame" x="10" y="87" width="255" height="127.5"/>
+                                <rect key="frame" x="10" y="87" width="255" height="117.5"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zTJ-Ju-ZdX">
-                                <rect key="frame" x="140" y="214.5" width="135" height="15"/>
+                                <rect key="frame" x="140" y="204.5" width="135" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="135" id="Gzr-kN-kdF"/>
                                 </constraints>
@@ -55,7 +55,7 @@
                                 </state>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5bG-MW-6iM">
-                                <rect key="frame" x="215" y="214.5" width="60" height="15"/>
+                                <rect key="frame" x="215" y="204.5" width="60" height="15"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13:02" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dkC-k2-mUX">
                                         <rect key="frame" x="12" y="1.5" width="27" height="12"/>
@@ -106,10 +106,18 @@
                             <constraint firstItem="Zvy-k3-NfN" firstAttribute="centerX" secondItem="500-kp-LL5" secondAttribute="centerX" id="xbq-xO-u7T"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="8"/>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                            <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                <size key="value" width="1" height="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="0.10000000000000001"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
@@ -117,7 +125,7 @@
                     <constraint firstItem="49N-Pk-Tz1" firstAttribute="top" secondItem="IiU-r9-GW8" secondAttribute="top" constant="10" id="0T6-bE-q6h"/>
                     <constraint firstItem="49N-Pk-Tz1" firstAttribute="leading" secondItem="IiU-r9-GW8" secondAttribute="leading" constant="90" id="Bpa-BO-Tgh"/>
                     <constraint firstAttribute="trailing" secondItem="49N-Pk-Tz1" secondAttribute="trailing" constant="10" id="hOS-2n-vcj"/>
-                    <constraint firstAttribute="bottom" secondItem="49N-Pk-Tz1" secondAttribute="bottom" id="kFc-ih-JYk"/>
+                    <constraint firstAttribute="bottom" secondItem="49N-Pk-Tz1" secondAttribute="bottom" constant="10" id="kFc-ih-JYk"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

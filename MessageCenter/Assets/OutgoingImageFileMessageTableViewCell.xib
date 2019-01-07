@@ -18,20 +18,20 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="209.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="vVE-It-kJl" userLabel="Message Container View">
-                        <rect key="frame" x="90" y="10" width="275" height="199.5"/>
+                    <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="vVE-It-kJl" userLabel="Message Container View">
+                        <rect key="frame" x="90" y="15" width="275" height="179.5"/>
                         <subviews>
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="o0m-EL-wBg" userLabel="File Image View" customClass="FLAnimatedImageView">
-                                <rect key="frame" x="10" y="10" width="255" height="161"/>
+                                <rect key="frame" x="10" y="10" width="255" height="141"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="QtR-Bl-Qk2">
-                                <rect key="frame" x="127.5" y="80.5" width="20" height="20"/>
+                                <rect key="frame" x="127.5" y="70.5" width="20" height="20"/>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PmO-Cw-Ub3">
-                                <rect key="frame" x="205" y="181" width="60" height="15"/>
+                                <rect key="frame" x="205" y="161" width="60" height="15"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13:02" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CxE-j9-mpf">
                                         <rect key="frame" x="10" y="1.5" width="27" height="12"/>
@@ -60,7 +60,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i2T-iv-nif">
-                                <rect key="frame" x="130" y="176" width="135" height="12"/>
+                                <rect key="frame" x="130" y="156" width="135" height="12"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="135" id="02G-We-Yjv"/>
                                 </constraints>
@@ -85,17 +85,25 @@
                             <constraint firstItem="QtR-Bl-Qk2" firstAttribute="centerX" secondItem="o0m-EL-wBg" secondAttribute="centerX" id="uxT-Zw-i5v"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="8"/>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                            <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                <size key="value" width="1" height="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="0.10000000000000001"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="vVE-It-kJl" secondAttribute="trailing" constant="10" id="EjM-UU-tfY"/>
-                    <constraint firstItem="vVE-It-kJl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="VLa-9Z-0cZ"/>
-                    <constraint firstAttribute="bottom" secondItem="vVE-It-kJl" secondAttribute="bottom" id="gOl-bJ-M4M"/>
+                    <constraint firstItem="vVE-It-kJl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="VLa-9Z-0cZ"/>
+                    <constraint firstAttribute="bottom" secondItem="vVE-It-kJl" secondAttribute="bottom" constant="15" id="gOl-bJ-M4M"/>
                     <constraint firstItem="vVE-It-kJl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="90" id="o32-Hl-nXZ"/>
                 </constraints>
             </tableViewCellContentView>

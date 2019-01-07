@@ -35,6 +35,7 @@ class OutgoingLocationMessageTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.messageContainerView.layer.cornerRadius = 8.0
+        self.messageDateLabel.font = UIFont.systemFont(ofSize: 10)
         self.resendMessageButton.setTitle("ms_chat_failed_to_send".localized, for: .normal)
         if UIApplication.shared.userInterfaceLayoutDirection == .leftToRight {
             self.resendMessageButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)

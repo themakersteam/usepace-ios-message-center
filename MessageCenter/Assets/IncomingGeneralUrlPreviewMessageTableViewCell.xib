@@ -107,16 +107,24 @@
                             <constraint firstItem="cSZ-CD-sXf" firstAttribute="leading" secondItem="3ep-ur-grr" secondAttribute="leading" constant="10" id="xjG-G1-db6"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="8"/>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                            <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                <size key="value" width="1" height="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="0.10000000000000001"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="3ep-ur-grr" secondAttribute="trailing" constant="90" id="ACm-Sd-Ga8"/>
-                    <constraint firstAttribute="bottom" secondItem="3ep-ur-grr" secondAttribute="bottom" id="eY8-l6-Yew"/>
+                    <constraint firstAttribute="bottom" secondItem="3ep-ur-grr" secondAttribute="bottom" constant="10" id="eY8-l6-Yew"/>
                     <constraint firstItem="3ep-ur-grr" firstAttribute="leading" secondItem="5ai-Lf-3Ty" secondAttribute="leading" constant="10" id="jdF-SG-ufS"/>
                     <constraint firstItem="3ep-ur-grr" firstAttribute="top" secondItem="5ai-Lf-3Ty" secondAttribute="top" constant="10" id="qJG-8G-2DS"/>
                 </constraints>

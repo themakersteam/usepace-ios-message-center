@@ -54,6 +54,13 @@
                             <color key="textColor" red="0.32156862745098036" green="0.2627450980392157" blue="0.24313725490196078" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <view alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lte-Cn-AHM">
+                            <rect key="frame" x="0.0" y="74" width="375" height="1"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="nC7-oe-nuE"/>
+                            </constraints>
+                        </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0tl-JU-cyo">
                             <rect key="frame" x="9" y="33.5" width="30" height="30"/>
                             <constraints>
@@ -67,12 +74,15 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="75" id="8rL-4c-ZBF"/>
+                        <constraint firstAttribute="bottom" secondItem="Lte-Cn-AHM" secondAttribute="bottom" id="Utl-dJ-20U"/>
                         <constraint firstItem="CpO-UK-WRT" firstAttribute="top" secondItem="nxZ-VX-cuY" secondAttribute="top" constant="10" id="ZwP-rg-gBc"/>
                         <constraint firstItem="zCi-UH-VIJ" firstAttribute="top" secondItem="CpO-UK-WRT" secondAttribute="bottom" constant="7" id="bs3-T8-PJI"/>
                         <constraint firstItem="0tl-JU-cyo" firstAttribute="leading" secondItem="nxZ-VX-cuY" secondAttribute="leading" constant="9" id="dfJ-ds-CtQ"/>
                         <constraint firstItem="0tl-JU-cyo" firstAttribute="centerY" secondItem="zCi-UH-VIJ" secondAttribute="centerY" id="ig7-35-WWG"/>
                         <constraint firstItem="CpO-UK-WRT" firstAttribute="centerX" secondItem="nxZ-VX-cuY" secondAttribute="centerX" id="jAJ-dN-kRK"/>
                         <constraint firstItem="zCi-UH-VIJ" firstAttribute="centerX" secondItem="nxZ-VX-cuY" secondAttribute="centerX" id="qjH-3k-IJm"/>
+                        <constraint firstItem="Lte-Cn-AHM" firstAttribute="leading" secondItem="nxZ-VX-cuY" secondAttribute="leading" id="um6-AA-bjp"/>
+                        <constraint firstAttribute="trailing" secondItem="Lte-Cn-AHM" secondAttribute="trailing" id="xIv-Mq-y0M"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aGv-gC-XX0" userLabel="Pattern View BG">

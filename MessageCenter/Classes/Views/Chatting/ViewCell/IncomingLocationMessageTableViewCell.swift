@@ -35,6 +35,7 @@ class IncomingLocationMessageTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         messageContainerView.layer.cornerRadius = 8.0
+        self.messageDateLabel.font = UIFont.systemFont(ofSize: 10)
     }
     
     static func nib() -> UINib {
