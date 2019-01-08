@@ -75,7 +75,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
 //            self.patternView.backgroundColor = self.themeObject?.primaryBackgroundColor
 //        }
         
-        self.patternView.backgroundColor = UIColor(patternImage: UIImage(named: "mainpattern.png", in: podBundle, compatibleWith: nil)!)
+//        self.patternView.backgroundColor = UIColor(patternImage: UIImage(named: "mainpattern.png", in: podBundle, compatibleWith: nil)!)
         //
         let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
         negativeLeftSpacerForImageViewerLoading.width = -2

@@ -20,7 +20,6 @@
                 <outlet property="imageViewerLoadingViewNavItem" destination="Emv-36-QNT" id="Wv8-x2-wLD"/>
                 <outlet property="lblSubTitle" destination="zCi-UH-VIJ" id="XQj-ef-d6F"/>
                 <outlet property="lblTitle" destination="CpO-UK-WRT" id="CHa-SO-3vk"/>
-                <outlet property="patternView" destination="88M-yo-TWR" id="IA7-5g-e5N"/>
                 <outlet property="topView" destination="nxZ-VX-cuY" id="HiY-Xk-6PZ"/>
                 <outlet property="topViewHeightConstraint" destination="8rL-4c-ZBF" id="Vfg-Bg-uG8"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -89,10 +88,9 @@
                     <rect key="frame" x="0.0" y="95" width="375" height="572"/>
                     <color key="backgroundColor" red="0.95686274510000002" green="0.94901960780000005" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="88M-yo-TWR" userLabel="PatternView">
-                    <rect key="frame" x="15" y="95" width="325" height="572"/>
-                    <color key="backgroundColor" red="0.95686274510000002" green="0.94901960780000005" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
-                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mainpattern.png" translatesAutoresizingMaskIntoConstraints="NO" id="QiU-w2-kui">
+                    <rect key="frame" x="35" y="95" width="305" height="572"/>
+                </imageView>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AAA-Vq-7hk" customClass="ChattingView" customModule="MessageCenter" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="95" width="375" height="572"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -152,22 +150,22 @@
                 <constraint firstItem="nxZ-VX-cuY" firstAttribute="top" secondItem="UvG-x8-VLe" secondAttribute="top" id="2Yf-r1-SUO"/>
                 <constraint firstAttribute="bottom" secondItem="AAA-Vq-7hk" secondAttribute="bottom" id="5Ab-UI-o7I"/>
                 <constraint firstItem="AAA-Vq-7hk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="6TI-Ys-n4Z"/>
-                <constraint firstItem="88M-yo-TWR" firstAttribute="top" secondItem="nxZ-VX-cuY" secondAttribute="bottom" id="7pB-eL-PBn"/>
                 <constraint firstItem="nxZ-VX-cuY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="95g-cX-IYL"/>
                 <constraint firstItem="AAA-Vq-7hk" firstAttribute="top" secondItem="nxZ-VX-cuY" secondAttribute="bottom" id="AvC-v0-Z0J"/>
                 <constraint firstItem="UvG-x8-VLe" firstAttribute="bottom" secondItem="Kgd-6s-sEz" secondAttribute="bottom" id="CMH-VW-AZI"/>
                 <constraint firstItem="Ykx-aa-bI9" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="F5b-rE-Je3"/>
                 <constraint firstItem="mOk-Vz-mXb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Nnf-hU-vfv"/>
-                <constraint firstAttribute="trailing" secondItem="88M-yo-TWR" secondAttribute="trailing" constant="35" id="QKC-Yo-566"/>
                 <constraint firstItem="Ykx-aa-bI9" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Sv2-Id-24w"/>
+                <constraint firstItem="UvG-x8-VLe" firstAttribute="bottom" secondItem="QiU-w2-kui" secondAttribute="bottom" id="VhJ-hF-B4z"/>
                 <constraint firstItem="Kgd-6s-sEz" firstAttribute="top" secondItem="UvG-x8-VLe" secondAttribute="top" id="YCq-AK-MYQ"/>
-                <constraint firstItem="UvG-x8-VLe" firstAttribute="bottom" secondItem="88M-yo-TWR" secondAttribute="bottom" id="bY7-wW-a8a"/>
                 <constraint firstItem="nxZ-VX-cuY" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="cQB-um-Clg"/>
                 <constraint firstItem="UvG-x8-VLe" firstAttribute="trailing" secondItem="aGv-gC-XX0" secondAttribute="trailing" id="dRF-JJ-hB7"/>
+                <constraint firstItem="UvG-x8-VLe" firstAttribute="trailing" secondItem="QiU-w2-kui" secondAttribute="trailing" constant="35" id="f0p-bi-QIn"/>
                 <constraint firstItem="aGv-gC-XX0" firstAttribute="top" secondItem="nxZ-VX-cuY" secondAttribute="bottom" id="jZ6-Kn-rgX"/>
                 <constraint firstItem="mOk-Vz-mXb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="jrb-XI-ccp"/>
                 <constraint firstItem="Ykx-aa-bI9" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="kW2-jN-psY"/>
-                <constraint firstItem="88M-yo-TWR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="n6k-QK-sQY"/>
+                <constraint firstItem="QiU-w2-kui" firstAttribute="leading" secondItem="UvG-x8-VLe" secondAttribute="leading" constant="35" id="lFL-2c-zMd"/>
+                <constraint firstItem="QiU-w2-kui" firstAttribute="top" secondItem="nxZ-VX-cuY" secondAttribute="bottom" id="oVv-bR-EqR"/>
                 <constraint firstAttribute="trailing" secondItem="Kgd-6s-sEz" secondAttribute="trailing" id="poM-97-6RZ"/>
                 <constraint firstItem="Kgd-6s-sEz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="rcY-nS-x5K"/>
                 <constraint firstItem="mOk-Vz-mXb" firstAttribute="bottom" secondItem="UvG-x8-VLe" secondAttribute="bottom" id="sqE-EN-eNq"/>
@@ -180,5 +178,6 @@
     </objects>
     <resources>
         <image name="back.png" width="24" height="24"/>
+        <image name="mainpattern.png" width="307" height="547"/>
     </resources>
 </document>
