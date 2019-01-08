@@ -20,6 +20,9 @@ class OutgoingLocationMessageTableViewCell: UITableViewCell {
     @IBOutlet weak var resendMessageButton: UIButton!
     @IBOutlet weak var imgMessageStatus: UIImageView!
     @IBOutlet weak var vwTimestampStatus: UIView!
+    @IBOutlet weak var statusTimeStampTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var resendButtonWidthConstraint: NSLayoutConstraint!
+
     
     private var message: SBDUserMessage!
     private var prevMessage: SBDBaseMessage!
@@ -36,13 +39,20 @@ class OutgoingLocationMessageTableViewCell: UITableViewCell {
         super.awakeFromNib()
         self.messageContainerView.layer.cornerRadius = 8.0
         self.messageDateLabel.font = UIFont.systemFont(ofSize: 10)
+        self.resendMessageButton.titleLabel?.font = UIFont.systemFont(ofSize: 10)
         self.resendMessageButton.setTitle("ms_chat_failed_to_send".localized, for: .normal)
         if UIApplication.shared.userInterfaceLayoutDirection == .leftToRight {
             self.resendMessageButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)
+            self.resendButtonWidthConstraint.constant = 88
+
         }
         else {
             self.resendMessageButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
+            self.statusTimeStampTrailingConstraint.constant = 10
+            self.resendButtonWidthConstraint.constant = 110
+            self.vwTimestampStatus.layoutIfNeeded()
         }
+        self.resendMessageButton.layoutIfNeeded()
     }
     
     static func cellReuseIdentifier() -> String {

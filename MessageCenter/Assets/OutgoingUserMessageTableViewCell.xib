@@ -18,18 +18,18 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="149.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ifq-nD-J3U">
-                        <rect key="frame" x="220" y="5" width="145" height="139.5"/>
+                    <view contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" translatesAutoresizingMaskIntoConstraints="NO" id="Ifq-nD-J3U">
+                        <rect key="frame" x="245" y="5" width="120" height="139.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qSc-70-ZKk" customClass="TTTAttributedLabel">
-                                <rect key="frame" x="10" y="10" width="125" height="114.5"/>
+                                <rect key="frame" x="10" y="10" width="100" height="114.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DC5-77-oMg">
-                                <rect key="frame" x="10" y="119.5" width="135" height="15"/>
+                                <rect key="frame" x="10" y="119.5" width="110" height="15"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="135" id="BSr-eV-1p0"/>
+                                    <constraint firstAttribute="width" constant="110" id="BSr-eV-1p0"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
                                 <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -38,7 +38,7 @@
                                 </state>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZcZ-m8-MQv">
-                                <rect key="frame" x="85" y="119.5" width="60" height="15"/>
+                                <rect key="frame" x="60" y="119.5" width="60" height="15"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13:02" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Am-Co-pmb">
                                         <rect key="frame" x="24" y="4.5" width="13" height="6"/>
@@ -109,7 +109,9 @@
                 <outlet property="messageContainerView" destination="Ifq-nD-J3U" id="2zb-Rh-IBd"/>
                 <outlet property="messageDateLabel" destination="6Am-Co-pmb" id="LOr-pZ-ebO"/>
                 <outlet property="messageLabel" destination="qSc-70-ZKk" id="zem-LG-TfO"/>
+                <outlet property="resendButtonWidthConstraint" destination="BSr-eV-1p0" id="711-3D-4cF"/>
                 <outlet property="resendMessageButton" destination="DC5-77-oMg" id="Yox-Az-azg"/>
+                <outlet property="statusTimeStampTrailingConstraint" destination="D4R-og-eNM" id="bLi-di-Mv6"/>
                 <outlet property="vwTimestampStatus" destination="ZcZ-m8-MQv" id="txE-5m-TnZ"/>
             </connections>
             <point key="canvasLocation" x="253.59999999999999" y="-162.81859070464768"/>

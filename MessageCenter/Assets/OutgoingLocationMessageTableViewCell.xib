@@ -18,7 +18,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="239.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="49N-Pk-Tz1" userLabel="Message Container View">
+                    <view contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" translatesAutoresizingMaskIntoConstraints="NO" id="49N-Pk-Tz1" userLabel="Message Container View">
                         <rect key="frame" x="90" y="10" width="275" height="219.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="COl-a8-Ldy" userLabel="Message Label">
@@ -44,9 +44,9 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zTJ-Ju-ZdX">
-                                <rect key="frame" x="140" y="204.5" width="135" height="15"/>
+                                <rect key="frame" x="165" y="204.5" width="110" height="15"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="135" id="Gzr-kN-kdF"/>
+                                    <constraint firstAttribute="width" constant="110" id="Gzr-kN-kdF"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
                                 <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -134,7 +134,9 @@
                 <outlet property="messageContainerView" destination="49N-Pk-Tz1" id="bUm-Tz-3Uj"/>
                 <outlet property="messageDateLabel" destination="dkC-k2-mUX" id="lFM-E3-OOK"/>
                 <outlet property="messageLabel" destination="COl-a8-Ldy" id="ZxR-VR-XFj"/>
+                <outlet property="resendButtonWidthConstraint" destination="Gzr-kN-kdF" id="MOg-qb-7Kg"/>
                 <outlet property="resendMessageButton" destination="zTJ-Ju-ZdX" id="FWI-Cb-EfC"/>
+                <outlet property="statusTimeStampTrailingConstraint" destination="TLx-Kx-5aJ" id="J0l-u9-wR1"/>
                 <outlet property="vwTimestampStatus" destination="5bG-MW-6iM" id="1UC-kq-Dv0"/>
             </connections>
             <point key="canvasLocation" x="96.799999999999997" y="61.169415292353825"/>
