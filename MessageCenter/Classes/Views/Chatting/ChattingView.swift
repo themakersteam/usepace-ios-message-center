@@ -40,6 +40,8 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var chattingTableViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var chattingTableViewBottomToSafeAreConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var attachButtonLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var attachButtonTrailingConstraint: NSLayoutConstraint!
     // MARK: - Vars
     var stopMeasuringVelocity: Bool = true
     var initialLoading: Bool = true
@@ -105,6 +107,12 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     func setup() {
         self.chattingTableView.contentInset = UIEdgeInsetsMake(0, 0, 10, 0)
         self.placeholderLabel.text = "type_message_hint".localized
+        
+        if UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft {
+            attachButtonTrailingConstraint.constant = 22
+            attachButtonLeadingConstraint.constant = 0
+            fileAttachButton.layoutIfNeeded()
+        }
     }
     
     func updateTheme(themeObject: ThemeObject) {

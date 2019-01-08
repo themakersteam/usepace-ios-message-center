@@ -54,19 +54,6 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="76z-rU-MfL">
                     <rect key="frame" x="0.0" y="603" width="375" height="64"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="isC-A2-fFK">
-                            <rect key="frame" x="306" y="10" width="44" height="44"/>
-                            <color key="backgroundColor" red="0.98039215690000003" green="0.76470588240000004" blue="0.039215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="44" id="oIM-Nf-lk4"/>
-                                <constraint firstAttribute="width" constant="44" id="sP6-Xn-E07"/>
-                            </constraints>
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <state key="normal" image="icSend.png"/>
-                            <connections>
-                                <action selector="btnSendTapped:" destination="-1" eventType="touchUpInside" id="k6T-FZ-dyc"/>
-                            </connections>
-                        </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Caption" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OTO-k4-Jce">
                             <rect key="frame" x="25" y="10" width="271" height="44"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -97,14 +84,39 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qGF-Zb-a08">
+                            <rect key="frame" x="297" y="0.0" width="78" height="64"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="isC-A2-fFK">
+                                    <rect key="frame" x="17" y="10" width="44" height="44"/>
+                                    <color key="backgroundColor" red="0.98039215690000003" green="0.76470588240000004" blue="0.039215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="44" id="oIM-Nf-lk4"/>
+                                        <constraint firstAttribute="width" constant="44" id="sP6-Xn-E07"/>
+                                    </constraints>
+                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <state key="normal" image="icSend.png"/>
+                                    <connections>
+                                        <action selector="btnSendTapped:" destination="-1" eventType="touchUpInside" id="k6T-FZ-dyc"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="isC-A2-fFK" firstAttribute="centerY" secondItem="qGF-Zb-a08" secondAttribute="centerY" id="TCJ-cb-BOs"/>
+                                <constraint firstItem="isC-A2-fFK" firstAttribute="centerX" secondItem="qGF-Zb-a08" secondAttribute="centerX" id="nPd-RK-Zii"/>
+                                <constraint firstAttribute="width" constant="78" id="wOI-hA-UpY"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="isC-A2-fFK" secondAttribute="trailing" constant="25" id="4gU-HZ-sv9"/>
+                        <constraint firstItem="qGF-Zb-a08" firstAttribute="leading" secondItem="OTO-k4-Jce" secondAttribute="trailing" id="9bA-84-4sg"/>
+                        <constraint firstItem="qGF-Zb-a08" firstAttribute="top" secondItem="76z-rU-MfL" secondAttribute="top" id="EvL-d8-78l"/>
                         <constraint firstAttribute="bottom" secondItem="h17-ZS-gcx" secondAttribute="bottom" constant="10" id="HxF-3w-zK3"/>
-                        <constraint firstItem="isC-A2-fFK" firstAttribute="leading" secondItem="h17-ZS-gcx" secondAttribute="trailing" constant="10" id="O9U-Yw-Jz5"/>
-                        <constraint firstItem="isC-A2-fFK" firstAttribute="centerY" secondItem="h17-ZS-gcx" secondAttribute="centerY" id="UVK-cd-mhb"/>
+                        <constraint firstAttribute="trailing" secondItem="qGF-Zb-a08" secondAttribute="trailing" id="IFk-e6-PXU"/>
                         <constraint firstItem="h17-ZS-gcx" firstAttribute="leading" secondItem="76z-rU-MfL" secondAttribute="leading" constant="10" id="X84-f4-AFC"/>
+                        <constraint firstAttribute="bottom" secondItem="qGF-Zb-a08" secondAttribute="bottom" id="coX-4j-HBE"/>
                         <constraint firstItem="OTO-k4-Jce" firstAttribute="trailing" secondItem="h17-ZS-gcx" secondAttribute="trailing" id="hYS-Ah-mR4"/>
                         <constraint firstItem="OTO-k4-Jce" firstAttribute="leading" secondItem="h17-ZS-gcx" secondAttribute="leading" constant="15" id="oWq-fn-rtA"/>
                         <constraint firstItem="OTO-k4-Jce" firstAttribute="top" secondItem="h17-ZS-gcx" secondAttribute="top" id="uOk-o6-I0y"/>
@@ -142,7 +154,7 @@
                 <constraint firstItem="h7a-Sv-7nV" firstAttribute="trailing" secondItem="bxJ-HY-r7b" secondAttribute="trailing" id="vP1-Wo-p3U"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="bxJ-HY-r7b"/>
-            <point key="canvasLocation" x="-519.20000000000005" y="102.99850074962519"/>
+            <point key="canvasLocation" x="-535" y="78"/>
         </view>
     </objects>
     <resources>

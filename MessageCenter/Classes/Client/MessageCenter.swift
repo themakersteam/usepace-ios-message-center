@@ -162,17 +162,8 @@ public class MessageCenter {
             }
             
             if isOpen {
-//                oldVC.dismiss(animated: false, completion: {
-////                UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: false, completion: {
-//
-//                let navController = UINavigationController(rootViewController: groupChannelVC)
-//                    navController.isNavigationBarHidden = true
-//                    oldVC.present(navController, animated: true, completion: nil)
-//
-////                    UIApplication.shared.keyWindow?.rootViewController?.present(navController, animated: true, completion: nil)
-//
-//
-//                })
+
+                groupChannelVC.themeObject = theme
                 
                 groupChannelVC.relaodChatView()
                 
