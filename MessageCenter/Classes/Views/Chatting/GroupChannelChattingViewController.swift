@@ -812,6 +812,13 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             self.chattingView.sendButton.isEnabled = false
             let preSendMessage = self.groupChannel.sendUserMessage(message, data: "", customType: "", targetLanguages: ["ar", "de", "fr", "nl", "ja", "ko", "pt", "es", "zh-CHS"], completionHandler: { (userMessage, error) in
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(150), execute: {
+                    
+                    guard userMessage?.requestId != nil else {
+                        // Fix a crash, but check the behavior -- hard to reproduce.
+                        return
+                    }
+                    
+                    
                     if let preSendMessage = self.chattingView.preSendMessages[(userMessage?.requestId)!] as? SBDUserMessage {
                         self.chattingView.preSendMessages.removeValue(forKey: (userMessage?.requestId)!)
                         
