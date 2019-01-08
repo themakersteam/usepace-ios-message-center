@@ -18,7 +18,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="209.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="YO0-F1-vdA" userLabel="Message Container View">
+                    <view contentMode="scaleAspectFill" semanticContentAttribute="forceLeftToRight" translatesAutoresizingMaskIntoConstraints="NO" id="YO0-F1-vdA" userLabel="Message Container View">
                         <rect key="frame" x="10" y="10" width="275" height="189.5"/>
                         <subviews>
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lJD-Qs-gzq" userLabel="File Image View" customClass="FLAnimatedImageView">

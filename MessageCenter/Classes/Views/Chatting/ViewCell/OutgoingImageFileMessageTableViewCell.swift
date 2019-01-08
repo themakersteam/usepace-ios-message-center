@@ -21,7 +21,9 @@ class OutgoingImageFileMessageTableViewCell: UITableViewCell {
     @IBOutlet weak var messageDateLabel: UILabel!
     @IBOutlet weak var imgMessageStatus: UIImageView!
     @IBOutlet weak var resendMessageButton: UIButton!
-    
+    @IBOutlet weak var statusTimeStampTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var resendButtonWidthConstraint: NSLayoutConstraint!
+
 
     @IBOutlet weak var cnMessageContainerLeftPadding: NSLayoutConstraint!
     private var message: SBDFileMessage!
@@ -45,6 +47,7 @@ class OutgoingImageFileMessageTableViewCell: UITableViewCell {
 //        self.messageContainerView.round(corners: [ .topLeft, .topRight, .bottomLeft ], radius: 15.0)
         self.messageContainerView.layer.cornerRadius = 8.0
         self.messageDateLabel.font = UIFont.systemFont(ofSize: 10)
+        self.resendMessageButton.titleLabel?.font = UIFont.systemFont(ofSize: 10)
         self.fileImageView.layer.cornerRadius = 8.0
         self.resendMessageButton.setTitle("ms_chat_failed_to_send".localized, for: .normal)
         if UIApplication.shared.userInterfaceLayoutDirection == .leftToRight {

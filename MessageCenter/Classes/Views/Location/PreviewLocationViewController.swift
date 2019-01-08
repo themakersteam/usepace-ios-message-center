@@ -70,7 +70,7 @@ class PreviewLocationViewController: UIViewController {
             return
         }
         
-        let navigationOptionsSheet = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+        let navigationOptionsSheet = UIAlertController(title: self.locationTitle, message: "", preferredStyle: .actionSheet)
         
         let supportedNavApps = NavigationApps.listSupported()
         for app in supportedNavApps {

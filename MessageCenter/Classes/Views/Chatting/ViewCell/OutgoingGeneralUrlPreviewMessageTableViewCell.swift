@@ -85,7 +85,8 @@ class OutgoingGeneralUrlPreviewMessageTableViewCell: UITableViewCell, TTTAttribu
         else {
             self.resendMessageButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
         }
-        
+        self.resendMessageButton.titleLabel?.font = UIFont.systemFont(ofSize: 10)
+
         let data = self.message.data?.data(using: String.Encoding.utf8)
         do {
             self.previewData = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions(rawValue: 0)) as? Dictionary
