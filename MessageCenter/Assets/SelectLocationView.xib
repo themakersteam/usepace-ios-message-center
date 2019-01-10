@@ -13,6 +13,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SelectLocationViewController" customModule="MessageCenter">
             <connections>
                 <outlet property="mapButtonsContainer" destination="Xg6-fk-F9U" id="dOD-NY-QX7"/>
+                <outlet property="mapContainerView" destination="cfz-5K-gnz" id="Eiw-Vb-llt"/>
+                <outlet property="mapContainerViewBottomConstraint" destination="cAD-vX-fhD" id="4aB-wg-ljB"/>
                 <outlet property="mapSettingBtn" destination="3oZ-a4-fMY" id="6Nh-Pg-BrE"/>
                 <outlet property="mapSettingsView" destination="wqj-Hm-1MM" id="jjw-1E-3tx"/>
                 <outlet property="mapView" destination="GkM-BQ-8jY" id="qLQ-rD-a5D"/>

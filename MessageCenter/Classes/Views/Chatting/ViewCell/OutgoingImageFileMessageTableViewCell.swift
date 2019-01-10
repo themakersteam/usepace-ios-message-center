@@ -235,6 +235,7 @@ class OutgoingImageFileMessageTableViewCell: UITableViewCell {
         let messageTimestamp = Double(self.message.createdAt) / 1000.0
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = DateFormatter.Style.short
+        dateFormatter.locale = Locale(identifier: "en_US")
         let messageCreatedDate = NSDate(timeIntervalSince1970: messageTimestamp)
         let messageDateString = dateFormatter.string(from: messageCreatedDate as Date)
         

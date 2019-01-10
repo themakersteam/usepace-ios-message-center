@@ -28,6 +28,8 @@ public class SelectLocationViewController: UIViewController {
     @IBOutlet weak var myLocationBtn: UIButton!
     @IBOutlet weak var sendLocationBtn: UIButton!
     @IBOutlet weak var sendLocationIcon: UIImageView!
+    @IBOutlet weak var mapContainerViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var mapContainerView: UIView!
     
     // -MARK: Properties
     var delegate: SelectLocationDelegate?
@@ -63,7 +65,12 @@ public class SelectLocationViewController: UIViewController {
     // -MARK: Initialization
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
+        if #available(iOS 11.0, *) {
+            if let bottomInsets = UIApplication.shared.delegate?.window??.safeAreaInsets.bottom, bottomInsets > 0 {
+                mapContainerViewBottomConstraint.constant = mapContainerViewBottomConstraint.constant - bottomInsets
+                self.mapContainerView.layoutIfNeeded()
+            }
+        }
         navItem.title = "send_location.title".localized
         mapView.delegate = self
         locationManager.delegate = self
