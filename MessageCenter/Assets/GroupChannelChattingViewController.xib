@@ -178,6 +178,6 @@
     </objects>
     <resources>
         <image name="back.png" width="24" height="24"/>
-        <image name="mainpattern.png" width="414" height="896"/>
+        <image name="mainpattern.png" width="375" height="667"/>
     </resources>
 </document>
