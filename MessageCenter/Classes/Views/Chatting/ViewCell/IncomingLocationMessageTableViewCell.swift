@@ -76,12 +76,13 @@ class IncomingLocationMessageTableViewCell: UITableViewCell {
         
         let messageTimestamp = Double(self.message.createdAt) / 1000.0
         let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US")
         dateFormatter.timeStyle = DateFormatter.Style.short
         let messageCreatedDate = NSDate(timeIntervalSince1970: messageTimestamp)
         let messageDateString = dateFormatter.string(from: messageCreatedDate as Date)
-        let messageDateAttributedString = NSMutableAttributedString(string: messageDateString, attributes: messageDateAttribute)
-        self.messageDateLabel.attributedText = messageDateAttributedString
-        
+        // let messageDateAttributedString = NSMutableAttributedString(string: messageDateString, attributes: messageDateAttribute)
+        // self.messageDateLabel.attributedText = messageDateAttributedString
+        self.messageDateLabel.text = messageDateString
         self.layoutIfNeeded()
     }
     
