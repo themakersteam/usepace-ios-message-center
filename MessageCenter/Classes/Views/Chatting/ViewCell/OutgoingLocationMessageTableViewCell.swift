@@ -99,18 +99,17 @@ class OutgoingLocationMessageTableViewCell: UITableViewCell {
         // Message Status
         if self.message.channelType == CHANNEL_TYPE_GROUP {
             if self.message.messageId == 0 {
-                self.imgMessageStatus.image = UIImage(named: "icMsgsent.png", in: Bundle(for: MessageCenter.self), compatibleWith: nil)
+                self.imgMessageStatus.image = UIImage(named: "icMsgsent.png", in: Bundle.bundleForXib(OutgoingLocationMessageTableViewCell.self), compatibleWith: nil)
             }
             else {
                 if let channelOfMessage = channel as? SBDGroupChannel? {
                     let unreadMessageCount = channelOfMessage?.getReadReceipt(of: self.message)
                     if unreadMessageCount == 0 {
                         // 0 means everybody has read the message
-                        self.imgMessageStatus.image = UIImage(named: "icMsgread.png", in: Bundle(for: MessageCenter.self), compatibleWith: nil)
+                        self.imgMessageStatus.image = UIImage(named: "icMsgread.png", in: Bundle.bundleForXib(OutgoingLocationMessageTableViewCell.self), compatibleWith: nil)
                     }
                     else {
-                        self.imgMessageStatus.image = UIImage(named: "icMsgdelivered.png", in: Bundle(for: MessageCenter.self), compatibleWith: nil)
-                        
+                        self.imgMessageStatus.image = UIImage(named: "icMsgdelivered.png", in: Bundle.bundleForXib(OutgoingLocationMessageTableViewCell.self), compatibleWith: nil)
                     }
                 }
             }
