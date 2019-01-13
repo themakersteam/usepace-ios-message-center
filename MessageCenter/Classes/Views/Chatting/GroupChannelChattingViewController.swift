@@ -1961,7 +1961,7 @@ extension GroupChannelChattingViewController : ImagePreviewProtocol {
             options.deliveryMode = PHImageRequestOptionsDeliveryMode.highQualityFormat
             
             if image != nil {
-                let imageData = UIImageJPEGRepresentation(image!, 1.0)
+                let imageData = UIImageJPEGRepresentation(image!, 0.1)
                 let thumbnailSize = SBDThumbnailSize.make(withMaxWidth: 320.0, maxHeight: 320.0)
                 
                 let preSendMessage = self.groupChannel.sendFileMessage(withBinaryData: imageData!, filename: imageName as String, type: mimeType! as String, size: UInt((imageData?.count)!), thumbnailSizes: [thumbnailSize!], data: "", customType: "", progressHandler: nil, completionHandler: { (fileMessage, error) in

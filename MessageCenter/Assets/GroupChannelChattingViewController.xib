@@ -89,7 +89,7 @@
                     <color key="backgroundColor" red="0.95686274510000002" green="0.94901960780000005" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mainpattern.png" translatesAutoresizingMaskIntoConstraints="NO" id="QiU-w2-kui">
-                    <rect key="frame" x="35" y="95" width="305" height="572"/>
+                    <rect key="frame" x="0.0" y="95" width="375" height="572"/>
                 </imageView>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AAA-Vq-7hk" customClass="ChattingView" customModule="MessageCenter" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="95" width="375" height="572"/>
@@ -160,11 +160,11 @@
                 <constraint firstItem="Kgd-6s-sEz" firstAttribute="top" secondItem="UvG-x8-VLe" secondAttribute="top" id="YCq-AK-MYQ"/>
                 <constraint firstItem="nxZ-VX-cuY" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="cQB-um-Clg"/>
                 <constraint firstItem="UvG-x8-VLe" firstAttribute="trailing" secondItem="aGv-gC-XX0" secondAttribute="trailing" id="dRF-JJ-hB7"/>
-                <constraint firstItem="UvG-x8-VLe" firstAttribute="trailing" secondItem="QiU-w2-kui" secondAttribute="trailing" constant="35" id="f0p-bi-QIn"/>
+                <constraint firstItem="UvG-x8-VLe" firstAttribute="trailing" secondItem="QiU-w2-kui" secondAttribute="trailing" id="f0p-bi-QIn"/>
                 <constraint firstItem="aGv-gC-XX0" firstAttribute="top" secondItem="nxZ-VX-cuY" secondAttribute="bottom" id="jZ6-Kn-rgX"/>
                 <constraint firstItem="mOk-Vz-mXb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="jrb-XI-ccp"/>
                 <constraint firstItem="Ykx-aa-bI9" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="kW2-jN-psY"/>
-                <constraint firstItem="QiU-w2-kui" firstAttribute="leading" secondItem="UvG-x8-VLe" secondAttribute="leading" constant="35" id="lFL-2c-zMd"/>
+                <constraint firstItem="QiU-w2-kui" firstAttribute="leading" secondItem="UvG-x8-VLe" secondAttribute="leading" id="lFL-2c-zMd"/>
                 <constraint firstItem="QiU-w2-kui" firstAttribute="top" secondItem="nxZ-VX-cuY" secondAttribute="bottom" id="oVv-bR-EqR"/>
                 <constraint firstAttribute="trailing" secondItem="Kgd-6s-sEz" secondAttribute="trailing" id="poM-97-6RZ"/>
                 <constraint firstItem="Kgd-6s-sEz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="rcY-nS-x5K"/>
@@ -178,6 +178,6 @@
     </objects>
     <resources>
         <image name="back.png" width="24" height="24"/>
-        <image name="mainpattern.png" width="307" height="547"/>
+        <image name="mainpattern.png" width="414" height="896"/>
     </resources>
 </document>
