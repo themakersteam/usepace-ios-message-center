@@ -59,7 +59,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="Eh3-EI-aDk"/>
-                                    <constraint firstAttribute="trailing" secondItem="11a-Lr-n4z" secondAttribute="trailing" constant="6" id="UpN-gM-8f4"/>
+                                    <constraint firstAttribute="trailing" secondItem="11a-Lr-n4z" secondAttribute="trailing" constant="4" id="UpN-gM-8f4"/>
                                     <constraint firstItem="6Am-Co-pmb" firstAttribute="centerY" secondItem="ZcZ-m8-MQv" secondAttribute="centerY" id="ZdS-dN-9Sf"/>
                                     <constraint firstItem="11a-Lr-n4z" firstAttribute="centerY" secondItem="ZcZ-m8-MQv" secondAttribute="centerY" id="aei-cM-RQ8"/>
                                     <constraint firstAttribute="height" constant="15" id="bBh-RH-VJ8"/>
@@ -69,8 +69,8 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.96862745098039216" blue="0.83921568627450982" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="qSc-70-ZKk" secondAttribute="bottom" constant="15" id="0KH-Ut-sIO"/>
-                            <constraint firstItem="qSc-70-ZKk" firstAttribute="top" secondItem="Ifq-nD-J3U" secondAttribute="top" constant="10" id="4cV-OA-rw2"/>
+                            <constraint firstAttribute="bottom" secondItem="qSc-70-ZKk" secondAttribute="bottom" constant="20" id="0KH-Ut-sIO"/>
+                            <constraint firstItem="qSc-70-ZKk" firstAttribute="top" secondItem="Ifq-nD-J3U" secondAttribute="top" constant="5" id="4cV-OA-rw2"/>
                             <constraint firstAttribute="trailing" secondItem="ZcZ-m8-MQv" secondAttribute="trailing" id="D4R-og-eNM"/>
                             <constraint firstItem="qSc-70-ZKk" firstAttribute="leading" secondItem="Ifq-nD-J3U" secondAttribute="leading" constant="10" id="JPE-ur-GU5"/>
                             <constraint firstItem="DC5-77-oMg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ifq-nD-J3U" secondAttribute="leading" constant="10" id="LOz-qf-flP"/>

@@ -30,6 +30,7 @@ public class SelectLocationViewController: UIViewController {
     @IBOutlet weak var sendLocationIcon: UIImageView!
     @IBOutlet weak var mapContainerViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var mapContainerView: UIView!
+    @IBOutlet weak var sendLocationContainer: UIView!
     
     // -MARK: Properties
     var delegate: SelectLocationDelegate?
@@ -103,6 +104,8 @@ public class SelectLocationViewController: UIViewController {
     
     private func prepareView() {
         
+        let locationIconTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.didTapLocationIcon))
+        self.sendLocationContainer.addGestureRecognizer(locationIconTapGesture)
         let mapTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.didTapMapView))
         let mapLongPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.didHoldMapView))
         self.mapView.addGestureRecognizer(mapTapGesture)
@@ -250,6 +253,9 @@ public class SelectLocationViewController: UIViewController {
         if isShowingMapSettings {
             self.dismissSettings(self)
         }
+    }
+    @objc private func didTapLocationIcon() {
+        self.sendLocation(self.sendLocationIcon)
     }
     @objc private func didHoldMapView(_ sender: UILongPressGestureRecognizer) {
         guard sender.state == .ended else {

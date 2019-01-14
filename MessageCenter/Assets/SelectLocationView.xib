@@ -22,6 +22,7 @@
                 <outlet property="navItem" destination="J8h-hC-32x" id="NSB-kZ-h6Y"/>
                 <outlet property="segmentedControl" destination="7dM-cg-bVj" id="BKM-me-QqM"/>
                 <outlet property="sendLocationBtn" destination="BMt-q3-Jwz" id="HlN-Ff-ifL"/>
+                <outlet property="sendLocationContainer" destination="6mr-K7-EZ3" id="f62-cY-cnF"/>
                 <outlet property="sendLocationIcon" destination="5Qw-JT-yla" id="8QZ-oA-iMG"/>
                 <outlet property="view" destination="iN0-l3-epB" id="vDi-SB-rdT"/>
             </connections>

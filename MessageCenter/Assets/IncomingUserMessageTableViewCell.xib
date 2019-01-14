@@ -48,12 +48,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="puC-Tz-zNM" secondAttribute="bottom" constant="15" id="8Mw-Vi-x0r"/>
+                            <constraint firstAttribute="bottom" secondItem="puC-Tz-zNM" secondAttribute="bottom" constant="20" id="8Mw-Vi-x0r"/>
                             <constraint firstAttribute="trailing" secondItem="b62-As-10a" secondAttribute="trailing" id="NBX-bj-b3q"/>
                             <constraint firstAttribute="trailing" secondItem="puC-Tz-zNM" secondAttribute="trailing" constant="10" id="QZB-Lx-hRv"/>
                             <constraint firstItem="puC-Tz-zNM" firstAttribute="leading" secondItem="2yY-bp-pWb" secondAttribute="leading" constant="10" id="Tfo-uS-jqX"/>
                             <constraint firstItem="b62-As-10a" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2yY-bp-pWb" secondAttribute="leading" constant="85" id="a46-L4-Sjh"/>
-                            <constraint firstItem="puC-Tz-zNM" firstAttribute="top" secondItem="2yY-bp-pWb" secondAttribute="top" constant="10" id="sDd-Z7-mrE"/>
+                            <constraint firstItem="puC-Tz-zNM" firstAttribute="top" secondItem="2yY-bp-pWb" secondAttribute="top" constant="5" id="sDd-Z7-mrE"/>
                             <constraint firstAttribute="bottom" secondItem="b62-As-10a" secondAttribute="bottom" constant="5" id="vzw-gv-Re9"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
