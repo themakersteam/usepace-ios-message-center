@@ -102,7 +102,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         self.cachedMessage = false
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:))))
-        if SBDMain.getConnectState() == .closed {
+        if SBDMain.getConnectState() == .closed || SBDMain.getCurrentUser() == nil {
             SBDMain.connect(withUserId: (lastConnectionRequest?.userId)!, accessToken: lastConnectionRequest?.accessToken) { (user, error) in
                 if error == nil {
                     self.loadMessages()
@@ -121,7 +121,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     func relaodChatView(){
         GroupChannelChattingViewController.instance = self
         self.podBundle = Bundle.bundleForXib(GroupChannelChattingViewController.self)
-        if SBDMain.getConnectState() == .closed {
+        if SBDMain.getConnectState() == .closed || SBDMain.getCurrentUser() == nil {
             SBDMain.connect(withUserId: (lastConnectionRequest?.userId)!, accessToken: lastConnectionRequest?.accessToken) { (user, error) in
                 if error == nil {
                     self.loadMessages()

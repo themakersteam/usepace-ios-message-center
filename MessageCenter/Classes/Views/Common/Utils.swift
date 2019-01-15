@@ -180,6 +180,9 @@ class Utils: NSObject {
         let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
         let documentsDirectory = paths[0] as NSString
         let appIdDirectory = documentsDirectory.appendingPathComponent(SBDMain.getApplicationId()!) as NSString
+        if SBDMain.getCurrentUser() == nil {
+            return []
+        }
         let messageFileNamePrefix = Utils.sha256(string: String(format: "%@_%@", (SBDMain.getCurrentUser()?.userId.urlencoding())!, channelUrl))! as NSString
         let dumpFileName = String(format: "%@.data", messageFileNamePrefix) as NSString
         let dumpFilePath = appIdDirectory.appendingPathComponent(dumpFileName as String)
