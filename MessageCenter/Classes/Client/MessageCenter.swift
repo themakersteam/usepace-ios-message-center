@@ -96,9 +96,6 @@ public class MessageCenter {
         }, failure: failure)
     }
     
-    public static func allowOnlyOneDeviceSignIn( _ permission: Bool) {
-        client.getClient(type: LAST_CLIENT).shouldAllowOnlySingleSignIn(permission)
-    }
     
     public class func createThemeObject(title: String?, subtitle: String?, welcomeMessage: String? ,primaryColor: UIColor? , primaryAccentColor: UIColor?, primaryNavigationButtonColor: UIColor?, primaryBackgroundColor: UIColor?, primaryActionIconsColor: UIColor?) -> ThemeObject {
 
