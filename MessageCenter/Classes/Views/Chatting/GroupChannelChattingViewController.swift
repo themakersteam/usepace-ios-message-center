@@ -284,10 +284,13 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         
         SBDMain.removeChannelDelegate(forIdentifier: self.description)
         SBDMain.removeConnectionDelegate(forIdentifier: self.description)
+        SBDMain.disconnect {
+            self.dismiss(animated: true, completion: nil)
+        }
+     
         if MessageCenter.completionHandler != nil {
             MessageCenter.completionHandler!(true)
         }
-        self.dismiss(animated: true, completion: nil)
     }
     
     private func deleteMesages() {
