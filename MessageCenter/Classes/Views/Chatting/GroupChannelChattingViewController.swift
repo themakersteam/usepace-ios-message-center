@@ -71,12 +71,6 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         self.podBundle = Bundle.bundleForXib(GroupChannelChattingViewController.self)
         setNavigationItems()
         
-//        if themeObject != nil {
-//            self.patternView.backgroundColor = self.themeObject?.primaryBackgroundColor
-//        }
-        
-//        self.patternView.backgroundColor = UIColor(patternImage: UIImage(named: "mainpattern.png", in: podBundle, compatibleWith: nil)!)
-        //
         let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
         negativeLeftSpacerForImageViewerLoading.width = -2
         
@@ -102,7 +96,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         self.cachedMessage = false
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:))))
-        if SBDMain.getConnectState() == .closed {
+        
+        if SBDMain.getConnectState() == .closed  || SBDMain.getCurrentUser() == nil  {
             SBDMain.connect(withUserId: (lastConnectionRequest?.userId)!, accessToken: lastConnectionRequest?.accessToken) { (user, error) in
                 if error == nil {
                     self.loadMessages()
@@ -121,7 +116,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     func relaodChatView(){
         GroupChannelChattingViewController.instance = self
         self.podBundle = Bundle.bundleForXib(GroupChannelChattingViewController.self)
-        if SBDMain.getConnectState() == .closed {
+        if SBDMain.getConnectState() == .closed || SBDMain.getCurrentUser() == nil {
             SBDMain.connect(withUserId: (lastConnectionRequest?.userId)!, accessToken: lastConnectionRequest?.accessToken) { (user, error) in
                 if error == nil {
                     self.loadMessages()
@@ -310,16 +305,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             self.chattingView.messages.append(contentsOf: self.dumpedMessages)
             
             self.chattingView.chattingTableView.reloadData()
-            //            self.chattingView.chattingTableView.layoutIfNeeded()
-            
-            //            let viewHeight = UIScreen.main.bounds.size.height - 95.0 - self.chattingView.inputContainerViewHeight.constant - 10
-            //            let contentSize = self.chattingView.chattingTableView.contentSize
             self.chattingView.scrollToBottom(force: true)
-            //            if contentSize.height > viewHeight {
-            //                let newContentOffset = CGPoint(x: 0, y: contentSize.height - viewHeight)
-            //                // self.chattingView.chattingTableView.setContentOffset(newContentOffset, animated: false)
-            //            }
-            
             self.cachedMessage = true
         }
         
@@ -358,7 +344,6 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             
             if messages?.count == 0 {
                 self.hasNext = false
-                // self.chattingView.hasLoadedAllMessages = true
                 self.chattingView.chattingTableView.reloadData()
                 self.chattingView.scrollToBottom(force: true)
             }
@@ -394,21 +379,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                     DispatchQueue.main.async {
                         self.chattingView.chattingTableView.reloadData()
                         self.chattingView.chattingTableView.layoutIfNeeded()
-                        
-                        //                        var viewHeight: CGFloat
-                        //                        if self.keyboardShown {
-                        //                            viewHeight = self.chattingView.chattingTableView.frame.size.height - 10
-                        //                        }
-                        //                        else {
-                        //                            viewHeight = UIScreen.main.bounds.size.height - 95.0 - self.chattingView.inputContainerViewHeight.constant - 10
-                        //                        }
-                        
-                        //                        let contentSize = self.chattingView.chattingTableView.contentSize
                         self.chattingView.scrollToBottom(force: true)
-                        //                      if contentSize.height > viewHeight {
-                        //                            let newContentOffset = CGPoint(x: 0, y: contentSize.height - viewHeight)
-                        // self.chattingView.chattingTableView.setContentOffset(newContentOffset, animated: false)
-                        //}
                     }
                 }
                 
@@ -427,25 +398,16 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                     }
                     
                     DispatchQueue.main.async {
-                        //                        let contentSizeBefore = self.chattingView.chattingTableView.contentSize
-                        
                         self.chattingView.chattingTableView.reloadData()
-                        //                      self.chattingView.chattingTableView.layoutIfNeeded()
                         if initial == true {
                             self.chattingView.scrollToBottom(force: true)
                         }
-                        
-                        //let contentSizeAfter = self.chattingView.chattingTableView.contentSize
-                        
-                        // let newContentOffset = CGPoint(x: 0, y: contentSizeAfter.height - contentSizeBefore.height)
-                        // self.chattingView.chattingTableView.setContentOffset(newContentOffset, animated: false)
                     }
                 }
                 
                 self.isLoading = false
             }
         }
-        //        self.chattingView.scrollToBottom(force: true)
     }
     
     //MARK: - Send Messages
