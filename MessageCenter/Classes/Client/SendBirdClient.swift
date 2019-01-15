@@ -18,10 +18,11 @@ let ErrorDomainUser = "com.sendbird.sample.user"
 var lastConnectionRequest : ConnectionRequest?
 
 public class SendBirdClient: ClientProtocol {
-    
+
+    public var isUnique: Bool = true
     
     public func registerDevicePushToken(_ deviceToken: Data, completion: @escaping RegisterDevicePushTokenCompletion) {
-        SBDMain.registerDevicePushToken(deviceToken, unique: true) { (status, error) in
+        SBDMain.registerDevicePushToken(deviceToken, unique: self.shouldDeleteUserOtherDevices) { (status, error) in
             completion(Int(status.rawValue), error)
         }
     }
@@ -47,7 +48,7 @@ public class SendBirdClient: ClientProtocol {
             success((user?.userId)!)
             
             if let pushToken: Data = SBDMain.getPendingPushToken() {
-                SBDMain.registerDevicePushToken(pushToken, unique: true, completionHandler: { (status, error) in
+                SBDMain.registerDevicePushToken(pushToken, unique: self.shouldDeleteUserOtherDevices, completionHandler: { (status, error) in
                     guard error == nil else {
                         print("APNS registration failed.")
                         // TODO: Confirm, should we fire a failure in case of APNs registration failed??

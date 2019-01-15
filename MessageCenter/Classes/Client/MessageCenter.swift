@@ -45,6 +45,7 @@ public class MessageCenter {
         return client
     }
     public static var themeObject : ThemeObject?
+    public static var isUnique : Bool = true
     private static var _parentVC: UIViewController? = nil
     public static var parentVC: UIViewController {
         set { _parentVC = newValue}

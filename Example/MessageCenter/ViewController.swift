@@ -65,6 +65,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func onTouchConnect(_ sender: Any) {
+        
         MessageCenter.connect(connectRequest, pushToken:"sdq342134234dsc342".data(using: .utf8), success: { (userId) in
             print("Connected user: %@", userId);
             self.labelUserId.text = userId

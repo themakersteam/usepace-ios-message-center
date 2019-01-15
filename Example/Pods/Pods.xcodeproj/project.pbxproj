@@ -346,8 +346,8 @@
 		1A8F626221D0F48D00C57CFA /* IncomingLocationMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8F626021D0F48D00C57CFA /* IncomingLocationMessageTableViewCell.swift */; };
 		1A8F626621D0F4A600C57CFA /* OutgoingLocationMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8F626421D0F4A600C57CFA /* OutgoingLocationMessageTableViewCell.swift */; };
 		1A8F626F21D1233D00C57CFA /* IncomingLocationMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A8F626E21D1233D00C57CFA /* IncomingLocationMessageTableViewCell.xib */; };
+		1AA45BB621E5EEB30079F3A1 /* NavigationApps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA45BB521E5EEB30079F3A1 /* NavigationApps.swift */; };
 		1AD1B47521D4C32A008465DA /* PreviewLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD1B47321D4C28E008465DA /* PreviewLocationViewController.swift */; };
-		1AD1B47821D4C3A9008465DA /* NavigationApps copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD1B47621D4C3A4008465DA /* NavigationApps copy.swift */; };
 		1AD1B47A21D4C5D2008465DA /* PreviewLocationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AD1B47921D4C5D1008465DA /* PreviewLocationView.xib */; };
 		1AE88E3C8E174CD5E4EFBB8C4B5CA768 /* ProgressProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DF7528E712E30A3745D3180FFCDC5F8 /* ProgressProtocol.swift */; };
 		1B35F735A0D7EDAFA1387607403C1D83 /* ZeroPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BA6862EBE4C4458C14846425FF45A4 /* ZeroPadding.swift */; };
@@ -1186,9 +1186,9 @@
 		1A8F626021D0F48D00C57CFA /* IncomingLocationMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingLocationMessageTableViewCell.swift; sourceTree = "<group>"; };
 		1A8F626421D0F4A600C57CFA /* OutgoingLocationMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingLocationMessageTableViewCell.swift; sourceTree = "<group>"; };
 		1A8F626E21D1233D00C57CFA /* IncomingLocationMessageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IncomingLocationMessageTableViewCell.xib; sourceTree = "<group>"; };
+		1AA45BB521E5EEB30079F3A1 /* NavigationApps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationApps.swift; sourceTree = "<group>"; };
 		1AB72D011BDDB27BE3880B23BE01C1DE /* HTMLMarker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HTMLMarker.m; path = Sources/HTMLMarker.m; sourceTree = "<group>"; };
 		1AD1B47321D4C28E008465DA /* PreviewLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewLocationViewController.swift; sourceTree = "<group>"; };
-		1AD1B47621D4C3A4008465DA /* NavigationApps copy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NavigationApps copy.swift"; sourceTree = "<group>"; };
 		1AD1B47921D4C5D1008465DA /* PreviewLocationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreviewLocationView.xib; sourceTree = "<group>"; };
 		1B3ACCC9473545AC5FC1D5521F686CD6 /* UInt64+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UInt64+Extension.swift"; path = "Sources/CryptoSwift/UInt64+Extension.swift"; sourceTree = "<group>"; };
 		1C1D028FE558B52C973AB83D8CB5491E /* String+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+Extension.swift"; path = "Sources/CryptoSwift/String+Extension.swift"; sourceTree = "<group>"; };
@@ -2302,7 +2302,7 @@
 		4B0EB225CB09605976FB5A34B0B8880D /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				1AD1B47621D4C3A4008465DA /* NavigationApps copy.swift */,
+				1AA45BB521E5EEB30079F3A1 /* NavigationApps.swift */,
 				AD86F40D9A3F0B0D1C131510A270C7A5 /* DropPin.swift */,
 				B914B345757BB71AECF6970065E13043 /* MapType.swift */,
 			);
@@ -3668,6 +3668,7 @@
 				3A04C461F2B38F62D1D7E969DD0D4873 /* ChatImage.swift in Sources */,
 				B8C6AB3A28C90622555D1160662BF11E /* ChattingView.swift in Sources */,
 				1A8F626621D0F4A600C57CFA /* OutgoingLocationMessageTableViewCell.swift in Sources */,
+				1AA45BB621E5EEB30079F3A1 /* NavigationApps.swift in Sources */,
 				FDC14E05FAD028EB29D253621FA8592A /* ChatViewTheme.swift in Sources */,
 				5A2F828B855537AA8DAAEFCB3E1A97AB /* Client.swift in Sources */,
 				AC2718D22E0862DEC76A008BAE996599 /* ClientProtocol.swift in Sources */,
@@ -3684,7 +3685,6 @@
 				975DDEF35590333A8C8B770BBE8A1798 /* ImagePreviewViewController.swift in Sources */,
 				32AA080DDB58A5BCFF2708E2BFCFD52F /* IncomingFileMessageTableViewCell.swift in Sources */,
 				AC55F3694C3D1A4580AE61550C77AE86 /* IncomingGeneralUrlPreviewMessageTableViewCell.swift in Sources */,
-				1AD1B47821D4C3A9008465DA /* NavigationApps copy.swift in Sources */,
 				B5D5791CDD62560EBA0911633C3749C7 /* IncomingImageFileMessageTableViewCell.swift in Sources */,
 				912200E6405B2C73EC46A14B014C07D8 /* IncomingUserMessageTableViewCell.swift in Sources */,
 				50FED60FB80C79EFFACCE86FB6385D19 /* LocalizableButton.swift in Sources */,
