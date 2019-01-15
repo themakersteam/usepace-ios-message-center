@@ -123,13 +123,19 @@ public class SendBirdClient: ClientProtocol {
   
     public func disconnect(completion: @escaping () -> Void) {
         lastConnectionRequest = nil
-        if (self.isConnected) {
-            SBDMain.disconnect {
+        SBDMain.unregisterAllPushToken { (a, error) in
+            guard error == nil else {
+                print("Failed to Disconnect")
+                return
+            }
+            if (self.isConnected) {
+                SBDMain.disconnect {
+                    completion()
+                }
+            }
+            else {
                 completion()
             }
-        }
-        else {
-            completion()
         }
     }
     
