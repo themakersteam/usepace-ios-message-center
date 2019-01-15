@@ -19,9 +19,10 @@ var lastConnectionRequest : ConnectionRequest?
 
 public class SendBirdClient: ClientProtocol {
     
+    private var unique: Bool = true
     
     public func registerDevicePushToken(_ deviceToken: Data, completion: @escaping RegisterDevicePushTokenCompletion) {
-        SBDMain.registerDevicePushToken(deviceToken, unique: true) { (status, error) in
+        SBDMain.registerDevicePushToken(deviceToken, unique: self.unique) { (status, error) in
             completion(Int(status.rawValue), error)
         }
     }
@@ -47,7 +48,7 @@ public class SendBirdClient: ClientProtocol {
             success((user?.userId)!)
             
             if let pushToken: Data = SBDMain.getPendingPushToken() {
-                SBDMain.registerDevicePushToken(pushToken, unique: true, completionHandler: { (status, error) in
+                SBDMain.registerDevicePushToken(pushToken, unique: self.unique, completionHandler: { (status, error) in
                     guard error == nil else {
                         print("APNS registration failed.")
                         // TODO: Confirm, should we fire a failure in case of APNs registration failed??
@@ -112,25 +113,23 @@ public class SendBirdClient: ClientProtocol {
         return false
     }
     
+    public func shouldAllowOnlySingleSignIn(_ permission: Bool) {
+        self.unique = permission
+    }
+    
     public var isConnected: Bool {
         return SBDMain.getConnectState() == .open //Connection Opened
     }
   
     public func disconnect(completion: @escaping () -> Void) {
         lastConnectionRequest = nil
-        SBDMain.unregisterAllPushToken { (a, error) in
-            guard error == nil else {
-                print("Failed to Disconnect")
-                return
-            }
-            if (self.isConnected) {
-                SBDMain.disconnect {
-                    completion()
-                }
-            }
-            else {
+        if (self.isConnected) {
+            SBDMain.disconnect {
                 completion()
             }
+        }
+        else {
+            completion()
         }
     }
     
