@@ -24,5 +24,4 @@ public protocol ClientProtocol {
     func getUnReadMessagesCount(forChannel channel: String?, success: @escaping UnReadMessagesSuccessCompletion, failure: @escaping MessageCenterFailureCompletion)
     func handleNotification(userInfo: [AnyHashable : Any]) -> Bool
     func registerDevicePushToken(_ deviceToken: Data, completion: @escaping RegisterDevicePushTokenCompletion)
-    func shouldAllowOnlySingleSignIn(_ permission: Bool)
 }
