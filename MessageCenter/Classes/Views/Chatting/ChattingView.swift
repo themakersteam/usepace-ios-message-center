@@ -88,6 +88,18 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
     var lastOffsetCapture: TimeInterval = 0
     var isScrollingFast: Bool = false
     
+    private var _currentUserId: String = ""
+    var currentUserId: String {
+        get {
+            if self._currentUserId != "" {
+                return self._currentUserId
+            }
+            return SBDMain.getCurrentUser()?.userId ?? ""
+        }
+        set {
+            self._currentUserId = newValue
+        }
+    }
     private var previousLine : Int = 0
     // MARK: - viewLifeCycle
     
@@ -483,7 +495,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
             let userMessage = msg as! SBDUserMessage
             let sender = userMessage.sender
             
-            if sender?.userId == SBDMain.getCurrentUser()?.userId {
+            if sender?.userId == currentUserId {
                 // Outgoing
                 if userMessage.customType == "url_preview" {
                     if indexPath.row > 0 {
@@ -559,7 +571,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
             let fileMessage = msg as! SBDFileMessage
             let sender = fileMessage.sender
             
-            if sender?.userId == SBDMain.getCurrentUser()?.userId {
+            if sender?.userId == currentUserId {
                 // Outgoing
                 if fileMessage.type.hasPrefix("image") {
                     if indexPath.row > 0 {
@@ -655,7 +667,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
             let userMessage = msg as! SBDUserMessage
             let sender = userMessage.sender
             
-            if sender?.userId == SBDMain.getCurrentUser()?.userId {
+            if sender?.userId == currentUserId {
                 // Outgoing
                 if userMessage.customType == "url_preview" {
                     cell = tableView.dequeueReusableCell(withIdentifier: OutgoingGeneralUrlPreviewMessageTableViewCell.cellReuseIdentifier())
@@ -905,7 +917,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
             let fileMessage = msg as! SBDFileMessage
             let sender = fileMessage.sender
             
-            if sender?.userId == SBDMain.getCurrentUser()?.userId {
+            if sender?.userId == currentUserId {
                 // Outgoing
                 // MARK: - Outgoing - File Image
                 if fileMessage.type.hasPrefix("image") {

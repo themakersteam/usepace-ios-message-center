@@ -31,6 +31,18 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     private var messageQuery: SBDPreviousMessageListQuery!
     private var delegateIdentifier: String!
     private var hasNext: Bool = true
+    private var isIndicatingLoading: Bool = false {
+        didSet {
+            DispatchQueue.main.async {
+                if self.isIndicatingLoading {
+                    self.chatActivityIndicator.startAnimating()
+                }
+                else {
+                    self.chatActivityIndicator.stopAnimating()
+                }
+            }
+        }
+    }
     private var isLoading: Bool = false
     private var keyboardShown: Bool = false
     private var photosViewController: NYTPhotosViewController!
@@ -46,6 +58,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     @IBOutlet weak var vwActionSheet: UIView!
     @IBOutlet weak var chattingView: ChattingView!
     
+    @IBOutlet weak var chatActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var bottomMargin: NSLayoutConstraint!
     @IBOutlet weak var imageViewerLoadingView: UIView!
     @IBOutlet weak var imageViewerLoadingIndicator: UIActivityIndicatorView!
@@ -67,6 +80,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        isIndicatingLoading = true
         GroupChannelChattingViewController.instance = self
         self.podBundle = Bundle.bundleForXib(GroupChannelChattingViewController.self)
         setNavigationItems()
@@ -90,6 +104,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         self.hasNext = true
         self.isLoading = false
         if self.themeObject != nil {
+            self.chatActivityIndicator.color = themeObject?.primaryAccentColor
             self.chattingView.updateTheme(themeObject: themeObject!)
         }
         self.chattingView.fileAttachButton.addTarget(self, action: #selector(openAttachmentActionSheet), for: UIControlEvents.touchUpInside)
@@ -103,13 +118,10 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:))))
         if SBDMain.getConnectState() == .closed || SBDMain.getCurrentUser() == nil {
-            SBDMain.connect(withUserId: (lastConnectionRequest?.userId)!, accessToken: lastConnectionRequest?.accessToken) { (user, error) in
-                if error == nil {
-                    self.loadMessages()
-                }
-            }
+            self.connectToSendBird()
         }
         else {
+            self.chattingView.currentUserId = SBDMain.getCurrentUser()?.userId ?? ""
             self.loadMessages()
         }
         
@@ -118,17 +130,34 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         self.checkNotifications()
     }
     
+    private var connectionRetryCount = 0
+    private func connectToSendBird() {
+        SBDMain.connect(withUserId: (lastConnectionRequest?.userId)!, accessToken: lastConnectionRequest?.accessToken) { (user, error) in
+            if error == nil {
+                self.chattingView.currentUserId = user?.userId ?? ""
+                self.loadMessages()
+            }
+            else {
+                if error!.code == 800102 && self.connectionRetryCount < 5 {
+                    // Disconnect due to canceled connection - retry is valid.
+                    self.connectionRetryCount += 1
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        self.connectToSendBird()
+                    }
+                }
+            }
+            
+        }
+    }
+    
     func relaodChatView(){
         GroupChannelChattingViewController.instance = self
         self.podBundle = Bundle.bundleForXib(GroupChannelChattingViewController.self)
         if SBDMain.getConnectState() == .closed || SBDMain.getCurrentUser() == nil {
-            SBDMain.connect(withUserId: (lastConnectionRequest?.userId)!, accessToken: lastConnectionRequest?.accessToken) { (user, error) in
-                if error == nil {
-                    self.loadMessages()
-                }
-            }
+            self.connectToSendBird()
         }
         else {
+            self.chattingView.currentUserId = SBDMain.getCurrentUser()?.userId ?? ""
             self.loadMessages()
         }
         
@@ -351,6 +380,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         self.isLoading = true
         
         self.groupChannel.getPreviousMessages(byTimestamp: timestamp, limit: 30, reverse: !initial, messageType: SBDMessageTypeFilter.all, customType: "") { (messages, error) in
+            self.isIndicatingLoading = false
+
             if error != nil {
                 self.isLoading = false
                 
