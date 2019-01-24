@@ -289,7 +289,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     }
     
     @objc private func invokeCall() {
-        if !(themeObject?.enableCalling ?? false) { //}|| self.groupChannel.isFrozen {
+        if !(themeObject?.enableCalling ?? false) || self.groupChannel.isFrozen {
             return
         }
         
