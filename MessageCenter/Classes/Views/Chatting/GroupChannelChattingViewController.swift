@@ -72,6 +72,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     
     @IBOutlet weak var topViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var topView: UIView!
+    @IBOutlet weak var callBtn: UIButton!
     
     var currentImagePreviewTask: URLSessionDataTask?
     
@@ -91,13 +92,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         
 //        self.patternView.backgroundColor = UIColor(patternImage: UIImage(named: "mainpattern.png", in: podBundle, compatibleWith: nil)!)
         //
-        let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
-        negativeLeftSpacerForImageViewerLoading.width = -2
-        
-        let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close.png", in: podBundle, compatibleWith: nil), style: UIBarButtonItemStyle.done, target: self, action: #selector(close))
-        
-        self.imageViewerLoadingViewNavItem.leftBarButtonItems = [negativeLeftSpacerForImageViewerLoading, leftCloseItemForImageViewerLoading]
-        
+       
         self.delegateIdentifier = self.description
         SBDMain.add(self as SBDChannelDelegate, identifier: self.delegateIdentifier)
         
@@ -105,6 +100,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         self.isLoading = false
         if self.themeObject != nil {
             self.chatActivityIndicator.color = themeObject?.primaryAccentColor
+            self.imageViewerLoadingIndicator.color = themeObject?.primaryAccentColor
             self.chattingView.updateTheme(themeObject: themeObject!)
         }
         self.chattingView.fileAttachButton.addTarget(self, action: #selector(openAttachmentActionSheet), for: UIControlEvents.touchUpInside)
@@ -290,6 +286,31 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         }
         
         
+    }
+    
+    @objc private func invokeCall() {
+        if !(themeObject?.enableCalling ?? false) { //}|| self.groupChannel.isFrozen {
+            return
+        }
+        
+        showImageViewerLoading(canCancel: false)
+        MessageCenter.delegate?.userDidTapCall(forChannel: self.groupChannel.channelUrl, success: { (phoneNumber) in
+            self.hideImageViewerLoading(shouldCancelPendingImagePreview: false)
+            let url = URL(string: "tel://\(phoneNumber)")!
+            DispatchQueue.main.async {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }, failure: { (errorMessage) in
+            DispatchQueue.main.async {
+                self.hideImageViewerLoading(shouldCancelPendingImagePreview: false)
+                let alert = UIAlertController(title: "error".localized, message: errorMessage, preferredStyle: .alert)
+                let ok = UIAlertAction(title: "ok".localized, style: .default , handler: { (alert) in
+                    self.dismiss(animated: true, completion: nil)
+                })
+                alert.addAction(ok)
+                self.present(alert, animated: true, completion: nil)
+            }
+        })
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -1693,17 +1714,32 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         }
     }
     
-    func showImageViewerLoading() {
+    func showImageViewerLoading(canCancel: Bool = true) {
         DispatchQueue.main.async {
+            
+            if canCancel {
+                
+                let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
+                negativeLeftSpacerForImageViewerLoading.width = -2
+                
+                let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close.png", in: self.podBundle, compatibleWith: nil), style: UIBarButtonItemStyle.done, target: self, action: #selector(self.close))
+                
+                self.imageViewerLoadingViewNavItem.leftBarButtonItems = [negativeLeftSpacerForImageViewerLoading, leftCloseItemForImageViewerLoading]
+            }
+            else {
+                self.imageViewerLoadingViewNavItem.leftBarButtonItems = []
+            }
+            
             self.imageViewerLoadingView.isHidden = false
             self.imageViewerLoadingIndicator.isHidden = false
             self.imageViewerLoadingIndicator.startAnimating()
         }
     }
     
-    func hideImageViewerLoading() {
+    func hideImageViewerLoading(shouldCancelPendingImagePreview: Bool = true) {
         DispatchQueue.main.async {
-            if self.currentImagePreviewTask != nil {
+            
+            if shouldCancelPendingImagePreview && self.currentImagePreviewTask != nil {
                 self.currentImagePreviewTask?.cancel()
             }
             
@@ -1912,6 +1948,8 @@ fileprivate extension GroupChannelChattingViewController {
             self.btnBack.setImage(backImg?.withRenderingMode(UIImageRenderingMode.alwaysTemplate), for: .normal)
             self.btnBack.tintColor = self.themeObject?.primaryNavigationButtonColor
             
+            self.callBtn.isHidden = !(self.themeObject?.enableCalling ?? false)
+            self.callBtn.alpha = (self.groupChannel?.isFrozen ?? true) ? 0.5 : 1
         }
         
         if self.lblTitle.text?.count == 0  {
@@ -1928,7 +1966,7 @@ fileprivate extension GroupChannelChattingViewController {
             
         }
         self.btnBack.addTarget(self, action: #selector(close), for: .touchUpInside)
-        
+        self.callBtn.addTarget(self, action: #selector(invokeCall), for: .touchUpInside)
     }
     
     func addObservers() {

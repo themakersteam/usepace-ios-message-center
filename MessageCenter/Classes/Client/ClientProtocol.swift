@@ -25,3 +25,7 @@ public protocol ClientProtocol {
     func handleNotification(userInfo: [AnyHashable : Any]) -> Bool
     func registerDevicePushToken(_ deviceToken: Data, completion: @escaping RegisterDevicePushTokenCompletion)
 }
+
+public protocol MessageCenterDelegate {
+    func userDidTapCall(forChannel channel: String, success: @escaping (_ phoneNumber: String) -> Void, failure: @escaping (_ errorMessage: String) -> Void)
+}
