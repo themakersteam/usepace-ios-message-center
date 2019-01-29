@@ -28,4 +28,5 @@ public protocol ClientProtocol {
 
 public protocol MessageCenterDelegate {
     func userDidTapCall(forChannel channel: String, success: @escaping (_ phoneNumber: String) -> Void, failure: @escaping (_ errorMessage: String) -> Void)
+    func eventDidOccur(forChannel channel: String, event: MessageCenterEvents, userInfo: [AnyHashable: Any])
 }

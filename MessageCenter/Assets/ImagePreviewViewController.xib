@@ -55,13 +55,13 @@
                     <rect key="frame" x="0.0" y="603" width="375" height="64"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Caption" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OTO-k4-Jce">
-                            <rect key="frame" x="25" y="10" width="271" height="44"/>
+                            <rect key="frame" x="25" y="10" width="272" height="44"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.5568627451" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h17-ZS-gcx" customClass="SBMessageInputView" customModule="MessageCenter" customModuleProvider="target">
-                            <rect key="frame" x="10" y="10" width="286" height="44"/>
+                            <rect key="frame" x="10" y="10" width="287" height="44"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="chw-bm-pMB"/>
@@ -125,13 +125,19 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2y1-s4-cUM">
-                    <rect key="frame" x="25" y="35" width="25" height="25"/>
+                    <rect key="frame" x="25" y="35" width="40" height="40"/>
+                    <color key="backgroundColor" red="1" green="0.83137254900000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="25" id="qBi-Tp-kzb"/>
-                        <constraint firstAttribute="height" constant="25" id="u5u-0a-UEy"/>
+                        <constraint firstAttribute="width" constant="40" id="qBi-Tp-kzb"/>
+                        <constraint firstAttribute="height" constant="40" id="u5u-0a-UEy"/>
                     </constraints>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" image="btn_close.png"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="20"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="btnDismissTapped:" destination="-1" eventType="touchUpInside" id="SlM-ou-HIz"/>
                     </connections>
