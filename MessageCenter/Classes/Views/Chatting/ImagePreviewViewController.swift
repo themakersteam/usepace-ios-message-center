@@ -31,6 +31,7 @@ class ImagePreviewViewController: UIViewController {
     var imageToUpload : UIImage?
     var shouldShowCaption: Bool = true
     var delegate: ImagePreviewProtocol?
+    var theme: ThemeObject?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,20 +59,14 @@ class ImagePreviewViewController: UIViewController {
         
         if self.shouldShowCaption == false {
             self.bottomView.removeFromSuperview()
-            let backImage = UIImage(named: "back.png", in: Bundle.bundleForXib(ImagePreviewViewController.self), compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-            self.btnDismiss.setImage(backImage, for: .normal)
-            
-            if UIView.userInterfaceLayoutDirection(for: self.view.semanticContentAttribute) == .rightToLeft {
-                if let backImage = self.btnDismiss.imageView {
-                    backImage.transform = backImage.transform.rotated(by: CGFloat(Double.pi))
-                }
-            }
         }
-        else {
-            let closeImage = UIImage(named: "btn_close.png", in: Bundle.bundleForXib(ImagePreviewViewController.self), compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-            self.btnDismiss.setImage(closeImage, for: .normal)
-        }
-        self.btnDismiss.tintColor = .white
+        
+        let closeImg = UIImage(named: "btn_close", in: Bundle.bundleForXib(ImagePreviewViewController.self)
+            , compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        self.btnDismiss.setImage(closeImg, for: .normal)
+        self.btnDismiss.tintColor = self.theme?.primaryActionIconsColor
+        
+
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

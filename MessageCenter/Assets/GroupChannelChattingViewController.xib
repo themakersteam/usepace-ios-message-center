@@ -14,6 +14,7 @@
             <connections>
                 <outlet property="bottomMargin" destination="5Ab-UI-o7I" id="7si-8B-fQY"/>
                 <outlet property="btnBack" destination="0tl-JU-cyo" id="yN7-g2-kYJ"/>
+                <outlet property="callBtn" destination="O0w-Ib-Aht" id="TgK-2G-bd5"/>
                 <outlet property="chatActivityIndicator" destination="RGi-cB-q9w" id="a8y-oo-QSx"/>
                 <outlet property="chattingView" destination="AAA-Vq-7hk" id="yX1-BT-ENu"/>
                 <outlet property="imageViewerLoadingIndicator" destination="sqK-uF-ZNw" id="fhf-wi-Mqi"/>
@@ -70,10 +71,20 @@
                             <color key="tintColor" red="1" green="0.78431372549019607" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <state key="normal" image="back.png"/>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O0w-Ib-Aht" userLabel="Call btn">
+                            <rect key="frame" x="336" y="33.5" width="30" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="bCx-A9-yuD"/>
+                                <constraint firstAttribute="width" constant="30" id="e2X-iO-f2D"/>
+                            </constraints>
+                            <state key="normal" image="icCall.png"/>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstAttribute="trailing" secondItem="O0w-Ib-Aht" secondAttribute="trailing" constant="9" id="548-V1-q8E"/>
                         <constraint firstAttribute="height" constant="75" id="8rL-4c-ZBF"/>
+                        <constraint firstItem="O0w-Ib-Aht" firstAttribute="centerY" secondItem="0tl-JU-cyo" secondAttribute="centerY" id="9zK-mR-xl4"/>
                         <constraint firstAttribute="bottom" secondItem="Lte-Cn-AHM" secondAttribute="bottom" id="Utl-dJ-20U"/>
                         <constraint firstItem="CpO-UK-WRT" firstAttribute="top" secondItem="nxZ-VX-cuY" secondAttribute="top" constant="10" id="ZwP-rg-gBc"/>
                         <constraint firstItem="zCi-UH-VIJ" firstAttribute="top" secondItem="CpO-UK-WRT" secondAttribute="bottom" constant="7" id="bs3-T8-PJI"/>
@@ -120,8 +131,8 @@
                         <constraint firstAttribute="trailing" secondItem="1HE-gc-GAh" secondAttribute="trailing" id="yfJ-mt-5Ed"/>
                     </constraints>
                 </view>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kgd-6s-sEz" userLabel="Image Viewer Loading View">
-                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                <view hidden="YES" alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kgd-6s-sEz" userLabel="Image Viewer Loading View">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
                         <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2JN-2a-q7v">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -134,7 +145,7 @@
                             </items>
                         </navigationBar>
                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="sqK-uF-ZNw" userLabel="Image Viewer Loading Activity Indicator">
-                            <rect key="frame" x="177.5" y="313.5" width="20" height="20"/>
+                            <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
                         </activityIndicatorView>
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -156,13 +167,13 @@
                 <constraint firstItem="AAA-Vq-7hk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="6TI-Ys-n4Z"/>
                 <constraint firstItem="nxZ-VX-cuY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="95g-cX-IYL"/>
                 <constraint firstItem="AAA-Vq-7hk" firstAttribute="top" secondItem="nxZ-VX-cuY" secondAttribute="bottom" id="AvC-v0-Z0J"/>
-                <constraint firstItem="UvG-x8-VLe" firstAttribute="bottom" secondItem="Kgd-6s-sEz" secondAttribute="bottom" id="CMH-VW-AZI"/>
+                <constraint firstItem="Kgd-6s-sEz" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="CMH-VW-AZI"/>
                 <constraint firstItem="Ykx-aa-bI9" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="F5b-rE-Je3"/>
                 <constraint firstItem="RGi-cB-q9w" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="KTc-J4-Nai"/>
                 <constraint firstItem="mOk-Vz-mXb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Nnf-hU-vfv"/>
                 <constraint firstItem="Ykx-aa-bI9" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Sv2-Id-24w"/>
                 <constraint firstItem="UvG-x8-VLe" firstAttribute="bottom" secondItem="QiU-w2-kui" secondAttribute="bottom" id="VhJ-hF-B4z"/>
-                <constraint firstItem="Kgd-6s-sEz" firstAttribute="top" secondItem="UvG-x8-VLe" secondAttribute="top" id="YCq-AK-MYQ"/>
+                <constraint firstItem="Kgd-6s-sEz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="YCq-AK-MYQ"/>
                 <constraint firstItem="RGi-cB-q9w" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Zhl-Q8-n04"/>
                 <constraint firstItem="nxZ-VX-cuY" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="cQB-um-Clg"/>
                 <constraint firstItem="UvG-x8-VLe" firstAttribute="trailing" secondItem="aGv-gC-XX0" secondAttribute="trailing" id="dRF-JJ-hB7"/>
@@ -184,6 +195,7 @@
     </objects>
     <resources>
         <image name="back.png" width="24" height="24"/>
+        <image name="icCall.png" width="24" height="24"/>
         <image name="mainpattern.png" width="375" height="667"/>
     </resources>
 </document>
