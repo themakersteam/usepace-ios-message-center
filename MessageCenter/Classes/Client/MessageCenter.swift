@@ -26,6 +26,7 @@ public struct ThemeObject {
     let primaryBackgroundColor: UIColor?
     let primaryActionIconsColor: UIColor?
     let primaryNavigationButtonColor: UIColor?
+    let enableCalling: Bool?
 }
 
 public class NotificationModel: NSObject {
@@ -39,7 +40,7 @@ public class NotificationModel: NSObject {
 }
 
 public class MessageCenter {
-  public static var  isOpen = false
+    public static var  isOpen = false
     private static var client: Client {
         let client = Client()
         return client
@@ -50,10 +51,13 @@ public class MessageCenter {
         set { _parentVC = newValue}
         get { return _parentVC! }
     }
-
+    
+    /// Message Center Delegate to get Call Tap and Events callbacks.
+    public static var delegate: MessageCenterDelegate?
+    
     public static var oldVC =  UIViewController()
     static var groupChannelVC = GroupChannelChattingViewController()
-
+    
     public static var completionHandler : ((Bool) -> Void)? = nil
     
     private static var LAST_CLIENT: ClientType = ClientType.sendBird
@@ -89,7 +93,7 @@ public class MessageCenter {
                     }
                 }
                 else {
-
+                    
                 }
             }
             success(status)
@@ -97,9 +101,9 @@ public class MessageCenter {
     }
     
     
-    public class func createThemeObject(title: String?, subtitle: String?, welcomeMessage: String? ,primaryColor: UIColor? , primaryAccentColor: UIColor?, primaryNavigationButtonColor: UIColor?, primaryBackgroundColor: UIColor?, primaryActionIconsColor: UIColor?) -> ThemeObject {
-
-
+    public class func createThemeObject(title: String?, subtitle: String?, welcomeMessage: String? ,primaryColor: UIColor? , primaryAccentColor: UIColor?, primaryNavigationButtonColor: UIColor?, primaryBackgroundColor: UIColor?, primaryActionIconsColor: UIColor?, enableCalling: Bool = false) -> ThemeObject {
+        
+        
         self.themeObject = ThemeObject(title: title,
                                        subtitle: subtitle,
                                        welcomeMessage: welcomeMessage,
@@ -108,7 +112,8 @@ public class MessageCenter {
                                        primaryButtonColor: primaryActionIconsColor,
                                        primaryBackgroundColor: primaryBackgroundColor,
                                        primaryActionIconsColor: primaryActionIconsColor,
-                                       primaryNavigationButtonColor: primaryNavigationButtonColor)
+                                       primaryNavigationButtonColor: primaryNavigationButtonColor,
+                                       enableCalling: enableCalling)
         
         return themeObject!
     }
@@ -127,7 +132,7 @@ public class MessageCenter {
             let resourceBundle = Bundle.bundleForXib(GroupChannelChattingViewController.self)
             
             if !isOpen {
-             groupChannelVC = GroupChannelChattingViewController(nibName: "GroupChannelChattingViewController", bundle: resourceBundle)
+                groupChannelVC = GroupChannelChattingViewController(nibName: "GroupChannelChattingViewController", bundle: resourceBundle)
             }
             groupChannelVC.groupChannel = groupChannel
             
@@ -157,23 +162,24 @@ public class MessageCenter {
                                                             primaryAccentColor: primaryAccentColor,
                                                             primaryNavigationButtonColor: primaryNavigationIconColor,
                                                             primaryBackgroundColor: primaryBackgroundColor,
-                                                            primaryActionIconsColor: primaryActionIconsColor)
+                                                            primaryActionIconsColor: primaryActionIconsColor,
+                                                            enableCalling: false)
                 groupChannelVC.themeObject = theme
             }
             
             if isOpen {
-
+                
                 groupChannelVC.themeObject = theme
                 
                 groupChannelVC.relaodChatView()
                 
             }else{
-            self.isOpen = true
-            self.oldVC = parentVC
-            let navController = UINavigationController(rootViewController: groupChannelVC)
-            navController.isNavigationBarHidden = true
-            parentVC.present(navController, animated: true, completion: nil)
-
+                self.isOpen = true
+                self.oldVC = parentVC
+                let navController = UINavigationController(rootViewController: groupChannelVC)
+                navController.isNavigationBarHidden = true
+                parentVC.present(navController, animated: true, completion: nil)
+                
                 
             }
         })
