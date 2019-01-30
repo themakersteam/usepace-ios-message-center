@@ -17,6 +17,7 @@ import HTMLKit
 import FLAnimatedImage
 import Toast
 import UserNotifications
+import CallKit
 
 class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegate, SBDChannelDelegate, ChattingViewDelegate, MessageDelegate, UINavigationControllerDelegate {
     
@@ -288,17 +289,35 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         
     }
     
+    let callObserver = CXCallObserver()
+    var hasDetectedOutgoingCall = false
+    
     @objc private func invokeCall() {
         if !(themeObject?.enableCalling ?? false) || self.groupChannel.isFrozen {
             return
         }
+        
+        MessageCenterEvents.callTapped.occurred(in: self.groupChannel.channelUrl, userInfo: [:])
         
         showImageViewerLoading(canCancel: false)
         MessageCenter.delegate?.userDidTapCall(forChannel: self.groupChannel.channelUrl, success: { (phoneNumber) in
             self.hideImageViewerLoading(shouldCancelPendingImagePreview: false)
             let url = URL(string: "tel://\(phoneNumber)")!
             DispatchQueue.main.async {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                
+                self.callObserver.setDelegate(self, queue: nil)
+                self.hasDetectedOutgoingCall = false
+                UIApplication.shared.open(url, options: [:]) {
+                    success in
+                    
+                    if !success {
+                        return
+                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        NotificationCenter.default.addObserver(self, selector: #selector(self.appDidBecomeActive), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+                    }
+                }
             }
         }, failure: { (errorMessage) in
             DispatchQueue.main.async {
@@ -311,6 +330,16 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                 self.present(alert, animated: true, completion: nil)
             }
         })
+    }
+    
+    @objc func appDidBecomeActive() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            if !self.hasDetectedOutgoingCall {
+                MessageCenterEvents.callCanceled.occurred(in: self.groupChannel.channelUrl, userInfo: [:])
+            }
+            
+            NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -926,6 +955,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         imageCaptionVC.imageToUpload = UIImage(data: photo.imageData!)
         imageCaptionVC.shouldShowCaption = false
         imageCaptionVC.delegate = self
+        imageCaptionVC.theme = self.themeObject
         self.navigationController?.pushViewController(imageCaptionVC, animated: true)
         
     }
@@ -1800,6 +1830,7 @@ extension GroupChannelChattingViewController: UIImagePickerControllerDelegate {
                     // Call the Caption ViewController
                     let imageCaptionVC = ImagePreviewViewController(nibName: "ImagePreviewViewController", bundle: self.podBundle)
                     imageCaptionVC.imageToUpload = result
+                    imageCaptionVC.theme = self.themeObject
                     // If user has typed any text, use it as caption
                     if self.chattingView.messageTextView.textView.text != nil {
                         imageCaptionVC.strCaption = self.chattingView.messageTextView.textView.text
@@ -1853,6 +1884,7 @@ extension GroupChannelChattingViewController: UIImagePickerControllerDelegate {
                                 // Call the Caption ViewController
                                 let imageCaptionVC = ImagePreviewViewController(nibName: "ImagePreviewViewController", bundle: self.podBundle)
                                 imageCaptionVC.imageToUpload = result
+                                imageCaptionVC.theme = self.themeObject
                                 // If user has typed any text, use it as caption
                                 if self.chattingView.messageTextView.textView.text != nil {
                                     imageCaptionVC.strCaption = self.chattingView.messageTextView.textView.text
@@ -2148,5 +2180,16 @@ private extension GroupChannelChattingViewController {
 extension Date {
     func currentTimeMillis() -> Int64! {
         return Int64(self.timeIntervalSince1970 * 1000)
+    }
+}
+
+
+extension GroupChannelChattingViewController : CXCallObserverDelegate {
+    func callObserver(_ callObserver: CXCallObserver, callChanged call: CXCall) {
+        if call.isOutgoing && !hasDetectedOutgoingCall {
+            hasDetectedOutgoingCall = true
+            NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+            MessageCenterEvents.callSubmitted.occurred(in: self.groupChannel.channelUrl, userInfo: [:])
+        }
     }
 }

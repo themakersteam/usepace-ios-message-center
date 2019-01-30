@@ -11,6 +11,7 @@ public enum MessageCenterEvents : String {
     
     case callTapped = "call_rider.clicked"
     case callSubmitted = "call_rider.submitted"
+    case callCanceled = "call_rider.canceled"
 }
 
 
