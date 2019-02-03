@@ -70,14 +70,17 @@ class ImagePreviewViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.addObservers()
         self.createGradientLayer()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.addObservers()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        removeKeyboardObservers()
     }
     func createGradientLayer() {
 //        let gradientLayer = CAGradientLayer()
@@ -101,15 +104,17 @@ class ImagePreviewViewController: UIViewController {
         }
         //sender.cancelsTouchesInView = false
     }
-    func addObservers() {
-        
+    
+    func removeKeyboardObservers() {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        
+    }
+    
+    func addObservers() {
+        removeKeyboardObservers()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-     
     }
     
     @objc private func keyboardDidShow(notification: Notification) {
@@ -136,7 +141,7 @@ class ImagePreviewViewController: UIViewController {
         self.keyboardShown = false
         
         DispatchQueue.main.async {
-            self.bottomMargin.constant = 0
+            self.bottomMargin?.constant = 0
             
             UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveLinear, animations: {
                 self.view.layoutIfNeeded()
@@ -148,6 +153,7 @@ class ImagePreviewViewController: UIViewController {
     
     
     @IBAction func btnDismissTapped(_ sender: Any) {
+        removeKeyboardObservers()
         self.view.endEditing(true)
         self.navigationController?.popViewController(animated: true)
     }

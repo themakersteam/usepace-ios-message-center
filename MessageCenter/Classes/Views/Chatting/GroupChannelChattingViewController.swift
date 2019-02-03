@@ -63,7 +63,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     @IBOutlet weak var bottomMargin: NSLayoutConstraint!
     @IBOutlet weak var imageViewerLoadingView: UIView!
     @IBOutlet weak var imageViewerLoadingIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var imageViewerLoadingViewNavItem: UINavigationItem!
+    @IBOutlet weak var imageViewLoadingCancelButton: UIButton!
+    
     
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblSubTitle: UILabel!
@@ -85,6 +86,12 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         isIndicatingLoading = true
         GroupChannelChattingViewController.instance = self
         self.podBundle = Bundle.bundleForXib(GroupChannelChattingViewController.self)
+        let closeImg = UIImage(named: "btn_close", in: podBundle
+            , compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        self.imageViewLoadingCancelButton.setImage(closeImg, for: .normal)
+        self.imageViewLoadingCancelButton.tintColor = self.themeObject?.primaryActionIconsColor
+        self.imageViewLoadingCancelButton.addTarget(self, action: #selector(self.close), for: .touchUpInside)
+        
         setNavigationItems()
         
 //        if themeObject != nil {
@@ -293,7 +300,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     var hasDetectedOutgoingCall = false
     
     @objc private func invokeCall() {
-        if !(themeObject?.enableCalling ?? false) || self.groupChannel.isFrozen {
+        if !(themeObject?.enableCalling ?? false) {//} || self.groupChannel.isFrozen {
             return
         }
         
@@ -323,10 +330,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             DispatchQueue.main.async {
                 self.hideImageViewerLoading(shouldCancelPendingImagePreview: false)
                 let alert = UIAlertController(title: "error".localized, message: errorMessage, preferredStyle: .alert)
-                let ok = UIAlertAction(title: "ok".localized, style: .default , handler: { (alert) in
-                    self.dismiss(animated: true, completion: nil)
-                })
-                alert.addAction(ok)
+                alert.addAction(UIAlertAction(title: "ok".localized, style: .default , handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
         })
@@ -1748,16 +1752,10 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         DispatchQueue.main.async {
             
             if canCancel {
-                
-                let negativeLeftSpacerForImageViewerLoading = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
-                negativeLeftSpacerForImageViewerLoading.width = -2
-                
-                let leftCloseItemForImageViewerLoading = UIBarButtonItem(image: UIImage(named: "btn_close.png", in: self.podBundle, compatibleWith: nil), style: UIBarButtonItemStyle.done, target: self, action: #selector(self.close))
-                
-                self.imageViewerLoadingViewNavItem.leftBarButtonItems = [negativeLeftSpacerForImageViewerLoading, leftCloseItemForImageViewerLoading]
+                self.imageViewLoadingCancelButton.isHidden = false
             }
             else {
-                self.imageViewerLoadingViewNavItem.leftBarButtonItems = []
+                self.imageViewLoadingCancelButton.isHidden = true
             }
             
             self.imageViewerLoadingView.isHidden = false
