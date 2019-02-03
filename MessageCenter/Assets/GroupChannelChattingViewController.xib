@@ -17,9 +17,9 @@
                 <outlet property="callBtn" destination="O0w-Ib-Aht" id="TgK-2G-bd5"/>
                 <outlet property="chatActivityIndicator" destination="RGi-cB-q9w" id="a8y-oo-QSx"/>
                 <outlet property="chattingView" destination="AAA-Vq-7hk" id="yX1-BT-ENu"/>
+                <outlet property="imageViewLoadingCancelButton" destination="njx-Bv-nEB" id="3kq-rF-lE1"/>
                 <outlet property="imageViewerLoadingIndicator" destination="sqK-uF-ZNw" id="fhf-wi-Mqi"/>
                 <outlet property="imageViewerLoadingView" destination="Kgd-6s-sEz" id="KaX-Kz-4kb"/>
-                <outlet property="imageViewerLoadingViewNavItem" destination="Emv-36-QNT" id="Wv8-x2-wLD"/>
                 <outlet property="lblSubTitle" destination="zCi-UH-VIJ" id="XQj-ef-d6F"/>
                 <outlet property="lblTitle" destination="CpO-UK-WRT" id="CHa-SO-3vk"/>
                 <outlet property="topView" destination="nxZ-VX-cuY" id="HiY-Xk-6PZ"/>
@@ -134,27 +134,31 @@
                 <view hidden="YES" alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kgd-6s-sEz" userLabel="Image Viewer Loading View">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
-                        <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2JN-2a-q7v">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="44" id="iKd-7l-71D"/>
-                            </constraints>
-                            <color key="barTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <items>
-                                <navigationItem id="Emv-36-QNT"/>
-                            </items>
-                        </navigationBar>
                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="sqK-uF-ZNw" userLabel="Image Viewer Loading Activity Indicator">
                             <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
                         </activityIndicatorView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="njx-Bv-nEB" userLabel="Button Cancel">
+                            <rect key="frame" x="18" y="40" width="40" height="40"/>
+                            <color key="backgroundColor" red="1" green="0.83137254900000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="YNM-lN-nX1"/>
+                                <constraint firstAttribute="height" constant="40" id="tIR-hz-JG7"/>
+                            </constraints>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal" image="btn_close.png"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="20"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="sqK-uF-ZNw" firstAttribute="centerX" secondItem="Kgd-6s-sEz" secondAttribute="centerX" id="0vp-B5-UFd"/>
-                        <constraint firstItem="2JN-2a-q7v" firstAttribute="top" secondItem="Kgd-6s-sEz" secondAttribute="top" id="3UR-zK-6vh"/>
-                        <constraint firstItem="2JN-2a-q7v" firstAttribute="leading" secondItem="Kgd-6s-sEz" secondAttribute="leading" id="5Ui-cW-gzT"/>
                         <constraint firstItem="sqK-uF-ZNw" firstAttribute="centerY" secondItem="Kgd-6s-sEz" secondAttribute="centerY" id="D2m-dA-nsu"/>
-                        <constraint firstAttribute="trailing" secondItem="2JN-2a-q7v" secondAttribute="trailing" id="TTU-8g-FyX"/>
+                        <constraint firstItem="njx-Bv-nEB" firstAttribute="top" secondItem="Kgd-6s-sEz" secondAttribute="top" constant="40" id="euR-uX-wxV"/>
+                        <constraint firstItem="njx-Bv-nEB" firstAttribute="leading" secondItem="Kgd-6s-sEz" secondAttribute="leading" constant="18" id="s7n-pl-U4d"/>
                     </constraints>
                 </view>
             </subviews>
@@ -195,6 +199,7 @@
     </objects>
     <resources>
         <image name="back.png" width="24" height="24"/>
+        <image name="btn_close.png" width="22" height="22"/>
         <image name="icCall.png" width="24" height="24"/>
         <image name="mainpattern.png" width="375" height="667"/>
     </resources>
