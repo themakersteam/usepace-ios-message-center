@@ -64,6 +64,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     @IBOutlet weak var imageViewerLoadingView: UIView!
     @IBOutlet weak var imageViewerLoadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var imageViewLoadingCancelButton: UIButton!
+    @IBOutlet weak var imageViewLoadingReasonLabel: UILabel!
     
     
     @IBOutlet weak var lblTitle: UILabel!
@@ -300,13 +301,13 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     var hasDetectedOutgoingCall = false
     
     @objc private func invokeCall() {
-        if !(themeObject?.enableCalling ?? false) {//} || self.groupChannel.isFrozen {
+        if !(themeObject?.enableCalling ?? false) || self.groupChannel.isFrozen {
             return
         }
-        
+    
         MessageCenterEvents.callTapped.occurred(in: self.groupChannel.channelUrl, userInfo: [:])
         
-        showImageViewerLoading(canCancel: false)
+        showImageViewerLoading(canCancel: false, reason: "call.calling".localized)
         MessageCenter.delegate?.userDidTapCall(forChannel: self.groupChannel.channelUrl, success: { (phoneNumber) in
             self.hideImageViewerLoading(shouldCancelPendingImagePreview: false)
             let url = URL(string: "tel://\(phoneNumber)")!
@@ -1748,7 +1749,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
         }
     }
     
-    func showImageViewerLoading(canCancel: Bool = true) {
+    func showImageViewerLoading(canCancel: Bool = true, reason: String = "") {
         DispatchQueue.main.async {
             
             if canCancel {
@@ -1756,6 +1757,11 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             }
             else {
                 self.imageViewLoadingCancelButton.isHidden = true
+            }
+            
+            if reason.count > 0 {
+                self.imageViewLoadingReasonLabel.text = reason
+                self.imageViewLoadingReasonLabel.isHidden = false
             }
             
             self.imageViewerLoadingView.isHidden = false
