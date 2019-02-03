@@ -18,6 +18,7 @@
                 <outlet property="chatActivityIndicator" destination="RGi-cB-q9w" id="a8y-oo-QSx"/>
                 <outlet property="chattingView" destination="AAA-Vq-7hk" id="yX1-BT-ENu"/>
                 <outlet property="imageViewLoadingCancelButton" destination="njx-Bv-nEB" id="3kq-rF-lE1"/>
+                <outlet property="imageViewLoadingReasonLabel" destination="ZNO-1R-HBQ" id="2CY-jg-4YM"/>
                 <outlet property="imageViewerLoadingIndicator" destination="sqK-uF-ZNw" id="fhf-wi-Mqi"/>
                 <outlet property="imageViewerLoadingView" destination="Kgd-6s-sEz" id="KaX-Kz-4kb"/>
                 <outlet property="lblSubTitle" destination="zCi-UH-VIJ" id="XQj-ef-d6F"/>
@@ -134,9 +135,6 @@
                 <view hidden="YES" alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kgd-6s-sEz" userLabel="Image Viewer Loading View">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
-                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="sqK-uF-ZNw" userLabel="Image Viewer Loading Activity Indicator">
-                            <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
-                        </activityIndicatorView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="njx-Bv-nEB" userLabel="Button Cancel">
                             <rect key="frame" x="18" y="40" width="40" height="40"/>
                             <color key="backgroundColor" red="1" green="0.83137254900000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -152,11 +150,22 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </button>
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="sqK-uF-ZNw" userLabel="Image Viewer Loading Activity Indicator">
+                            <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
+                        </activityIndicatorView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZNO-1R-HBQ">
+                            <rect key="frame" x="187.5" y="355.5" width="0.0" height="0.0"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="sqK-uF-ZNw" firstAttribute="centerX" secondItem="Kgd-6s-sEz" secondAttribute="centerX" id="0vp-B5-UFd"/>
+                        <constraint firstItem="ZNO-1R-HBQ" firstAttribute="top" secondItem="sqK-uF-ZNw" secondAttribute="bottom" constant="12" id="8qd-5u-sH6"/>
                         <constraint firstItem="sqK-uF-ZNw" firstAttribute="centerY" secondItem="Kgd-6s-sEz" secondAttribute="centerY" id="D2m-dA-nsu"/>
+                        <constraint firstItem="ZNO-1R-HBQ" firstAttribute="centerX" secondItem="Kgd-6s-sEz" secondAttribute="centerX" id="HxE-bk-u2b"/>
                         <constraint firstItem="njx-Bv-nEB" firstAttribute="top" secondItem="Kgd-6s-sEz" secondAttribute="top" constant="40" id="euR-uX-wxV"/>
                         <constraint firstItem="njx-Bv-nEB" firstAttribute="leading" secondItem="Kgd-6s-sEz" secondAttribute="leading" constant="18" id="s7n-pl-U4d"/>
                     </constraints>

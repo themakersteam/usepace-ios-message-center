@@ -61,3 +61,4 @@
 "push_notification_alert_title" = "Turn on the notification to allow send the chat notification";
 "settings" = "Settings" ;
 "cancel" = "Cancel" ;
+"call.calling" = "Calling..";
