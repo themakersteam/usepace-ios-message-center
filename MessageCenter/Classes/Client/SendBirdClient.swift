@@ -117,8 +117,29 @@ public class SendBirdClient: ClientProtocol {
     }
   
     public func disconnect(completion: @escaping () -> Void) {
+        if self.isConnected == false {
+            if let connectionRequest = lastConnectionRequest {
+                SBDMain.connect(withUserId: connectionRequest.userId, accessToken: connectionRequest.accessToken, completionHandler: { [unowned self] (user, error) in
+                    guard error == nil else {
+                        completion()
+                        return;
+                    }
+                    self.unregisterFromSendBird {
+                        completion()
+                    }
+                })
+            }
+        }
+        else {
+            self.unregisterFromSendBird {
+                completion()
+            }
+        }
+    }
+    
+    private func unregisterFromSendBird (completion: @escaping () -> Void) {
         lastConnectionRequest = nil
-        SBDMain.unregisterAllPushToken { (a, error) in
+        SBDMain.unregisterAllPushToken {  [unowned self] (a, error) in
             guard error == nil else {
                 print("Failed to Disconnect")
                 return
