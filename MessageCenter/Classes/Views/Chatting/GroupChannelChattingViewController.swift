@@ -251,6 +251,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.appDidBecomeActive), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
         self.chattingView.chattingTableView.reloadData()
         addObservers()
     }
@@ -299,7 +300,7 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     
     let callObserver = CXCallObserver()
     var hasDetectedOutgoingCall = false
-    
+    var hasOngoingCallPrompt = false
     @objc private func invokeCall() {
         if !(themeObject?.enableCalling ?? false) || self.groupChannel.isFrozen {
             return
@@ -314,7 +315,6 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
             DispatchQueue.main.async {
                 
                 self.callObserver.setDelegate(self, queue: nil)
-                self.hasDetectedOutgoingCall = false
                 UIApplication.shared.open(url, options: [:]) {
                     success in
                     
@@ -322,9 +322,8 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
                         return
                     }
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        NotificationCenter.default.addObserver(self, selector: #selector(self.appDidBecomeActive), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
-                    }
+                    self.hasDetectedOutgoingCall = false
+                    self.hasOngoingCallPrompt = true
                 }
             }
         }, failure: { (errorMessage) in
@@ -339,16 +338,19 @@ class GroupChannelChattingViewController: UIViewController, SBDConnectionDelegat
     
     @objc func appDidBecomeActive() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            if !self.hasDetectedOutgoingCall {
+            if self.hasOngoingCallPrompt && !self.hasDetectedOutgoingCall {
+                self.hasOngoingCallPrompt = false
+                self.hasDetectedOutgoingCall = true
                 MessageCenterEvents.callCanceled.occurred(in: self.groupChannel.channelUrl, userInfo: [:])
             }
-            
-            NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+            self.relaodChatView()
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+
         Utils.dumpMessages(
             messages: self.chattingView.messages,
             resendableMessages: self.chattingView.resendableMessages,
@@ -2192,7 +2194,7 @@ extension GroupChannelChattingViewController : CXCallObserverDelegate {
     func callObserver(_ callObserver: CXCallObserver, callChanged call: CXCall) {
         if call.isOutgoing && !hasDetectedOutgoingCall {
             hasDetectedOutgoingCall = true
-            NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+            hasOngoingCallPrompt = false
             MessageCenterEvents.callSubmitted.occurred(in: self.groupChannel.channelUrl, userInfo: [:])
         }
     }
